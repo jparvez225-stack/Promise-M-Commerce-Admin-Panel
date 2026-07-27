@@ -1,0 +1,6 @@
+{
+  "name": "Promise Mart Ltd - E-commerce Admin Dashboard",
+  "description": "Minimalist, high-performance E-commerce Admin Dashboard with real-time analytics, order pipeline tracking, dynamic storefront builder, and customer lead CRM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
