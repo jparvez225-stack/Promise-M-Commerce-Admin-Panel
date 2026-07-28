@@ -23,57 +23,132 @@ interface MetricCardProps {
   onClick?: () => void;
 }
 
-const themeStyles: Record<string, {
-  accentBar: string;
-  dot: string;
-  sparklineColor: string;
-}> = {
-  blue: { accentBar: 'bg-blue-500', dot: 'bg-blue-500', sparklineColor: 'text-blue-500' },
-  emerald: { accentBar: 'bg-emerald-500', dot: 'bg-emerald-500', sparklineColor: 'text-emerald-500' },
-  amber: { accentBar: 'bg-amber-500', dot: 'bg-amber-500', sparklineColor: 'text-amber-500' },
-  purple: { accentBar: 'bg-purple-500', dot: 'bg-purple-500', sparklineColor: 'text-purple-500' },
-  rose: { accentBar: 'bg-rose-500', dot: 'bg-rose-500', sparklineColor: 'text-rose-500' },
-  cyan: { accentBar: 'bg-cyan-500', dot: 'bg-cyan-500', sparklineColor: 'text-cyan-500' },
-  indigo: { accentBar: 'bg-indigo-500', dot: 'bg-indigo-500', sparklineColor: 'text-indigo-500' },
-  teal: { accentBar: 'bg-teal-500', dot: 'bg-teal-500', sparklineColor: 'text-teal-500' },
-  violet: { accentBar: 'bg-violet-500', dot: 'bg-violet-500', sparklineColor: 'text-violet-500' },
-  fuchsia: { accentBar: 'bg-fuchsia-500', dot: 'bg-fuchsia-500', sparklineColor: 'text-fuchsia-500' },
-  sky: { accentBar: 'bg-sky-500', dot: 'bg-sky-500', sparklineColor: 'text-sky-500' },
-  orange: { accentBar: 'bg-orange-500', dot: 'bg-orange-500', sparklineColor: 'text-orange-500' },
-  lime: { accentBar: 'bg-lime-500', dot: 'bg-lime-500', sparklineColor: 'text-lime-500' },
-  pink: { accentBar: 'bg-pink-500', dot: 'bg-pink-500', sparklineColor: 'text-pink-500' },
-  yellow: { accentBar: 'bg-yellow-500', dot: 'bg-yellow-500', sparklineColor: 'text-yellow-500' },
+const themeStyles: Record<string, { stroke: string; dot: string }> = {
+  blue: { stroke: '#2563eb', dot: 'bg-blue-500' },
+  emerald: { stroke: '#059669', dot: 'bg-emerald-500' },
+  amber: { stroke: '#d97706', dot: 'bg-amber-500' },
+  purple: { stroke: '#9333ea', dot: 'bg-purple-500' },
+  rose: { stroke: '#e11d48', dot: 'bg-rose-500' },
+  cyan: { stroke: '#0891b2', dot: 'bg-cyan-500' },
+  indigo: { stroke: '#4f46e5', dot: 'bg-indigo-500' },
+  teal: { stroke: '#0d9488', dot: 'bg-teal-500' },
+  violet: { stroke: '#7c3aed', dot: 'bg-violet-500' },
+  fuchsia: { stroke: '#c026d3', dot: 'bg-fuchsia-500' },
+  sky: { stroke: '#0284c7', dot: 'bg-sky-500' },
+  orange: { stroke: '#ea580c', dot: 'bg-orange-500' },
+  lime: { stroke: '#65a30d', dot: 'bg-lime-500' },
+  pink: { stroke: '#db2777', dot: 'bg-pink-500' },
+  yellow: { stroke: '#ca8a04', dot: 'bg-yellow-500' },
+};
+
+const getSparklineData = (title: string) => {
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) {
+    hash = title.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  const rawPoints: number[] = [];
+  const numPoints = 8;
+  for (let i = 0; i < numPoints; i++) {
+    const val = 12 + Math.sin(hash + i * 1.1) * 8 + Math.cos(hash * 0.3 + i * 1.6) * 4;
+    rawPoints.push(Math.max(4, Math.min(28, val)));
+  }
+
+  const coords = rawPoints.map((val, idx) => {
+    const x = (idx / (numPoints - 1)) * 100;
+    const y = 30 - val;
+    return { x: Number(x.toFixed(1)), y: Number(y.toFixed(1)) };
+  });
+
+  const pathD = coords.reduce((acc, pt, i) => {
+    if (i === 0) return `M ${pt.x},${pt.y}`;
+    const prev = coords[i - 1];
+    const cx1 = prev.x + (pt.x - prev.x) / 2;
+    const cy1 = prev.y;
+    const cx2 = prev.x + (pt.x - prev.x) / 2;
+    const cy2 = pt.y;
+    return `${acc} C ${cx1},${cy1} ${cx2},${cy2} ${pt.x},${pt.y}`;
+  }, '');
+
+  const lastPt = coords[coords.length - 1];
+  const areaD = `${pathD} L 100,32 L 0,32 Z`;
+
+  return { pathD, areaD, lastPt };
 };
 
 const MetricCard: React.FC<MetricCardProps> = ({
   title,
+  theme = 'amber',
   mainValue,
   sub1,
   sub2,
   sub3,
   onClick
 }) => {
+  const style = themeStyles[theme] || themeStyles.amber;
+  const { pathD, areaD, lastPt } = getSparklineData(title);
+  const gradId = `spark-grad-${title.replace(/[^a-zA-Z0-9]/g, '')}`;
+
   return (
     <div 
       onClick={onClick}
-      className={`aspect-square bg-white border-r border-b border-amber-500/50 p-3 sm:p-4 transition-all duration-200 flex flex-col justify-between relative group ${
+      className={`aspect-square bg-white border-r border-b border-amber-500/50 p-2.5 sm:p-3 transition-all duration-200 flex flex-col justify-between relative group overflow-hidden ${
         onClick ? 'cursor-pointer hover:bg-amber-50/40' : ''
       }`}
     >
-      {/* Title */}
+      {/* Top Header: Title + Top-Right LIVE Tag */}
       <div>
-        <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1 truncate">
-          {title}
-        </span>
+        <div className="flex items-center justify-between gap-1 mb-1">
+          <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block truncate max-w-[70%]">
+            {title}
+          </span>
+          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-red-50 text-red-600 border border-red-200/80 shrink-0 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+            LIVE
+          </span>
+        </div>
 
         {/* Main Metric Value */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight my-1 truncate">
+        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight my-0.5 truncate">
           {mainValue}
         </div>
       </div>
 
+      {/* Middle Line Graph Section taking half width on the right */}
+      <div className="flex-1 my-1 w-full flex items-center justify-end relative pointer-events-none">
+        <div className="w-1/2 h-full min-h-[40px] max-h-[50px] flex items-center justify-end ml-auto">
+          <svg viewBox="0 0 100 32" className="w-full h-full overflow-visible" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={style.stroke} stopOpacity="0.3" />
+                <stop offset="100%" stopColor={style.stroke} stopOpacity="0.0" />
+              </linearGradient>
+            </defs>
+            <path
+              d={areaD}
+              fill={`url(#${gradId})`}
+            />
+            <path
+              d={pathD}
+              fill="none"
+              stroke={style.stroke}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <circle
+              cx={lastPt.x}
+              cy={lastPt.y}
+              r="2.5"
+              fill={style.stroke}
+              className="animate-pulse"
+            />
+          </svg>
+        </div>
+      </div>
+
       {/* Submetrics Row */}
-      <div className="mt-2 pt-2 border-t border-slate-100 grid grid-cols-3 gap-1">
+      <div className="pt-1.5 border-t border-slate-100 grid grid-cols-3 gap-1">
         <div className="flex flex-col items-start min-w-0">
           <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
             {sub1.val}
