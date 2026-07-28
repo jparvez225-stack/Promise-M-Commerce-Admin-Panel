@@ -192,8 +192,8 @@ export default function App() {
           }}
         />
 
-        {/* Scrollable View Content */}
-        <main className="flex-1 p-2 sm:p-3 md:p-4 w-full max-w-full mx-auto">
+        {/* View Content Container */}
+        <main className={`flex-1 w-full max-w-full mx-auto ${activeTab === 'dashboard' ? 'h-[calc(100vh-65px)] p-1.5 sm:p-2 overflow-hidden flex flex-col' : 'p-2 sm:p-3 md:p-4'}`}>
           {activeTab === 'dashboard' && (
             <DashboardOverview
               orders={orders}

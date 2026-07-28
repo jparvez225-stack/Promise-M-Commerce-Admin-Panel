@@ -92,31 +92,27 @@ const MetricCard: React.FC<MetricCardProps> = ({
   return (
     <div 
       onClick={onClick}
-      className={`aspect-square bg-white border-r border-b border-amber-500/50 p-2.5 sm:p-3 transition-all duration-200 flex flex-col justify-between relative group overflow-hidden ${
+      className={`h-full bg-white border-r border-b border-amber-500/50 p-1.5 sm:p-2 lg:p-2.5 transition-all duration-200 flex flex-col justify-between relative group overflow-hidden ${
         onClick ? 'cursor-pointer hover:bg-amber-50/40' : ''
       }`}
     >
       {/* Top Header: Title + Top-Right LIVE Tag */}
-      <div>
-        <div className="flex items-center justify-between gap-1 mb-1">
-          <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block truncate max-w-[70%]">
-            {title}
-          </span>
-          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black bg-red-50 text-red-600 border border-red-200/80 shrink-0 shadow-2xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-            LIVE
-          </span>
-        </div>
-
-        {/* Main Metric Value */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight my-0.5 truncate">
-          {mainValue}
-        </div>
+      <div className="flex items-center justify-between gap-1">
+        <span className="text-[9px] sm:text-[10px] xl:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block truncate max-w-[70%]">
+          {title}
+        </span>
+        <span className="inline-flex items-center gap-1 px-1 py-0.5 rounded-full text-[7px] sm:text-[8px] font-black bg-red-50 text-red-600 border border-red-200/80 shrink-0 shadow-2xs">
+          <span className="w-1 h-1 rounded-full bg-red-500 animate-pulse"></span>
+          LIVE
+        </span>
       </div>
 
-      {/* Middle Line Graph Section taking half width on the right */}
-      <div className="flex-1 my-1 w-full flex items-center justify-end relative pointer-events-none">
-        <div className="w-1/2 h-full min-h-[40px] max-h-[50px] flex items-center justify-end ml-auto">
+      {/* Middle Row: Main Metric Value (Left) + Line Graph (Right) */}
+      <div className="flex items-center justify-between gap-1 flex-1 my-0.5 min-h-0">
+        <div className="text-base sm:text-lg lg:text-xl xl:text-2xl font-black text-slate-900 tracking-tight truncate">
+          {mainValue}
+        </div>
+        <div className="w-1/2 h-full max-h-[36px] flex items-center justify-end ml-auto pointer-events-none shrink-0">
           <svg viewBox="0 0 100 32" className="w-full h-full overflow-visible" preserveAspectRatio="none">
             <defs>
               <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
@@ -148,28 +144,28 @@ const MetricCard: React.FC<MetricCardProps> = ({
       </div>
 
       {/* Submetrics Row */}
-      <div className="pt-1.5 border-t border-slate-100 grid grid-cols-3 gap-1">
+      <div className="pt-1 border-t border-slate-100 grid grid-cols-3 gap-0.5 shrink-0">
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
+          <span className="text-[9px] sm:text-[10px] font-black text-slate-900 leading-none truncate w-full">
             {sub1.val}
           </span>
-          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-0.5">
             {sub1.label}
           </span>
         </div>
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
+          <span className="text-[9px] sm:text-[10px] font-black text-slate-900 leading-none truncate w-full">
             {sub2.val}
           </span>
-          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-0.5">
             {sub2.label}
           </span>
         </div>
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
+          <span className="text-[9px] sm:text-[10px] font-black text-slate-900 leading-none truncate w-full">
             {sub3.val}
           </span>
-          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[7px] sm:text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-0.5">
             {sub3.label}
           </span>
         </div>
@@ -200,9 +196,9 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   const avgOrderVal = totalOrderCount > 0 ? Math.round(totalOrderWorth / totalOrderCount) : 0;
 
   return (
-    <div className="w-full space-y-5 font-sans p-1">
-      {/* 5x5 METRIC CARDS GRID */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-0 border border-amber-500/80 rounded-2xl overflow-hidden bg-white shadow-xs">
+    <div className="w-full h-full font-sans flex flex-col overflow-hidden">
+      {/* EXACT 5x5 METRIC CARDS GRID FITTING 1 SCREEN */}
+      <div className="grid grid-cols-5 grid-rows-5 h-full w-full border border-amber-500/80 rounded-xl overflow-hidden bg-white shadow-xs">
         
         {/* ROW 1 */}
         {/* 1. TOTAL ORDERS */}
