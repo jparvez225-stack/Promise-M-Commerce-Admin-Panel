@@ -6,6 +6,9 @@ import {
   Plus, 
   Search, 
   Edit3, 
+  Printer,
+  Copy,
+  Eye,
   Trash2, 
   CheckCircle2, 
   X, 
@@ -208,6 +211,11 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
   const [ledgerDateFrom, setLedgerDateFrom] = useState('');
   const [ledgerDateTo, setLedgerDateTo] = useState('');
 
+  // Pagination States (15 per page)
+  const [productPage, setProductPage] = useState(1);
+  const [ledgerPage, setLedgerPage] = useState(1);
+  const pageSize = 15;
+
   // Filtered Ledger Data
   const filteredLedger = useMemo(() => {
     return ledgerData.filter((item) => {
@@ -219,6 +227,22 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       return matchQuery;
     });
   }, [ledgerData, ledgerSkuSearch]);
+
+  const totalLedgerPages = Math.ceil(filteredLedger.length / pageSize) || 1;
+  const paginatedLedger = useMemo(() => {
+    const start = (ledgerPage - 1) * pageSize;
+    return filteredLedger.slice(start, start + pageSize);
+  }, [filteredLedger, ledgerPage]);
+
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [products, searchQuery]);
+
+  const totalProductPages = Math.ceil(filteredProducts.length / pageSize) || 1;
+  const paginatedProducts = useMemo(() => {
+    const start = (productPage - 1) * pageSize;
+    return filteredProducts.slice(start, start + pageSize);
+  }, [filteredProducts, productPage]);
 
   return (
     <div className="w-full space-y-4 font-sans text-slate-800">
@@ -1061,7 +1085,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
-                {filteredLedger.map((row) => (
+                {paginatedLedger.map((row) => (
                   <tr key={row.sl} className="hover:bg-[#FCF1E5]/40 transition-colors">
                     <td className="p-3 text-center font-bold text-[#8F8F8F]">{row.sl}</td>
                     <td className="p-3 text-[11px] font-semibold text-[#545454] whitespace-nowrap">{row.date}</td>
@@ -1099,13 +1123,27 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
           </div>
 
           <div className="flex items-center justify-between text-xs font-bold text-[#8F8F8F] pt-2">
-            <span>Showing 1 to {filteredLedger.length} of 128389 results</span>
+            <span>Showing {filteredLedger.length > 0 ? (ledgerPage - 1) * pageSize + 1 : 0} to {Math.min(ledgerPage * pageSize, filteredLedger.length)} of {filteredLedger.length} results</span>
             <div className="flex items-center gap-1">
-              <button className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold">&lt;</button>
-              <button className="px-2.5 py-1 bg-[#E67E00] text-white rounded font-bold">1</button>
-              <button className="px-2.5 py-1 bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E]">2</button>
-              <button className="px-2.5 py-1 bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E]">3</button>
-              <button className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold">&gt;</button>
+              <button 
+                disabled={ledgerPage === 1}
+                onClick={() => setLedgerPage(p => Math.max(1, p - 1))}
+                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+              >&lt;</button>
+              {Array.from({ length: totalLedgerPages }, (_, i) => i + 1).map(p => (
+                <button 
+                  key={p}
+                  onClick={() => setLedgerPage(p)}
+                  className={`px-2.5 py-1 rounded font-bold ${ledgerPage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button 
+                disabled={ledgerPage === totalLedgerPages}
+                onClick={() => setLedgerPage(p => Math.min(totalLedgerPages, p + 1))}
+                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+              >&gt;</button>
             </div>
           </div>
 
@@ -1127,7 +1165,10 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                 <input 
                   type="text" 
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setProductPage(1);
+                  }}
                   placeholder="Search products..." 
                   className="w-full pl-9 pr-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F]"
                 />
@@ -1155,39 +1196,89 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
-                {products
-                  .filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
-                  .map((p) => (
-                    <tr key={p.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
-                      <td className="p-3 flex items-center gap-3">
-                        <img src={p.image} alt={p.title} className="w-10 h-10 object-cover rounded border border-[#EEAB59] shrink-0" />
-                        <div>
-                          <div className="font-bold text-[#0E0E0E] line-clamp-1">{p.title}</div>
-                          <div className="text-[10px] text-[#8F8F8F] font-medium">{p.description}</div>
-                        </div>
-                      </td>
-                      <td className="p-3 font-bold text-[#0E0E0E]">৳{p.price.toLocaleString()}</td>
-                      <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          p.inStock ? 'bg-[#ECFFE8] text-[#008F2F]' : 'bg-[#FFF0F0] text-[#FF0000] border border-[#FF0000]'
-                        }`}>
-                          {p.inStock ? 'In Stock' : 'Out of Stock'}
-                        </span>
-                      </td>
-                      <td className="p-3 font-bold text-[#545454]">{p.salesCount} sold</td>
-                      <td className="p-3 font-bold text-[#E67E00]">★ {p.rating}</td>
-                      <td className="p-3 text-right">
+                {paginatedProducts.map((p) => (
+                  <tr key={p.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                    <td className="p-3 flex items-center gap-3">
+                      <img src={p.image} alt={p.title} className="w-10 h-10 object-cover rounded border border-[#EEAB59] shrink-0" />
+                      <div>
+                        <div className="font-bold text-[#0E0E0E] line-clamp-1">{p.title}</div>
+                        <div className="text-[10px] text-[#8F8F8F] font-medium">{p.description}</div>
+                      </div>
+                    </td>
+                    <td className="p-3 font-bold text-[#0E0E0E]">৳{p.price.toLocaleString()}</td>
+                    <td className="p-3">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        p.inStock ? 'bg-[#ECFFE8] text-[#008F2F]' : 'bg-[#FFF0F0] text-[#FF0000] border border-[#FF0000]'
+                      }`}>
+                        {p.inStock ? 'In Stock' : 'Out of Stock'}
+                      </span>
+                    </td>
+                    <td className="p-3 font-bold text-[#545454]">{p.salesCount} sold</td>
+                    <td className="p-3 font-bold text-[#E67E00]">★ {p.rating}</td>
+                    <td className="p-3 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button 
+                          onClick={() => showToast(`Printed spec sheet for ${p.title}`)}
+                          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                          title="Print Product Sheet"
+                        >
+                          <Printer className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => {
+                            navigator.clipboard.writeText(p.title);
+                            showToast('Copied product title!');
+                          }}
+                          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                          title="Copy Product Info"
+                        >
+                          <Copy className="w-3.5 h-3.5" />
+                        </button>
                         <button 
                           onClick={() => changeSubTab('ADD_PRODUCT')}
-                          className="p-1.5 bg-[#FCF1E5] hover:bg-[#E67E00] text-[#E67E00] hover:text-white rounded transition-colors mr-1"
+                          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                          title="View Product Details"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                        <button 
+                          onClick={() => changeSubTab('ADD_PRODUCT')}
+                          className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                          title="Edit Product"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
                         </button>
-                      </td>
-                    </tr>
+                      </div>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          <div className="flex items-center justify-between text-xs font-bold text-[#8F8F8F] pt-2">
+            <span>Showing {filteredProducts.length > 0 ? (productPage - 1) * pageSize + 1 : 0} to {Math.min(productPage * pageSize, filteredProducts.length)} of {filteredProducts.length} products</span>
+            <div className="flex items-center gap-1">
+              <button 
+                disabled={productPage === 1}
+                onClick={() => setProductPage(p => Math.max(1, p - 1))}
+                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+              >&lt;</button>
+              {Array.from({ length: totalProductPages }, (_, i) => i + 1).map(p => (
+                <button 
+                  key={p}
+                  onClick={() => setProductPage(p)}
+                  className={`px-2.5 py-1 rounded font-bold ${productPage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                >
+                  {p}
+                </button>
+              ))}
+              <button 
+                disabled={productPage === totalProductPages}
+                onClick={() => setProductPage(p => Math.min(totalProductPages, p + 1))}
+                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+              >&gt;</button>
+            </div>
           </div>
         </div>
       )}

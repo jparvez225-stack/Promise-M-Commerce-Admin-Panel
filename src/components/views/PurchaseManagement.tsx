@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   ShoppingBag, 
   Plus, 
   Search, 
   Eye, 
+  Printer,
+  Copy,
+  Edit3,
   Calendar, 
   Paperclip, 
   Trash2, 
@@ -211,6 +214,10 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedPurchaseDetails, setSelectedPurchaseDetails] = useState<PurchaseItem | null>(null);
 
+  // Pagination State
+  const [purchasePage, setPurchasePage] = useState<number>(1);
+  const pageSize = 15;
+
   // Add Purchase Form State
   const [supplier, setSupplier] = useState<string>('Outlet Paid');
   const [refNo, setRefNo] = useState<string>('EX: AF982GF');
@@ -349,6 +356,12 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
     );
   });
 
+  const totalPurchasePages = Math.ceil(filteredPurchases.length / pageSize) || 1;
+  const paginatedPurchases = useMemo(() => {
+    const start = (purchasePage - 1) * pageSize;
+    return filteredPurchases.slice(start, start + pageSize);
+  }, [filteredPurchases, purchasePage]);
+
   return (
     <div className="space-y-6">
       
@@ -428,7 +441,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#545454]">
-                  {filteredPurchases.map((p) => (
+                  {paginatedPurchases.map((p) => (
                     <tr key={p.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
                       <td className="py-3 px-3 font-bold text-[#8F8F8F] text-center">{p.sl}</td>
                       <td className="py-3 px-3 font-medium text-[#545454] whitespace-nowrap">{p.date}</td>
@@ -456,13 +469,39 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                         </span>
                       </td>
                       <td className="py-3 px-3 text-center">
-                        <button 
-                          onClick={() => setSelectedPurchaseDetails(p)}
-                          className="p-1.5 text-[#E67E00] bg-[#FCF1E5] hover:bg-[#E67E00] hover:text-white rounded transition-colors"
-                          title="View Details"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="flex items-center justify-center gap-1.5">
+                          <button 
+                            onClick={() => alert(`Printing PO ${p.poNo}`)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Print Purchase Voucher"
+                          >
+                            <Printer className="w-3.5 h-3.5" />
+                          </button>
+                          <button 
+                            onClick={() => {
+                              navigator.clipboard.writeText(p.poNo);
+                              alert('Copied PO Number!');
+                            }}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Copy PO Number"
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                          </button>
+                          <button 
+                            onClick={() => setSelectedPurchaseDetails(p)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="View Details"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                          </button>
+                          <button 
+                            onClick={() => setSelectedPurchaseDetails(p)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Edit Purchase"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -471,32 +510,35 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
             </div>
 
             {/* Pagination Controls */}
-            <div className="p-4 border-t border-[#EEEEEE] bg-[#FCF1E5]/20 flex items-center justify-end gap-1 text-xs">
-              <button className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold">
-                &lsaquo;
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#E67E00] text-white font-bold rounded">
-                1
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E] font-medium">
-                2
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E] font-medium">
-                3
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E] font-medium">
-                4
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E] font-medium">
-                5
-              </button>
-              <span className="px-1 text-[#8F8F8F] font-bold">...</span>
-              <button className="w-7 h-7 flex items-center justify-center bg-[#FCF1E5]/50 hover:bg-[#FCF1E5] rounded text-[#0E0E0E] font-medium">
-                147
-              </button>
-              <button className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold">
-                &rsaquo;
-              </button>
+            <div className="p-4 border-t border-[#EEEEEE] bg-[#FCF1E5]/20 flex items-center justify-between text-xs font-bold text-[#8F8F8F]">
+              <span>
+                Showing {filteredPurchases.length > 0 ? (purchasePage - 1) * pageSize + 1 : 0} to {Math.min(purchasePage * pageSize, filteredPurchases.length)} of {filteredPurchases.length} results
+              </span>
+              <div className="flex items-center gap-1">
+                <button 
+                  disabled={purchasePage === 1}
+                  onClick={() => setPurchasePage(p => Math.max(1, p - 1))}
+                  className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                >
+                  &lsaquo;
+                </button>
+                {Array.from({ length: totalPurchasePages }, (_, i) => i + 1).map(p => (
+                  <button 
+                    key={p}
+                    onClick={() => setPurchasePage(p)}
+                    className={`w-7 h-7 flex items-center justify-center rounded font-bold ${purchasePage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                  >
+                    {p}
+                  </button>
+                ))}
+                <button 
+                  disabled={purchasePage === totalPurchasePages}
+                  onClick={() => setPurchasePage(p => Math.min(totalPurchasePages, p + 1))}
+                  className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                >
+                  &rsaquo;
+                </button>
+              </div>
             </div>
           </div>
         </div>

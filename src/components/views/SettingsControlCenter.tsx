@@ -95,7 +95,11 @@ export const SettingsControlCenter: React.FC = () => {
 
   // Courier & Shipping State
   const [dhakaCharge, setDhakaCharge] = useState('60');
-  const [outsideDhakaCharge, setOutsideDhakaCharge] = useState('120');
+  const [subUrbanCharge, setSubUrbanCharge] = useState('100');
+  const [outsideDhakaCharge, setOutsideDhakaCharge] = useState('150');
+  const [enableWeightShipping, setEnableWeightShipping] = useState(true);
+  const [baseWeightLimit, setBaseWeightLimit] = useState('1.0');
+  const [extraKgCharge, setExtraKgCharge] = useState('20');
   const [freeShippingThreshold, setFreeShippingThreshold] = useState('2000');
   const [defaultCourier, setDefaultCourier] = useState('Steadfast Courier');
   const [autoDispatchOnConfirm, setAutoDispatchOnConfirm] = useState(true);
@@ -454,31 +458,92 @@ export const SettingsControlCenter: React.FC = () => {
           <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
               <Truck className="w-4 h-4 text-[#E67E00]" />
-              <span>Shipping Rates & Delivery Thresholds</span>
+              <span>Area-Based Shipping Rates (3 Zones)</span>
             </div>
 
-            <div>
-              <label className="block font-bold text-[#0E0E0E] mb-1 text-[11px]">
-                Inside Dhaka Charge (৳)
-              </label>
-              <input
-                type="number"
-                value={dhakaCharge}
-                onChange={(e) => setDhakaCharge(e.target.value)}
-                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#0E0E0E]"
-              />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div>
+                <label className="block font-bold text-[#0E0E0E] mb-1 text-[11px]">
+                  Inside Dhaka (৳)
+                </label>
+                <input
+                  type="number"
+                  value={dhakaCharge}
+                  onChange={(e) => setDhakaCharge(e.target.value)}
+                  className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#0E0E0E]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-[#0E0E0E] mb-1 text-[11px]">
+                  Sub-Urban Area (৳)
+                </label>
+                <input
+                  type="number"
+                  value={subUrbanCharge}
+                  onChange={(e) => setSubUrbanCharge(e.target.value)}
+                  className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#0E0E0E]"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-[#0E0E0E] mb-1 text-[11px]">
+                  Outside Dhaka (৳)
+                </label>
+                <input
+                  type="number"
+                  value={outsideDhakaCharge}
+                  onChange={(e) => setOutsideDhakaCharge(e.target.value)}
+                  className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#0E0E0E]"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block font-bold text-[#0E0E0E] mb-1 text-[11px]">
-                Outside Dhaka Charge (৳)
+            <div className="pt-2 border-t border-[#EEEEEE] space-y-2">
+              <label className="flex items-center justify-between p-2.5 bg-[#FCF1E5]/40 border border-[#EEAB59]/60 rounded cursor-pointer">
+                <div>
+                  <span className="font-bold text-[#0E0E0E] block text-xs">
+                    Weight-Based Extra Shipping Surcharge
+                  </span>
+                  <span className="text-[10px] text-[#545454]">
+                    Add additional per-KG cost for parcels exceeding base weight limit.
+                  </span>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={enableWeightShipping}
+                  onChange={(e) => setEnableWeightShipping(e.target.checked)}
+                  className="w-4 h-4 accent-[#E67E00]"
+                />
               </label>
-              <input
-                type="number"
-                value={outsideDhakaCharge}
-                onChange={(e) => setOutsideDhakaCharge(e.target.value)}
-                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#0E0E0E]"
-              />
+
+              {enableWeightShipping && (
+                <div className="grid grid-cols-2 gap-2 p-2 bg-[#FAFAFA] border border-[#EEEEEE] rounded">
+                  <div>
+                    <label className="block font-bold text-[#0E0E0E] mb-0.5 text-[10px]">
+                      Base Included Weight (KG)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      value={baseWeightLimit}
+                      onChange={(e) => setBaseWeightLimit(e.target.value)}
+                      className="w-full p-1.5 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-bold text-[#0E0E0E] mb-0.5 text-[10px]">
+                      Extra Weight Surcharge (৳ / KG)
+                    </label>
+                    <input
+                      type="number"
+                      value={extraKgCharge}
+                      onChange={(e) => setExtraKgCharge(e.target.value)}
+                      className="w-full p-1.5 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E]"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>

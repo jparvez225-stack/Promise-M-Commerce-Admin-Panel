@@ -20,7 +20,10 @@ import {
   Percent,
   AlertTriangle,
   FileText,
+  Printer,
+  Copy,
   Eye,
+  Edit3,
   SlidersHorizontal,
   ChevronDown,
   User,
@@ -58,7 +61,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 15;
 
   // Quick Action Modal States
   const [activeModal, setActiveModal] = useState<
@@ -761,13 +764,39 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         {cust.assignedSales}
                       </td>
                       <td className="py-3.5 px-4 text-right">
-                        <button
-                          onClick={() => handleViewCustomer(cust.id)}
-                          className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs rounded-full transition-all flex items-center gap-1.5 ml-auto"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>View Details</span>
-                        </button>
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => alert(`Printing lead profile for ${cust.name}`)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Print Lead Summary"
+                          >
+                            <Printer className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(`${cust.name} - ${cust.phone}`);
+                              alert('Copied customer contact info!');
+                            }}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Copy Contact Info"
+                          >
+                            <Copy className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleViewCustomer(cust.id)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="View Customer Details"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleViewCustomer(cust.id)}
+                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                            title="Edit Customer"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );

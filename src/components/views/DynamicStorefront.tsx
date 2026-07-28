@@ -35,9 +35,100 @@ import {
   HelpCircle,
   Calendar,
   MessageSquare,
-  ChevronRight
+  ChevronRight,
+  Palette,
+  Printer,
+  Edit3
 } from 'lucide-react';
-import { StorefrontConfig, Order } from '../../types';
+import { StorefrontConfig, Order, ThemeColors } from '../../types';
+
+export interface ThemePreset {
+  id: string;
+  name: string;
+  categoryName: string;
+  primaryButtonBg: string;
+  primaryButtonText: string;
+  headingTextColor: string;
+  accentBadgeBg: string;
+  accentBadgeText: string;
+  presetBadge: string;
+  description: string;
+}
+
+export const THEME_PRESETS: ThemePreset[] = [
+  {
+    id: 'preset-green',
+    name: '🌿 Natural Product (Organic Green)',
+    categoryName: 'Natural & Organic',
+    primaryButtonBg: '#008F2F',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#064E3B',
+    accentBadgeBg: '#ECFFE8',
+    accentBadgeText: '#008F2F',
+    presetBadge: 'Natural Green',
+    description: 'Green button & fresh organic theme for herbal, honey, oils & natural health items'
+  },
+  {
+    id: 'preset-food',
+    name: '🍔 Food & Snacks (Delicious Red / Amber)',
+    categoryName: 'Food & Dining',
+    primaryButtonBg: '#DC2626',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#7F1D1D',
+    accentBadgeBg: '#FEF2F2',
+    accentBadgeText: '#DC2626',
+    presetBadge: 'Food Red',
+    description: 'Eye-catching red/amber button for snacks, pickles, restaurant meals & bakery'
+  },
+  {
+    id: 'preset-orange',
+    name: '⚡ Classic E-Commerce (E-Com Orange)',
+    categoryName: 'Gadgets & General',
+    primaryButtonBg: '#E67E00',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#0E0E0E',
+    accentBadgeBg: '#FCF1E5',
+    accentBadgeText: '#E67E00',
+    presetBadge: 'Classic Orange',
+    description: 'High-converting standard orange style for tech gadgets, tools & online shop'
+  },
+  {
+    id: 'preset-blue',
+    name: '🎧 Tech & Electronics (Royal Blue)',
+    categoryName: 'Electronics',
+    primaryButtonBg: '#2563EB',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#1E3A8A',
+    accentBadgeBg: '#EFF6FF',
+    accentBadgeText: '#2563EB',
+    presetBadge: 'Tech Blue',
+    description: 'Professional royal blue tone for smartwatches, headphones, gaming & devices'
+  },
+  {
+    id: 'preset-beauty',
+    name: '💖 Beauty & Skincare (Rose Pink)',
+    categoryName: 'Beauty & Fashion',
+    primaryButtonBg: '#E11D48',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#881337',
+    accentBadgeBg: '#FFF1F2',
+    accentBadgeText: '#E11D48',
+    presetBadge: 'Rose Pink',
+    description: 'Elegant pink/rose theme for cosmetics, skincare, fashion dresses & accessories'
+  },
+  {
+    id: 'preset-gold',
+    name: '👑 Luxury Gold & Dark Elegance',
+    categoryName: 'Luxury Gifts',
+    primaryButtonBg: '#D97706',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#451A03',
+    accentBadgeBg: '#FEF3C7',
+    accentBadgeText: '#B45309',
+    presetBadge: 'Luxury Gold',
+    description: 'Exclusive gold styling for handcrafted leather, luxury watches & gift boxes'
+  }
+];
 
 export interface LandingPageItem {
   id: string;
@@ -76,72 +167,113 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       conversions: 1420,
       revenue: 3479000,
       createdAt: '2026-07-10',
-      config: config
+      config: {
+        ...config,
+        themeColors: {
+          primaryButtonBg: '#E67E00',
+          primaryButtonText: '#FFFFFF',
+          headingTextColor: '#0E0E0E',
+          accentBadgeBg: '#FCF1E5',
+          accentBadgeText: '#E67E00',
+          themePresetName: 'Classic Orange'
+        }
+      }
     },
     {
       id: 'lp-2',
+      title: '🌿 ১০০% খাঁটি সুন্দরবনের প্রাকৃতিক মধু (Organic Raw Honey)',
+      slug: 'pure-organic-honey',
+      status: 'Published',
+      views: 14200,
+      conversions: 1150,
+      revenue: 1725000,
+      createdAt: '2026-07-14',
+      config: {
+        ...config,
+        productTitle: '১০০% র সুন্দরবনের খাঁটি প্রাকৃতিক মধু (Raw Organic Honey)',
+        productSubTitle: 'Natural Product • Unfiltered & 100% Pure',
+        productDescription: 'সুন্দরবনের প্রাকৃতিক চাক থেকে সংগৃহীত খাঁটি কেমিক্যালমুক্ত কাঁচা মধু। সম্পূর্ণ প্রাকৃতিক স্বাস্থ্যকর গুণাগুণ সমৃদ্ধ।',
+        heroBadge: '🌿 ১০০% ন্যাচারাল অরগানিক প্রডাক্ট — ক্যাশ অন ডেলিভারি',
+        basePrice: 1500,
+        originalPrice: 2000,
+        features: [
+          'সুন্দরবনের গভীর জঙ্গল থেকে সরাসরি সংগৃহীত',
+          'কোন প্রকার কৃত্রিম ফ্লেভার বা প্রিজারভেটিভ মুক্ত',
+          'রোগ প্রতিরোধ ক্ষমতা ও এনার্জি বৃদ্ধি করে',
+          '১০০% ক্যাশ অন ডেলিভারি & ল্যাব টেস্টের গ্যারান্টি'
+        ],
+        themeColors: {
+          primaryButtonBg: '#008F2F',
+          primaryButtonText: '#FFFFFF',
+          headingTextColor: '#064E3B',
+          accentBadgeBg: '#ECFFE8',
+          accentBadgeText: '#008F2F',
+          themePresetName: 'Natural Organic'
+        }
+      }
+    },
+    {
+      id: 'lp-3',
+      title: '🍔 স্পেশাল হোমমেড খাঁটি আমের আচার (Homemade Spicy Mango Pickle)',
+      slug: 'spicy-mango-pickle',
+      status: 'Published',
+      views: 9800,
+      conversions: 820,
+      revenue: 656000,
+      createdAt: '2026-07-18',
+      config: {
+        ...config,
+        productTitle: 'স্পেশাল ঘরোয়া স্বাদের সরিষার তেলের আমের আচার (1 KG Jar)',
+        productSubTitle: 'Food Product • 100% Homemade Food',
+        productDescription: 'খাঁটি কাঠের ঘানির সরিষার তেল ও বাছাইকৃত মশলায় তৈরি জাদুকরী স্বাদের আম ও রসুনের ঘরোয়া আচার।',
+        heroBadge: '🔥 মুখরোচক স্পেশাল খাবারের ডিল — হোম ডেলিভারি',
+        basePrice: 800,
+        originalPrice: 1100,
+        features: [
+          '১০০% ঘরোয়া উপায়ে স্বাস্থ্যসম্মতভাবে তৈরি',
+          'কাঠের ঘানির খাঁটি সরিষার তেল ব্যবহৃত',
+          'কোন প্রকার ক্ষতিকারক প্রিজারভেটিভ নেই',
+          'খাওয়ার পর পুরো টাকা ফেরত গ্যারান্টি'
+        ],
+        themeColors: {
+          primaryButtonBg: '#DC2626',
+          primaryButtonText: '#FFFFFF',
+          headingTextColor: '#7F1D1D',
+          accentBadgeBg: '#FEF2F2',
+          accentBadgeText: '#DC2626',
+          themePresetName: 'Food & Restaurant'
+        }
+      }
+    },
+    {
+      id: 'lp-4',
       title: 'Smart Watch Series X Ultra',
       slug: 'smart-watch-x',
       status: 'Published',
       views: 12100,
       conversions: 890,
       revenue: 2225000,
-      createdAt: '2026-07-15',
+      createdAt: '2026-07-20',
       config: {
         ...config,
         productTitle: 'Smart Watch Series X Ultra',
         productSubTitle: '1.96" AMOLED & Bluetooth Calling',
-        productDescription: 'Zinc-alloy smartwatch with 1.96-inch HD AMOLED display, 24/7 heart rate monitoring, IP68 waterproofing, and 100+ sports modes.',
+        productDescription: 'Zinc-alloy smartwatch with 1.96-inch HD AMOLED display, 24/7 heart rate monitoring, IP68 waterproofing.',
         basePrice: 2500,
         originalPrice: 3500,
-        deliveryInsideDhaka: 60,
-        deliverySubDhaka: 80,
-        deliveryOutsideDhaka: 120,
         features: [
           'HD AMOLED Always-On Display',
           'Bluetooth HD Phone Calling',
-          'IP68 Waterproofing Rating',
-          '7-Day Long Battery Backup'
-        ]
-      }
-    },
-    {
-      id: 'lp-3',
-      title: 'Ergonomic RGB Wireless Gaming Mouse',
-      slug: 'rgb-gaming-mouse',
-      status: 'Published',
-      views: 8320,
-      conversions: 610,
-      revenue: 915000,
-      createdAt: '2026-07-20',
-      config: {
-        ...config,
-        productTitle: 'Ergonomic RGB Wireless Gaming Mouse',
-        productSubTitle: '16,000 DPI Optical Sensor',
-        productDescription: 'Ultra-fast 2.4GHz wireless esports mouse with customizable RGB lighting, 8 macro buttons, and 70-hour continuous battery life.',
-        basePrice: 1500,
-        originalPrice: 2200,
-        deliveryInsideDhaka: 60,
-        deliverySubDhaka: 80,
-        deliveryOutsideDhaka: 130
-      }
-    },
-    {
-      id: 'lp-4',
-      title: 'Genuine Leather Wallet & Belt Gift Set',
-      slug: 'leather-gift-set',
-      status: 'Draft',
-      views: 3200,
-      conversions: 190,
-      revenue: 380000,
-      createdAt: '2026-07-24',
-      config: {
-        ...config,
-        productTitle: 'Genuine Leather Wallet & Belt Gift Set',
-        productSubTitle: '100% Full Grain Leather',
-        productDescription: 'Handcrafted premium leather gift box containing RFID-blocking bifold wallet and reversible formal leather belt.',
-        basePrice: 2000,
-        originalPrice: 2800
+          'IP68 Waterproofing Rating'
+        ],
+        themeColors: {
+          primaryButtonBg: '#2563EB',
+          primaryButtonText: '#FFFFFF',
+          headingTextColor: '#1E3A8A',
+          accentBadgeBg: '#EFF6FF',
+          accentBadgeText: '#2563EB',
+          themePresetName: 'Tech & Gadgets'
+        }
       }
     }
   ]);
@@ -155,6 +287,16 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   // Current config for active page
   const currentActiveConfig = activePage ? activePage.config : config;
 
+  // Active theme helper with standard fallbacks
+  const activeThemeColors: ThemeColors = currentActiveConfig.themeColors || {
+    primaryButtonBg: '#E67E00',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#0E0E0E',
+    accentBadgeBg: '#FCF1E5',
+    accentBadgeText: '#E67E00',
+    themePresetName: 'Classic Orange'
+  };
+
   // Search & Filter state for List View
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | 'Published' | 'Draft'>('All');
@@ -163,10 +305,18 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [newPageTitle, setNewPageTitle] = useState('');
   const [newPageSlug, setNewPageSlug] = useState('');
-  const [newPageCategory, setNewPageCategory] = useState('Electronics');
+  const [newPageCategory, setNewPageCategory] = useState<'Natural Product' | 'Food Product' | 'Electronics' | 'Beauty' | 'Fashion'>('Natural Product');
+  
+  // Modal Theme Customization State
+  const [modalThemePreset, setModalThemePreset] = useState<string>('preset-green');
+  const [modalBtnBg, setModalBtnBg] = useState<string>('#008F2F');
+  const [modalBtnText, setModalBtnText] = useState<string>('#FFFFFF');
+  const [modalHeadingColor, setModalHeadingColor] = useState<string>('#064E3B');
+  const [modalBadgeBg, setModalBadgeBg] = useState<string>('#ECFFE8');
+  const [modalBadgeText, setModalBadgeText] = useState<string>('#008F2F');
 
   // Builder Editing States
-  const [activeBuilderTab, setActiveBuilderTab] = useState<'content' | 'pricing' | 'payments' | 'reviews' | 'seo'>('content');
+  const [activeBuilderTab, setActiveBuilderTab] = useState<'content' | 'theme' | 'pricing' | 'payments' | 'reviews' | 'seo'>('content');
   const [previewMode, setPreviewMode] = useState<'split' | 'desktop' | 'mobile'>('split');
   const [savedSuccess, setSavedSuccess] = useState(false);
 
@@ -221,6 +371,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       ? newPageSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
       : newPageTitle.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
+    const matchedPreset = THEME_PRESETS.find(p => p.id === modalThemePreset);
+
     const newPage: LandingPageItem = {
       id: `lp-${Date.now()}`,
       title: newPageTitle,
@@ -233,10 +385,19 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       config: {
         ...config,
         productTitle: newPageTitle,
-        productSubTitle: `${newPageCategory} - Premium Edition`,
-        productDescription: `Discover high-performance ${newPageTitle} with exclusive discounts, fast home delivery across Bangladesh, and cash on delivery guarantee.`,
+        productSubTitle: `${newPageCategory} • Premium ${matchedPreset?.presetBadge || 'Theme'}`,
+        productDescription: `Discover high quality ${newPageTitle} with exclusive discounts, fast home delivery across Bangladesh, and cash on delivery guarantee.`,
+        heroBadge: `${newPageCategory === 'Natural Product' ? '🌿 ১০০% ন্যাচারাল প্রডাক্ট' : newPageCategory === 'Food Product' ? '🍔 ১০% স্পেশাল ঘরোয়া খাবারের ডিল' : '⚡ বিশেষ ছাড় — সীমিত সময়ের অফার'}`,
         basePrice: 1990,
-        originalPrice: 2990
+        originalPrice: 2990,
+        themeColors: {
+          primaryButtonBg: modalBtnBg,
+          primaryButtonText: modalBtnText,
+          headingTextColor: modalHeadingColor,
+          accentBadgeBg: modalBadgeBg,
+          accentBadgeText: modalBadgeText,
+          themePresetName: matchedPreset ? matchedPreset.name.includes('Natural') ? 'Natural Organic' : matchedPreset.name.includes('Food') ? 'Food & Restaurant' : 'Custom' : 'Custom'
+        }
       }
     };
 
@@ -589,30 +750,37 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                         {/* Operations Button */}
                         <td className="py-3.5 px-4 text-center">
-                          <div className="flex items-center justify-center gap-2">
+                          <div className="flex items-center justify-center gap-1.5">
                             <button
-                              onClick={() => handleEditPage(page.id)}
-                              className="px-3 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full flex items-center gap-1 transition-all shadow-2xs uppercase tracking-wider"
-                              title="Edit in Landing Page Builder"
+                              onClick={() => window.open(`/landing/${page.slug}`, '_blank')}
+                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                              title="Print / Live View Storefront"
                             >
-                              <span>PROMOTE TO EDIT</span>
-                              <ChevronRight className="w-3.5 h-3.5" />
+                              <Printer className="w-3.5 h-3.5" />
                             </button>
 
                             <button
                               onClick={(e) => handleDuplicatePage(page, e)}
-                              className="p-1.5 hover:bg-[#FCF1E5] text-[#545454] hover:text-[#E67E00] rounded-full transition-all border border-[#EEAB59]/50"
+                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
                               title="Duplicate Page"
                             >
                               <Copy className="w-3.5 h-3.5" />
                             </button>
 
                             <button
-                              onClick={(e) => handleDeletePage(page.id, e)}
-                              className="p-1.5 hover:bg-red-50 text-[#545454] hover:text-[#FF0000] rounded-full transition-all border border-[#EEEEEE]"
-                              title="Delete Page"
+                              onClick={() => handleEditPage(page.id)}
+                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                              title="Preview Storefront"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+
+                            <button
+                              onClick={() => handleEditPage(page.id)}
+                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
+                              title="Edit in Landing Page Builder"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         </td>
@@ -749,6 +917,18 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     }`}
                   >
                     Page Content & Copy
+                  </button>
+                  <button
+                    id="builder-tab-theme"
+                    onClick={() => setActiveBuilderTab('theme')}
+                    className={`pb-2 px-1 transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                      activeBuilderTab === 'theme'
+                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        : 'text-[#545454] hover:text-[#0E0E0E]'
+                    }`}
+                  >
+                    <Palette className="w-3.5 h-3.5" />
+                    <span>🎨 Button & Theme Colors</span>
                   </button>
                   <button
                     id="builder-tab-pricing"
@@ -915,6 +1095,334 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <Plus className="w-3.5 h-3.5" />
                           <span>Add Feature Point</span>
                         </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* TAB CONTENT: THEME & COLOR CUSTOMIZATION */}
+                {activeBuilderTab === 'theme' && (
+                  <div className="space-y-5 text-xs">
+                    {/* Header Banner */}
+                    <div className="p-3.5 bg-gradient-to-r from-[#ECFFE8] via-[#FCF1E5] to-[#EFF6FF] border border-[#EEAB59]/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <h4 className="font-extrabold text-[#0E0E0E] text-xs flex items-center gap-1.5">
+                          <Palette className="w-4 h-4 text-[#008F2F]" />
+                          <span>Landing Page Theme & Button Colors (বাটন ও টেক্সট কালার)</span>
+                        </h4>
+                        <p className="text-[11px] text-[#545454]">
+                          Select product themes (e.g. Organic Green for Natural products, Red for Food) or set custom HEX button & text colors.
+                        </p>
+                      </div>
+                      <span className="px-2.5 py-1 bg-white text-[#008F2F] font-black text-[10px] rounded-full border border-[#008F2F]/30 uppercase tracking-wider shadow-2xs w-fit">
+                        {activeThemeColors.themePresetName || 'Active Theme'}
+                      </span>
+                    </div>
+
+                    {/* Section 1: Quick Preset Themes */}
+                    <div className="space-y-2">
+                      <label className="block text-xs font-extrabold text-[#0E0E0E] uppercase tracking-wider">
+                        1. Select Theme Preset (ইন্ডাস্ট্রি অনুযায়ী প্রস্তুতকৃত কালার থিম)
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                        {THEME_PRESETS.map((preset) => {
+                          const isSelected = activeThemeColors.primaryButtonBg.toLowerCase() === preset.primaryButtonBg.toLowerCase();
+                          return (
+                            <button
+                              key={preset.id}
+                              type="button"
+                              onClick={() => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    primaryButtonBg: preset.primaryButtonBg,
+                                    primaryButtonText: preset.primaryButtonText,
+                                    headingTextColor: preset.headingTextColor,
+                                    accentBadgeBg: preset.accentBadgeBg,
+                                    accentBadgeText: preset.accentBadgeText,
+                                    themePresetName: preset.presetBadge
+                                  }
+                                });
+                              }}
+                              className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden flex flex-col justify-between ${
+                                isSelected
+                                  ? 'border-[#008F2F] bg-[#ECFFE8]/30 shadow-md ring-2 ring-[#008F2F]/30'
+                                  : 'border-[#EEEEEE] bg-white hover:border-[#EEAB59] hover:bg-[#FAFAFA]'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="font-extrabold text-xs text-[#0E0E0E] flex items-center gap-1.5">
+                                  {preset.name}
+                                </span>
+                                {isSelected && (
+                                  <span className="w-2.5 h-2.5 rounded-full bg-[#008F2F] shrink-0"></span>
+                                )}
+                              </div>
+                              <p className="text-[10px] text-[#545454] line-clamp-2 mb-2 leading-snug">
+                                {preset.description}
+                              </p>
+                              
+                              {/* Swatch Pill Preview */}
+                              <div className="flex items-center gap-1.5 pt-1.5 border-t border-[#EEEEEE]/80">
+                                <span
+                                  className="px-2.5 py-1 text-[10px] font-bold rounded-full shadow-2xs"
+                                  style={{ backgroundColor: preset.primaryButtonBg, color: preset.primaryButtonText }}
+                                >
+                                  Order Button
+                                </span>
+                                <span
+                                  className="px-2 py-0.5 text-[9px] font-bold rounded"
+                                  style={{ backgroundColor: preset.accentBadgeBg, color: preset.accentBadgeText }}
+                                >
+                                  Badge
+                                </span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Section 2: Custom Color Controls */}
+                    <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
+                      <h5 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        2. Customize Colors Manually (নিজের পছন্দমতো কাস্টম কালার সেট করুন)
+                      </h5>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Primary Button Background Color */}
+                        <div className="space-y-1.5 bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] text-[11px]">
+                            Primary CTA Button Color (অর্ডার বাটন কালার)
+                          </label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={activeThemeColors.primaryButtonBg}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    primaryButtonBg: e.target.value
+                                  }
+                                });
+                              }}
+                              className="w-9 h-9 rounded cursor-pointer border border-[#EEEEEE] p-0.5 shrink-0"
+                            />
+                            <input
+                              type="text"
+                              value={activeThemeColors.primaryButtonBg}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    primaryButtonBg: e.target.value
+                                  }
+                                });
+                              }}
+                              placeholder="#008F2F"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                          
+                          {/* Quick Swatch Palette Dots */}
+                          <div className="flex items-center gap-1.5 pt-1 flex-wrap">
+                            <span className="text-[10px] font-medium text-[#8F8F8F]">Presets:</span>
+                            {[
+                              { label: 'Green', color: '#008F2F' },
+                              { label: 'Emerald', color: '#047857' },
+                              { label: 'Food Red', color: '#DC2626' },
+                              { label: 'Orange', color: '#E67E00' },
+                              { label: 'Royal Blue', color: '#2563EB' },
+                              { label: 'Pink', color: '#E11D48' },
+                              { label: 'Gold', color: '#D97706' },
+                              { label: 'Dark', color: '#18181B' }
+                            ].map((item) => (
+                              <button
+                                key={item.color}
+                                type="button"
+                                title={item.label}
+                                onClick={() => {
+                                  handleUpdateActiveConfig({
+                                    ...currentActiveConfig,
+                                    themeColors: {
+                                      ...activeThemeColors,
+                                      primaryButtonBg: item.color
+                                    }
+                                  });
+                                }}
+                                className="w-5 h-5 rounded-full border border-black/10 hover:scale-110 transition-all shadow-2xs"
+                                style={{ backgroundColor: item.color }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Button Text Color */}
+                        <div className="space-y-1.5 bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] text-[11px]">
+                            Button Text Color (বাটন টেক্সটের রঙ)
+                          </label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={activeThemeColors.primaryButtonText}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    primaryButtonText: e.target.value
+                                  }
+                                });
+                              }}
+                              className="w-9 h-9 rounded cursor-pointer border border-[#EEEEEE] p-0.5 shrink-0"
+                            />
+                            <input
+                              type="text"
+                              value={activeThemeColors.primaryButtonText}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    primaryButtonText: e.target.value
+                                  }
+                                });
+                              }}
+                              placeholder="#FFFFFF"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+
+                          <div className="flex items-center gap-1.5 pt-1 flex-wrap">
+                            <span className="text-[10px] font-medium text-[#8F8F8F]">Quick:</span>
+                            {[
+                              { label: 'Pure White', color: '#FFFFFF' },
+                              { label: 'Soft Cream', color: '#FEF3C7' },
+                              { label: 'Bright Yellow', color: '#FDE047' },
+                              { label: 'Dark Charcoal', color: '#0E0E0E' }
+                            ].map((item) => (
+                              <button
+                                key={item.color}
+                                type="button"
+                                title={item.label}
+                                onClick={() => {
+                                  handleUpdateActiveConfig({
+                                    ...currentActiveConfig,
+                                    themeColors: {
+                                      ...activeThemeColors,
+                                      primaryButtonText: item.color
+                                    }
+                                  });
+                                }}
+                                className="w-5 h-5 rounded-full border border-black/20 hover:scale-110 transition-all shadow-2xs"
+                                style={{ backgroundColor: item.color }}
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Title & Heading Text Color */}
+                        <div className="space-y-1.5 bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] text-[11px]">
+                            Product Title & Heading Color (শিরোনামের রঙ)
+                          </label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={activeThemeColors.headingTextColor}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    headingTextColor: e.target.value
+                                  }
+                                });
+                              }}
+                              className="w-9 h-9 rounded cursor-pointer border border-[#EEEEEE] p-0.5 shrink-0"
+                            />
+                            <input
+                              type="text"
+                              value={activeThemeColors.headingTextColor}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    headingTextColor: e.target.value
+                                  }
+                                });
+                              }}
+                              placeholder="#0E0E0E"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Accent Badge Color */}
+                        <div className="space-y-1.5 bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] text-[11px]">
+                            Hero Badge Background (ব্যাজ ব্যাকগ্রাউন্ড)
+                          </label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={activeThemeColors.accentBadgeBg}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    accentBadgeBg: e.target.value
+                                  }
+                                });
+                              }}
+                              className="w-9 h-9 rounded cursor-pointer border border-[#EEEEEE] p-0.5 shrink-0"
+                            />
+                            <input
+                              type="text"
+                              value={activeThemeColors.accentBadgeBg}
+                              onChange={(e) => {
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  themeColors: {
+                                    ...activeThemeColors,
+                                    accentBadgeBg: e.target.value
+                                  }
+                                });
+                              }}
+                              placeholder="#ECFFE8"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Section 3: Live Button Sample Box */}
+                    <div className="p-4 bg-white border border-[#EEEEEE] rounded-xl space-y-2">
+                      <span className="text-xs font-extrabold text-[#0E0E0E] uppercase tracking-wider block">
+                        3. Live Button Visual Preview (লাইভ বাটন প্রিভিউ)
+                      </span>
+                      <div className="p-6 bg-[#FAFAFA] border border-dashed border-[#EEAB59] rounded-xl flex flex-col items-center justify-center space-y-3 text-center">
+                        <button
+                          type="button"
+                          style={{
+                            backgroundColor: activeThemeColors.primaryButtonBg,
+                            color: activeThemeColors.primaryButtonText
+                          }}
+                          className="px-8 py-3.5 font-black text-sm rounded-full shadow-lg hover:opacity-90 transition-all uppercase tracking-wider flex items-center gap-2"
+                        >
+                          <ShoppingBag className="w-4 h-4" />
+                          <span>অর্ডার করতে এখানে ক্লিক করুন — ৳{currentActiveConfig.basePrice.toLocaleString()}</span>
+                        </button>
+                        <p className="text-[11px] text-[#545454]">
+                          This exact button color will render live on your storefront!
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1169,7 +1677,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               >
                 {/* Top Announcement Bar */}
                 {currentActiveConfig.announcementText && (
-                  <div className="bg-[#E67E00] text-white text-center py-1.5 px-3 text-[11px] font-black uppercase tracking-wider sticky top-0 z-10 shadow-xs">
+                  <div
+                    style={{
+                      backgroundColor: activeThemeColors.primaryButtonBg,
+                      color: activeThemeColors.primaryButtonText
+                    }}
+                    className="text-center py-1.5 px-3 text-[11px] font-black uppercase tracking-wider sticky top-0 z-10 shadow-xs transition-colors"
+                  >
                     {currentActiveConfig.announcementText}
                   </div>
                 )}
@@ -1177,7 +1691,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 {/* Storefront Navigation Header */}
                 <div className="border-b border-[#EEEEEE] p-3 flex items-center justify-between bg-white shrink-0">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#E67E00] text-white font-black text-xs flex items-center justify-center">
+                    <div
+                      style={{
+                        backgroundColor: activeThemeColors.primaryButtonBg,
+                        color: activeThemeColors.primaryButtonText
+                      }}
+                      className="w-7 h-7 rounded-lg font-black text-xs flex items-center justify-center transition-colors"
+                    >
                       P
                     </div>
                     <div>
@@ -1185,17 +1705,34 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       <span className="text-[9px] block text-[#8F8F8F]">Official Store</span>
                     </div>
                   </div>
-                  <span className="px-2 py-0.5 bg-[#ECFFE8] text-[#008F2F] font-bold text-[9px] rounded-full uppercase border border-[#008F2F]/30">
+                  <span
+                    style={{
+                      backgroundColor: activeThemeColors.accentBadgeBg,
+                      color: activeThemeColors.accentBadgeText,
+                      borderColor: activeThemeColors.primaryButtonBg + '50'
+                    }}
+                    className="px-2 py-0.5 font-bold text-[9px] rounded-full uppercase border transition-colors"
+                  >
                     In Stock
                   </span>
                 </div>
 
                 {/* Main Scrollable Landing Page Content */}
                 <div className="p-4 bg-gradient-to-b from-[#FCF1E5]/20 to-white text-center space-y-3 flex-1">
-                  <span className="inline-block px-2.5 py-0.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-[10px] rounded-full border border-[#EEAB59]">
+                  <span
+                    style={{
+                      backgroundColor: activeThemeColors.accentBadgeBg,
+                      color: activeThemeColors.accentBadgeText,
+                      borderColor: activeThemeColors.primaryButtonBg + '50'
+                    }}
+                    className="inline-block px-2.5 py-0.5 font-extrabold text-[10px] rounded-full border transition-colors"
+                  >
                     {currentActiveConfig.heroBadge}
                   </span>
-                  <h2 className="text-lg font-black text-[#0E0E0E] tracking-tight leading-tight">
+                  <h2
+                    style={{ color: activeThemeColors.headingTextColor }}
+                    className="text-lg font-black tracking-tight leading-tight transition-colors"
+                  >
                     {currentActiveConfig.productTitle}
                   </h2>
                   <p className="text-[11px] text-[#545454] max-w-xs mx-auto font-medium leading-relaxed">
@@ -1212,7 +1749,10 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                   <div className="flex items-center justify-center gap-3 py-1">
                     <div>
-                      <span className="text-2xl font-black text-[#E67E00]">
+                      <span
+                        style={{ color: activeThemeColors.primaryButtonBg }}
+                        className="text-2xl font-black transition-colors"
+                      >
                         ৳{currentActiveConfig.basePrice.toLocaleString()}
                       </span>
                       {currentActiveConfig.originalPrice && (
@@ -1225,13 +1765,16 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                   {/* Key Feature Bullet Points in Preview */}
                   {currentActiveConfig.features && currentActiveConfig.features.length > 0 && (
-                    <div className="text-left bg-white p-3 rounded-lg border border-[#EEAB59]/40 space-y-1.5 my-3">
-                      <span className="text-[10px] font-black text-[#E67E00] uppercase tracking-wider block mb-1">
+                    <div className="text-left bg-white p-3 rounded-lg border border-[#EEEEEE] space-y-1.5 my-3 shadow-2xs">
+                      <span
+                        style={{ color: activeThemeColors.primaryButtonBg }}
+                        className="text-[10px] font-black uppercase tracking-wider block mb-1 transition-colors"
+                      >
                         ★ Key Product Features:
                       </span>
                       {currentActiveConfig.features.map((feat, i) => (
                         <div key={i} className="flex items-start gap-1.5 text-[11px] text-[#0E0E0E] font-medium">
-                          <span className="text-[#008F2F] font-bold">✓</span>
+                          <span style={{ color: activeThemeColors.primaryButtonBg }} className="font-bold transition-colors">✓</span>
                           <span>{feat}</span>
                         </div>
                       ))}
@@ -1240,12 +1783,15 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                   {/* Delivery & Guarantee Info */}
                   <div className="grid grid-cols-2 gap-2 text-left my-2">
-                    <div className="p-2 bg-[#FCF1E5]/40 rounded border border-[#EEAB59]/50 text-[10px]">
+                    <div className="p-2 bg-[#FAFAFA] rounded border border-[#EEEEEE] text-[10px]">
                       <span className="font-bold text-[#0E0E0E] block">🚚 Delivery:</span>
                       <span className="text-[#545454]">{currentActiveConfig.deliveryInfoText || 'Fast Home Delivery Nationwide'}</span>
                     </div>
-                    <div className="p-2 bg-[#ECFFE8]/50 rounded border border-[#008F2F]/30 text-[10px]">
-                      <span className="font-bold text-[#008F2F] block">🛡️ Guarantee:</span>
+                    <div
+                      style={{ backgroundColor: activeThemeColors.accentBadgeBg }}
+                      className="p-2 rounded border border-[#EEEEEE] text-[10px]"
+                    >
+                      <span style={{ color: activeThemeColors.accentBadgeText }} className="font-bold block">🛡️ Guarantee:</span>
                       <span className="text-[#545454]">{currentActiveConfig.guaranteeBadgeText || '7 Days Replacement Warranty'}</span>
                     </div>
                   </div>
@@ -1254,7 +1800,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 {/* Quick Interactive Order Form in Preview */}
                 <div className="p-4 bg-[#FAFAFA] border-t border-[#EEEEEE] space-y-3">
                   <div className="flex items-center gap-1.5 font-black text-xs text-[#0E0E0E]">
-                    <ShoppingBag className="w-3.5 h-3.5 text-[#E67E00]" />
+                    <ShoppingBag style={{ color: activeThemeColors.primaryButtonBg }} className="w-3.5 h-3.5 transition-colors" />
                     <span>Quick Order Form</span>
                   </div>
 
@@ -1294,7 +1840,11 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                       <button
                         type="submit"
-                        className="w-full py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider"
+                        style={{
+                          backgroundColor: activeThemeColors.primaryButtonBg,
+                          color: activeThemeColors.primaryButtonText
+                        }}
+                        className="w-full py-2 font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider hover:opacity-90"
                       >
                         Order Now - ৳{testTotal.toLocaleString()}
                       </button>
@@ -1313,7 +1863,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         <div key={rev.id} className="p-2.5 bg-[#FAFAFA] rounded border border-[#EEEEEE] text-[11px] space-y-1">
                           <div className="flex items-center justify-between font-bold text-[#0E0E0E]">
                             <span>{rev.author}</span>
-                            <span className="text-[#E67E00]">{'★'.repeat(rev.rating)}</span>
+                            <span style={{ color: activeThemeColors.primaryButtonBg }}>{'★'.repeat(rev.rating)}</span>
                           </div>
                           <p className="text-[#545454] leading-tight">{rev.content}</p>
                         </div>
@@ -1394,18 +1944,140 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
               <div>
                 <label className="block font-bold text-[#0E0E0E] mb-1">
-                  Category Template
+                  Product Category & Default Theme (পণ্য টাইপ ও থিম)
                 </label>
                 <select
                   value={newPageCategory}
-                  onChange={(e) => setNewPageCategory(e.target.value)}
+                  onChange={(e) => {
+                    const cat = e.target.value as any;
+                    setNewPageCategory(cat);
+                    if (cat === 'Natural Product') {
+                      setModalThemePreset('preset-green');
+                      setModalBtnBg('#008F2F');
+                      setModalBtnText('#FFFFFF');
+                      setModalHeadingColor('#064E3B');
+                      setModalBadgeBg('#ECFFE8');
+                      setModalBadgeText('#008F2F');
+                    } else if (cat === 'Food Product') {
+                      setModalThemePreset('preset-food');
+                      setModalBtnBg('#DC2626');
+                      setModalBtnText('#FFFFFF');
+                      setModalHeadingColor('#7F1D1D');
+                      setModalBadgeBg('#FEF2F2');
+                      setModalBadgeText('#DC2626');
+                    } else if (cat === 'Electronics') {
+                      setModalThemePreset('preset-blue');
+                      setModalBtnBg('#2563EB');
+                      setModalBtnText('#FFFFFF');
+                      setModalHeadingColor('#1E3A8A');
+                      setModalBadgeBg('#EFF6FF');
+                      setModalBadgeText('#2563EB');
+                    } else if (cat === 'Beauty') {
+                      setModalThemePreset('preset-beauty');
+                      setModalBtnBg('#E11D48');
+                      setModalBtnText('#FFFFFF');
+                      setModalHeadingColor('#881337');
+                      setModalBadgeBg('#FFF1F2');
+                      setModalBadgeText('#E11D48');
+                    } else if (cat === 'Fashion') {
+                      setModalThemePreset('preset-gold');
+                      setModalBtnBg('#D97706');
+                      setModalBtnText('#FFFFFF');
+                      setModalHeadingColor('#451A03');
+                      setModalBadgeBg('#FEF3C7');
+                      setModalBadgeText('#B45309');
+                    }
+                  }}
                   className="w-full px-3.5 py-2.5 bg-white border border-[#EEEEEE] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
                 >
-                  <option value="Electronics">Electronics & Gadgets</option>
-                  <option value="Fashion">Fashion & Accessories</option>
-                  <option value="Beauty">Health & Beauty</option>
-                  <option value="Home">Home & Kitchen</option>
+                  <option value="Natural Product">🌿 Natural & Organic Product (Green Theme)</option>
+                  <option value="Food Product">🍔 Food, Snacks & Bakery (Red / Amber Theme)</option>
+                  <option value="Electronics">🎧 Electronics & Gadgets (Royal Blue Theme)</option>
+                  <option value="Beauty">💖 Health & Beauty (Rose Pink Theme)</option>
+                  <option value="Fashion">👑 Fashion & Accessories (Luxury Gold Theme)</option>
                 </select>
+              </div>
+
+              {/* Theme Color Quick Selector in Modal */}
+              <div className="space-y-2.5 p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl">
+                <label className="block font-bold text-[#0E0E0E] text-[11px] uppercase tracking-wider">
+                  🎨 Button & Text Color Selector (বাটন ও টেক্সট কালার)
+                </label>
+                
+                {/* Preset Chips */}
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {THEME_PRESETS.map((preset) => (
+                    <button
+                      key={preset.id}
+                      type="button"
+                      onClick={() => {
+                        setModalThemePreset(preset.id);
+                        setModalBtnBg(preset.primaryButtonBg);
+                        setModalBtnText(preset.primaryButtonText);
+                        setModalHeadingColor(preset.headingTextColor);
+                        setModalBadgeBg(preset.accentBadgeBg);
+                        setModalBadgeText(preset.accentBadgeText);
+                      }}
+                      className={`px-2.5 py-1 text-[10px] font-bold rounded-full border transition-all flex items-center gap-1 ${
+                        modalBtnBg.toLowerCase() === preset.primaryButtonBg.toLowerCase()
+                          ? 'border-[#008F2F] bg-white ring-2 ring-[#008F2F]/30 text-[#0E0E0E]'
+                          : 'border-[#EEEEEE] bg-white text-[#545454] hover:border-[#EEAB59]'
+                      }`}
+                    >
+                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: preset.primaryButtonBg }} />
+                      <span>{preset.presetBadge}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Custom Color Picker Row */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div>
+                    <label className="block text-[10px] font-bold text-[#545454] mb-0.5">Button Color:</label>
+                    <div className="flex items-center gap-1.5">
+                      <input
+                        type="color"
+                        value={modalBtnBg}
+                        onChange={(e) => setModalBtnBg(e.target.value)}
+                        className="w-7 h-7 rounded border cursor-pointer p-0.5 shrink-0"
+                      />
+                      <input
+                        type="text"
+                        value={modalBtnBg}
+                        onChange={(e) => setModalBtnBg(e.target.value)}
+                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded text-[11px] font-mono font-bold"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-bold text-[#545454] mb-0.5">Text Color:</label>
+                    <div className="flex items-center gap-1.5">
+                      <input
+                        type="color"
+                        value={modalBtnText}
+                        onChange={(e) => setModalBtnText(e.target.value)}
+                        className="w-7 h-7 rounded border cursor-pointer p-0.5 shrink-0"
+                      />
+                      <input
+                        type="text"
+                        value={modalBtnText}
+                        onChange={(e) => setModalBtnText(e.target.value)}
+                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded text-[11px] font-mono font-bold"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Button Swatch Preview in Modal */}
+                <div className="pt-2 text-center border-t border-[#EEEEEE]/80">
+                  <div
+                    style={{ backgroundColor: modalBtnBg, color: modalBtnText }}
+                    className="py-1.5 px-4 rounded-full font-black text-[11px] uppercase tracking-wider inline-block shadow-2xs"
+                  >
+                    Button Preview: Order Now ৳1,990
+                  </div>
+                </div>
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#EEEEEE]">

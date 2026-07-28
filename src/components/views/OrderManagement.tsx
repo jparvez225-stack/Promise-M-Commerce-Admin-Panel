@@ -21,11 +21,16 @@ import {
   HelpCircle,
   MessageSquare,
   ChevronRight,
+  ChevronLeft,
   Phone,
   Package,
   Minus,
   Trash2,
-  ShoppingBag
+  ShoppingBag,
+  Truck,
+  CheckSquare,
+  Layers,
+  Send
 } from 'lucide-react';
 import { Order, OrderStatus } from '../../types';
 
@@ -141,6 +146,15 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRowIds, setSelectedRowIds] = useState<string[]>([]);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Pagination & Bulk Action States
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(15);
+  const [currentPageAbandoned, setCurrentPageAbandoned] = useState<number>(1);
+  const pageSizeAbandoned = 15;
+  const [isBulkPrintModalOpen, setIsBulkPrintModalOpen] = useState(false);
+  const [selectedBulkStatus, setSelectedBulkStatus] = useState<string>('');
+  const [selectedBulkLogistics, setSelectedBulkLogistics] = useState<string>('');
 
   // Note Modal State
   const [noteModalTarget, setNoteModalTarget] = useState<AbandonedOrderRecord | null>(null);
@@ -267,19 +281,85 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
     });
   }, [abandonedRecords, recoverySubTab, searchQuery]);
 
+  // Pagination Computations
+  const totalPagesAbandoned = useMemo(() => Math.max(1, Math.ceil(filteredAbandoned.length / pageSizeAbandoned)), [filteredAbandoned]);
+
+  const paginatedAbandoned = useMemo(() => {
+    const start = (currentPageAbandoned - 1) * pageSizeAbandoned;
+    return filteredAbandoned.slice(start, start + pageSizeAbandoned);
+  }, [filteredAbandoned, currentPageAbandoned]);
+
+  const totalPages = useMemo(() => Math.max(1, Math.ceil(filteredRecords.length / pageSize)), [filteredRecords, pageSize]);
+
+  const paginatedRecords = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredRecords.slice(start, start + pageSize);
+  }, [filteredRecords, currentPage, pageSize]);
+
+  // Handlers for status filter & search reset
+  const handleStatusFilterChange = (status: string) => {
+    setStatusFilter(status);
+    setCurrentPage(1);
+    setSelectedRowIds([]);
+  };
+
+  const handleSearchChange = (val: string) => {
+    setSearchQuery(val);
+    setCurrentPage(1);
+  };
+
+  const handlePageSizeChange = (newSize: number) => {
+    setPageSize(newSize);
+    setCurrentPage(1);
+  };
+
   // Checkbox Selection
-  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const isPageFullySelected = paginatedRecords.length > 0 && paginatedRecords.every(r => selectedRowIds.includes(r.id));
+
+  const handleSelectAllPaginated = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      setSelectedRowIds(filteredRecords.map(r => r.id));
+      const pageIds = paginatedRecords.map(r => r.id);
+      setSelectedRowIds(prev => Array.from(new Set([...prev, ...pageIds])));
     } else {
-      setSelectedRowIds([]);
+      const pageIds = new Set(paginatedRecords.map(r => r.id));
+      setSelectedRowIds(prev => prev.filter(id => !pageIds.has(id)));
     }
+  };
+
+  const handleSelectAllFiltered = () => {
+    setSelectedRowIds(filteredRecords.map(r => r.id));
+  };
+
+  const handleDeselectAll = () => {
+    setSelectedRowIds([]);
   };
 
   const handleToggleRow = (id: string) => {
     setSelectedRowIds(prev => 
       prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
     );
+  };
+
+  // Bulk Actions
+  const handleBulkStatusChange = (newStatus: string) => {
+    if (!newStatus || selectedRowIds.length === 0) return;
+    setOrderRecords(prev => prev.map(rec => selectedRowIds.includes(rec.id) ? { ...rec, status: newStatus as any } : rec));
+    triggerToast(`Successfully updated status to "${newStatus}" for ${selectedRowIds.length} orders!`);
+    setSelectedRowIds([]);
+    setSelectedBulkStatus('');
+  };
+
+  const handleBulkLogisticsChange = (newCourier: 'Steadfast' | 'RedX' | 'Paperfly' | 'Pathao') => {
+    if (!newCourier || selectedRowIds.length === 0) return;
+    setOrderRecords(prev => prev.map(rec => selectedRowIds.includes(rec.id) ? { ...rec, logistics: newCourier, logisticsStatus: 'In Transit' } : rec));
+    triggerToast(`Dispatched ${selectedRowIds.length} orders to courier (${newCourier})!`);
+    setSelectedRowIds([]);
+    setSelectedBulkLogistics('');
+  };
+
+  const handleBulkPrint = () => {
+    if (selectedRowIds.length === 0) return;
+    setIsBulkPrintModalOpen(true);
   };
 
   // Handle Copy ID
@@ -509,14 +589,14 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
-                  {filteredAbandoned.length === 0 ? (
+                  {paginatedAbandoned.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="py-12 text-center text-[#8F8F8F] font-bold">
                         No abandoned carts found in this view.
                       </td>
                     </tr>
                   ) : (
-                    filteredAbandoned.map((abn) => (
+                    paginatedAbandoned.map((abn) => (
                       <tr 
                         key={abn.id}
                         className="hover:bg-[#FCF1E5]/50 transition-colors group"
@@ -580,13 +660,14 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                         {/* OPERATIONS */}
                         <td className="py-3 px-4 text-center">
                           <button
+                            type="button"
+                            title="Promote to Confirmed Order (অর্ডারে রুপান্তর করুন)"
                             onClick={() => handlePromoteToOrder(abn)}
-                            className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-[10px] font-bold uppercase rounded-full tracking-wider inline-flex items-center gap-1.5 transition-all"
+                            className="px-3.5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-[10px] font-black uppercase rounded-full tracking-wider inline-flex items-center gap-1.5 shadow-2xs hover:shadow-md transition-all cursor-pointer group/promote"
                           >
-                            <span>PROMOTE TO ORDER</span>
-                            <span className="w-3.5 h-3.5 rounded-full bg-[#008F2F] text-white flex items-center justify-center text-[8px] font-bold">
-                              {'>'}
-                            </span>
+                            <ShoppingBag className="w-3.5 h-3.5 text-white transition-transform group-hover/promote:scale-110 shrink-0" />
+                            <span>Promote to Order</span>
+                            <ArrowRight className="w-3.5 h-3.5 text-white/90 transition-transform group-hover/promote:translate-x-0.5 shrink-0" />
                           </button>
                         </td>
 
@@ -596,6 +677,51 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 </tbody>
               </table>
             </div>
+
+            {/* ABANDONED CARTS PAGINATION FOOTER */}
+            {filteredAbandoned.length > 0 && (
+              <div className="bg-white border-t border-[#EEEEEE] p-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <div className="text-slate-500 font-semibold">
+                  Showing {filteredAbandoned.length > 0 ? (currentPageAbandoned - 1) * pageSizeAbandoned + 1 : 0} to {Math.min(currentPageAbandoned * pageSizeAbandoned, filteredAbandoned.length)} of {filteredAbandoned.length} abandoned carts
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    disabled={currentPageAbandoned === 1}
+                    onClick={() => setCurrentPageAbandoned(prev => Math.max(1, prev - 1))}
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span>Previous</span>
+                  </button>
+
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPagesAbandoned }, (_, idx) => idx + 1).map((p) => (
+                      <button
+                        key={p}
+                        onClick={() => setCurrentPageAbandoned(p)}
+                        className={`w-7 h-7 rounded text-xs font-bold transition-all ${
+                          currentPageAbandoned === p
+                            ? 'bg-[#E67E00] text-white shadow-2xs'
+                            : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-slate-700'
+                        }`}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    disabled={currentPageAbandoned === totalPagesAbandoned}
+                    onClick={() => setCurrentPageAbandoned(prev => Math.min(totalPagesAbandoned, prev + 1))}
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
         </div>
@@ -617,7 +743,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="Order ID, name or phone number..."
                   className="w-full pl-9 pr-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] placeholder:text-[#8F8F8F] focus:outline-none focus:border-[#008F2F] focus:bg-[#ECFFE8] transition-all"
                 />
@@ -628,6 +754,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <button 
                   onClick={() => {
                     setSearchQuery('');
+                    setCurrentPage(1);
                     triggerToast('Data refreshed!');
                   }}
                   className="p-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full transition-colors"
@@ -645,11 +772,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 </button>
 
                 <button 
-                  onClick={() => setStatusFilter('All')}
+                  onClick={() => handleStatusFilterChange('All')}
                   className="px-4 py-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-colors flex items-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5" />
-                  <span>My Orders</span>
+                  <span>All Orders</span>
                 </button>
 
                 <button 
@@ -665,12 +792,28 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
             {/* STATUS FILTER CATEGORY PILLS BAR */}
             <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-[#EEEEEE] scrollbar-none">
+              <button
+                onClick={() => handleStatusFilterChange('All')}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  statusFilter === 'All'
+                    ? 'bg-[#E67E00] text-white'
+                    : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-[#545454]'
+                }`}
+              >
+                <span>All Status</span>
+                <span className={`px-1.5 py-0.2 text-[10px] rounded-full font-bold ${
+                  statusFilter === 'All' ? 'bg-white text-[#E67E00]' : 'bg-[#ECFFE8] text-[#008F2F]'
+                }`}>
+                  {orderRecords.length}
+                </span>
+              </button>
+
               {statusPills.map((pill) => {
                 const isActive = statusFilter === pill.label;
                 return (
                   <button
                     key={pill.label}
-                    onClick={() => setStatusFilter(pill.label)}
+                    onClick={() => handleStatusFilterChange(pill.label)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
                       isActive
                         ? 'bg-[#E67E00] text-white'
@@ -691,13 +834,114 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
             </div>
           </div>
 
+          {/* BULK ACTIONS FLOATING TOOLBAR */}
+          {selectedRowIds.length > 0 && (
+            <div className="bg-[#FCF1E5] border-2 border-[#E67E00] rounded-xl p-3 shadow-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 animate-fadeIn">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-full bg-[#E67E00] text-white font-black text-xs flex items-center justify-center shrink-0">
+                  {selectedRowIds.length}
+                </span>
+                <div>
+                  <span className="text-xs font-bold text-[#0E0E0E]">
+                    {selectedRowIds.length} Order{selectedRowIds.length > 1 ? 's' : ''} Selected
+                  </span>
+                  <div className="flex items-center gap-2 text-[10px] text-[#545454] font-semibold mt-0.5">
+                    <button 
+                      onClick={handleSelectAllFiltered}
+                      className="text-[#E67E00] underline font-bold hover:text-[#CC7000]"
+                    >
+                      Select all {filteredRecords.length} matching
+                    </button>
+                    <span>•</span>
+                    <button 
+                      onClick={handleDeselectAll}
+                      className="text-slate-500 underline font-semibold hover:text-slate-700"
+                    >
+                      Clear Selection
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Bulk Status Dropdown */}
+                <div className="flex items-center gap-1.5 bg-white border border-[#EEAB59] rounded-lg px-2.5 py-1">
+                  <CheckSquare className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <select
+                    value={selectedBulkStatus}
+                    onChange={(e) => {
+                      setSelectedBulkStatus(e.target.value);
+                      handleBulkStatusChange(e.target.value);
+                    }}
+                    className="bg-transparent text-xs font-bold text-[#0E0E0E] focus:outline-none cursor-pointer"
+                  >
+                    <option value="">Bulk Status Change...</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Shipment Ready">Shipment Ready</option>
+                    <option value="In Transit">In Transit</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Returned">Returned</option>
+                    <option value="Follow-up">Follow-up</option>
+                  </select>
+                </div>
+
+                {/* Bulk Logistics Action Dropdown */}
+                <div className="flex items-center gap-1.5 bg-white border border-[#EEAB59] rounded-lg px-2.5 py-1">
+                  <Truck className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <select
+                    value={selectedBulkLogistics}
+                    onChange={(e) => {
+                      setSelectedBulkLogistics(e.target.value);
+                      handleBulkLogisticsChange(e.target.value as any);
+                    }}
+                    className="bg-transparent text-xs font-bold text-[#0E0E0E] focus:outline-none cursor-pointer"
+                  >
+                    <option value="">Courier Dispatch...</option>
+                    <option value="Steadfast">Dispatch via Steadfast</option>
+                    <option value="Pathao">Dispatch via Pathao</option>
+                    <option value="RedX">Dispatch via RedX</option>
+                    <option value="Paperfly">Dispatch via Paperfly</option>
+                  </select>
+                </div>
+
+                {/* Bulk Print Button */}
+                <button
+                  onClick={handleBulkPrint}
+                  className="px-3.5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-2xs"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Bulk Print ({selectedRowIds.length})</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Record Counter Info */}
-          <div className="px-1 text-xs font-medium text-[#545454]">
-            Showing {filteredRecords.length} of {orderRecords.length} total records
+          <div className="px-1 flex items-center justify-between text-xs font-medium text-[#545454]">
+            <span>
+              Showing {filteredRecords.length > 0 ? (currentPage - 1) * pageSize + 1 : 0} to {Math.min(currentPage * pageSize, filteredRecords.length)} of {filteredRecords.length} total orders
+            </span>
+            <div className="flex items-center gap-1.5 text-slate-500 font-semibold">
+              <span>Per page:</span>
+              <select
+                value={pageSize}
+                onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                className="bg-white border border-slate-200 rounded px-2 py-0.5 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#E67E00]"
+              >
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={30}>30</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
           </div>
 
           {/* DATA TABLE */}
-          <div className="bg-white border border-[#EEAB59] rounded overflow-hidden">
+          <div className="bg-white border border-[#EEAB59] rounded overflow-hidden shadow-2xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
@@ -705,9 +949,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     <th className="py-3 px-3 w-10">
                       <input
                         type="checkbox"
-                        checked={filteredRecords.length > 0 && selectedRowIds.length === filteredRecords.length}
-                        onChange={handleSelectAll}
+                        checked={isPageFullySelected}
+                        onChange={handleSelectAllPaginated}
                         className="rounded border-[#EEEEEE] text-[#E67E00] focus:ring-[#E67E00] cursor-pointer"
+                        title={isPageFullySelected ? "Deselect page" : "Select page"}
                       />
                     </th>
                     <th className="py-3 px-4">ORDER ID</th>
@@ -720,21 +965,23 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
-                  {filteredRecords.length === 0 ? (
+                  {paginatedRecords.length === 0 ? (
                     <tr>
                       <td colSpan={8} className="py-12 text-center text-[#8F8F8F] font-bold">
                         No orders found matching this filter criteria.
                       </td>
                     </tr>
                   ) : (
-                    filteredRecords.map((row) => {
+                    paginatedRecords.map((row) => {
                       const isChecked = selectedRowIds.includes(row.id);
                       const firstLetter = row.customerName.charAt(0).toUpperCase();
 
                       return (
                         <tr 
                           key={row.id}
-                          className="hover:bg-[#FCF1E5]/50 transition-colors group"
+                          className={`hover:bg-[#FCF1E5]/50 transition-colors group ${
+                            isChecked ? 'bg-[#FCF1E5]/30' : ''
+                          }`}
                         >
                           <td className="py-3 px-3">
                             <input
@@ -746,7 +993,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                           </td>
 
                           <td className="py-3 px-4">
-                            <div className="font-bold text-[#E67E00] hover:underline cursor-pointer">
+                            <div 
+                              onClick={() => setActiveModalOrder(row)}
+                              className="font-bold text-[#E67E00] hover:underline cursor-pointer"
+                            >
                               {row.id}
                             </div>
                             <div className="text-[10px] text-[#8F8F8F] font-medium mt-0.5">
@@ -837,6 +1087,60 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 </tbody>
               </table>
             </div>
+
+            {/* TABLE PAGINATION FOOTER */}
+            {filteredRecords.length > 0 && (
+              <div className="bg-white border-t border-[#EEEEEE] p-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                <div className="text-slate-500 font-semibold">
+                  Page <span className="font-bold text-[#0E0E0E]">{currentPage}</span> of <span className="font-bold text-[#0E0E0E]">{totalPages}</span>
+                </div>
+
+                <div className="flex items-center gap-1.5">
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span>Previous</span>
+                  </button>
+
+                  {/* Page Numbers */}
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }, (_, idx) => idx + 1)
+                      .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                      .map((p, i, arr) => {
+                        const prevVal = arr[i - 1];
+                        const showEllipsis = prevVal && p - prevVal > 1;
+                        return (
+                          <React.Fragment key={p}>
+                            {showEllipsis && <span className="px-1 text-slate-400 font-bold">...</span>}
+                            <button
+                              onClick={() => setCurrentPage(p)}
+                              className={`w-7 h-7 rounded text-xs font-bold transition-all ${
+                                currentPage === p
+                                  ? 'bg-[#E67E00] text-white shadow-2xs'
+                                  : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-slate-700'
+                              }`}
+                            >
+                              {p}
+                            </button>
+                          </React.Fragment>
+                        );
+                      })}
+                  </div>
+
+                  <button
+                    disabled={currentPage === totalPages}
+                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
         </div>
@@ -1705,6 +2009,78 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* BULK PRINT INVOICES MODAL */}
+      {isBulkPrintModalOpen && (
+        <div className="fixed inset-0 z-50 bg-[#0E0E0E]/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border-2 border-[#E67E00] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl animate-fadeIn space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
+              <div className="flex items-center gap-2">
+                <Printer className="w-5 h-5 text-[#E67E00]" />
+                <h3 className="font-bold text-base text-[#0E0E0E]">
+                  Bulk Print Invoices ({selectedRowIds.length} Orders)
+                </h3>
+              </div>
+              <button 
+                onClick={() => setIsBulkPrintModalOpen(false)}
+                className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 max-h-[50vh] overflow-y-auto pr-1">
+              {orderRecords
+                .filter(rec => selectedRowIds.includes(rec.id))
+                .map((order, idx) => (
+                  <div 
+                    key={order.id} 
+                    className="border border-[#EEAB59] rounded-lg p-3 bg-[#FCF1E5]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-[#E67E00]">{order.id}</span>
+                        <span className="text-[10px] bg-[#ECFFE8] text-[#008F2F] font-bold px-2 py-0.2 rounded-full">{order.status}</span>
+                      </div>
+                      <div className="text-xs font-bold text-[#0E0E0E] mt-0.5">{order.customerName} ({order.customerPhone})</div>
+                      <div className="text-[11px] text-slate-600 truncate max-w-sm">{order.packageItem}</div>
+                    </div>
+                    <div className="text-right sm:text-right w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-[#EEEEEE]">
+                      <div className="text-sm font-black text-[#E67E00]">৳{order.price.toLocaleString()}</div>
+                      <div className="text-[10px] text-slate-500 font-semibold">{order.logistics}</div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            <div className="flex items-center justify-between pt-4 border-t border-[#EEEEEE]">
+              <div className="text-xs text-slate-500 font-semibold">
+                Ready to generate batch invoices for <span className="font-bold text-[#0E0E0E]">{selectedRowIds.length}</span> order(s)
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setIsBulkPrintModalOpen(false)}
+                  className="px-4 py-2 border border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-bold rounded-full transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    window.print();
+                    triggerToast(`Printing ${selectedRowIds.length} invoices...`);
+                    setIsBulkPrintModalOpen(false);
+                    setSelectedRowIds([]);
+                  }}
+                  className="px-6 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-bold rounded-full shadow-md flex items-center gap-1.5 transition-all"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>Print All Invoices</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

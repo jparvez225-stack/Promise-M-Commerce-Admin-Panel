@@ -313,6 +313,14 @@ export const INITIAL_STOREFRONT_CONFIG: StorefrontConfig = {
     requireFullAddress: true,
     allowNotes: true
   },
+  themeColors: {
+    primaryButtonBg: '#E67E00',
+    primaryButtonText: '#FFFFFF',
+    headingTextColor: '#0E0E0E',
+    accentBadgeBg: '#FCF1E5',
+    accentBadgeText: '#E67E00',
+    themePresetName: 'Classic Orange'
+  },
   reviews: [
     {
       id: 'r1',

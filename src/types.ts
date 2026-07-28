@@ -1,3 +1,11 @@
+export interface UserProfile {
+  name: string;
+  email: string;
+  storeName: string;
+  role: string;
+  avatar?: string;
+}
+
 export type ProductSubTab = 
   | 'MY_PRODUCTS' 
   | 'ADD_PRODUCT' 
@@ -110,6 +118,15 @@ export interface SeoMetaData {
   fbPixelId: string;
 }
 
+export interface ThemeColors {
+  primaryButtonBg: string;
+  primaryButtonText: string;
+  headingTextColor: string;
+  accentBadgeBg: string;
+  accentBadgeText: string;
+  themePresetName?: 'Natural Organic' | 'Food & Restaurant' | 'Tech & Gadgets' | 'Beauty & Luxury' | 'Classic Orange' | 'Custom';
+}
+
 export interface StorefrontConfig {
   announcementText: string;
   announcementEnabled: boolean;
@@ -138,6 +155,7 @@ export interface StorefrontConfig {
   };
   reviews: CustomerReview[];
   seo?: SeoMetaData;
+  themeColors?: ThemeColors;
 }
 
 export interface NotificationItem {

@@ -24,206 +24,77 @@ interface MetricCardProps {
 }
 
 const themeStyles: Record<string, {
-  cardBg: string;
-  glow1: string;
-  glow2: string;
+  accentBar: string;
   dot: string;
-  subBorder: string;
   sparklineColor: string;
 }> = {
-  blue: {
-    cardBg: 'from-blue-50/90 via-sky-50/40 to-white/95',
-    glow1: 'bg-blue-300/30 group-hover:bg-blue-400/40',
-    glow2: 'bg-sky-200/25',
-    dot: 'bg-blue-500',
-    subBorder: 'border-blue-100/80',
-    sparklineColor: 'text-blue-500',
-  },
-  emerald: {
-    cardBg: 'from-emerald-50/90 via-teal-50/40 to-white/95',
-    glow1: 'bg-emerald-300/30 group-hover:bg-emerald-400/40',
-    glow2: 'bg-teal-200/25',
-    dot: 'bg-emerald-500',
-    subBorder: 'border-emerald-100/80',
-    sparklineColor: 'text-emerald-500',
-  },
-  amber: {
-    cardBg: 'from-amber-50/90 via-orange-50/40 to-white/95',
-    glow1: 'bg-amber-300/30 group-hover:bg-amber-400/40',
-    glow2: 'bg-orange-200/25',
-    dot: 'bg-amber-500',
-    subBorder: 'border-amber-100/80',
-    sparklineColor: 'text-amber-500',
-  },
-  purple: {
-    cardBg: 'from-purple-50/90 via-fuchsia-50/40 to-white/95',
-    glow1: 'bg-purple-300/30 group-hover:bg-purple-400/40',
-    glow2: 'bg-fuchsia-200/25',
-    dot: 'bg-purple-500',
-    subBorder: 'border-purple-100/80',
-    sparklineColor: 'text-purple-500',
-  },
-  rose: {
-    cardBg: 'from-rose-50/90 via-pink-50/40 to-white/95',
-    glow1: 'bg-rose-300/30 group-hover:bg-rose-400/40',
-    glow2: 'bg-pink-200/25',
-    dot: 'bg-rose-500',
-    subBorder: 'border-rose-100/80',
-    sparklineColor: 'text-rose-500',
-  },
-  cyan: {
-    cardBg: 'from-cyan-50/90 via-sky-50/40 to-white/95',
-    glow1: 'bg-cyan-300/30 group-hover:bg-cyan-400/40',
-    glow2: 'bg-sky-200/25',
-    dot: 'bg-cyan-500',
-    subBorder: 'border-cyan-100/80',
-    sparklineColor: 'text-cyan-500',
-  },
-  indigo: {
-    cardBg: 'from-indigo-50/90 via-blue-50/40 to-white/95',
-    glow1: 'bg-indigo-300/30 group-hover:bg-indigo-400/40',
-    glow2: 'bg-blue-200/25',
-    dot: 'bg-indigo-500',
-    subBorder: 'border-indigo-100/80',
-    sparklineColor: 'text-indigo-500',
-  },
-  teal: {
-    cardBg: 'from-teal-50/90 via-emerald-50/40 to-white/95',
-    glow1: 'bg-teal-300/30 group-hover:bg-teal-400/40',
-    glow2: 'bg-emerald-200/25',
-    dot: 'bg-teal-500',
-    subBorder: 'border-teal-100/80',
-    sparklineColor: 'text-teal-500',
-  },
-  violet: {
-    cardBg: 'from-violet-50/90 via-purple-50/40 to-white/95',
-    glow1: 'bg-violet-300/30 group-hover:bg-violet-400/40',
-    glow2: 'bg-purple-200/25',
-    dot: 'bg-violet-500',
-    subBorder: 'border-violet-100/80',
-    sparklineColor: 'text-violet-500',
-  },
-  fuchsia: {
-    cardBg: 'from-fuchsia-50/90 via-rose-50/40 to-white/95',
-    glow1: 'bg-fuchsia-300/30 group-hover:bg-fuchsia-400/40',
-    glow2: 'bg-rose-200/25',
-    dot: 'bg-fuchsia-500',
-    subBorder: 'border-fuchsia-100/80',
-    sparklineColor: 'text-fuchsia-500',
-  },
-  sky: {
-    cardBg: 'from-sky-50/90 via-blue-50/40 to-white/95',
-    glow1: 'bg-sky-300/30 group-hover:bg-sky-400/40',
-    glow2: 'bg-indigo-200/25',
-    dot: 'bg-sky-500',
-    subBorder: 'border-sky-100/80',
-    sparklineColor: 'text-sky-500',
-  },
-  orange: {
-    cardBg: 'from-orange-50/90 via-amber-50/40 to-white/95',
-    glow1: 'bg-orange-300/30 group-hover:bg-orange-400/40',
-    glow2: 'bg-amber-200/25',
-    dot: 'bg-orange-500',
-    subBorder: 'border-orange-100/80',
-    sparklineColor: 'text-orange-500',
-  },
-  lime: {
-    cardBg: 'from-lime-50/90 via-emerald-50/40 to-white/95',
-    glow1: 'bg-lime-300/30 group-hover:bg-lime-400/40',
-    glow2: 'bg-emerald-200/25',
-    dot: 'bg-lime-500',
-    subBorder: 'border-lime-100/80',
-    sparklineColor: 'text-lime-500',
-  },
-  pink: {
-    cardBg: 'from-pink-50/90 via-rose-50/40 to-white/95',
-    glow1: 'bg-pink-300/30 group-hover:bg-pink-400/40',
-    glow2: 'bg-rose-200/25',
-    dot: 'bg-pink-500',
-    subBorder: 'border-pink-100/80',
-    sparklineColor: 'text-pink-500',
-  },
-  yellow: {
-    cardBg: 'from-yellow-50/90 via-amber-50/40 to-white/95',
-    glow1: 'bg-yellow-300/35 group-hover:bg-yellow-400/45',
-    glow2: 'bg-amber-200/30',
-    dot: 'bg-yellow-500',
-    subBorder: 'border-yellow-100/80',
-    sparklineColor: 'text-yellow-500',
-  },
+  blue: { accentBar: 'bg-blue-500', dot: 'bg-blue-500', sparklineColor: 'text-blue-500' },
+  emerald: { accentBar: 'bg-emerald-500', dot: 'bg-emerald-500', sparklineColor: 'text-emerald-500' },
+  amber: { accentBar: 'bg-amber-500', dot: 'bg-amber-500', sparklineColor: 'text-amber-500' },
+  purple: { accentBar: 'bg-purple-500', dot: 'bg-purple-500', sparklineColor: 'text-purple-500' },
+  rose: { accentBar: 'bg-rose-500', dot: 'bg-rose-500', sparklineColor: 'text-rose-500' },
+  cyan: { accentBar: 'bg-cyan-500', dot: 'bg-cyan-500', sparklineColor: 'text-cyan-500' },
+  indigo: { accentBar: 'bg-indigo-500', dot: 'bg-indigo-500', sparklineColor: 'text-indigo-500' },
+  teal: { accentBar: 'bg-teal-500', dot: 'bg-teal-500', sparklineColor: 'text-teal-500' },
+  violet: { accentBar: 'bg-violet-500', dot: 'bg-violet-500', sparklineColor: 'text-violet-500' },
+  fuchsia: { accentBar: 'bg-fuchsia-500', dot: 'bg-fuchsia-500', sparklineColor: 'text-fuchsia-500' },
+  sky: { accentBar: 'bg-sky-500', dot: 'bg-sky-500', sparklineColor: 'text-sky-500' },
+  orange: { accentBar: 'bg-orange-500', dot: 'bg-orange-500', sparklineColor: 'text-orange-500' },
+  lime: { accentBar: 'bg-lime-500', dot: 'bg-lime-500', sparklineColor: 'text-lime-500' },
+  pink: { accentBar: 'bg-pink-500', dot: 'bg-pink-500', sparklineColor: 'text-pink-500' },
+  yellow: { accentBar: 'bg-yellow-500', dot: 'bg-yellow-500', sparklineColor: 'text-yellow-500' },
 };
 
 const MetricCard: React.FC<MetricCardProps> = ({
   title,
-  theme = 'blue',
   mainValue,
   sub1,
   sub2,
   sub3,
-  hasSparkline = false,
   onClick
 }) => {
-  const currentTheme = themeStyles[theme] || themeStyles.blue;
-
   return (
     <div 
       onClick={onClick}
-      className={`bg-gradient-to-br ${currentTheme.cardBg} backdrop-blur-md shadow-2xs hover:shadow-md rounded-xl overflow-hidden flex flex-col justify-between p-3.5 sm:p-4 transition-all duration-200 relative group ${
-        onClick ? 'cursor-pointer hover:-translate-y-0.5' : ''
+      className={`aspect-square bg-white border-r border-b border-amber-500/50 p-3 sm:p-4 transition-all duration-200 flex flex-col justify-between relative group ${
+        onClick ? 'cursor-pointer hover:bg-amber-50/40' : ''
       }`}
     >
-      {/* Blurred background glow circles for light gradient effect */}
-      <div className={`absolute -top-6 -right-6 w-24 h-24 ${currentTheme.glow1} rounded-full blur-xl pointer-events-none transition-all duration-300`} />
-      <div className={`absolute -bottom-6 -left-6 w-20 h-20 ${currentTheme.glow2} rounded-full blur-lg pointer-events-none`} />
-
-      {/* Card Header: Title & Live Dot */}
-      <div className="flex items-center justify-between gap-1 mb-1.5 relative z-10">
-        <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-700 truncate">
+      {/* Title */}
+      <div>
+        <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider text-slate-400 block mb-1 truncate">
           {title}
         </span>
-        <span className="flex items-center gap-1 text-[9px] font-semibold text-slate-400 uppercase tracking-widest shrink-0">
-          <span className={`w-1.5 h-1.5 rounded-full ${currentTheme.dot} animate-pulse`} />
-          LIVE
-        </span>
-      </div>
 
-      {/* Main Metric Value */}
-      <div className="flex items-center justify-between my-2 relative z-10">
-        <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+        {/* Main Metric Value */}
+        <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tracking-tight my-1 truncate">
           {mainValue}
-        </span>
-        {hasSparkline && (
-          <div className={`w-12 h-6 ${currentTheme.sparklineColor}`}>
-            <svg className="w-full h-full" viewBox="0 0 50 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M 0,14 Q 10,18 20,10 T 40,6 T 50,12" />
-            </svg>
-          </div>
-        )}
+        </div>
       </div>
 
       {/* Submetrics Row */}
-      <div className={`mt-3 pt-2.5 border-t ${currentTheme.subBorder} grid grid-cols-3 gap-1.5 relative z-10`}>
+      <div className="mt-2 pt-2 border-t border-slate-100 grid grid-cols-3 gap-1">
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[11px] font-extrabold text-slate-800 leading-none truncate w-full">
+          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
             {sub1.val}
           </span>
-          <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
             {sub1.label}
           </span>
         </div>
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[11px] font-extrabold text-slate-800 leading-none truncate w-full">
+          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
             {sub2.val}
           </span>
-          <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
             {sub2.label}
           </span>
         </div>
         <div className="flex flex-col items-start min-w-0">
-          <span className="text-[11px] font-extrabold text-slate-800 leading-none truncate w-full">
+          <span className="text-[10px] sm:text-[11px] font-black text-slate-900 leading-none truncate w-full">
             {sub3.val}
           </span>
-          <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
+          <span className="text-[8px] font-extrabold uppercase tracking-wider text-slate-400 truncate w-full mt-1">
             {sub3.label}
           </span>
         </div>
@@ -256,7 +127,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
   return (
     <div className="w-full space-y-5 font-sans p-1">
       {/* 5x5 METRIC CARDS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-0 border border-amber-500/80 rounded-2xl overflow-hidden bg-white shadow-xs">
         
         {/* ROW 1 */}
         {/* 1. TOTAL ORDERS */}

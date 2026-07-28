@@ -16,9 +16,10 @@ import {
   CheckCircle2, 
   Calendar,
   ExternalLink,
-  Plus
+  Plus,
+  LogOut
 } from 'lucide-react';
-import { DateFilter, NavigationTab, NotificationItem } from '../types';
+import { DateFilter, NavigationTab, NotificationItem, UserProfile } from '../types';
 
 interface TopHeaderProps {
   activeTab: NavigationTab;
@@ -31,6 +32,8 @@ interface TopHeaderProps {
   onMarkNotificationRead: (id: string) => void;
   onOpenStorefrontPreview: () => void;
   onQuickCreateOrder: () => void;
+  currentUser?: UserProfile | null;
+  onLogout?: () => void;
 }
 
 export const TopHeader: React.FC<TopHeaderProps> = ({
@@ -43,7 +46,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   notifications,
   onMarkNotificationRead,
   onOpenStorefrontPreview,
-  onQuickCreateOrder
+  onQuickCreateOrder,
+  currentUser,
+  onLogout
 }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -331,24 +336,25 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             >
               <div className="text-right hidden sm:block">
                 <div className="text-xs font-black text-slate-900 leading-none">
-                  Shop Owner
+                  {currentUser?.name || 'Shop Owner'}
                 </div>
-                <div className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mt-0.5">
-                  ADMIN
+                <div className="text-[10px] font-extrabold text-orange-600 uppercase tracking-wider mt-0.5">
+                  {currentUser?.role || 'ADMIN'}
                 </div>
               </div>
 
-              {/* Blue avatar with S */}
-              <div className="w-8 h-8 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center shadow-2xs shrink-0">
-                S
+              {/* Orange gradient avatar with initial */}
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+                {(currentUser?.name || 'Shop Owner').charAt(0).toUpperCase()}
               </div>
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-40 text-xs">
+              <div className="absolute right-0 mt-2 w-60 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-40 text-xs animate-fadeIn">
                 <div className="px-4 py-2 border-b border-slate-100">
-                  <p className="font-extrabold text-slate-900">Shop Owner</p>
-                  <p className="text-[11px] text-slate-500 font-medium">admin@shopowner.com</p>
+                  <p className="font-extrabold text-slate-900">{currentUser?.name || 'Shop Owner'}</p>
+                  <p className="text-[11px] text-slate-500 font-medium truncate">{currentUser?.email || 'admin@shopowner.com'}</p>
+                  <p className="text-[10px] font-bold text-orange-600 mt-0.5">{currentUser?.storeName || 'Aura Premium Store BD'}</p>
                 </div>
 
                 <div className="p-1 space-y-1">
@@ -367,9 +373,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                       onOpenStorefrontPreview();
                       setShowProfileMenu(false);
                     }}
-                    className="w-full text-left px-3 py-2 font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-3 py-2 font-bold text-slate-700 hover:bg-orange-50 hover:text-orange-600 rounded-xl flex items-center gap-2 transition-colors"
                   >
-                    <ExternalLink className="w-4 h-4 text-blue-500" />
+                    <ExternalLink className="w-4 h-4 text-orange-500" />
                     View Storefront
                   </button>
                   <button
@@ -382,6 +388,21 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                     <Plus className="w-4 h-4 text-slate-500" />
                     Create Manual Order
                   </button>
+
+                  {onLogout && (
+                    <div className="pt-1 mt-1 border-t border-slate-100">
+                      <button
+                        onClick={() => {
+                          setShowProfileMenu(false);
+                          onLogout();
+                        }}
+                        className="w-full text-left px-3 py-2 font-extrabold text-rose-600 hover:bg-rose-50 rounded-xl flex items-center gap-2 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4 text-rose-600" />
+                        Log Out / Lock Panel
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

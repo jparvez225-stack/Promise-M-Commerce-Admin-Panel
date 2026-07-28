@@ -25,7 +25,8 @@ import {
   OrderStatus, 
   DateFilter, 
   StorefrontConfig, 
-  NotificationItem 
+  NotificationItem,
+  UserProfile
 } from './types';
 import { 
   INITIAL_ORDERS, 
@@ -38,6 +39,15 @@ import {
 } from './data/mockData';
 
 export default function App() {
+  // Auth State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>({
+    name: 'Shop Owner',
+    email: 'admin@shopowner.com',
+    storeName: 'Aura Premium Store BD',
+    role: 'Shop Owner'
+  });
+
   // Navigation & View State
   const [activeTab, setActiveTab] = useState<NavigationTab>('dashboard');
   const [productSubTab, setProductSubTab] = useState<ProductSubTab>('MY_PRODUCTS');
@@ -176,6 +186,10 @@ export default function App() {
           onMarkNotificationRead={handleMarkNotificationRead}
           onOpenStorefrontPreview={() => setActiveTab('storefront')}
           onQuickCreateOrder={handleQuickCreateOrder}
+          currentUser={currentUser}
+          onLogout={() => {
+            setActiveTab('dashboard');
+          }}
         />
 
         {/* Scrollable View Content */}
