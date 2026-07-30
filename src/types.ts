@@ -93,15 +93,35 @@ export interface Product {
   inStock: boolean;
   salesCount: number;
   rating: number;
+  sku?: string;
+  barcode?: string;
+  status?: 'Active' | 'Inactive' | 'Out of Stock' | 'Draft';
+  category?: string;
+  brand?: string;
+  createdAt?: string;
+  createdBy?: string;
+  vendor?: string;
+  outlets?: string[];
+  deliveryInfo?: string;
+  deliveryInsideDhaka?: number;
+  deliveryOutsideDhaka?: number;
+  codAvailable?: boolean;
+  warranty?: string;
+  returnPolicy?: string;
+  otherInfo?: string;
+  stockQty?: number;
 }
 
 export interface CustomerReview {
   id: string;
   author: string;
-  location: string;
+  location?: string;
   date: string;
   rating: number;
   content: string;
+  imageUrl?: string;
+  screenshotUrl?: string;
+  avatarUrl?: string;
 }
 
 export interface SeoMetaData {

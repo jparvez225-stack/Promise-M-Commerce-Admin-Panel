@@ -38,9 +38,12 @@ import {
   ChevronRight,
   Palette,
   Printer,
-  Edit3
+  Edit3,
+  Video,
+  Upload,
+  Image as ImageIcon
 } from 'lucide-react';
-import { StorefrontConfig, Order, ThemeColors } from '../../types';
+import { StorefrontConfig, Order, ThemeColors, CustomerReview, SeoMetaData } from '../../types';
 
 export interface ThemePreset {
   id: string;
@@ -153,8 +156,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   onUpdateConfig,
   onPlaceTestOrder
 }) => {
-  // Navigation View: 'list' (All Pages Table) or 'builder' (Editor)
-  const [currentView, setCurrentView] = useState<'list' | 'builder'>('list');
+  // Navigation View: 'list' (All Pages Table), 'builder' (Editor), or 'create' (New Page Suite)
+  const [currentView, setCurrentView] = useState<'list' | 'builder' | 'create'>('list');
 
   // Multi-Landing Pages List State
   const [landingPages, setLandingPages] = useState<LandingPageItem[]>([
@@ -301,24 +304,75 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'All' | 'Published' | 'Draft'>('All');
 
-  // Create New Page Modal State
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  // Builder Editing States
+  const [activeBuilderTab, setActiveBuilderTab] = useState<'content' | 'theme' | 'pricing' | 'payments' | 'reviews' | 'seo'>('content');
+  const [previewMode, setPreviewMode] = useState<'editor' | 'split' | 'desktop' | 'mobile'>('editor');
+  const [savedSuccess, setSavedSuccess] = useState(false);
+  const [isQuickPreviewOpen, setIsQuickPreviewOpen] = useState(false);
+
+  // Dedicated Landing Page Creator States (Spacious & User-Friendly Form)
   const [newPageTitle, setNewPageTitle] = useState('');
   const [newPageSlug, setNewPageSlug] = useState('');
   const [newPageCategory, setNewPageCategory] = useState<'Natural Product' | 'Food Product' | 'Electronics' | 'Beauty' | 'Fashion'>('Natural Product');
-  
-  // Modal Theme Customization State
-  const [modalThemePreset, setModalThemePreset] = useState<string>('preset-green');
-  const [modalBtnBg, setModalBtnBg] = useState<string>('#008F2F');
-  const [modalBtnText, setModalBtnText] = useState<string>('#FFFFFF');
-  const [modalHeadingColor, setModalHeadingColor] = useState<string>('#064E3B');
-  const [modalBadgeBg, setModalBadgeBg] = useState<string>('#ECFFE8');
-  const [modalBadgeText, setModalBadgeText] = useState<string>('#008F2F');
+  const [newPageBasePrice, setNewPageBasePrice] = useState<number>(1990);
+  const [newPageOriginalPrice, setNewPageOriginalPrice] = useState<number>(2990);
+  const [newPageHeroBadge, setNewPageHeroBadge] = useState('🌿 100% Authentic Organic Product — Cash on Delivery');
+  const [newPageSubTitle, setNewPageSubTitle] = useState('Special Offer • Express Fast Shipping Nationwide');
+  const [newPageDescription, setNewPageDescription] = useState('Highlight your product key benefits, warranty details, and special discount offers with fast Cash on Delivery.');
+  const [newPageImageUrl, setNewPageImageUrl] = useState('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80');
+  const [newPageVideoUrl, setNewPageVideoUrl] = useState('');
+  const [newPageFeatures, setNewPageFeatures] = useState<string[]>([
+    '100% Authentic & Premium Quality Guaranteed',
+    'Fast Express Home Delivery Nationwide with Cash on Delivery',
+    'Inspect product upon delivery before making payment'
+  ]);
+  const [newPageDeliveryDhaka, setNewPageDeliveryDhaka] = useState<number>(60);
+  const [newPageDeliveryOutside, setNewPageDeliveryOutside] = useState<number>(120);
+  const [newPageOrderBtnText, setNewPageOrderBtnText] = useState('Fill Out Form Below to Place Order');
 
-  // Builder Editing States
-  const [activeBuilderTab, setActiveBuilderTab] = useState<'content' | 'theme' | 'pricing' | 'payments' | 'reviews' | 'seo'>('content');
-  const [previewMode, setPreviewMode] = useState<'split' | 'desktop' | 'mobile'>('split');
-  const [savedSuccess, setSavedSuccess] = useState(false);
+  // Theme presets modal & creation states
+  const [modalThemePreset, setModalThemePreset] = useState('preset-green');
+  const [modalBtnBg, setModalBtnBg] = useState('#008F2F');
+  const [modalBtnText, setModalBtnText] = useState('#FFFFFF');
+  const [modalHeadingColor, setModalHeadingColor] = useState('#064E3B');
+  const [modalBadgeBg, setModalBadgeBg] = useState('#ECFFE8');
+  const [modalBadgeText, setModalBadgeText] = useState('#008F2F');
+
+  // Review creation form states
+  const [newReviewAuthor, setNewReviewAuthor] = useState('');
+  const [newReviewRating, setNewReviewRating] = useState<number>(5);
+  const [newReviewContent, setNewReviewContent] = useState('');
+  const [newReviewDate, setNewReviewDate] = useState('2 days ago');
+  const [newReviewLocation, setNewReviewLocation] = useState('Dhaka, Bangladesh');
+  const [newReviewImageUrl, setNewReviewImageUrl] = useState('');
+  const [previewReviewImage, setPreviewReviewImage] = useState<string | null>(null);
+
+  // Dedicated Creator State for Reviews & SEO
+  const [creatorReviews, setCreatorReviews] = useState<CustomerReview[]>([
+    {
+      id: 'rev-init-1',
+      author: 'Mohammed Abdullah',
+      location: 'Dhaka, Bangladesh',
+      rating: 5,
+      content: 'Product quality is excellent! Received cash on delivery within 2 days. Highly recommended!',
+      date: '1 day ago',
+      imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80',
+      screenshotUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80'
+    }
+  ]);
+  const [creatorReviewAuthor, setCreatorReviewAuthor] = useState('');
+  const [creatorReviewRating, setCreatorReviewRating] = useState<number>(5);
+  const [creatorReviewContent, setCreatorReviewContent] = useState('');
+  const [creatorReviewLocation, setCreatorReviewLocation] = useState('Dhaka, Bangladesh');
+  const [creatorReviewTime, setCreatorReviewTime] = useState('Just now');
+  const [creatorReviewImageUrl, setCreatorReviewImageUrl] = useState('');
+
+  const [creatorMetaTitle, setCreatorMetaTitle] = useState('');
+  const [creatorMetaDescription, setCreatorMetaDescription] = useState('');
+  const [creatorMetaKeywords, setCreatorMetaKeywords] = useState('online shop, ecommerce, promo offer, fast delivery');
+  const [creatorOgImage, setCreatorOgImage] = useState('');
+  const [creatorFbPixel, setCreatorFbPixel] = useState('PIXEL-901823712');
+  const [creatorGaId, setCreatorGaId] = useState('G-789234110');
 
   // SEO Meta Data default fallback and helper
   const defaultSeo = {
@@ -345,6 +399,30 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
     onUpdateConfig(updatedConfig);
   };
 
+  const handleUpdateActiveTitle = (title: string) => {
+    setLandingPages(prev =>
+      prev.map(p => (p.id === selectedPageId ? { ...p, title } : p))
+    );
+    handleUpdateActiveConfig({
+      ...currentActiveConfig,
+      productTitle: title
+    });
+  };
+
+  const handleUpdateActiveSlug = (rawSlug: string) => {
+    const formattedSlug = rawSlug.toLowerCase().replace(/[^a-z0-9-]+/g, '');
+    setLandingPages(prev =>
+      prev.map(p => (p.id === selectedPageId ? { ...p, slug: formattedSlug } : p))
+    );
+    handleUpdateActiveConfig({
+      ...currentActiveConfig,
+      seo: {
+        ...currentSeo,
+        canonicalUrl: `https://promisemart.com/landing/${formattedSlug}`
+      }
+    });
+  };
+
   const updateSeo = (updatedFields: Partial<typeof defaultSeo>) => {
     handleUpdateActiveConfig({
       ...currentActiveConfig,
@@ -362,52 +440,235 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
     }
   };
 
-  // Create New Landing Page Handler
-  const handleCreateNewPageSubmit = (e: React.FormEvent) => {
+  // Open Dedicated New Landing Page Creator Suite (Spacious Form View)
+  const handleCreateNewPageDirect = () => {
+    const defaultNum = landingPages.length + 1;
+    const initialTitle = `Special Offer Landing Page #${defaultNum}`;
+    const initialDesc = 'Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery.';
+    
+    setNewPageTitle(initialTitle);
+    setNewPageSlug(`special-offer-${defaultNum}`);
+    setNewPageCategory('Natural Product');
+    setNewPageBasePrice(1990);
+    setNewPageOriginalPrice(2990);
+    setNewPageHeroBadge('🌿 100% Authentic Organic Product — Cash on Delivery');
+    setNewPageSubTitle('Special Offer • Express Fast Shipping Nationwide');
+    setNewPageDescription(initialDesc);
+    setNewPageImageUrl('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80');
+    setNewPageVideoUrl('');
+    setNewPageFeatures([
+      '100% Authentic & Premium Quality Guaranteed',
+      'Fast Express Home Delivery Nationwide with Cash on Delivery',
+      'Inspect product upon delivery before making payment'
+    ]);
+    setNewPageDeliveryDhaka(60);
+    setNewPageDeliveryOutside(120);
+    setNewPageOrderBtnText('Fill Out Form Below to Place Order');
+    setModalThemePreset('preset-green');
+    setModalBtnBg('#008F2F');
+    setModalBtnText('#FFFFFF');
+    setModalHeadingColor('#064E3B');
+    setModalBadgeBg('#ECFFE8');
+    setModalBadgeText('#008F2F');
+
+    // Initialize Creator Reviews & SEO
+    setCreatorReviews([
+      {
+        id: 'rev-init-1',
+        author: 'Mohammed Abdullah',
+        location: 'Dhaka, Bangladesh',
+        rating: 5,
+        content: 'Product quality is excellent! Received cash on delivery within 2 days. Thank you!',
+        date: '1 day ago',
+        imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80',
+        screenshotUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80'
+      }
+    ]);
+    setCreatorMetaTitle(`${initialTitle} - Official Store Offer`);
+    setCreatorMetaDescription(initialDesc);
+    setCreatorMetaKeywords('online shop, ecommerce bd, special deal, fast delivery, promo offer');
+    setCreatorOgImage('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80');
+    setCreatorFbPixel('PIXEL-901823712');
+    setCreatorGaId('G-789234110');
+
+    setCurrentView('create');
+  };
+
+  // Dedicated Creator Form Submit Handler
+  const handleCreateFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPageTitle.trim()) return;
+    const finalTitle = newPageTitle.trim() || 'New Landing Page';
+    const finalSlug = newPageSlug.trim() ? newPageSlug.toLowerCase().replace(/[^a-z0-9-]+/g, '-') : `page-${Date.now()}`;
+    const newPageId = `lp-${Date.now()}`;
 
-    const generatedSlug = newPageSlug.trim() 
-      ? newPageSlug.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
-      : newPageTitle.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-
-    const matchedPreset = THEME_PRESETS.find(p => p.id === modalThemePreset);
+    const newPageConfig: StorefrontConfig = {
+      ...config,
+      productTitle: finalTitle,
+      productSubTitle: newPageSubTitle || 'Special Offer • Fast Shipping Nationwide',
+      productDescription: newPageDescription || 'High quality authentic products with fast Cash on Delivery.',
+      heroBadge: newPageHeroBadge || '🌿 Special Offer — Cash on Delivery',
+      basePrice: Number(newPageBasePrice) || 1990,
+      originalPrice: Number(newPageOriginalPrice) || 2990,
+      deliveryInsideDhaka: Number(newPageDeliveryDhaka) || 60,
+      deliverySubDhaka: 80,
+      deliveryOutsideDhaka: Number(newPageDeliveryOutside) || 120,
+      videoEmbedUrl: newPageVideoUrl || '',
+      themeColors: {
+        primaryButtonBg: modalBtnBg || '#008F2F',
+        primaryButtonText: modalBtnText || '#FFFFFF',
+        headingTextColor: modalHeadingColor || '#064E3B',
+        accentBadgeBg: modalBadgeBg || '#ECFFE8',
+        accentBadgeText: modalBadgeText || '#008F2F',
+        themePresetName: modalThemePreset || 'Natural Green'
+      },
+      features: newPageFeatures.filter(f => f.trim().length > 0),
+      paymentMethods: {
+        cod: true,
+        bkash: true,
+        card: true
+      },
+      reviews: creatorReviews.length > 0 ? creatorReviews : [
+        {
+          id: 'rev-1',
+          author: 'Mohammed Abdullah',
+          location: 'Dhaka, Bangladesh',
+          rating: 5,
+          content: 'Product quality is excellent! Received cash on delivery within 2 days.',
+          date: '1 day ago',
+          imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80',
+          screenshotUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80'
+        }
+      ],
+      seo: {
+        metaTitle: creatorMetaTitle.trim() || `${finalTitle} - Official Store Offer`,
+        metaDescription: creatorMetaDescription.trim() || newPageDescription || 'Shop high quality products online with 100% Cash On Delivery & Fast Shipping.',
+        metaKeywords: creatorMetaKeywords.trim() || 'online store, e-commerce, special deal, express delivery',
+        canonicalUrl: `https://promisemart.com/landing/${finalSlug}`,
+        ogTitle: `${finalTitle} | Special Discount`,
+        ogDescription: creatorMetaDescription.trim() || newPageDescription || 'Get exclusive discount offers with Cash on Delivery nationwide.',
+        ogImage: creatorOgImage.trim() || newPageImageUrl || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+        schemaType: 'Product',
+        allowIndexing: true,
+        googleAnalyticsId: creatorGaId.trim() || 'G-789234110',
+        fbPixelId: creatorFbPixel.trim() || 'PIXEL-901823712'
+      }
+    };
 
     const newPage: LandingPageItem = {
-      id: `lp-${Date.now()}`,
-      title: newPageTitle,
-      slug: generatedSlug,
+      id: newPageId,
+      title: finalTitle,
+      slug: finalSlug,
       status: 'Published',
       views: 0,
       conversions: 0,
       revenue: 0,
       createdAt: new Date().toISOString().substring(0, 10),
-      config: {
-        ...config,
-        productTitle: newPageTitle,
-        productSubTitle: `${newPageCategory} • Premium ${matchedPreset?.presetBadge || 'Theme'}`,
-        productDescription: `Discover high quality ${newPageTitle} with exclusive discounts, fast home delivery across Bangladesh, and cash on delivery guarantee.`,
-        heroBadge: `${newPageCategory === 'Natural Product' ? '🌿 ১০০% ন্যাচারাল প্রডাক্ট' : newPageCategory === 'Food Product' ? '🍔 ১০% স্পেশাল ঘরোয়া খাবারের ডিল' : '⚡ বিশেষ ছাড় — সীমিত সময়ের অফার'}`,
-        basePrice: 1990,
-        originalPrice: 2990,
-        themeColors: {
-          primaryButtonBg: modalBtnBg,
-          primaryButtonText: modalBtnText,
-          headingTextColor: modalHeadingColor,
-          accentBadgeBg: modalBadgeBg,
-          accentBadgeText: modalBadgeText,
-          themePresetName: matchedPreset ? matchedPreset.name.includes('Natural') ? 'Natural Organic' : matchedPreset.name.includes('Food') ? 'Food & Restaurant' : 'Custom' : 'Custom'
-        }
-      }
+      config: newPageConfig
     };
 
     setLandingPages([newPage, ...landingPages]);
-    setSelectedPageId(newPage.id);
-    onUpdateConfig(newPage.config);
-    setIsCreateModalOpen(false);
-    setNewPageTitle('');
-    setNewPageSlug('');
+    setSelectedPageId(newPageId);
+    onUpdateConfig(newPageConfig);
     setCurrentView('builder');
+    setPreviewMode('editor');
+    setActiveBuilderTab('content');
+  };
+
+  const handleAddFeature = () => {
+    setNewPageFeatures([...newPageFeatures, 'New Key Product Feature or Benefit']);
+  };
+
+  const handleUpdateFeature = (index: number, val: string) => {
+    const updated = [...newPageFeatures];
+    updated[index] = val;
+    setNewPageFeatures(updated);
+  };
+
+  const handleRemoveFeature = (index: number) => {
+    setNewPageFeatures(newPageFeatures.filter((_, i) => i !== index));
+  };
+
+  // Creator Review Handlers
+  const handleCreatorReviewFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setCreatorReviewImageUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAddCreatorReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!creatorReviewAuthor.trim() || !creatorReviewContent.trim()) return;
+    const newRev: CustomerReview = {
+      id: `rev-${Date.now()}`,
+      author: creatorReviewAuthor.trim(),
+      location: creatorReviewLocation.trim() || 'Dhaka, BD',
+      rating: creatorReviewRating,
+      content: creatorReviewContent.trim(),
+      date: creatorReviewTime || 'Just now',
+      imageUrl: creatorReviewImageUrl.trim() || undefined,
+      screenshotUrl: creatorReviewImageUrl.trim() || undefined
+    };
+    setCreatorReviews([newRev, ...creatorReviews]);
+    setCreatorReviewAuthor('');
+    setCreatorReviewContent('');
+    setCreatorReviewImageUrl('');
+  };
+
+  const handleRemoveCreatorReview = (id: string) => {
+    setCreatorReviews(creatorReviews.filter(r => r.id !== id));
+  };
+
+  // Builder Review Image File Upload Handler
+  const handleBuilderReviewFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setNewReviewImageUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Add Review Handler inside Builder & Creator
+  const handleAddReview = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReviewAuthor.trim() || !newReviewContent.trim()) return;
+    const newRev = {
+      id: `rev-${Date.now()}`,
+      author: newReviewAuthor.trim(),
+      location: newReviewLocation.trim() || 'Dhaka, BD',
+      rating: newReviewRating,
+      content: newReviewContent.trim(),
+      date: newReviewDate || 'Just now',
+      imageUrl: newReviewImageUrl.trim() || undefined,
+      screenshotUrl: newReviewImageUrl.trim() || undefined
+    };
+    const updatedReviews = [newRev, ...(currentActiveConfig.reviews || [])];
+    handleUpdateActiveConfig({
+      ...currentActiveConfig,
+      reviews: updatedReviews
+    });
+    setNewReviewAuthor('');
+    setNewReviewContent('');
+    setNewReviewImageUrl('');
+  };
+
+  const handleDeleteReview = (reviewId: string) => {
+    const updatedReviews = (currentActiveConfig.reviews || []).filter(r => r.id !== reviewId);
+    handleUpdateActiveConfig({
+      ...currentActiveConfig,
+      reviews: updatedReviews
+    });
   };
 
   // Duplicate Landing Page Handler
@@ -432,8 +693,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   };
 
   // Delete Landing Page Handler
-  const handleDeletePage = (pageId: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleDeletePage = (pageId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     if (landingPages.length <= 1) {
       alert('You must keep at least one landing page.');
       return;
@@ -531,38 +792,11 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 </p>
               </div>
 
-              {/* Action Buttons & Quick Search */}
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="relative">
-                  <Search className="w-3.5 h-3.5 text-[#8F8F8F] absolute left-3 top-2.5" />
-                  <input
-                    type="text"
-                    placeholder="Search by title, slug or product..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-8 pr-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none w-56 placeholder:text-[#8F8F8F]"
-                  />
-                </div>
-
+              {/* Action Buttons: ONLY NEW PAGE BUTTON */}
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => alert('Exporting landing page performance metrics to CSV...')}
-                  className="px-3 py-1.5 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all flex items-center gap-1.5 shrink-0"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>EXPORT CSV</span>
-                </button>
-
-                <button
-                  onClick={() => alert('Opening tutorial guide for Landing Page Builder...')}
-                  className="px-3 py-1.5 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all flex items-center gap-1.5 shrink-0"
-                >
-                  <HelpCircle className="w-3.5 h-3.5" />
-                  <span>TUTORIAL</span>
-                </button>
-
-                <button
-                  onClick={() => setIsCreateModalOpen(true)}
-                  className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 shadow-2xs shrink-0 uppercase tracking-wider"
+                  onClick={() => handleCreateNewPageDirect()}
+                  className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 shadow-2xs shrink-0 uppercase tracking-wider cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>NEW PAGE</span>
@@ -638,14 +872,28 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
           {/* Landing Pages Table (Matching Screenshot Transaction Ledger Exactly) */}
           <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs">
-            {/* Table Header Bar */}
-            <div className="p-4 border-b border-[#EEEEEE] bg-[#FCF1E5] flex items-center justify-between">
-              <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
-                LANDING PAGES LEDGER
-              </h3>
-              <span className="text-xs font-semibold text-[#545454]">
-                Showing {filteredPages.length} entries
-              </span>
+            {/* Table Header Bar with Integrated Search */}
+            <div className="p-3.5 border-b border-[#EEEEEE] bg-[#FCF1E5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
+                  LANDING PAGES LEDGER
+                </h3>
+                <span className="text-xs font-semibold text-[#545454]">
+                  ({filteredPages.length} entries)
+                </span>
+              </div>
+
+              {/* Search Option inside Table Header */}
+              <div className="relative w-full sm:w-72">
+                <Search className="w-3.5 h-3.5 text-[#8F8F8F] absolute left-3 top-2.5" />
+                <input
+                  type="text"
+                  placeholder="Search by title, slug or product..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-8 pr-3 py-1.5 bg-white border border-[#EEAB59] rounded-full text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none w-full placeholder:text-[#8F8F8F] shadow-2xs"
+                />
+              </div>
             </div>
 
             <div className="overflow-x-auto">
@@ -769,34 +1017,838 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                             <button
                               onClick={() => handleEditPage(page.id)}
-                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
-                              title="Preview Storefront"
+                              className="p-1.5 text-amber-600 hover:text-amber-800 hover:bg-amber-50 rounded-md transition-colors border border-amber-200 bg-white"
+                              title="Customize Landing Page Builder"
                             >
-                              <Eye className="w-3.5 h-3.5" />
+                              <Edit className="w-3.5 h-3.5" />
                             </button>
 
                             <button
-                              onClick={() => handleEditPage(page.id)}
-                              className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
-                              title="Edit in Landing Page Builder"
+                              onClick={() => handleDeletePage(page.id)}
+                              className="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-md transition-colors border border-rose-200 bg-white"
+                              title="Delete Page"
                             >
-                              <Edit3 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         </td>
                       </tr>
                     );
                   })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
 
-                  {filteredPages.length === 0 && (
-                    <tr>
-                      <td colSpan={6} className="py-8 text-center text-[#545454] font-semibold">
-                        No landing pages found matching your filter criteria.
-                      </td>
-                    </tr>
+      {/* ========================================================================= */}
+      {/* VIEW 3: NEW LANDING PAGE CREATOR SUITE (DESIGN SYSTEM COMPLIANT) */}
+      {/* ========================================================================= */}
+      {currentView === 'create' && (
+        <div className="space-y-5">
+          {/* Top Control Bar (Matching Design System Header) */}
+          <div className="border border-[#EEAB59] rounded bg-white p-4 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setCurrentView('list')}
+                className="p-2 bg-[#FCF1E5] hover:bg-[#EEAB59]/30 border border-[#EEAB59] text-[#E67E00] rounded-full transition-all cursor-pointer"
+                title="Back to Landing Pages Ledger"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <div>
+                <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 rounded uppercase tracking-wider inline-block mb-1">
+                  NEW LANDING PAGE CREATOR
+                </span>
+                <h2 className="text-xl font-bold text-[#0E0E0E] uppercase tracking-tight">
+                  CREATE NEW LANDING PAGE
+                </h2>
+                <p className="text-xs font-medium text-[#545454] mt-0.5">
+                  Configure page title, URL slug, pricing, media assets, theme styling, customer reviews, and SEO meta tags.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setCurrentView('list')}
+                className="px-3.5 py-1.5 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all cursor-pointer shrink-0 uppercase tracking-wider"
+              >
+                CANCEL
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const form = document.getElementById('new-page-creator-form') as HTMLFormElement;
+                  if (form) form.requestSubmit();
+                }}
+                className="px-4 py-1.5 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 shadow-2xs shrink-0 uppercase tracking-wider cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>SAVE & PUBLISH PAGE</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Main Grid: 7-8 Cols Form + 4-5 Cols Sticky Preview Box */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            {/* Left Column: Form Sections */}
+            <div className="lg:col-span-7 xl:col-span-8 space-y-5">
+              <form id="new-page-creator-form" onSubmit={handleCreateFormSubmit} className="space-y-5">
+                
+                {/* SECTION 1: BASIC PAGE INFO */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        SECTION 1: TITLE & CUSTOM URL SLUG
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                      PAGE METADATA
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Landing Page Title / Product Name <span className="text-[#FF0000]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={newPageTitle}
+                        onChange={(e) => {
+                          const title = e.target.value;
+                          setNewPageTitle(title);
+                          if (!newPageSlug || newPageSlug.startsWith('special-offer-')) {
+                            setNewPageSlug(title.toLowerCase().replace(/[^a-z0-9-]+/g, '-'));
+                          }
+                        }}
+                        placeholder="e.g. Aura Pro Studio Wireless ANC Headphones"
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none placeholder:text-[#8F8F8F]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Custom Page URL Slug <span className="text-[#FF0000]">*</span>
+                      </label>
+                      <div className="flex items-center">
+                        <span className="px-3 py-2 bg-[#FCF1E5] border border-r-0 border-[#EEAB59] rounded-l text-[11px] text-[#E67E00] font-mono font-bold shrink-0">
+                          /landing/
+                        </span>
+                        <input
+                          type="text"
+                          required
+                          value={newPageSlug}
+                          onChange={(e) => setNewPageSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, ''))}
+                          placeholder="special-offer-deal"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded-r text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none font-mono placeholder:text-[#8F8F8F]"
+                        />
+                      </div>
+                      {newPageSlug && (
+                        <p className="text-[10px] text-[#008F2F] font-mono mt-1 font-bold truncate">
+                          ✓ Live URL: promisemart.com/landing/<strong className="font-extrabold">{newPageSlug}</strong>
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Product Category & Preset Style
+                      </label>
+                      <select
+                        value={newPageCategory}
+                        onChange={(e) => {
+                          const cat = e.target.value as any;
+                          setNewPageCategory(cat);
+                          if (cat === 'Natural Product') {
+                            setModalThemePreset('preset-green');
+                            setModalBtnBg('#008F2F');
+                            setModalBtnText('#FFFFFF');
+                            setModalHeadingColor('#064E3B');
+                            setModalBadgeBg('#ECFFE8');
+                            setModalBadgeText('#008F2F');
+                            setNewPageHeroBadge('🌿 100% Authentic Organic Product — Cash on Delivery');
+                          } else if (cat === 'Food Product') {
+                            setModalThemePreset('preset-food');
+                            setModalBtnBg('#DC2626');
+                            setModalBtnText('#FFFFFF');
+                            setModalHeadingColor('#7F1D1D');
+                            setModalBadgeBg('#FEF2F2');
+                            setModalBadgeText('#DC2626');
+                            setNewPageHeroBadge('🍔 Gourmet Special Food Deal — Express Shipping');
+                          } else if (cat === 'Electronics') {
+                            setModalThemePreset('preset-blue');
+                            setModalBtnBg('#2563EB');
+                            setModalBtnText('#FFFFFF');
+                            setModalHeadingColor('#1E3A8A');
+                            setModalBadgeBg('#EFF6FF');
+                            setModalBadgeText('#2563EB');
+                            setNewPageHeroBadge('⚡ Guaranteed Premium Gadget — Limited Deal');
+                          } else if (cat === 'Beauty') {
+                            setModalThemePreset('preset-beauty');
+                            setModalBtnBg('#E11D48');
+                            setModalBtnText('#FFFFFF');
+                            setModalHeadingColor('#881337');
+                            setModalBadgeBg('#FFF1F2');
+                            setModalBadgeText('#E11D48');
+                            setNewPageHeroBadge('💖 100% Authentic Skincare — Cash on Delivery');
+                          } else if (cat === 'Fashion') {
+                            setModalThemePreset('preset-gold');
+                            setModalBtnBg('#D97706');
+                            setModalBtnText('#FFFFFF');
+                            setModalHeadingColor('#451A03');
+                            setModalBadgeBg('#FEF3C7');
+                            setModalBadgeText('#B45309');
+                            setNewPageHeroBadge('👑 Royal Fashion Collection — Exclusive Discount');
+                          }
+                        }}
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none cursor-pointer"
+                      >
+                        <option value="Natural Product">🌿 Natural & Organic Product (Green Theme)</option>
+                        <option value="Food Product">🍔 Food, Snacks & Bakery (Red Theme)</option>
+                        <option value="Electronics">🎧 Electronics & Gadgets (Royal Blue Theme)</option>
+                        <option value="Beauty">💖 Health & Beauty (Rose Pink Theme)</option>
+                        <option value="Fashion">👑 Fashion & Accessories (Luxury Gold Theme)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION 2: PRICING & DELIVERY */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        SECTION 2: OFFER PRICING & SHIPPING CHARGES
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/30">
+                      FINANCIAL RATES
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Offer Selling Price (BDT) <span className="text-[#FF0000]">*</span>
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-3.5 top-2 font-bold text-[#E67E00] text-xs">৳</span>
+                        <input
+                          type="number"
+                          required
+                          value={newPageBasePrice}
+                          onChange={(e) => setNewPageBasePrice(Number(e.target.value))}
+                          placeholder="1990"
+                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-extrabold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Original Regular Price (BDT)
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-3.5 top-2 font-bold text-[#8F8F8F] text-xs">৳</span>
+                        <input
+                          type="number"
+                          value={newPageOriginalPrice}
+                          onChange={(e) => setNewPageOriginalPrice(Number(e.target.value))}
+                          placeholder="2990"
+                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Inside Dhaka Delivery Rate (BDT)
+                      </label>
+                      <input
+                        type="number"
+                        value={newPageDeliveryDhaka}
+                        onChange={(e) => setNewPageDeliveryDhaka(Number(e.target.value))}
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Outside Dhaka Delivery Rate (BDT)
+                      </label>
+                      <input
+                        type="number"
+                        value={newPageDeliveryOutside}
+                        onChange={(e) => setNewPageDeliveryOutside(Number(e.target.value))}
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION 3: MEDIA & DESCRIPTION */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        SECTION 3: MEDIA, VIDEO & PRODUCT COPY
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                      ASSET MEDIA
+                    </span>
+                  </div>
+
+                  <div className="space-y-3.5 pt-1">
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Hero Product Image URL
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-full">
+                          <ImageIcon className="w-4 h-4 text-[#8F8F8F] absolute left-3 top-2.5" />
+                          <input
+                            type="url"
+                            value={newPageImageUrl}
+                            onChange={(e) => setNewPageImageUrl(e.target.value)}
+                            placeholder="https://images.unsplash.com/photo-..."
+                            className="w-full pl-9 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          />
+                        </div>
+                        {newPageImageUrl && (
+                          <img
+                            src={newPageImageUrl}
+                            alt="Product Preview"
+                            className="w-9 h-9 rounded object-cover border border-[#EEAB59] shrink-0 shadow-2xs"
+                          />
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1 flex items-center gap-1.5">
+                        <Video className="w-3.5 h-3.5 text-[#E67E00]" />
+                        <span>YouTube / Vimeo Video Embed Link</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={newPageVideoUrl}
+                        onChange={(e) => setNewPageVideoUrl(e.target.value)}
+                        placeholder="https://www.youtube.com/embed/..."
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Detailed Product Offer Description
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={newPageDescription}
+                        onChange={(e) => setNewPageDescription(e.target.value)}
+                        placeholder="Describe key benefits, usage instructions, and quality guarantees..."
+                        className="w-full p-3 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    {/* Feature Bullet Points */}
+                    <div className="space-y-2 pt-1">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-[#0E0E0E]">
+                          Key Highlights & Guarantee Bullet Points:
+                        </label>
+                        <button
+                          type="button"
+                          onClick={handleAddFeature}
+                          className="px-3 py-1 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-[11px] rounded-full transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
+                        >
+                          <Plus className="w-3 h-3" />
+                          <span>Add Bullet Point</span>
+                        </button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {newPageFeatures.map((feat, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <span className="w-5 h-5 rounded bg-[#ECFFE8] text-[#008F2F] font-black text-xs flex items-center justify-center shrink-0 border border-[#008F2F]/20">
+                              ✓
+                            </span>
+                            <input
+                              type="text"
+                              value={feat}
+                              onChange={(e) => handleUpdateFeature(idx, e.target.value)}
+                              className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                            />
+                            {newPageFeatures.length > 1 && (
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveFeature(idx)}
+                                className="p-1.5 text-[#8F8F8F] hover:text-red-600 rounded cursor-pointer shrink-0"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION 4: CUSTOMER REVIEWS & SOCIAL PROOF */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#008F2F] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        SECTION 4: CUSTOMER REVIEWS & CHAT SCREENSHOTS
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/30">
+                      {creatorReviews.length} REVIEWS ADDED
+                    </span>
+                  </div>
+
+                  {/* Add Review Box */}
+                  <div className="p-3.5 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded space-y-3 text-xs">
+                    <span className="font-bold text-[#0E0E0E] block text-xs">
+                      ➕ কাস্টমার রিভিউ অথবা হোয়াটসঅ্যাপ/মেসেঞ্জার স্ক্রিনশট যোগ করুন:
+                    </span>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">Customer Name</label>
+                        <input
+                          type="text"
+                          value={creatorReviewAuthor}
+                          onChange={(e) => setCreatorReviewAuthor(e.target.value)}
+                          placeholder="মোহাম্মদ আব্দুল্লাহ"
+                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">Star Rating</label>
+                        <select
+                          value={creatorReviewRating}
+                          onChange={(e) => setCreatorReviewRating(Number(e.target.value))}
+                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#E67E00] focus:border-[#008F2F] focus:outline-none cursor-pointer"
+                        >
+                          <option value={5}>★★★★★ (5 Stars)</option>
+                          <option value={4}>★★★★☆ (4 Stars)</option>
+                          <option value={3}>★★★☆☆ (3 Stars)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">Location / Time</label>
+                        <input
+                          type="text"
+                          value={creatorReviewTime}
+                          onChange={(e) => setCreatorReviewTime(e.target.value)}
+                          placeholder="Dhaka • 1 day ago"
+                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">Customer Comment</label>
+                      <textarea
+                        rows={2}
+                        value={creatorReviewContent}
+                        onChange={(e) => setCreatorReviewContent(e.target.value)}
+                        placeholder="পণ্যটি পেয়ে খুব ভালো লাগলো, একদম অরিজিনাল কোয়ালিটি..."
+                        className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    {/* Image URL & File Upload */}
+                    <div>
+                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                        Review Photo or Chat Screenshot
+                      </label>
+                      <div className="flex flex-col sm:flex-row items-center gap-2">
+                        <input
+                          type="url"
+                          value={creatorReviewImageUrl}
+                          onChange={(e) => setCreatorReviewImageUrl(e.target.value)}
+                          placeholder="https://images.unsplash.com/photo-..."
+                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                        <label className="px-3.5 py-1.5 bg-white border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
+                          <Upload className="w-3.5 h-3.5" />
+                          <span>Upload File</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleCreatorReviewFileUpload}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                      {creatorReviewImageUrl && (
+                        <div className="mt-2 flex items-center gap-2">
+                          <img
+                            src={creatorReviewImageUrl}
+                            alt="Review Preview"
+                            className="w-12 h-12 object-cover rounded border border-[#EEAB59]"
+                          />
+                          <span className="text-[10px] text-[#008F2F] font-bold">Photo attached successfully!</span>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleAddCreatorReview}
+                      className="px-4 py-1.5 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>+ Add Customer Review</span>
+                    </button>
+                  </div>
+
+                  {/* List of Added Creator Reviews */}
+                  <div className="space-y-2 pt-1">
+                    {creatorReviews.map((rev) => (
+                      <div key={rev.id} className="p-3 bg-white border border-[#EEEEEE] rounded flex items-start justify-between gap-3 text-xs">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2 font-bold text-[#0E0E0E]">
+                            <span>{rev.author}</span>
+                            <span className="text-[#E67E00]">{'★'.repeat(rev.rating)}</span>
+                            <span className="text-[10px] text-[#8F8F8F] font-normal">({rev.date})</span>
+                          </div>
+                          <p className="text-[11px] text-[#545454] leading-relaxed">{rev.content}</p>
+                          {(rev.imageUrl || rev.screenshotUrl) && (
+                            <img
+                              src={rev.imageUrl || rev.screenshotUrl}
+                              alt="Customer Review Screenshot"
+                              className="w-16 h-16 object-cover rounded border border-[#EEAB59] mt-1"
+                            />
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveCreatorReview(rev.id)}
+                          className="p-1.5 text-[#8F8F8F] hover:text-red-600 rounded cursor-pointer shrink-0"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* SECTION 5: SEO & META DATA */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#008F2F] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5 text-[#008F2F]" />
+                        <span>SECTION 5: SEO, META DATA & PIXEL TRACKING</span>
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/30">
+                      SEARCH OPTIMIZATION
+                    </span>
+                  </div>
+
+                  <div className="space-y-3.5 text-xs pt-1">
+                    <div>
+                      <div className="flex justify-between items-center mb-1">
+                        <label className="font-bold text-[#0E0E0E]">Meta Title (Google Search Title)</label>
+                        <span className={`text-[10px] font-bold ${creatorMetaTitle.length > 60 ? 'text-red-600' : 'text-[#8F8F8F]'}`}>
+                          {creatorMetaTitle.length}/60 chars
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        value={creatorMetaTitle}
+                        onChange={(e) => setCreatorMetaTitle(e.target.value)}
+                        placeholder="e.g. 100% Authentic Organic Honey - Special Offer BD"
+                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex justify-between items-center mb-1">
+                        <label className="font-bold text-[#0E0E0E]">Meta Description (Search Snippet)</label>
+                        <span className={`text-[10px] font-bold ${creatorMetaDescription.length > 160 ? 'text-red-600' : 'text-[#8F8F8F]'}`}>
+                          {creatorMetaDescription.length}/160 chars
+                        </span>
+                      </div>
+                      <textarea
+                        rows={2}
+                        value={creatorMetaDescription}
+                        onChange={(e) => setCreatorMetaDescription(e.target.value)}
+                        placeholder="Write a clear search summary for Google results..."
+                        className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block font-bold text-[#0E0E0E] mb-1">Meta Keywords</label>
+                        <input
+                          type="text"
+                          value={creatorMetaKeywords}
+                          onChange={(e) => setCreatorMetaKeywords(e.target.value)}
+                          placeholder="organic honey, sundarban honey, deal"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-[#0E0E0E] mb-1">Social OG Share Image URL</label>
+                        <input
+                          type="url"
+                          value={creatorOgImage}
+                          onChange={(e) => setCreatorOgImage(e.target.value)}
+                          placeholder="https://images.unsplash.com/..."
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Facebook Pixel & Google Analytics */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2 border-t border-[#EEEEEE]">
+                      <div>
+                        <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                          <span>Facebook Pixel ID</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={creatorFbPixel}
+                          onChange={(e) => setCreatorFbPixel(e.target.value)}
+                          placeholder="e.g. 8912839128391"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
+                          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                          <span>Google Analytics (GA4) ID</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={creatorGaId}
+                          onChange={(e) => setCreatorGaId(e.target.value)}
+                          placeholder="e.g. G-789234110"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Google Search Live Preview */}
+                    <div className="p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded space-y-1">
+                      <span className="text-[10px] font-bold text-[#E67E00] uppercase tracking-wider block">
+                        🔍 Google Search Snippet Preview:
+                      </span>
+                      <div className="text-blue-700 font-bold text-xs leading-snug hover:underline cursor-pointer line-clamp-1">
+                        {creatorMetaTitle || newPageTitle || 'Landing Page Title'}
+                      </div>
+                      <div className="text-[#008F2F] font-mono text-[11px]">
+                        https://promisemart.com/landing/{newPageSlug || 'page'}
+                      </div>
+                      <div className="text-[#545454] text-[11px] leading-relaxed line-clamp-2">
+                        {creatorMetaDescription || newPageDescription || 'Landing page short description...'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* SECTION 6: THEME COLORS & SUBMIT */}
+                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        SECTION 6: BUTTON & THEME COLOR STYLE
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                      BRAND PRESETS
+                    </span>
+                  </div>
+
+                  {/* Quick Presets */}
+                  <div className="space-y-2 pt-1">
+                    <label className="block font-bold text-xs text-[#545454]">
+                      🎨 Select Brand Color Preset:
+                    </label>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {THEME_PRESETS.map((preset) => {
+                        const isSelected = modalBtnBg.toLowerCase() === preset.primaryButtonBg.toLowerCase();
+                        return (
+                          <button
+                            key={preset.id}
+                            type="button"
+                            onClick={() => {
+                              setModalThemePreset(preset.id);
+                              setModalBtnBg(preset.primaryButtonBg);
+                              setModalBtnText(preset.primaryButtonText);
+                              setModalHeadingColor(preset.headingTextColor);
+                              setModalBadgeBg(preset.accentBadgeBg);
+                              setModalBadgeText(preset.accentBadgeText);
+                            }}
+                            className={`px-3 py-1.5 text-xs font-bold rounded border transition-all flex items-center gap-2 cursor-pointer ${
+                              isSelected
+                                ? 'border-[#008F2F] bg-[#ECFFE8] text-[#008F2F] font-extrabold'
+                                : 'border-[#EEAB59] bg-white text-[#545454] hover:bg-[#FCF1E5]'
+                            }`}
+                          >
+                            <span className="w-3 h-3 rounded shrink-0" style={{ backgroundColor: preset.primaryButtonBg }} />
+                            <span>{preset.presetBadge}</span>
+                            {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#008F2F]" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Form Submit Footer */}
+                  <div className="pt-4 border-t border-[#EEEEEE] flex items-center justify-between gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentView('list')}
+                      className="px-4 py-2 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all cursor-pointer uppercase tracking-wider"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      className="px-6 py-2.5 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-xs rounded-full shadow-2xs flex items-center gap-1.5 transition-all cursor-pointer uppercase tracking-wider"
+                    >
+                      <Sparkles className="w-4 h-4" />
+                      <span>CREATE & PUBLISH PAGE</span>
+                    </button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+            {/* Right Column: Live Interactive Card Preview */}
+            <div className="lg:col-span-5 xl:col-span-4 sticky top-6">
+              <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded bg-[#008F2F]"></span>
+                    <h4 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                      LIVE PAGE PREVIEW
+                    </h4>
+                  </div>
+                  <span className="px-2 py-0.5 text-[9px] font-bold bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 rounded uppercase tracking-wider">
+                    REAL-TIME
+                  </span>
+                </div>
+
+                {/* Hero Banner Box */}
+                <div className="rounded overflow-hidden border border-[#EEAB59] bg-[#FCF1E5]/30 relative">
+                  {newPageImageUrl ? (
+                    <img
+                      src={newPageImageUrl}
+                      alt={newPageTitle || 'Product Preview'}
+                      className="w-full h-44 object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-44 bg-[#FCF1E5] flex items-center justify-center text-[#E67E00] font-bold text-xs">
+                      Product Image Preview
+                    </div>
                   )}
-                </tbody>
-              </table>
+                  
+                  <div className="absolute top-2.5 right-2.5 bg-[#E67E00] text-white px-2.5 py-0.5 rounded font-black text-xs shadow-2xs">
+                    ৳{newPageBasePrice.toLocaleString()}
+                  </div>
+                </div>
+
+                {/* Badge Tagline */}
+                {newPageHeroBadge && (
+                  <div 
+                    style={{ backgroundColor: modalBadgeBg, color: modalBadgeText }}
+                    className="px-3 py-1.5 rounded-xl font-extrabold text-[11px] text-center border border-current/20"
+                  >
+                    {newPageHeroBadge}
+                  </div>
+                )}
+
+                {/* Title & Price */}
+                <div>
+                  <h3 
+                    style={{ color: modalHeadingColor }} 
+                    className="font-black text-sm leading-snug line-clamp-2"
+                  >
+                    {newPageTitle || 'Your Landing Page Title...'}
+                  </h3>
+                  <p className="text-[11px] font-bold text-[#545454] mt-1">
+                    {newPageSubTitle || 'Special Offer • Fast Delivery'}
+                  </p>
+                </div>
+
+                {/* Price Tag */}
+                <div className="p-3 bg-[#FCF1E5]/40 rounded border border-[#EEAB59] flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold text-[#8F8F8F] block uppercase">Offer Price:</span>
+                    <span className="text-lg font-black text-[#E67E00]">
+                      ৳{newPageBasePrice.toLocaleString()}
+                    </span>
+                    {newPageOriginalPrice && (
+                      <span className="text-xs text-[#8F8F8F] line-through ml-2 font-medium">
+                        ৳{newPageOriginalPrice.toLocaleString()}
+                      </span>
+                    )}
+                  </div>
+                  <span className="px-2.5 py-1 bg-[#ECFFE8] text-[#008F2F] text-[10px] font-extrabold rounded-full border border-[#008F2F]/20">
+                    Special Discount
+                  </span>
+                </div>
+
+                {/* Features Preview */}
+                <div className="space-y-1.5">
+                  <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-wider block">
+                    Key Features:
+                  </span>
+                  {newPageFeatures.map((f, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-[11px] font-semibold text-[#0E0E0E]">
+                      <span className="text-[#008F2F] font-bold shrink-0">✓</span>
+                      <span className="line-clamp-1">{f}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Live CTA Button */}
+                <div className="pt-2 border-t border-[#EEEEEE] text-center space-y-2">
+                  <button
+                    type="button"
+                    style={{ backgroundColor: modalBtnBg, color: modalBtnText }}
+                    className="w-full py-3 px-4 rounded-full font-black text-xs uppercase tracking-wider shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>{newPageOrderBtnText || 'Click to Order Now'} • ৳{newPageBasePrice.toLocaleString()}</span>
+                  </button>
+                  <p className="text-[9px] text-[#545454] font-medium">
+                    Delivery Charges: Inside Dhaka ৳{newPageDeliveryDhaka} | Outside ৳{newPageDeliveryOutside}
+                  </p>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -849,41 +1901,55 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             <div className="flex items-center gap-2.5">
               <div className="flex items-center p-0.5 bg-[#FAFAFA] border border-[#EEAB59] rounded-full text-xs font-bold">
                 <button
+                  id="preview-mode-editor"
+                  onClick={() => setPreviewMode('editor')}
+                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+                    previewMode === 'editor' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
+                  }`}
+                  title="Spacious Full Width Form Editor"
+                >
+                  <Edit3 className="w-3.5 h-3.5" />
+                  <span>📝 Wide Editor</span>
+                </button>
+                <button
                   id="preview-mode-split"
                   onClick={() => setPreviewMode('split')}
                   className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'split' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs' : 'text-[#545454] hover:text-[#0E0E0E]'
+                    previewMode === 'split' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
                   }`}
+                  title="Side by Side Form & Storefront Preview"
                 >
                   <Monitor className="w-3.5 h-3.5" />
-                  <span>Split View</span>
+                  <span>⚡ Split View</span>
                 </button>
                 <button
                   id="preview-mode-desktop"
                   onClick={() => setPreviewMode('desktop')}
                   className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'desktop' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs' : 'text-[#545454] hover:text-[#0E0E0E]'
+                    previewMode === 'desktop' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
                   }`}
+                  title="Full Width Rendered Page Preview"
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>Full Preview</span>
+                  <span>💻 Live Page</span>
                 </button>
                 <button
                   id="preview-mode-mobile"
                   onClick={() => setPreviewMode('mobile')}
                   className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'mobile' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs' : 'text-[#545454] hover:text-[#0E0E0E]'
+                    previewMode === 'mobile' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
                   }`}
+                  title="Mobile Frame View"
                 >
                   <Smartphone className="w-3.5 h-3.5" />
-                  <span>Mobile</span>
+                  <span>📱 Mobile</span>
                 </button>
               </div>
 
               <button
                 id="storefront-save-btn"
                 onClick={handleSave}
-                className="flex items-center gap-2 px-5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider"
+                className="flex items-center gap-2 px-5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider cursor-pointer"
               >
                 {savedSuccess ? (
                   <>
@@ -900,11 +1966,11 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             </div>
           </div>
 
-          {/* Main Grid: Builder Panel (LARGER: 8 cols) + Live Storefront Preview (SMALLER: 4 cols) */}
-          <div className={`grid gap-4 ${previewMode === 'desktop' ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-12'}`}>
-            {/* BUILDER EDITING PANEL (Left 8 Cols in Split Mode) */}
+          {/* Main Grid: Builder Panel (Full or Split) + Live Storefront Preview */}
+          <div className={`grid gap-5 ${previewMode === 'editor' || previewMode === 'desktop' ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-12'}`}>
+            {/* BUILDER EDITING PANEL (100% Width in Editor Mode, 8 Cols in Split Mode) */}
             {previewMode !== 'desktop' && (
-              <div className={`${previewMode === 'split' ? 'lg:col-span-7 xl:col-span-8' : 'lg:col-span-8'} bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-4 h-fit`}>
+              <div className={`${previewMode === 'editor' ? 'w-full' : 'lg:col-span-7 xl:col-span-8'} bg-white border border-[#EEAB59] rounded-2xl p-4 md:p-6 shadow-2xs space-y-5 h-fit`}>
                 {/* Navigation Tabs */}
                 <div className="flex border-b border-[#EEEEEE] pb-1 text-xs font-bold gap-3 overflow-x-auto">
                   <button
@@ -980,6 +2046,56 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 {/* TAB CONTENT: PAGE CONTENT */}
                 {activeBuilderTab === 'content' && (
                   <div className="space-y-4 text-xs">
+                    {/* Basic Info: Title & Slug */}
+                    <div className="p-3.5 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-3">
+                      <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                        <span className="font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                          <span>পেজের শিরোনাম ও কাস্টম লিংক (Title & Custom URL Slug)</span>
+                        </span>
+                        <span className="text-[10px] text-[#008F2F] font-bold bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
+                          Live Active Page
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Landing Page Title / Product Name <span className="text-[#FF0000]">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={currentActiveConfig.productTitle}
+                            onChange={(e) => handleUpdateActiveTitle(e.target.value)}
+                            placeholder="e.g. Aura Pro ANC Headphones"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Custom Page URL Slug <span className="text-[#FF0000]">*</span>
+                          </label>
+                          <div className="relative flex items-center">
+                            <span className="absolute left-3 text-[10px] font-mono font-bold text-[#8F8F8F] select-none">
+                              /landing/
+                            </span>
+                            <input
+                              type="text"
+                              value={activePage?.slug || ''}
+                              onChange={(e) => handleUpdateActiveSlug(e.target.value)}
+                              placeholder="aura-pro-anc"
+                              className="w-full pl-18 pr-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                          <span className="text-[10px] font-mono text-[#008F2F] font-semibold block mt-1">
+                            Live URL: https://promisemart.com/landing/{activePage?.slug || 'page'}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Announcement Bar & Hero Badge */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
@@ -987,7 +2103,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         </label>
                         <input
                           type="text"
-                          value={currentActiveConfig.announcementText}
+                          value={currentActiveConfig.announcementText || ''}
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, announcementText: e.target.value })
                           }
@@ -1001,7 +2117,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         </label>
                         <input
                           type="text"
-                          value={currentActiveConfig.heroBadge}
+                          value={currentActiveConfig.heroBadge || ''}
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, heroBadge: e.target.value })
                           }
@@ -1010,57 +2126,80 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Subtitle & Hero Description */}
+                    <div className="space-y-3">
                       <div>
                         <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
-                          Product Title
+                          Subtitle / Tagline
                         </label>
                         <input
                           type="text"
-                          value={currentActiveConfig.productTitle}
-                          onChange={(e) =>
-                            handleUpdateActiveConfig({ ...currentActiveConfig, productTitle: e.target.value })
-                          }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
-                          Subtitle / Model Tag
-                        </label>
-                        <input
-                          type="text"
-                          value={currentActiveConfig.productSubTitle}
+                          value={currentActiveConfig.productSubTitle || ''}
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, productSubTitle: e.target.value })
                           }
                           className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
                         />
                       </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                          Product Hero Description
+                        </label>
+                        <textarea
+                          rows={3}
+                          value={currentActiveConfig.productDescription || ''}
+                          onChange={(e) =>
+                            handleUpdateActiveConfig({ ...currentActiveConfig, productDescription: e.target.value })
+                          }
+                          className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                        />
+                      </div>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
-                        Product Hero Description
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={currentActiveConfig.productDescription}
-                        onChange={(e) =>
-                          handleUpdateActiveConfig({ ...currentActiveConfig, productDescription: e.target.value })
-                        }
-                        className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
-                      />
+                    {/* Media: Image URL & Video Embed */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                          Main Product Image URL
+                        </label>
+                        <input
+                          type="text"
+                          value={currentActiveConfig.seo?.ogImage || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80'}
+                          onChange={(e) =>
+                            handleUpdateActiveConfig({
+                              ...currentActiveConfig,
+                              seo: { ...currentSeo, ogImage: e.target.value }
+                            })
+                          }
+                          placeholder="https://images.unsplash.com/..."
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                          YouTube Video Embed URL (Optional)
+                        </label>
+                        <input
+                          type="text"
+                          value={currentActiveConfig.videoEmbedUrl || ''}
+                          onChange={(e) =>
+                            handleUpdateActiveConfig({ ...currentActiveConfig, videoEmbedUrl: e.target.value })
+                          }
+                          placeholder="https://www.youtube.com/embed/..."
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                        />
+                      </div>
                     </div>
 
                     {/* Features List Editing */}
                     <div className="pt-3 border-t border-[#EEEEEE]">
                       <span className="font-extrabold text-[#0E0E0E] block text-xs mb-2">
-                        Key Feature Bullet Points
+                        Key Feature Bullet Points (পণ্যের বিশেষ সুবিধা)
                       </span>
                       <div className="space-y-2">
-                        {currentActiveConfig.features.map((feat, idx) => (
+                        {(currentActiveConfig.features || []).map((feat, idx) => (
                           <div key={idx} className="flex items-center gap-2">
                             <input
                               type="text"
@@ -1073,24 +2212,26 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                               className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
                             />
                             <button
+                              type="button"
                               onClick={() => {
                                 const newFeats = currentActiveConfig.features.filter((_, i) => i !== idx);
                                 handleUpdateActiveConfig({ ...currentActiveConfig, features: newFeats });
                               }}
-                              className="p-1.5 text-[#545454] hover:text-[#FF0000] rounded-full border border-[#EEEEEE]"
+                              className="p-1.5 text-[#545454] hover:text-[#FF0000] rounded-full border border-[#EEEEEE] cursor-pointer"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         ))}
                         <button
+                          type="button"
                           onClick={() => {
                             handleUpdateActiveConfig({
                               ...currentActiveConfig,
-                              features: [...currentActiveConfig.features, 'New Product Feature Point']
+                              features: [...(currentActiveConfig.features || []), 'নতুন বিশেষ ফিচার ও সুবিধা']
                             });
                           }}
-                          className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-xs rounded-full flex items-center gap-1.5 mt-2"
+                          className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-xs rounded-full flex items-center gap-1.5 mt-2 cursor-pointer hover:bg-[#EEAB59]/30 transition-all"
                         >
                           <Plus className="w-3.5 h-3.5" />
                           <span>Add Feature Point</span>
@@ -1577,19 +2718,150 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                 {/* TAB CONTENT: REVIEWS */}
                 {activeBuilderTab === 'reviews' && (
-                  <div className="space-y-3 text-xs">
-                    <span className="font-bold text-[#0E0E0E] block">
-                      Customer Testimonials ({currentActiveConfig.reviews.length})
-                    </span>
-                    {currentActiveConfig.reviews.map((rev) => (
-                      <div key={rev.id} className="p-3 bg-white border border-[#EEEEEE] rounded-lg space-y-1">
-                        <div className="flex items-center justify-between font-bold text-[#0E0E0E]">
-                          <span>{rev.author}</span>
-                          <span className="text-[#E67E00]">★ {rev.rating}</span>
+                  <div className="space-y-4 text-xs">
+                    {/* Add New Review Form */}
+                    <form onSubmit={handleAddReview} className="p-3.5 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-3">
+                      <span className="font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider block border-b border-[#EEEEEE] pb-2">
+                        ➕ নতুন কাস্টমার রিভিউ যুক্ত করুন (Add Customer Review)
+                      </span>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            ক্রেতার নাম (Customer Name) <span className="text-[#FF0000]">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={newReviewAuthor}
+                            onChange={(e) => setNewReviewAuthor(e.target.value)}
+                            placeholder="যেমন: মোহাম্মদ আব্দুল্লাহ"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            required
+                          />
                         </div>
-                        <p className="text-[11px] text-[#545454] line-clamp-2">{rev.content}</p>
+
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            রেটিং (Star Rating)
+                          </label>
+                          <select
+                            value={newReviewRating}
+                            onChange={(e) => setNewReviewRating(Number(e.target.value))}
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#E67E00] focus:border-[#E67E00] focus:outline-none"
+                          >
+                            <option value={5}>★★★★★ (5 Stars)</option>
+                            <option value={4}>★★★★☆ (4 Stars)</option>
+                            <option value={3}>★★★☆☆ (3 Stars)</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Time / Location
+                          </label>
+                          <input
+                            type="text"
+                            value={newReviewDate}
+                            onChange={(e) => setNewReviewDate(e.target.value)}
+                            placeholder="e.g. Dhaka • 2 days ago"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                        </div>
                       </div>
-                    ))}
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                          রিভিউয়ের বক্তব্য (Customer Comment) <span className="text-[#FF0000]">*</span>
+                        </label>
+                        <textarea
+                          rows={2}
+                          value={newReviewContent}
+                          onChange={(e) => setNewReviewContent(e.target.value)}
+                          placeholder="প্রোডাক্টটি পেয়ে খুব ভালো লাগলো, প্যাকেজিং সুন্দর ছিল..."
+                          className="w-full p-2.5 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          required
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                          রিভিউ ছবি বা হোয়াটসঅ্যাপ/মেসেঞ্জার চ্যাটের স্ক্রিনশট (Review Photo / Chat Screenshot)
+                        </label>
+                        <div className="flex flex-col sm:flex-row items-center gap-2">
+                          <input
+                            type="url"
+                            value={newReviewImageUrl}
+                            onChange={(e) => setNewReviewImageUrl(e.target.value)}
+                            placeholder="https://images.unsplash.com/photo-..."
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                          <label className="px-3.5 py-1.5 bg-white border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
+                            <Upload className="w-3.5 h-3.5" />
+                            <span>Upload Image</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleBuilderReviewFileUpload}
+                              className="hidden"
+                            />
+                          </label>
+                        </div>
+                        {newReviewImageUrl && (
+                          <div className="mt-2 flex items-center gap-2">
+                            <img
+                              src={newReviewImageUrl}
+                              alt="Review Screenshot"
+                              className="w-12 h-12 object-cover rounded border border-slate-200"
+                            />
+                            <span className="text-[10px] text-emerald-600 font-bold">Review Photo Attached!</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="px-4 py-1.5 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Add Review</span>
+                      </button>
+                    </form>
+
+                    {/* Existing Reviews List */}
+                    <div className="space-y-2">
+                      <span className="font-bold text-[#0E0E0E] block text-xs">
+                        বিদ্যমান কাস্টমার টেস্টিমোনিয়াল ({currentActiveConfig.reviews.length})
+                      </span>
+                      {currentActiveConfig.reviews.map((rev) => (
+                        <div key={rev.id} className="p-3 bg-white border border-[#EEEEEE] rounded-lg flex items-start justify-between gap-3">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2 font-bold text-[#0E0E0E]">
+                              <span>{rev.author}</span>
+                              <span className="text-[#E67E00]">{'★'.repeat(rev.rating)}</span>
+                              <span className="text-[10px] text-[#8F8F8F] font-normal">({rev.date})</span>
+                            </div>
+                            <p className="text-[11px] text-[#545454] leading-relaxed">{rev.content}</p>
+                            {(rev.imageUrl || rev.screenshotUrl) && (
+                              <div className="pt-1">
+                                <img
+                                  src={rev.imageUrl || rev.screenshotUrl}
+                                  alt="Customer Review Screenshot"
+                                  className="w-20 h-20 object-cover rounded border border-slate-200 shadow-2xs"
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteReview(rev.id)}
+                            className="p-1.5 text-[#8F8F8F] hover:text-[#FF0000] hover:bg-[#FFF5F5] rounded transition-all cursor-pointer shrink-0"
+                            title="Delete Review"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -1599,17 +2871,17 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     <div className="p-3.5 bg-[#FCF1E5]/30 border border-[#EEAB59] rounded-lg flex items-start gap-2.5">
                       <Globe className="w-4 h-4 text-[#E67E00] shrink-0 mt-0.5" />
                       <div>
-                        <h4 className="font-black text-[#0E0E0E] text-xs">SEO & Social Meta Configuration</h4>
+                        <h4 className="font-black text-[#0E0E0E] text-xs">SEO, Social Meta & Analytics Pixels</h4>
                         <p className="text-[11px] text-[#545454] font-medium leading-relaxed mt-0.5">
-                          Configure title tags, search snippets, Open Graph social share cards, and tracking pixels for maximum search ranking.
+                          Configure search engine title tags, description snippets, OpenGraph social share cards, Facebook Pixel ID, and Google Analytics.
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-3 pt-1">
+                    <div className="space-y-3.5 pt-1">
                       <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
                         <Search className="w-3.5 h-3.5 text-[#E67E00]" />
-                        <span>Search Engine Meta Tags</span>
+                        <span>1. Search Engine Meta Tags</span>
                       </div>
 
                       <div>
@@ -1651,22 +2923,166 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
                         />
                       </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Meta Keywords
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.metaKeywords || ''}
+                            onChange={(e) => updateSeo({ metaKeywords: e.target.value })}
+                            placeholder="organic honey, deal, fast shipping"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Canonical URL
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.canonicalUrl || `https://promisemart.com/landing/${activePage?.slug || 'page'}`}
+                            onChange={(e) => updateSeo({ canonicalUrl: e.target.value })}
+                            placeholder="https://promisemart.com/landing/..."
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Social Sharing OpenGraph Card */}
+                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
+                        <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
+                          <Sparkles className="w-3.5 h-3.5 text-[#E67E00]" />
+                          <span>2. OpenGraph Social Share Card (Facebook / WhatsApp Link Card)</span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                          <div>
+                            <label className="block font-bold text-[#0E0E0E] mb-1">
+                              OG Title
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSeo.ogTitle || ''}
+                              onChange={(e) => updateSeo({ ogTitle: e.target.value })}
+                              placeholder="Social Card Heading"
+                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block font-bold text-[#0E0E0E] mb-1">
+                              OG Image URL
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSeo.ogImage || ''}
+                              onChange={(e) => updateSeo({ ogImage: e.target.value })}
+                              placeholder="https://images.unsplash.com/..."
+                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Pixels and Analytics */}
+                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
+                        <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
+                          <BarChart2 className="w-3.5 h-3.5 text-[#E67E00]" />
+                          <span>3. Tracking Pixels & Analytics Code</span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                          <div>
+                            <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
+                              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+                              <span>Facebook Pixel ID</span>
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSeo.fbPixelId || ''}
+                              onChange={(e) => updateSeo({ fbPixelId: e.target.value })}
+                              placeholder="e.g. PIXEL-901823712"
+                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
+                              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                              <span>Google Analytics (GA4) ID</span>
+                            </label>
+                            <input
+                              type="text"
+                              value={currentSeo.googleAnalyticsId || ''}
+                              onChange={(e) => updateSeo({ googleAnalyticsId: e.target.value })}
+                              placeholder="e.g. G-789234110"
+                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Search Snippet & Social Card Live Previews */}
+                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
+                        <span className="font-bold text-[#0E0E0E] block text-xs uppercase tracking-wider">
+                          4. Live Social & Search Card Previews:
+                        </span>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {/* Google Preview */}
+                          <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1 shadow-2xs">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                              🔍 Google Search Result:
+                            </span>
+                            <div className="text-blue-700 font-bold text-xs leading-snug hover:underline line-clamp-1">
+                              {currentSeo.metaTitle || currentActiveConfig.productTitle}
+                            </div>
+                            <div className="text-emerald-700 font-mono text-[10px]">
+                              https://promisemart.com/landing/{activePage?.slug || 'page'}
+                            </div>
+                            <div className="text-slate-600 text-[10px] leading-relaxed line-clamp-2">
+                              {currentSeo.metaDescription || currentActiveConfig.productDescription}
+                            </div>
+                          </div>
+
+                          {/* Facebook Share Preview */}
+                          <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5 shadow-2xs">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                              📘 Facebook Share Card:
+                            </span>
+                            {currentSeo.ogImage && (
+                              <img
+                                src={currentSeo.ogImage}
+                                alt="OG Preview"
+                                className="w-full h-24 object-cover rounded-md border border-slate-200"
+                              />
+                            )}
+                            <div className="text-[10px] font-mono text-slate-400 uppercase">PROMISEMART.COM</div>
+                            <div className="font-bold text-xs text-slate-900 line-clamp-1">
+                              {currentSeo.ogTitle || currentSeo.metaTitle}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
             )}
 
-            {/* LIVE STOREFRONT INTERACTIVE PREVIEW PANEL (Right 4 Cols in Split Mode - SMALLER PREVIEW) */}
-            <div
-              className={`${
-                previewMode === 'desktop'
-                  ? 'col-span-1'
-                  : previewMode === 'split'
-                  ? 'lg:col-span-5 xl:col-span-4 sticky top-4'
-                  : 'lg:col-span-5 xl:col-span-4 sticky top-4'
-              } bg-[#0E0E0E] p-2 sm:p-3 rounded-2xl shadow-2xl border border-[#0E0E0E] flex justify-center max-h-[85vh]`}
-            >
+            {/* LIVE STOREFRONT INTERACTIVE PREVIEW PANEL (Rendered in Split, Desktop & Mobile Modes) */}
+            {previewMode !== 'editor' && (
+              <div
+                className={`${
+                  previewMode === 'desktop'
+                    ? 'col-span-1'
+                    : 'lg:col-span-5 xl:col-span-4 sticky top-4'
+                } bg-[#0E0E0E] p-2 sm:p-3 rounded-2xl shadow-2xl border border-[#0E0E0E] flex justify-center max-h-[85vh]`}
+              >
               {/* Device Frame with Scrollable Area */}
               <div
                 className={`bg-white text-[#0E0E0E] w-full transition-all duration-300 shadow-2xl overflow-y-auto custom-scrollbar flex flex-col ${
@@ -1844,7 +3260,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           backgroundColor: activeThemeColors.primaryButtonBg,
                           color: activeThemeColors.primaryButtonText
                         }}
-                        className="w-full py-2 font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider hover:opacity-90"
+                        className="w-full py-2 font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider hover:opacity-90 cursor-pointer"
                       >
                         Order Now - ৳{testTotal.toLocaleString()}
                       </button>
@@ -1879,227 +3295,93 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 </div>
               </div>
             </div>
+            )}
           </div>
-        </div>
-      )}
 
-      {/* ========================================================================= */}
-      {/* MODAL: CREATE NEW LANDING PAGE */}
-      {/* ========================================================================= */}
-      {isCreateModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded border border-[#EEAB59] max-w-md w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded bg-[#FCF1E5] text-[#E67E00] flex items-center justify-center font-bold">
-                  <Plus className="w-4 h-4" />
-                </div>
-                <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">Create New Landing Page</h3>
-              </div>
+          {/* Quick Preview Floating Button (for Wide Editor Mode) */}
+          {previewMode === 'editor' && (
+            <div className="fixed bottom-6 right-6 z-40">
               <button
-                onClick={() => setIsCreateModalOpen(false)}
-                className="p-1 text-[#545454] hover:text-[#0E0E0E] rounded"
+                onClick={() => setIsQuickPreviewOpen(true)}
+                className="px-5 py-3 bg-[#008F2F] hover:bg-[#007325] text-white font-extrabold text-xs rounded-full shadow-2xl flex items-center gap-2 transition-all hover:scale-105 cursor-pointer border-2 border-white"
               >
-                <X className="w-4 h-4" />
+                <Eye className="w-4 h-4" />
+                <span>👁️ Quick Page Preview</span>
               </button>
             </div>
+          )}
 
-            <form onSubmit={handleCreateNewPageSubmit} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-bold text-[#0E0E0E] mb-1">
-                  Landing Page Title / Product Name <span className="text-[#FF0000]">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={newPageTitle}
-                  onChange={(e) => {
-                    setNewPageTitle(e.target.value);
-                    if (!newPageSlug) {
-                      setNewPageSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-'));
-                    }
-                  }}
-                  placeholder="e.g. Wireless Noise Cancelling Earbuds"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEEEEE] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block font-bold text-[#0E0E0E] mb-1">
-                  Custom Page URL Slug
-                </label>
-                <div className="flex items-center">
-                  <span className="px-2.5 py-2.5 bg-[#FAFAFA] border border-r-0 border-[#EEEEEE] rounded-l-lg text-[11px] text-[#545454] font-mono">
-                    promisemart.com/landing/
-                  </span>
-                  <input
-                    type="text"
-                    value={newPageSlug}
-                    onChange={(e) => setNewPageSlug(e.target.value)}
-                    placeholder="my-product-deal"
-                    className="w-full px-3 py-2.5 bg-white border border-[#EEEEEE] rounded-r-lg text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none font-mono"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-bold text-[#0E0E0E] mb-1">
-                  Product Category & Default Theme (পণ্য টাইপ ও থিম)
-                </label>
-                <select
-                  value={newPageCategory}
-                  onChange={(e) => {
-                    const cat = e.target.value as any;
-                    setNewPageCategory(cat);
-                    if (cat === 'Natural Product') {
-                      setModalThemePreset('preset-green');
-                      setModalBtnBg('#008F2F');
-                      setModalBtnText('#FFFFFF');
-                      setModalHeadingColor('#064E3B');
-                      setModalBadgeBg('#ECFFE8');
-                      setModalBadgeText('#008F2F');
-                    } else if (cat === 'Food Product') {
-                      setModalThemePreset('preset-food');
-                      setModalBtnBg('#DC2626');
-                      setModalBtnText('#FFFFFF');
-                      setModalHeadingColor('#7F1D1D');
-                      setModalBadgeBg('#FEF2F2');
-                      setModalBadgeText('#DC2626');
-                    } else if (cat === 'Electronics') {
-                      setModalThemePreset('preset-blue');
-                      setModalBtnBg('#2563EB');
-                      setModalBtnText('#FFFFFF');
-                      setModalHeadingColor('#1E3A8A');
-                      setModalBadgeBg('#EFF6FF');
-                      setModalBadgeText('#2563EB');
-                    } else if (cat === 'Beauty') {
-                      setModalThemePreset('preset-beauty');
-                      setModalBtnBg('#E11D48');
-                      setModalBtnText('#FFFFFF');
-                      setModalHeadingColor('#881337');
-                      setModalBadgeBg('#FFF1F2');
-                      setModalBadgeText('#E11D48');
-                    } else if (cat === 'Fashion') {
-                      setModalThemePreset('preset-gold');
-                      setModalBtnBg('#D97706');
-                      setModalBtnText('#FFFFFF');
-                      setModalHeadingColor('#451A03');
-                      setModalBadgeBg('#FEF3C7');
-                      setModalBadgeText('#B45309');
-                    }
-                  }}
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEEEEE] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                >
-                  <option value="Natural Product">🌿 Natural & Organic Product (Green Theme)</option>
-                  <option value="Food Product">🍔 Food, Snacks & Bakery (Red / Amber Theme)</option>
-                  <option value="Electronics">🎧 Electronics & Gadgets (Royal Blue Theme)</option>
-                  <option value="Beauty">💖 Health & Beauty (Rose Pink Theme)</option>
-                  <option value="Fashion">👑 Fashion & Accessories (Luxury Gold Theme)</option>
-                </select>
-              </div>
-
-              {/* Theme Color Quick Selector in Modal */}
-              <div className="space-y-2.5 p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl">
-                <label className="block font-bold text-[#0E0E0E] text-[11px] uppercase tracking-wider">
-                  🎨 Button & Text Color Selector (বাটন ও টেক্সট কালার)
-                </label>
-                
-                {/* Preset Chips */}
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {THEME_PRESETS.map((preset) => (
-                    <button
-                      key={preset.id}
-                      type="button"
-                      onClick={() => {
-                        setModalThemePreset(preset.id);
-                        setModalBtnBg(preset.primaryButtonBg);
-                        setModalBtnText(preset.primaryButtonText);
-                        setModalHeadingColor(preset.headingTextColor);
-                        setModalBadgeBg(preset.accentBadgeBg);
-                        setModalBadgeText(preset.accentBadgeText);
-                      }}
-                      className={`px-2.5 py-1 text-[10px] font-bold rounded-full border transition-all flex items-center gap-1 ${
-                        modalBtnBg.toLowerCase() === preset.primaryButtonBg.toLowerCase()
-                          ? 'border-[#008F2F] bg-white ring-2 ring-[#008F2F]/30 text-[#0E0E0E]'
-                          : 'border-[#EEEEEE] bg-white text-[#545454] hover:border-[#EEAB59]'
-                      }`}
-                    >
-                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: preset.primaryButtonBg }} />
-                      <span>{preset.presetBadge}</span>
-                    </button>
-                  ))}
-                </div>
-
-                {/* Custom Color Picker Row */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <div>
-                    <label className="block text-[10px] font-bold text-[#545454] mb-0.5">Button Color:</label>
-                    <div className="flex items-center gap-1.5">
-                      <input
-                        type="color"
-                        value={modalBtnBg}
-                        onChange={(e) => setModalBtnBg(e.target.value)}
-                        className="w-7 h-7 rounded border cursor-pointer p-0.5 shrink-0"
-                      />
-                      <input
-                        type="text"
-                        value={modalBtnBg}
-                        onChange={(e) => setModalBtnBg(e.target.value)}
-                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded text-[11px] font-mono font-bold"
-                      />
-                    </div>
+          {/* Floating Quick Preview Drawer / Modal */}
+          {isQuickPreviewOpen && (
+            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="bg-[#0E0E0E] p-3 rounded-2xl shadow-2xl border border-slate-800 max-w-lg w-full max-h-[90vh] flex flex-col space-y-3 relative">
+                <div className="flex items-center justify-between text-white pb-2 border-b border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <span className="font-black text-xs uppercase tracking-wider">Storefront Quick Preview</span>
                   </div>
-
-                  <div>
-                    <label className="block text-[10px] font-bold text-[#545454] mb-0.5">Text Color:</label>
-                    <div className="flex items-center gap-1.5">
-                      <input
-                        type="color"
-                        value={modalBtnText}
-                        onChange={(e) => setModalBtnText(e.target.value)}
-                        className="w-7 h-7 rounded border cursor-pointer p-0.5 shrink-0"
-                      />
-                      <input
-                        type="text"
-                        value={modalBtnText}
-                        onChange={(e) => setModalBtnText(e.target.value)}
-                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded text-[11px] font-mono font-bold"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Button Swatch Preview in Modal */}
-                <div className="pt-2 text-center border-t border-[#EEEEEE]/80">
-                  <div
-                    style={{ backgroundColor: modalBtnBg, color: modalBtnText }}
-                    className="py-1.5 px-4 rounded-full font-black text-[11px] uppercase tracking-wider inline-block shadow-2xs"
+                  <button
+                    onClick={() => setIsQuickPreviewOpen(false)}
+                    className="p-1 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors cursor-pointer"
                   >
-                    Button Preview: Order Now ৳1,990
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <div className="bg-white rounded-xl overflow-y-auto custom-scrollbar p-4 text-[#0E0E0E] space-y-4 max-h-[75vh]">
+                  <div className="text-center space-y-2 border-b pb-3">
+                    <span
+                      style={{
+                        backgroundColor: activeThemeColors.accentBadgeBg,
+                        color: activeThemeColors.accentBadgeText
+                      }}
+                      className="px-3 py-1 font-bold text-xs rounded-full inline-block"
+                    >
+                      {currentActiveConfig.heroBadge || 'Special Offer'}
+                    </span>
+                    <h3 style={{ color: activeThemeColors.headingTextColor }} className="font-black text-base">
+                      {currentActiveConfig.productTitle}
+                    </h3>
+                    <div className="text-xl font-black text-[#E67E00]">
+                      ৳{currentActiveConfig.basePrice?.toLocaleString()}
+                    </div>
                   </div>
+
+                  {currentActiveConfig.productDescription && (
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {currentActiveConfig.productDescription}
+                    </p>
+                  )}
+
+                  <button
+                    style={{
+                      backgroundColor: activeThemeColors.primaryButtonBg,
+                      color: activeThemeColors.primaryButtonText
+                    }}
+                    className="w-full py-3 rounded-full font-black text-xs uppercase shadow-md flex items-center justify-center gap-2"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>অর্ডার করতে ক্লিক করুন • ৳{currentActiveConfig.basePrice?.toLocaleString()}</span>
+                  </button>
+                </div>
+
+                <div className="text-center pt-1">
+                  <button
+                    onClick={() => setIsQuickPreviewOpen(false)}
+                    className="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-full transition-colors cursor-pointer"
+                  >
+                    Close Preview
+                  </button>
                 </div>
               </div>
-
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#EEEEEE]">
-                <button
-                  type="button"
-                  onClick={() => setIsCreateModalOpen(false)}
-                  className="px-4 py-2 border border-[#EEEEEE] text-[#545454] font-bold text-xs rounded-full hover:bg-[#FAFAFA]"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full shadow-md flex items-center gap-1.5"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Create & Open Builder</span>
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+          )}
         </div>
       )}
+
+      {/* End Builder */}
     </div>
   );
 };
+
+export default DynamicStorefront;

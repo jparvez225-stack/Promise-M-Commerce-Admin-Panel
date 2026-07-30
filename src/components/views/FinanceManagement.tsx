@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ArrowRightLeft, 
+  ArrowLeft,
   Receipt, 
   SlidersHorizontal, 
   CheckCircle2, 
@@ -129,6 +130,9 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
   const [extraKgRateSubUrban, setExtraKgRateSubUrban] = useState<number>(25);
   const [extraKgRateOutside, setExtraKgRateOutside] = useState<number>(35);
   const [showDropdownInPOS, setShowDropdownInPOS] = useState<boolean>(true);
+  const [autoPrintReceipt, setAutoPrintReceipt] = useState<boolean>(true);
+  const [enableSoundEffects, setEnableSoundEffects] = useState<boolean>(true);
+  const [defaultPaymentMethod, setDefaultPaymentMethod] = useState<string>('Cash');
   const [settingsSavedMsg, setSettingsSavedMsg] = useState<string>('');
 
   // Simulator State
@@ -533,49 +537,67 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
       {/* 3. POS SETTINGS VIEW */}
       {/* ========================================================================= */}
       {activeSubTab === 'POS_SETTINGS' && (
-        <div className="space-y-6 max-w-4xl">
-          {/* Header */}
-          <div className="bg-white p-5 rounded border border-[#EEAB59] flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                <SlidersHorizontal className="w-5 h-5 text-[#E67E00]" />
-                <span>POS & Delivery Shipping Settings</span>
-              </h1>
-              <p className="text-xs text-[#545454] font-medium mt-0.5">
-                Configure area-based delivery rates (Inside Dhaka, Sub-Urban Area, Outside Dhaka) and weight-based extra charges for POS & checkout.
-              </p>
+        <div className="space-y-6 w-full">
+          {/* Header Card with Back Button */}
+          <div className="bg-white p-5 rounded border border-[#EEAB59] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => onSubTabChange ? onSubTabChange('ACCOUNTS_OVERVIEW') : null}
+                className="p-2 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] rounded-full transition-all cursor-pointer shadow-2xs shrink-0"
+                title="Back to Accounts Overview"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
+                  <SlidersHorizontal className="w-5 h-5 text-[#E67E00]" />
+                  <span>POS & Delivery Shipping Settings</span>
+                </h1>
+                <p className="text-xs text-[#545454] font-medium mt-0.5">
+                  Configure zone delivery rates, weight surcharges, real-time fee calculator, and terminal preferences.
+                </p>
+              </div>
             </div>
-            <span className="px-3 py-1 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] text-xs font-bold rounded-full self-start md:self-auto">
-              Area & Weight Based Active
-            </span>
+
+            <div className="flex items-center gap-2.5 self-start md:self-auto">
+              <span className="px-3.5 py-1.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] text-xs font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-2xs shrink-0">
+                <Check className="w-3.5 h-3.5 text-[#008F2F]" />
+                <span>Active Profile</span>
+              </span>
+            </div>
           </div>
 
           {settingsSavedMsg && (
-            <div className="p-3 bg-[#ECFFE8] border border-[#008F2F] text-[#008F2F] text-xs font-bold rounded flex items-center gap-2">
+            <div className="p-3.5 bg-[#ECFFE8] border border-[#008F2F]/40 text-[#008F2F] text-xs font-bold rounded flex items-center gap-2 shadow-2xs">
               <CheckCircle2 className="w-4 h-4 text-[#008F2F] shrink-0" />
               <span>{settingsSavedMsg}</span>
             </div>
           )}
 
           <form onSubmit={handleSavePOSSettings} className="space-y-6">
-            {/* Area Based Shipping Rates (3 Areas) */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4">
-              <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2.5">
-                <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E]">
+            {/* SECTION 1: Delivery Zone Charges */}
+            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
+                <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E]">
                   <MapPin className="w-4 h-4 text-[#E67E00]" />
                   <span>1. Area-Based Delivery Charges (3 Zones)</span>
                 </div>
-                <span className="text-[10px] text-[#8F8F8F] font-semibold">Standard Base Rates</span>
+                <span className="text-[10px] text-[#8F8F8F] font-bold uppercase tracking-wider bg-[#FAFAFA] px-2 py-0.5 rounded border border-[#EEEEEE]">
+                  Standard Base Rates
+                </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Inside Dhaka */}
-                <div className="p-3.5 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-2">
+                {/* Inside Dhaka Zone */}
+                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#EEAB59] transition-all">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-[#0E0E0E] block">
-                      Inside Dhaka (ঢাকা সিটি)
+                    <label className="text-xs font-extrabold text-[#0E0E0E] block">
+                      Inside Dhaka
                     </label>
-                    <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-1.5 py-0.5 rounded">City Zone</span>
+                    <span className="text-[10px] font-extrabold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
+                      City Zone
+                    </span>
                   </div>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-xs font-bold text-[#8F8F8F]">৳</span>
@@ -583,20 +605,24 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={insideDhakaCharge}
                       onChange={(e) => setInsideDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-7 pr-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
                       required
                     />
                   </div>
-                  <p className="text-[10px] text-[#8F8F8F]">e.g. Mirpur, Gulshan, Dhanmondi, Uttara</p>
+                  <p className="text-[10px] text-[#8F8F8F] font-medium leading-relaxed">
+                    Mirpur, Gulshan, Dhanmondi, Uttara, Motijheel, Old Dhaka, etc.
+                  </p>
                 </div>
 
-                {/* Sub-Urban Area */}
-                <div className="p-3.5 bg-[#FCF1E5]/30 border border-[#EEAB59]/60 rounded space-y-2">
+                {/* Sub-Urban Zone */}
+                <div className="p-4 bg-[#FCF1E5]/30 border border-[#EEAB59]/80 rounded-lg space-y-3 hover:border-[#E67E00] transition-all">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-[#0E0E0E] block">
-                      Sub-Urban Area (ঢাকা পার্শ্ববর্তী)
+                    <label className="text-xs font-extrabold text-[#0E0E0E] block">
+                      Sub-Urban Area
                     </label>
-                    <span className="text-[10px] font-bold text-[#E67E00] bg-[#FCF1E5] px-1.5 py-0.5 rounded border border-[#EEAB59]">Suburb Zone</span>
+                    <span className="text-[10px] font-extrabold text-[#E67E00] bg-[#FCF1E5] px-2 py-0.5 rounded border border-[#EEAB59]">
+                      Suburb Zone
+                    </span>
                   </div>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-xs font-bold text-[#8F8F8F]">৳</span>
@@ -604,20 +630,24 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={subUrbanDhakaCharge}
                       onChange={(e) => setSubUrbanDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-7 pr-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
                       required
                     />
                   </div>
-                  <p className="text-[10px] text-[#8F8F8F]">e.g. Savar, Gazipur, Keraniganj, Narayanganj</p>
+                  <p className="text-[10px] text-[#8F8F8F] font-medium leading-relaxed">
+                    Savar, Gazipur, Narayanganj, Keraniganj, Tongi, Dhamrai, etc.
+                  </p>
                 </div>
 
-                {/* Outside Dhaka */}
-                <div className="p-3.5 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-2">
+                {/* Outside Dhaka Zone */}
+                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#EEAB59] transition-all">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-[#0E0E0E] block">
-                      Outside Dhaka (ঢাকার বাইরে)
+                    <label className="text-xs font-extrabold text-[#0E0E0E] block">
+                      Outside Dhaka
                     </label>
-                    <span className="text-[10px] font-bold text-[#545454] bg-[#EEEEEE] px-1.5 py-0.5 rounded">All Districts</span>
+                    <span className="text-[10px] font-extrabold text-[#545454] bg-[#EEEEEE] px-2 py-0.5 rounded">
+                      All Districts
+                    </span>
                   </div>
                   <div className="relative">
                     <span className="absolute left-3 top-2.5 text-xs font-bold text-[#8F8F8F]">৳</span>
@@ -625,153 +655,158 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={outsideDhakaCharge}
                       onChange={(e) => setOutsideDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-7 pr-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
                       required
                     />
                   </div>
-                  <p className="text-[10px] text-[#8F8F8F]">Chittagong, Sylhet, Rajshahi, Khulna etc.</p>
+                  <p className="text-[10px] text-[#8F8F8F] font-medium leading-relaxed">
+                    Chittagong, Sylhet, Rajshahi, Khulna, Barisal, Rangpur, Mymensingh, etc.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Weight-Based Extra Charges Configuration */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4">
-              <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2.5">
-                <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E]">
+            {/* SECTION 2: Weight-Based Extra Charges Configuration */}
+            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+              <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
+                <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E]">
                   <Truck className="w-4 h-4 text-[#E67E00]" />
-                  <span>2. Extra Weight Rate Configuration</span>
+                  <span>2. Extra Weight Surcharge Rules</span>
                 </div>
-                <span className="text-[10px] font-bold text-[#E67E00] bg-[#FCF1E5] px-2 py-0.5 rounded">
-                  Per KG Surcharge Rule
+                <span className="text-[10px] font-extrabold text-[#E67E00] bg-[#FCF1E5] px-2 py-0.5 rounded border border-[#EEAB59]">
+                  Per KG Excess Fee
                 </span>
               </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Base Included Weight (KG)
-                    </label>
-                    <input 
-                      type="number"
-                      step="0.1"
-                      value={baseIncludedWeight}
-                      onChange={(e) => setBaseIncludedWeight(Number(e.target.value))}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
-                    />
-                    <p className="text-[10px] text-[#8F8F8F] mt-1">Included in base area fee</p>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Inside Dhaka Extra (৳ / KG)
-                    </label>
-                    <input 
-                      type="number"
-                      value={extraKgRateDhaka}
-                      onChange={(e) => setExtraKgRateDhaka(Number(e.target.value))}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
-                    />
-                    <p className="text-[10px] text-[#8F8F8F] mt-1">Above base weight</p>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Sub-Urban Extra (৳ / KG)
-                    </label>
-                    <input 
-                      type="number"
-                      value={extraKgRateSubUrban}
-                      onChange={(e) => setExtraKgRateSubUrban(Number(e.target.value))}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
-                    />
-                    <p className="text-[10px] text-[#8F8F8F] mt-1">Above base weight</p>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Outside Dhaka Extra (৳ / KG)
-                    </label>
-                    <input 
-                      type="number"
-                      value={extraKgRateOutside}
-                      onChange={(e) => setExtraKgRateOutside(Number(e.target.value))}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
-                    />
-                    <p className="text-[10px] text-[#8F8F8F] mt-1">Above base weight</p>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded">
+                  <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
+                    Base Weight (KG)
+                  </label>
+                  <input 
+                    type="number"
+                    step="0.1"
+                    value={baseIncludedWeight}
+                    onChange={(e) => setBaseIncludedWeight(Number(e.target.value))}
+                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                  />
+                  <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Included in base area fee</p>
                 </div>
 
-                {/* Weight Slabs Breakdown Table */}
-                <div className="mt-4 pt-3 border-t border-[#EEEEEE]">
-                  <h4 className="text-xs font-bold text-[#0E0E0E] uppercase mb-2">Weight Slabs Quick Rate Matrix</h4>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs border border-[#EEEEEE]">
-                      <thead>
-                        <tr className="bg-[#FCF1E5] text-[#0E0E0E] font-bold">
-                          <th className="p-2 border-b border-r border-[#EEEEEE]">Weight Bracket</th>
-                          <th className="p-2 border-b border-r border-[#EEEEEE]">Inside Dhaka (৳)</th>
-                          <th className="p-2 border-b border-r border-[#EEEEEE]">Sub-Urban Area (৳)</th>
-                          <th className="p-2 border-b border-[#EEEEEE]">Outside Dhaka (৳)</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-[#EEEEEE] text-[#545454]">
-                        <tr>
-                          <td className="p-2 font-bold border-r border-[#EEEEEE]">Up to {baseIncludedWeight} KG (Base)</td>
-                          <td className="p-2 font-bold text-[#0E0E0E] border-r border-[#EEEEEE]">৳{insideDhakaCharge}</td>
-                          <td className="p-2 font-bold text-[#E67E00] border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge}</td>
-                          <td className="p-2 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge}</td>
-                        </tr>
-                        <tr>
-                          <td className="p-2 font-semibold border-r border-[#EEEEEE]">{baseIncludedWeight + 0.1} KG - 2.0 KG</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{insideDhakaCharge + extraKgRateDhaka}</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge + extraKgRateSubUrban}</td>
-                          <td className="p-2">৳{outsideDhakaCharge + extraKgRateOutside}</td>
-                        </tr>
-                        <tr>
-                          <td className="p-2 font-semibold border-r border-[#EEEEEE]">2.1 KG - 3.0 KG</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{insideDhakaCharge + (2 * extraKgRateDhaka)}</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge + (2 * extraKgRateSubUrban)}</td>
-                          <td className="p-2">৳{outsideDhakaCharge + (2 * extraKgRateOutside)}</td>
-                        </tr>
-                        <tr>
-                          <td className="p-2 font-semibold border-r border-[#EEEEEE]">3.1 KG - 5.0 KG</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{insideDhakaCharge + (4 * extraKgRateDhaka)}</td>
-                          <td className="p-2 border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge + (4 * extraKgRateSubUrban)}</td>
-                          <td className="p-2">৳{outsideDhakaCharge + (4 * extraKgRateOutside)}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded">
+                  <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
+                    Inside Dhaka Extra (৳/KG)
+                  </label>
+                  <input 
+                    type="number"
+                    value={extraKgRateDhaka}
+                    onChange={(e) => setExtraKgRateDhaka(Number(e.target.value))}
+                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                  />
+                  <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
+                </div>
+
+                <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded">
+                  <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
+                    Sub-Urban Extra (৳/KG)
+                  </label>
+                  <input 
+                    type="number"
+                    value={extraKgRateSubUrban}
+                    onChange={(e) => setExtraKgRateSubUrban(Number(e.target.value))}
+                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                  />
+                  <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
+                </div>
+
+                <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded">
+                  <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
+                    Outside Dhaka Extra (৳/KG)
+                  </label>
+                  <input 
+                    type="number"
+                    value={extraKgRateOutside}
+                    onChange={(e) => setExtraKgRateOutside(Number(e.target.value))}
+                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                  />
+                  <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
                 </div>
               </div>
 
-            {/* Interactive Live Shipping Fee Calculator */}
-            <div className="bg-[#FCF1E5]/40 border border-[#EEAB59] rounded p-5 space-y-4">
-              <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEAB59]/40 pb-2">
+              {/* Weight Slabs Breakdown Table */}
+              <div className="mt-4 pt-3 border-t border-[#EEEEEE]">
+                <h4 className="text-xs font-extrabold text-[#0E0E0E] uppercase mb-2 flex items-center gap-1.5">
+                  <Scale className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <span>Weight Slabs Quick Rate Matrix</span>
+                </h4>
+                <div className="overflow-x-auto rounded border border-[#EEEEEE]">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FCF1E5] text-[#0E0E0E] font-extrabold uppercase text-[11px] tracking-wider">
+                        <th className="p-2.5 border-b border-r border-[#EEEEEE]">Weight Bracket</th>
+                        <th className="p-2.5 border-b border-r border-[#EEEEEE]">Inside Dhaka (৳)</th>
+                        <th className="p-2.5 border-b border-r border-[#EEEEEE]">Sub-Urban Area (৳)</th>
+                        <th className="p-2.5 border-b border-[#EEEEEE]">Outside Dhaka (৳)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#EEEEEE] text-[#545454]">
+                      <tr className="bg-white hover:bg-[#FAFAFA]">
+                        <td className="p-2.5 font-bold border-r border-[#EEEEEE] text-[#0E0E0E]">Up to {baseIncludedWeight} KG (Base Rate)</td>
+                        <td className="p-2.5 font-black text-[#008F2F] border-r border-[#EEEEEE]">৳{insideDhakaCharge}</td>
+                        <td className="p-2.5 font-black text-[#E67E00] border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge}</td>
+                        <td className="p-2.5 font-black text-[#0E0E0E]">৳{outsideDhakaCharge}</td>
+                      </tr>
+                      <tr className="bg-[#FAFAFA] hover:bg-[#F5F5F5]">
+                        <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">{(baseIncludedWeight + 0.1).toFixed(1)} KG - 2.0 KG</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + extraKgRateDhaka}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + extraKgRateSubUrban}</td>
+                        <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + extraKgRateOutside}</td>
+                      </tr>
+                      <tr className="bg-white hover:bg-[#FAFAFA]">
+                        <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">2.1 KG - 3.0 KG</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + (2 * extraKgRateDhaka)}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + (2 * extraKgRateSubUrban)}</td>
+                        <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + (2 * extraKgRateOutside)}</td>
+                      </tr>
+                      <tr className="bg-[#FAFAFA] hover:bg-[#F5F5F5]">
+                        <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">3.1 KG - 5.0 KG</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + (4 * extraKgRateDhaka)}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + (4 * extraKgRateSubUrban)}</td>
+                        <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + (4 * extraKgRateOutside)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* SECTION 3: Interactive Shipping Fee Calculator */}
+            <div className="bg-[#FCF1E5]/40 border border-[#EEAB59] rounded p-5 space-y-4 shadow-2xs">
+              <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEAB59]/40 pb-2.5">
                 <Calculator className="w-4 h-4 text-[#E67E00]" />
-                <span>POS Real-Time Shipping Fee Calculator & Simulator</span>
+                <span>3. POS Real-Time Shipping Fee Calculator & Simulator</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <div>
                     <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Select Customer Delivery Area Zone
+                      Select Delivery Zone
                     </label>
                     <select
                       value={calcSimArea}
                       onChange={(e) => setCalcSimArea(e.target.value as any)}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
+                      className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
                     >
-                      <option value="INSIDE_DHAKA">Inside Dhaka (ঢাকা সিটি) - ৳{insideDhakaCharge}</option>
-                      <option value="SUB_URBAN">Sub-Urban Area (ঢাকা পার্শ্ববর্তী এলাকা) - ৳{subUrbanDhakaCharge}</option>
-                      <option value="OUTSIDE_DHAKA">Outside Dhaka (ঢাকার বাইরে) - ৳{outsideDhakaCharge}</option>
+                      <option value="INSIDE_DHAKA">Inside Dhaka - ৳{insideDhakaCharge}</option>
+                      <option value="SUB_URBAN">Sub-Urban Area - ৳{subUrbanDhakaCharge}</option>
+                      <option value="OUTSIDE_DHAKA">Outside Dhaka - ৳{outsideDhakaCharge}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="text-xs font-bold text-[#0E0E0E] block mb-1">
-                      Package Total Weight (KG)
+                      Package Weight (KG)
                     </label>
                     <input
                       type="number"
@@ -779,12 +814,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       min="0.1"
                       value={calcSimWeight}
                       onChange={(e) => setCalcSimWeight(Math.max(0.1, Number(e.target.value)))}
-                      className="w-full p-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]"
+                      className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
                     />
                   </div>
                 </div>
 
-                {/* Calculation Output Box */}
+                {/* Calculation Result Preview Box */}
                 {(() => {
                   let baseFee = insideDhakaCharge;
                   let extraRate = extraKgRateDhaka;
@@ -805,30 +840,35 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                   const totalShipping = baseFee + extraCharge;
 
                   return (
-                    <div className="bg-white border border-[#EEAB59] rounded p-4 flex flex-col justify-between space-y-3">
+                    <div className="bg-white border border-[#EEAB59] rounded-lg p-4 flex flex-col justify-between space-y-3 shadow-2xs">
                       <div>
-                        <div className="flex items-center justify-between text-xs font-bold border-b border-[#EEEEEE] pb-2 text-[#0E0E0E]">
-                          <span>Area: {areaName}</span>
-                          <span className="text-[#E67E00]">{calcSimWeight} KG</span>
+                        <div className="flex items-center justify-between text-xs font-extrabold border-b border-[#EEEEEE] pb-2 text-[#0E0E0E]">
+                          <span>Zone: <strong className="text-[#E67E00]">{areaName}</strong></span>
+                          <span className="text-[#0E0E0E] bg-[#FAFAFA] px-2 py-0.5 rounded border border-[#EEEEEE]">{calcSimWeight} KG</span>
                         </div>
 
-                        <div className="space-y-1.5 mt-2 text-xs text-[#545454]">
+                        <div className="space-y-2 mt-2.5 text-xs text-[#545454]">
                           <div className="flex justify-between">
                             <span>Base Rate (Up to {baseIncludedWeight} KG):</span>
-                            <span className="font-bold text-[#0E0E0E]">৳{baseFee}</span>
+                            <span className="font-extrabold text-[#0E0E0E]">৳{baseFee}</span>
                           </div>
-                          {extraWeight > 0 && (
+                          {extraWeight > 0 ? (
                             <div className="flex justify-between">
-                              <span>Extra Weight Charge ({extraWeight.toFixed(1)} KG @ ৳{extraRate}/KG):</span>
-                              <span className="font-bold text-[#E67E00]">+৳{extraCharge}</span>
+                              <span>Excess Weight ({extraWeight.toFixed(1)} KG @ ৳{extraRate}/KG):</span>
+                              <span className="font-extrabold text-[#E67E00]">+৳{extraCharge}</span>
+                            </div>
+                          ) : (
+                            <div className="flex justify-between text-[11px] text-[#008F2F] font-semibold">
+                              <span>Weight Surcharge:</span>
+                              <span>No Extra Charge</span>
                             </div>
                           )}
                         </div>
                       </div>
 
-                      <div className="pt-2 border-t border-[#EEAB59] flex items-center justify-between">
-                        <span className="text-xs font-bold text-[#0E0E0E] uppercase">Total POS Shipping Fee:</span>
-                        <span className="text-lg font-black text-[#E67E00]">৳{totalShipping}</span>
+                      <div className="pt-2.5 border-t border-[#EEAB59] flex items-center justify-between bg-[#FCF1E5]/20 -mx-4 -mb-4 p-3 rounded-b-lg">
+                        <span className="text-xs font-black text-[#0E0E0E] uppercase tracking-wider">Estimated Shipping Fee:</span>
+                        <span className="text-xl font-black text-[#E67E00]">৳{totalShipping}</span>
                       </div>
                     </div>
                   );
@@ -836,39 +876,116 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
               </div>
             </div>
 
-            {/* Display Options */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4">
-              <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider border-b border-[#EEEEEE] pb-2">
-                POS Display & Order Options
-              </h3>
+            {/* SECTION 4: POS Terminal & Checkout Preferences */}
+            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+              <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-3">
+                <Receipt className="w-4 h-4 text-[#E67E00]" />
+                <span>4. POS Terminal Checkout Preferences</span>
+              </div>
 
-              <div className="flex items-start justify-between gap-4 p-3 bg-[#FCF1E5]/30 rounded border border-[#EEAB59]/60">
-                <div>
-                  <span className="text-xs font-bold text-[#0E0E0E] block">
-                    Show Order Status Dropdown in POS Page
-                  </span>
-                  <p className="text-[11px] text-[#545454] font-medium mt-0.5">
-                    Enable this to display order status selection option during quick sale creation in POS interface.
-                  </p>
+              <div className="space-y-3">
+                {/* Option 1: Show Order Status Dropdown */}
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                  <div>
+                    <span className="text-xs font-bold text-[#0E0E0E] block">
+                      Show Order Status Selection in POS Checkout
+                    </span>
+                    <p className="text-[11px] text-[#545454] font-medium mt-0.5">
+                      Allow sales reps to set instant order status (Pending, Confirmed, Shipped) during sale creation.
+                    </p>
+                  </div>
+
+                  <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input 
+                      type="checkbox" 
+                      checked={showDropdownInPOS} 
+                      onChange={(e) => setShowDropdownInPOS(e.target.checked)}
+                      className="sr-only peer" 
+                    />
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                  </label>
                 </div>
 
-                <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
-                  <input 
-                    type="checkbox" 
-                    checked={showDropdownInPOS} 
-                    onChange={(e) => setShowDropdownInPOS(e.target.checked)}
-                    className="sr-only peer" 
-                  />
-                  <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
-                </label>
+                {/* Option 2: Auto Print Receipt */}
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                  <div>
+                    <span className="text-xs font-bold text-[#0E0E0E] block">
+                      Auto-Print Thermal Invoice Upon Order Completion
+                    </span>
+                    <p className="text-[11px] text-[#545454] font-medium mt-0.5">
+                      Automatically trigger 80mm thermal receipt print window after completing POS order.
+                    </p>
+                  </div>
+
+                  <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input 
+                      type="checkbox" 
+                      checked={autoPrintReceipt} 
+                      onChange={(e) => setAutoPrintReceipt(e.target.checked)}
+                      className="sr-only peer" 
+                    />
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                  </label>
+                </div>
+
+                {/* Option 3: Sound Effects */}
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                  <div>
+                    <span className="text-xs font-bold text-[#0E0E0E] block">
+                      Audio Sound Effects for Barcode Scanning
+                    </span>
+                    <p className="text-[11px] text-[#545454] font-medium mt-0.5">
+                      Play audible beep confirmation when adding items via barcode scanner or completing payment.
+                    </p>
+                  </div>
+
+                  <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                    <input 
+                      type="checkbox" 
+                      checked={enableSoundEffects} 
+                      onChange={(e) => setEnableSoundEffects(e.target.checked)}
+                      className="sr-only peer" 
+                    />
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                  </label>
+                </div>
+
+                {/* Option 4: Default Payment Method */}
+                <div className="p-3.5 bg-[#FCF1E5]/30 rounded-lg border border-[#EEAB59]/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                  <div>
+                    <span className="text-xs font-bold text-[#0E0E0E] block">
+                      Default POS Payment Gateway
+                    </span>
+                    <p className="text-[11px] text-[#545454] font-medium mt-0.5">
+                      Pre-select primary payment mode during quick POS checkout session.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {['Cash', 'bKash', 'Card', 'Nagad'].map((pm) => (
+                      <button
+                        key={pm}
+                        type="button"
+                        onClick={() => setDefaultPaymentMethod(pm)}
+                        className={`px-3 py-1.5 text-xs font-extrabold rounded-full transition-all cursor-pointer ${
+                          defaultPaymentMethod === pm
+                            ? 'bg-[#E67E00] text-white shadow-2xs'
+                            : 'bg-white border border-[#EEAB59] text-[#0E0E0E] hover:bg-[#FCF1E5]'
+                        }`}
+                      >
+                        {pm}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Save Button */}
-            <div className="pt-2">
+            <div className="pt-2 flex justify-end">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs uppercase tracking-wider rounded-full flex items-center justify-center gap-2 shadow-2xs transition-all"
+                className="w-full sm:w-auto px-8 py-3 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs uppercase tracking-wider rounded-full flex items-center justify-center gap-2 shadow-2xs transition-all cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save POS Shipping Settings</span>

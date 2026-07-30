@@ -18,6 +18,7 @@ import {
   CheckCircle2, 
   X,
   ArrowRight,
+  ArrowLeft,
   HelpCircle,
   MessageSquare,
   ChevronRight,
@@ -463,30 +464,511 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
         </div>
       )}
 
-      {/* 2. MAIN SUB-HEADER NAVIGATION TABS */}
-      <div className="bg-white border border-[#EEAB59] rounded px-2 flex items-center justify-start border-b">
-        <button
-          onClick={() => setTopTab('ORDERS')}
-          className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
-            topTab === 'ORDERS'
-              ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
-              : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
-          }`}
-        >
-          <span>ALL ORDERS</span>
-        </button>
+      {/* VIEW ORDER DETAILS VIEW IN-PAGE (SIDEBAR & TOP HEADER ALWAYS VISIBLE) */}
+      {activeModalOrder ? (
+        <div className="w-full space-y-4 animate-fadeIn">
+          {/* TOP HEADER CONTROL BAR WITH BACK NAVIGATION (DESIGN SYSTEM COMPLIANT) */}
+          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setActiveModalOrder(null)}
+                className="p-2 bg-[#FCF1E5] hover:bg-[#EEAB59]/30 border border-[#EEAB59] text-[#E67E00] rounded-full transition-all cursor-pointer shrink-0"
+                title="Back to All Orders"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 rounded uppercase tracking-wider">
+                    ORDER DETAILS & LOGISTICS
+                  </span>
+                  <span className="text-xs font-bold text-[#8F8F8F]">
+                    {activeModalOrder.dateStr}
+                  </span>
+                </div>
+                <h1 className="text-xl md:text-2xl font-black text-[#0E0E0E] tracking-tight uppercase">
+                  VIEW ORDER #{activeModalOrder.id}
+                </h1>
+                <p className="text-xs font-medium text-[#545454] mt-0.5">
+                  Customer: <strong className="text-[#0E0E0E] font-bold">{activeModalOrder.customerName}</strong> ({activeModalOrder.customerPhone}) • Package: {activeModalOrder.packageItem}
+                </p>
+              </div>
+            </div>
 
-        <button
-          onClick={() => setTopTab('RECOVERY')}
-          className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
-            topTab === 'RECOVERY'
-              ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
-              : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
-          }`}
-        >
-          <span>RECOVERY CENTER</span>
-        </button>
-      </div>
+            {/* Action Buttons Toolbar (Icon-Only Buttons) */}
+            <div className="flex items-center gap-2">
+              {/* Print Invoice */}
+              <button
+                type="button"
+                onClick={() => triggerToast(`Printing invoice for ${activeModalOrder.id}`)}
+                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                title="Print Invoice"
+              >
+                <Printer className="w-4 h-4" />
+              </button>
+
+              {/* Download PDF */}
+              <button
+                type="button"
+                onClick={() => triggerToast(`PDF document generated for ${activeModalOrder.id}`)}
+                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                title="Download Summary"
+              >
+                <FileText className="w-4 h-4" />
+              </button>
+
+              {/* Select Courier Button */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsCourierDropdownOpen(!isCourierDropdownOpen)}
+                  className="p-2 bg-[#E67E00] hover:bg-[#CC7000] text-white rounded-full transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
+                  title={`Courier: ${activeModalOrder.logistics}`}
+                >
+                  <Truck className="w-4 h-4" />
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+                {isCourierDropdownOpen && (
+                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
+                    <div className="px-3.5 py-1.5 font-extrabold text-[10px] text-[#8F8F8F] border-b border-[#EEEEEE] uppercase tracking-wider">
+                      Courier: <span className="text-[#E67E00]">{activeModalOrder.logistics}</span>
+                    </div>
+                    {['Steadfast', 'RedX', 'Paperfly', 'Pathao'].map((c) => (
+                      <button
+                        type="button"
+                        key={c}
+                        onClick={() => {
+                          setOrderRecords(prev => prev.map(o => o.id === activeModalOrder.id ? { ...o, logistics: c as any } : o));
+                          setActiveModalOrder(prev => prev ? { ...prev, logistics: c as any } : null);
+                          setIsCourierDropdownOpen(false);
+                          triggerToast(`Courier updated to ${c}`);
+                        }}
+                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#FCF1E5] ${activeModalOrder.logistics === c ? 'text-[#E67E00] bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
+                      >
+                        Dispatch via {c}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Status Dropdown */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+                  className="p-2 bg-[#ECFFE8] border border-[#008F2F]/40 text-[#008F2F] rounded-full flex items-center gap-1 shadow-2xs hover:bg-[#008F2F]/10 transition-all cursor-pointer"
+                  title={`Status: ${activeModalOrder.status}`}
+                >
+                  <Clock className="w-4 h-4" />
+                  <ChevronDown className="w-3 h-3" />
+                </button>
+                {isStatusDropdownOpen && (
+                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
+                    <div className="px-3.5 py-1.5 font-extrabold text-[10px] text-[#8F8F8F] border-b border-[#EEEEEE] uppercase tracking-wider">
+                      Status: <span className="text-[#008F2F]">{activeModalOrder.status}</span>
+                    </div>
+                    {['Pending', 'Confirmed', 'Shipment Ready', 'In Transit', 'Delivered', 'On Hold', 'Cancelled', 'Returned', 'Follow-up'].map((st) => (
+                      <button
+                        type="button"
+                        key={st}
+                        onClick={() => {
+                          setOrderRecords(prev => prev.map(o => o.id === activeModalOrder.id ? { ...o, status: st as any } : o));
+                          setActiveModalOrder(prev => prev ? { ...prev, status: st as any } : null);
+                          setIsStatusDropdownOpen(false);
+                          triggerToast(`Order status set to ${st}`);
+                        }}
+                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#FCF1E5] ${activeModalOrder.status === st ? 'text-[#E67E00] bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
+                      >
+                        {st}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Edit Button */}
+              <button
+                type="button"
+                onClick={() => triggerToast(`Edit mode activated for ${activeModalOrder.id}`)}
+                className="p-2 bg-[#E67E00] hover:bg-[#CC7000] text-white rounded-full transition-all cursor-pointer shadow-2xs"
+                title="Edit Order"
+              >
+                <Edit3 className="w-4 h-4" />
+              </button>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setActiveModalOrder(null)}
+                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                title="Close Details View"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* MAIN 2-COLUMN GRID CONTENT */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+            
+            {/* LEFT 3 COLUMNS: FINANCIALS, RELIABILITY & TIMELINE */}
+            <div className="lg:col-span-3 space-y-4">
+
+              {/* ORDER SUMMARY CARD */}
+              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                      ORDER FINANCIAL SUMMARY
+                    </h2>
+                  </div>
+                  <button 
+                    onClick={() => triggerToast("Edit Order Summary")}
+                    className="p-1 bg-[#008F2F] hover:bg-[#007727] text-white rounded transition-colors cursor-pointer"
+                    title="Edit Order Summary"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                        <th className="py-2.5 px-4">ORDER NUMBER</th>
+                        <th className="py-2.5 px-4">CREATED AT</th>
+                        <th className="py-2.5 px-4">DISCOUNT</th>
+                        <th className="py-2.5 px-4">COUPON</th>
+                        <th className="py-2.5 px-4">DELIVERY FEE</th>
+                        <th className="py-2.5 px-4">GRAND TOTAL</th>
+                        <th className="py-2.5 px-4">PAID</th>
+                        <th className="py-2.5 px-4">DUE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b border-[#EEEEEE] text-xs font-bold text-[#0E0E0E]">
+                        <td className="py-3 px-4 text-[#E67E00]">{activeModalOrder.id}</td>
+                        <td className="py-3 px-4 font-medium text-[#545454]">{activeModalOrder.dateStr}</td>
+                        <td className="py-3 px-4">0 TK</td>
+                        <td className="py-3 px-4">0 TK</td>
+                        <td className="py-3 px-4">0 TK</td>
+                        <td className="py-3 px-4 font-black text-[#008F2F]">{activeModalOrder.price} TK</td>
+                        <td className="py-3 px-4">0 TK</td>
+                        <td className="py-3 px-4 font-black text-[#0E0E0E]">{activeModalOrder.price} TK</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="overflow-x-auto border-t border-[#EEEEEE]">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                        <th className="py-2.5 px-4">PRODUCT NAME</th>
+                        <th className="py-2.5 px-4">VARIANTS</th>
+                        <th className="py-2.5 px-4">OPTION</th>
+                        <th className="py-2.5 px-4">PRICE</th>
+                        <th className="py-2.5 px-4">DISCOUNT</th>
+                        <th className="py-2.5 px-4">QUANTITY</th>
+                        <th className="py-2.5 px-4">TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="text-xs font-medium text-[#0E0E0E]">
+                        <td className="py-3 px-4 font-bold text-[#E67E00] hover:underline cursor-pointer">
+                          {activeModalOrder.packageItem}
+                        </td>
+                        <td className="py-3 px-4">
+                          <span className="px-2 py-0.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-[10px] rounded">N/A</span>
+                        </td>
+                        <td className="py-3 px-4 text-[#8F8F8F]">-</td>
+                        <td className="py-3 px-4">{activeModalOrder.price} TK</td>
+                        <td className="py-3 px-4">0 TK</td>
+                        <td className="py-3 px-4 font-bold">1</td>
+                        <td className="py-3 px-4 font-extrabold text-[#008F2F]">{activeModalOrder.price} TK</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* CUSTOMER INTELLIGENCE / COURIER RATINGS CARD */}
+              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs p-4 space-y-4">
+                <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <h3 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                      CUSTOMER RELIABILITY & COURIER INTELLIGENCE: {activeModalOrder.customerName}
+                    </h3>
+                    <span className="bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 text-[10px] font-black px-2 py-0.5 rounded uppercase">VERIFIED LEAD</span>
+                  </div>
+                </div>
+
+                <div className="text-xs font-semibold text-[#545454] flex flex-wrap gap-4 bg-[#FCF1E5]/30 p-2.5 rounded border border-[#EEAB59]/30">
+                  <span>Total Orders: <strong className="text-[#0E0E0E]">1</strong></span>
+                  <span>Confirmed: <strong className="text-[#008F2F]">0</strong></span>
+                  <span>Cancelled: <strong className="text-red-500">0</strong></span>
+                  <span>Pending: <strong className="text-[#E67E00]">1</strong></span>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-[#545454]">Success Rate Score:</span>
+                  <div className="w-full h-2 bg-[#EEEEEE] rounded-full overflow-hidden">
+                    <div className="h-full bg-[#008F2F] w-24 rounded-full"></div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+                  {/* STEADFAST */}
+                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">STEADFAST COURIER</span>
+                    <div className="text-[10px] font-bold text-[#545454] flex justify-between">
+                      <span>Confirmed: 0</span>
+                      <span>Cancelled: 0</span>
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
+                      <div className="w-full h-1.5 bg-[#EEEEEE] rounded-full overflow-hidden">
+                        <div className="h-full bg-[#008F2F] w-0"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PATHAO */}
+                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">PATHAO COURIER</span>
+                    <div className="text-[10px] font-bold text-[#545454] flex justify-between">
+                      <span>Confirmed: 0</span>
+                      <span>Cancelled: 0</span>
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
+                      <div className="w-full h-1.5 bg-[#EEEEEE] rounded-full overflow-hidden">
+                        <div className="h-full bg-[#008F2F] w-0"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* REDX */}
+                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">REDX COURIER</span>
+                    <div className="text-[10px] font-bold text-[#545454] flex justify-between">
+                      <span>Confirmed: 0</span>
+                      <span>Cancelled: 0</span>
+                    </div>
+                    <div className="space-y-0.5">
+                      <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
+                      <div className="w-full h-1.5 bg-[#EEEEEE] rounded-full overflow-hidden">
+                        <div className="h-full bg-[#008F2F] w-0"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* SUMMARY TABLE CARD */}
+              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                      ORDER TIMELINE SUMMARY
+                    </h2>
+                  </div>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                        <th className="py-2.5 px-4">ORDER NUMBER</th>
+                        <th className="py-2.5 px-4">NAME</th>
+                        <th className="py-2.5 px-4">SOURCE</th>
+                        <th className="py-2.5 px-4">STATUS</th>
+                        <th className="py-2.5 px-4">AMOUNT</th>
+                        <th className="py-2.5 px-4">DATE</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="text-xs font-medium text-[#0E0E0E]">
+                        <td className="py-3 px-4 font-bold text-[#E67E00]">{activeModalOrder.id}</td>
+                        <td className="py-3 px-4 font-bold">{activeModalOrder.customerName}</td>
+                        <td className="py-3 px-4 text-[#545454]">Website Checkout</td>
+                        <td className="py-3 px-4">
+                          <span className="px-2 py-0.5 bg-[#ECFFE8] text-[#008F2F] font-bold text-[10px] rounded-full">
+                            {activeModalOrder.status}
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 font-bold text-[#008F2F]">{activeModalOrder.price} TK</td>
+                        <td className="py-3 px-4 text-[#545454]">{activeModalOrder.dateStr}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            {/* RIGHT 1 COLUMN: CUSTOMER INFO & COMMENTS */}
+            <div className="lg:col-span-1 space-y-4">
+
+              {/* CUSTOMER INFORMATION CARD */}
+              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                      CUSTOMER INFO
+                    </h2>
+                  </div>
+                  <button 
+                    onClick={() => triggerToast("Edit Customer Info")}
+                    className="p-1 bg-[#008F2F] hover:bg-[#007727] text-white rounded transition-colors cursor-pointer"
+                    title="Edit Customer Information"
+                  >
+                    <Edit3 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="p-4 space-y-3">
+                  <div>
+                    <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">NAME</span>
+                    <p className="font-bold text-xs text-[#0E0E0E]">{activeModalOrder.customerName}</p>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">PHONE</span>
+                    <a 
+                      href={`tel:${activeModalOrder.customerPhone}`}
+                      className="font-bold text-xs text-[#008F2F] hover:underline flex items-center gap-1.5 bg-[#ECFFE8] p-2 rounded border border-[#008F2F]/20"
+                    >
+                      <Phone className="w-3.5 h-3.5 text-[#008F2F]" />
+                      <span>{activeModalOrder.customerPhone}</span>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#008F2F] ml-auto" />
+                    </a>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">EMAIL</span>
+                    <p className="font-semibold text-xs text-[#545454]">N/A</p>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">DELIVERY ADDRESS</span>
+                    <p className="font-semibold text-xs text-[#0E0E0E] bg-[#FAFAFA] p-2 rounded border border-[#EEEEEE]">
+                      123 Main Street, Central City
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* COMMENTS CARD */}
+              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden min-h-[220px] flex flex-col justify-between">
+                <div>
+                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
+                        INTERNAL COMMENTS
+                      </h2>
+                    </div>
+                    <button 
+                      onClick={() => setIsAddingComment(!isAddingComment)}
+                      className="px-2.5 py-1 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-[10px] rounded-full uppercase tracking-wider transition-all cursor-pointer"
+                    >
+                      + ADD
+                    </button>
+                  </div>
+
+                  {isAddingComment && (
+                    <div className="p-3 border-b border-[#EEEEEE] bg-[#FCF1E5]/30 space-y-2">
+                      <textarea
+                        rows={2}
+                        value={newCommentText}
+                        onChange={(e) => setNewCommentText(e.target.value)}
+                        placeholder="Type internal order comment..."
+                        className="w-full p-2 border border-[#EEAB59] rounded text-xs text-[#0E0E0E] focus:outline-none focus:border-[#008F2F] bg-white"
+                      />
+                      <div className="flex justify-end gap-1.5">
+                        <button
+                          onClick={() => setIsAddingComment(false)}
+                          className="px-2.5 py-1 text-[11px] font-bold text-[#8F8F8F] hover:text-[#0E0E0E] cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (!newCommentText.trim()) return;
+                            setOrderComments(prev => ({
+                              ...prev,
+                              [activeModalOrder.id]: [...(prev[activeModalOrder.id] || []), newCommentText.trim()]
+                            }));
+                            setNewCommentText('');
+                            setIsAddingComment(false);
+                            triggerToast("Comment saved!");
+                          }}
+                          className="px-3 py-1 bg-[#008F2F] hover:bg-[#007727] text-white text-[11px] font-bold rounded-full cursor-pointer"
+                        >
+                          Save Note
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Comments List / Empty State */}
+                  <div className="p-4">
+                    {(orderComments[activeModalOrder.id] && orderComments[activeModalOrder.id].length > 0) ? (
+                      <div className="space-y-2">
+                        {orderComments[activeModalOrder.id].map((cm, idx) => (
+                          <div key={idx} className="p-2 bg-[#FCF1E5]/30 border border-[#EEAB59]/30 rounded text-xs text-[#0E0E0E]">
+                            <p className="font-medium">{cm}</p>
+                            <span className="text-[9px] text-[#8F8F8F] block text-right mt-1 font-bold">Just now</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center py-8 text-center text-[#8F8F8F] space-y-2">
+                        <div className="w-8 h-8 rounded-full border border-[#EEAB59]/40 bg-[#FCF1E5] flex items-center justify-center text-[#E67E00]">
+                          <MessageSquare className="w-4 h-4" />
+                        </div>
+                        <span className="text-xs font-semibold">No comments added yet</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* 2. MAIN SUB-HEADER NAVIGATION TABS */}
+          <div className="bg-white border border-[#EEAB59] rounded px-2 flex items-center justify-start border-b">
+            <button
+              onClick={() => setTopTab('ORDERS')}
+              className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
+                topTab === 'ORDERS'
+                  ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
+                  : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
+              }`}
+            >
+              <span>ALL ORDERS</span>
+            </button>
+
+            <button
+              onClick={() => setTopTab('RECOVERY')}
+              className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
+                topTab === 'RECOVERY'
+                  ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
+                  : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
+              }`}
+            >
+              <span>RECOVERY CENTER</span>
+            </button>
+          </div>
 
       {/* ------------------------------------------------------------- */}
       {/* RECOVERY CENTER VIEW */}
@@ -1210,473 +1692,17 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
         </div>
       )}
 
-      {/* VIEW / EDIT ORDER DETAIL MODAL */}
-      {activeModalOrder && (
-        <div className="fixed inset-0 z-50 bg-[#F8F9FA] overflow-y-auto p-4 md:p-6 text-[#0E0E0E] animate-fadeIn">
-          <div className="max-w-7xl mx-auto space-y-4">
-            {/* TOP BREADCRUMB AND HEADER ACTIONS */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-[#EEEEEE] pb-3">
-              <div>
-                <div className="flex items-center gap-1.5 text-xs text-[#8F8F8F] font-semibold mb-1">
-                  <button 
-                    onClick={() => setActiveModalOrder(null)} 
-                    className="hover:text-[#E67E00] uppercase tracking-wider font-bold transition-colors"
-                  >
-                    ORDERS
-                  </button>
-                  <span>&gt;</span>
-                  <span className="text-[#0E0E0E] uppercase tracking-wider font-bold">VIEW</span>
-                </div>
-                <h1 className="text-xl md:text-2xl font-black text-[#0E0E0E] tracking-tight">
-                  View Order #{activeModalOrder.id}
-                </h1>
-              </div>
-
-              {/* Action Buttons Toolbar */}
-              <div className="flex flex-wrap items-center gap-2">
-                {/* Print */}
-                <button
-                  onClick={() => triggerToast(`Printing invoice for ${activeModalOrder.id}`)}
-                  className="p-2 bg-white border border-[#EEEEEE] rounded hover:bg-[#FCF1E5] text-[#545454] transition-all"
-                  title="Print Invoice"
-                >
-                  <Printer className="w-4 h-4" />
-                </button>
-
-                {/* Export / Document */}
-                <button
-                  onClick={() => triggerToast(`PDF document generated for ${activeModalOrder.id}`)}
-                  className="p-2 bg-white border border-[#EEEEEE] rounded hover:bg-[#FCF1E5] text-[#545454] transition-all"
-                  title="Download Summary"
-                >
-                  <FileText className="w-4 h-4" />
-                </button>
-
-                {/* Cyan Button IH */}
-                <button
-                  onClick={() => triggerToast(`Integration Hub synced for ${activeModalOrder.id}`)}
-                  className="px-2.5 py-1.5 bg-[#00BCD4] hover:bg-[#00ACC1] text-white rounded text-xs font-bold tracking-wider transition-all"
-                >
-                  IH
-                </button>
-
-                {/* Select Courier Button */}
-                <div className="relative">
-                  <button
-                    onClick={() => setIsCourierDropdownOpen(!isCourierDropdownOpen)}
-                    className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-xs"
-                  >
-                    <span>SELECT COURIER</span>
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </button>
-                  {isCourierDropdownOpen && (
-                    <div className="absolute right-0 mt-1 w-44 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
-                      {['Steadfast', 'RedX', 'Paperfly', 'Pathao'].map((c) => (
-                        <button
-                          key={c}
-                          onClick={() => {
-                            setOrderRecords(prev => prev.map(o => o.id === activeModalOrder.id ? { ...o, logistics: c as any } : o));
-                            setActiveModalOrder(prev => prev ? { ...prev, logistics: c as any } : null);
-                            setIsCourierDropdownOpen(false);
-                            triggerToast(`Courier updated to ${c}`);
-                          }}
-                          className={`w-full text-left px-3 py-2 font-medium hover:bg-[#FCF1E5] ${activeModalOrder.logistics === c ? 'text-[#E67E00] font-bold bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
-                        >
-                          {c}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Status Badge */}
-                <div className="relative">
-                  <button
-                    onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
-                    className="px-3 py-1.5 bg-[#FFF8E1] border border-[#FFE082] text-[#B78103] rounded font-bold text-xs flex items-center gap-1.5 shadow-xs hover:bg-[#FFF3C4] transition-all"
-                  >
-                    <span>⏳</span>
-                    <span>{activeModalOrder.status}</span>
-                    <ChevronDown className="w-3 h-3 text-[#B78103]" />
-                  </button>
-                  {isStatusDropdownOpen && (
-                    <div className="absolute right-0 mt-1 w-40 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
-                      {['Pending', 'Confirmed', 'Shipment Ready', 'In Transit', 'Delivered', 'On Hold', 'Cancelled', 'Returned', 'Follow-up'].map((st) => (
-                        <button
-                          key={st}
-                          onClick={() => {
-                            setOrderRecords(prev => prev.map(o => o.id === activeModalOrder.id ? { ...o, status: st as any } : o));
-                            setActiveModalOrder(prev => prev ? { ...prev, status: st as any } : null);
-                            setIsStatusDropdownOpen(false);
-                            triggerToast(`Order status set to ${st}`);
-                          }}
-                          className={`w-full text-left px-3 py-2 font-medium hover:bg-[#FCF1E5] ${activeModalOrder.status === st ? 'text-[#E67E00] font-bold bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
-                        >
-                          {st}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Edit Button */}
-                <button
-                  onClick={() => triggerToast(`Edit mode activated for ${activeModalOrder.id}`)}
-                  className="px-4 py-2 bg-[#EF4444] hover:bg-[#DC2626] text-white font-bold text-xs rounded transition-all"
-                >
-                  Edit
-                </button>
-
-                {/* New Order Button */}
-                <button
-                  onClick={() => {
-                    setIsCreateModalOpen(true);
-                  }}
-                  className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded transition-all"
-                >
-                  New Order
-                </button>
-
-                {/* Exit / Close View Button */}
-                <button
-                  onClick={() => setActiveModalOrder(null)}
-                  className="p-2 bg-white border border-[#EEEEEE] rounded hover:bg-[#FCF1E5] text-[#545454] transition-all ml-2"
-                  title="Close View"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* TWO COLUMN GRID */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-              {/* LEFT COLUMN (3/4 width) */}
-              <div className="lg:col-span-3 space-y-4">
-
-                {/* ORDER SUMMARY CARD */}
-                <div className="bg-white border border-[#EEEEEE] rounded shadow-xs overflow-hidden">
-                  <div className="flex items-center justify-between bg-white px-4 py-3 border-b border-[#EEEEEE]">
-                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
-                      ORDER SUMMARY
-                    </h2>
-                    <button 
-                      onClick={() => triggerToast("Edit Order Summary")}
-                      className="p-1 bg-[#00BCD4] hover:bg-[#00ACC1] text-white rounded transition-colors"
-                      title="Edit Order Summary"
-                    >
-                      <Edit3 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-
-                  {/* FINANCIAL TABLE */}
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
-                      <thead>
-                        <tr className="bg-[#FAFAFA] border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
-                          <th className="py-2.5 px-4">ORDER NUMBER</th>
-                          <th className="py-2.5 px-4">CREATED AT</th>
-                          <th className="py-2.5 px-4">DISCOUNT</th>
-                          <th className="py-2.5 px-4">COUPON</th>
-                          <th className="py-2.5 px-4">DELIVERY FEE</th>
-                          <th className="py-2.5 px-4">GRAND TOTAL</th>
-                          <th className="py-2.5 px-4">PAID</th>
-                          <th className="py-2.5 px-4">DUE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b border-[#EEEEEE] text-xs font-bold text-[#0E0E0E]">
-                          <td className="py-3 px-4">{activeModalOrder.id}</td>
-                          <td className="py-3 px-4 font-medium text-[#545454]">{activeModalOrder.dateStr}</td>
-                          <td className="py-3 px-4">0 TK</td>
-                          <td className="py-3 px-4">0 TK</td>
-                          <td className="py-3 px-4">0 TK</td>
-                          <td className="py-3 px-4 font-black">{activeModalOrder.price} TK</td>
-                          <td className="py-3 px-4">0 TK</td>
-                          <td className="py-3 px-4 font-black text-[#0E0E0E]">{activeModalOrder.price} TK</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  {/* PRODUCT ITEMS TABLE */}
-                  <div className="overflow-x-auto border-t border-[#EEEEEE]">
-                    <table className="w-full text-left text-xs">
-                      <thead>
-                        <tr className="bg-[#FAFAFA] border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
-                          <th className="py-2.5 px-4">PRODUCT NAME</th>
-                          <th className="py-2.5 px-4">VARIANTS</th>
-                          <th className="py-2.5 px-4">OPTION</th>
-                          <th className="py-2.5 px-4">PRICE</th>
-                          <th className="py-2.5 px-4">DISCOUNT</th>
-                          <th className="py-2.5 px-4">QUANTITY</th>
-                          <th className="py-2.5 px-4">TOTAL</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="text-xs font-medium text-[#0E0E0E]">
-                          <td className="py-3 px-4 font-bold text-[#00BCD4] hover:underline cursor-pointer">
-                            {activeModalOrder.packageItem}
-                          </td>
-                          <td className="py-3 px-4">
-                            <span className="px-1.5 py-0.5 bg-[#FFF3C4] text-[#B78103] rounded text-[10px] font-bold">N/A</span>
-                          </td>
-                          <td className="py-3 px-4 text-[#8F8F8F]">-</td>
-                          <td className="py-3 px-4">{activeModalOrder.price}</td>
-                          <td className="py-3 px-4">0</td>
-                          <td className="py-3 px-4 font-bold">1</td>
-                          <td className="py-3 px-4 font-extrabold">{activeModalOrder.price}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-                {/* CUSTOMER INTELLIGENCE / COURIER RATINGS CARD */}
-                <div className="bg-white border border-[#EEEEEE] rounded shadow-xs p-4 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-extrabold text-sm text-[#0E0E0E]">
-                      {activeModalOrder.customerName}
-                    </h3>
-                    <span className="bg-[#3B82F6] text-white text-[10px] font-black px-1.5 py-0.5 rounded uppercase">NEW</span>
-                  </div>
-
-                  <div className="text-xs font-semibold text-[#545454] flex flex-wrap gap-4">
-                    <span>Total Orders: <strong className="text-[#0E0E0E]">1</strong></span>
-                    <span>Confirmed: <strong className="text-[#0E0E0E]">0</strong></span>
-                    <span>Cancelled: <strong className="text-[#0E0E0E]">0</strong></span>
-                    <span>Pending: <strong className="text-[#0E0E0E]">1</strong></span>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-[#545454]">Success Rate:</span>
-                    <div className="w-full h-2 bg-[#EEEEEE] rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-400 w-12 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  {/* THREE COURIER CARDS */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                    {/* STEADFAST */}
-                    <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-1.5">
-                      <span className="font-extrabold text-xs text-[#0E0E0E] uppercase block">STEADFAST</span>
-                      <div className="text-[10px] font-bold text-[#545454] flex justify-between">
-                        <span>Confirmed: 0</span>
-                        <span>Cancelled: 0</span>
-                      </div>
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
-                        <div className="w-full h-1.5 bg-[#E0E0E0] rounded-full overflow-hidden">
-                          <div className="h-full bg-slate-300 w-0"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* PATHAO */}
-                    <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-1.5">
-                      <span className="font-extrabold text-xs text-[#0E0E0E] uppercase block">PATHAO</span>
-                      <div className="text-[10px] font-bold text-[#545454] flex justify-between">
-                        <span>Confirmed: 0</span>
-                        <span>Cancelled: 0</span>
-                      </div>
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
-                        <div className="w-full h-1.5 bg-[#E0E0E0] rounded-full overflow-hidden">
-                          <div className="h-full bg-slate-300 w-0"></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* REDX */}
-                    <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-1.5">
-                      <span className="font-extrabold text-xs text-[#0E0E0E] uppercase block">REDX</span>
-                      <div className="text-[10px] font-bold text-[#545454] flex justify-between">
-                        <span>Confirmed: 0</span>
-                        <span>Cancelled: 0</span>
-                      </div>
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-bold text-[#8F8F8F]">Success Rate:</span>
-                        <div className="w-full h-1.5 bg-[#E0E0E0] rounded-full overflow-hidden">
-                          <div className="h-full bg-slate-300 w-0"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* SYSTEM SUMMARY BOX */}
-                  <div className="p-3 bg-white border border-[#EEEEEE] rounded space-y-2">
-                    <span className="font-extrabold text-xs text-[#0E0E0E] uppercase block">SYSTEM SUMMARY</span>
-                    <div className="text-xs font-medium text-[#545454] flex flex-wrap gap-4">
-                      <span>Total Orders: <strong className="text-[#0E0E0E]">40</strong></span>
-                      <span>Confirmed: <strong className="text-[#0E0E0E]">0</strong></span>
-                      <span>Cancelled: <strong className="text-[#0E0E0E]">0</strong></span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#E0E0E0] rounded-full overflow-hidden">
-                      <div className="h-full bg-slate-300 w-0"></div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* SUMMARY TABLE CARD */}
-                <div className="bg-white border border-[#EEEEEE] rounded shadow-xs overflow-hidden">
-                  <div className="px-4 py-3 bg-white border-b border-[#EEEEEE]">
-                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
-                      SUMMARY
-                    </h2>
-                  </div>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
-                      <thead>
-                        <tr className="bg-[#FAFAFA] border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
-                          <th className="py-2.5 px-4">ORDER NUMBER</th>
-                          <th className="py-2.5 px-4">NAME</th>
-                          <th className="py-2.5 px-4">SOURCE</th>
-                          <th className="py-2.5 px-4">STATUS</th>
-                          <th className="py-2.5 px-4">TOTAL</th>
-                          <th className="py-2.5 px-4">ORDER DATE</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="text-xs font-medium text-[#0E0E0E]">
-                          <td className="py-3 px-4 font-bold">{activeModalOrder.id}</td>
-                          <td className="py-3 px-4">{activeModalOrder.customerName}</td>
-                          <td className="py-3 px-4 text-[#545454]">Website</td>
-                          <td className="py-3 px-4 lowercase text-[#0E0E0E] font-medium">{activeModalOrder.status}</td>
-                          <td className="py-3 px-4 font-bold">{activeModalOrder.price}</td>
-                          <td className="py-3 px-4 text-[#545454]">{activeModalOrder.dateStr}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* RIGHT COLUMN (1/4 width) */}
-              <div className="lg:col-span-1 space-y-4">
-
-                {/* CUSTOMER INFORMATION CARD */}
-                <div className="bg-white border border-[#EEEEEE] rounded shadow-xs overflow-hidden">
-                  <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#EEEEEE]">
-                    <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
-                      CUSTOMER INFORMATION
-                    </h2>
-                    <button 
-                      onClick={() => triggerToast("Edit Customer Info")}
-                      className="p-1 bg-[#00BCD4] hover:bg-[#00ACC1] text-white rounded transition-colors"
-                      title="Edit Customer Information"
-                    >
-                      <Edit3 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-
-                  <div className="p-4 space-y-3.5 text-xs">
-                    <div>
-                      <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">NAME</span>
-                      <p className="font-bold text-sm text-[#0E0E0E]">{activeModalOrder.customerName}</p>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">PHONE</span>
-                      <a 
-                        href={`tel:${activeModalOrder.customerPhone}`}
-                        className="font-bold text-xs text-[#00BCD4] hover:underline flex items-center gap-1.5"
-                      >
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>{activeModalOrder.customerPhone}</span>
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                      </a>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">EMAIL</span>
-                      <p className="font-bold text-xs text-[#8F8F8F]">—</p>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-extrabold text-[#8F8F8F] uppercase block mb-0.5">ADDRESS</span>
-                      <p className="font-semibold text-xs text-[#0E0E0E]">123 Main Street, Central City</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* COMMENTS CARD */}
-                <div className="bg-white border border-[#EEEEEE] rounded shadow-xs overflow-hidden min-h-[220px] flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#EEEEEE]">
-                      <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
-                        COMMENTS
-                      </h2>
-                      <button 
-                        onClick={() => setIsAddingComment(!isAddingComment)}
-                        className="px-2.5 py-1 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-[10px] rounded uppercase tracking-wider transition-all"
-                      >
-                        + ADD COMMENT
-                      </button>
-                    </div>
-
-                    {/* Comments Input Form */}
-                    {isAddingComment && (
-                      <div className="p-3 border-b border-[#EEEEEE] bg-[#FAFAFA] space-y-2">
-                        <textarea
-                          rows={2}
-                          value={newCommentText}
-                          onChange={(e) => setNewCommentText(e.target.value)}
-                          placeholder="Type order comment..."
-                          className="w-full p-2 border border-[#EEEEEE] rounded text-xs text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] bg-white"
-                        />
-                        <div className="flex justify-end gap-1.5">
-                          <button
-                            onClick={() => setIsAddingComment(false)}
-                            className="px-2.5 py-1 text-[11px] font-bold text-[#8F8F8F] hover:text-[#0E0E0E]"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            onClick={() => {
-                              if (!newCommentText.trim()) return;
-                              setOrderComments(prev => ({
-                                ...prev,
-                                [activeModalOrder.id]: [...(prev[activeModalOrder.id] || []), newCommentText.trim()]
-                              }));
-                              setNewCommentText('');
-                              setIsAddingComment(false);
-                              triggerToast("Comment added!");
-                            }}
-                            className="px-3 py-1 bg-[#E67E00] text-white text-[11px] font-bold rounded"
-                          >
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Comments List / Empty State */}
-                    <div className="p-4">
-                      {(orderComments[activeModalOrder.id] && orderComments[activeModalOrder.id].length > 0) ? (
-                        <div className="space-y-2">
-                          {orderComments[activeModalOrder.id].map((cm, idx) => (
-                            <div key={idx} className="p-2 bg-[#FAFAFA] border border-[#EEEEEE] rounded text-xs text-[#0E0E0E]">
-                              <p>{cm}</p>
-                              <span className="text-[9px] text-[#8F8F8F] block text-right mt-1">Just now</span>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center py-8 text-center text-[#8F8F8F] space-y-2">
-                          <div className="w-8 h-8 rounded-full border border-[#EEEEEE] flex items-center justify-center text-[#8F8F8F]">
-                            <X className="w-4 h-4" />
-                          </div>
-                          <span className="text-xs font-semibold">No comments</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </>
       )}
+
+
+            
+
+
+
+
+
+
 
       {/* CREATE NEW ORDER MODAL (+ New Order) */}
       {isCreateModalOpen && (
