@@ -29,7 +29,15 @@ import {
   User,
   MapPin,
   TrendingUp,
-  Tag
+  Tag,
+  ArrowLeft,
+  Play,
+  Square,
+  Bell,
+  Send,
+  Building,
+  Check,
+  Plus
 } from 'lucide-react';
 import { CRMCustomer, INITIAL_CRM_CUSTOMERS, CRMNote, CRMActivity } from '../../data/crmMockData';
 
@@ -42,9 +50,36 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
   // Main dataset state
   const [customers, setCustomers] = useState<CRMCustomer[]>(INITIAL_CRM_CUSTOMERS);
   
-  // Slide-over Drawer State for Customer Details
+  // Full Page View State for Customer Details
   const [selectedCustomerId, setSelectedCustomerId] = useState<string>(INITIAL_CRM_CUSTOMERS[0].id);
+  const [isViewingCustomer, setIsViewingCustomer] = useState<boolean>(false);
   const [isSlideOverOpen, setIsSlideOverOpen] = useState<boolean>(false);
+
+  // Edit Lead State inside View panel
+  const [isEditingLeadDetails, setIsEditingLeadDetails] = useState<boolean>(false);
+  const [editName, setEditName] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [editAddress, setEditAddress] = useState('');
+  const [editLeadSource, setEditLeadSource] = useState('');
+  const [editAssignedSales, setEditAssignedSales] = useState('');
+  const [editStatus, setEditStatus] = useState<CRMCustomer['status']>('New');
+  const [editProduct, setEditProduct] = useState('');
+
+  // Custom Activity Log State
+  const [showAddActivityForm, setShowAddActivityForm] = useState<boolean>(false);
+  const [customActivityTitle, setCustomActivityTitle] = useState('');
+  const [customActivityDesc, setCustomActivityDesc] = useState('');
+
+  // Real-Time Activity Form & Timer State for Reference Design View
+  const [activityChannel, setActivityChannel] = useState('Direct Phone Call');
+  const [activityLeadStatus, setActivityLeadStatus] = useState<CRMCustomer['status']>('Booking Confirmed');
+  const [activityBudget, setActivityBudget] = useState('৳ 1.5 Lakh');
+  const [activityTimerSeconds, setActivityTimerSeconds] = useState(0);
+  const [activityTimerIsRunning, setActivityTimerIsRunning] = useState(false);
+  const [activityFollowUpDate, setActivityFollowUpDate] = useState('2026-08-12');
+  const [activityDetailedNotes, setActivityDetailedNotes] = useState('');
+  const [activityTimelineFilter, setActivityTimelineFilter] = useState('All');
 
   // Filter States for Horizontal Filter Bar
   const [searchQuery, setSearchQuery] = useState('');
@@ -187,10 +222,133 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
     );
   };
 
-  // Open Slide-over Drawer
+  // Open Dedicated Full Page View for Selected Customer
   const handleViewCustomer = (customerId: string) => {
     setSelectedCustomerId(customerId);
-    setIsSlideOverOpen(true);
+    setIsViewingCustomer(true);
+    setIsSlideOverOpen(false);
+    setIsEditingLeadDetails(false);
+    setShowAddActivityForm(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const startEditingLead = () => {
+    if (!selectedCustomer) return;
+    setEditName(selectedCustomer.name);
+    setEditPhone(selectedCustomer.phone);
+    setEditEmail(selectedCustomer.email);
+    setEditAddress(selectedCustomer.address);
+    setEditLeadSource(selectedCustomer.leadSource);
+    setEditAssignedSales(selectedCustomer.assignedSales);
+    setEditStatus(selectedCustomer.status);
+    setEditProduct(selectedCustomer.product);
+    setIsEditingLeadDetails(true);
+  };
+
+  const handleSaveLeadDetails = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCustomer) return;
+    setCustomers(prev => prev.map(c => {
+      if (c.id === selectedCustomer.id) {
+        const activity: CRMActivity = {
+          id: `A-${Date.now()}`,
+          title: 'Lead Information Updated',
+          desc: `Updated contact information & assignment`,
+          timestamp: 'Just now',
+          type: 'status'
+        };
+        return {
+          ...c,
+          name: editName,
+          phone: editPhone,
+          email: editEmail,
+          address: editAddress,
+          leadSource: editLeadSource,
+          assignedSales: editAssignedSales,
+          status: editStatus,
+          product: editProduct,
+          activityTimeline: [activity, ...c.activityTimeline]
+        };
+      }
+      return c;
+    }));
+    setIsEditingLeadDetails(false);
+    showToast('Lead & customer details updated successfully!');
+  };
+
+  const handleAddCustomActivity = () => {
+    if (!customActivityTitle.trim()) return;
+    const activity: CRMActivity = {
+      id: `A-${Date.now()}`,
+      title: customActivityTitle.trim(),
+      desc: customActivityDesc.trim() || 'Custom lead activity event logged',
+      timestamp: 'Just now',
+      type: 'note'
+    };
+    setCustomers(prev => prev.map(c => {
+      if (c.id === selectedCustomer.id) {
+        return {
+          ...c,
+          activityTimeline: [activity, ...c.activityTimeline]
+        };
+      }
+      return c;
+    }));
+    setCustomActivityTitle('');
+    setCustomActivityDesc('');
+    setShowAddActivityForm(false);
+    showToast('Lead activity logged successfully!');
+  };
+
+  // Timer Effect for Interaction Call Meter
+  React.useEffect(() => {
+    let interval: any = null;
+    if (activityTimerIsRunning) {
+      interval = setInterval(() => {
+        setActivityTimerSeconds(prev => prev + 1);
+      }, 1000);
+    } else if (!activityTimerIsRunning && activityTimerSeconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [activityTimerIsRunning]);
+
+  const formatTimerDisplay = (totalSeconds: number) => {
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleSaveRealTimeActivityLog = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCustomer) return;
+
+    const formattedDuration = formatTimerDisplay(activityTimerSeconds);
+    const newActivity: CRMActivity = {
+      id: `A-${Date.now()}`,
+      title: `${activityLeadStatus}`,
+      desc: activityDetailedNotes.trim() || `Interaction recorded via ${activityChannel}. Duration: ${formattedDuration}. Customer Budget: ${activityBudget}.`,
+      timestamp: `${new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })} at ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`,
+      type: activityChannel.toLowerCase().includes('phone') ? 'call' : activityChannel.toLowerCase().includes('whatsapp') ? 'whatsapp' : 'note'
+    };
+
+    setCustomers(prev => prev.map(c => {
+      if (c.id === selectedCustomer.id) {
+        return {
+          ...c,
+          status: activityLeadStatus,
+          nextFollowUp: activityFollowUpDate,
+          activityTimeline: [newActivity, ...c.activityTimeline]
+        };
+      }
+      return c;
+    }));
+
+    setActivityTimerIsRunning(false);
+    setActivityTimerSeconds(0);
+    setActivityDetailedNotes('');
+    showToast('Activity log saved successfully!');
   };
 
   // CRM Operation Handlers
@@ -427,6 +585,698 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
     }));
     showToast(`Repeat order ${newOrderNum} generated!`);
   };
+
+  // Dedicated Full Page Customer & Lead View (Matching Reference Image Structure)
+  if (isViewingCustomer && selectedCustomer) {
+    const filteredTimeline = selectedCustomer.activityTimeline.filter(act => {
+      if (activityTimelineFilter === 'All') return true;
+      if (activityTimelineFilter === 'Phone Call') return act.type === 'call' || act.title.toLowerCase().includes('call');
+      if (activityTimelineFilter === 'WhatsApp') return act.type === 'whatsapp' || act.title.toLowerCase().includes('whatsapp');
+      if (activityTimelineFilter === 'Site Visit') return act.title.toLowerCase().includes('site');
+      if (activityTimelineFilter === 'Meeting') return act.title.toLowerCase().includes('meeting') || act.title.toLowerCase().includes('negotiation');
+      return true;
+    });
+
+    return (
+      <div className="space-y-5 text-black antialiased bg-slate-50/50 min-h-screen pb-20 animate-fadeIn p-2 sm:p-4">
+        {/* Toast Floating Alert */}
+        {toastMessage && (
+          <div className="fixed top-20 right-6 z-50 bg-black text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-bold border border-neutral-800 animate-bounce">
+            <CheckCircle2 className="w-4 h-4 text-orange-500" />
+            <span>{toastMessage}</span>
+          </div>
+        )}
+
+        {/* Top Header Bar */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-black/10 shadow-2xs">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsViewingCustomer(false)}
+              className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-black font-extrabold rounded-xl transition-all flex items-center gap-1.5 text-xs border border-black/10"
+            >
+              <ArrowLeft className="w-4 h-4 text-orange-600" />
+              <span>Back</span>
+            </button>
+            <div>
+              <h1 className="text-xl font-black text-black tracking-tight">Lead Activity & Call Logs</h1>
+              <p className="text-xs font-semibold text-neutral-500">
+                Promise Assets Limited - Real Estate & Lead CRM
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+              <input
+                type="text"
+                placeholder="Search leads, plots, clients..."
+                className="pl-8 pr-3 py-1.5 bg-neutral-50 border border-black/10 rounded-xl text-xs font-medium w-48 sm:w-64 focus:outline-none focus:border-orange-500"
+              />
+            </div>
+
+            <button className="p-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-xl border border-black/10 relative">
+              <Bell className="w-4 h-4" />
+              <span className="w-2 h-2 bg-orange-500 rounded-full absolute top-1 right-1" />
+            </button>
+
+            <div className="flex items-center gap-2 pl-2 border-l border-black/10">
+              <div className="w-7 h-7 rounded-full bg-orange-500 text-white font-black text-xs flex items-center justify-center">
+                AK
+              </div>
+              <div className="hidden sm:block text-left">
+                <span className="text-xs font-black text-black block leading-tight">Ahmed Karim</span>
+                <span className="text-[10px] font-semibold text-neutral-400 block leading-tight">ahmed@gmail.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Combined Lead Profile, Contact & Activity Header Card */}
+        <div className="bg-white p-5 rounded-2xl border border-black/10 shadow-2xs text-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-black/10">
+            <div className="flex items-center gap-2">
+              <User className="w-4 h-4 text-orange-600" />
+              <h2 className="text-xs font-black uppercase text-black tracking-wider">
+                Lead Profile & Preference Details
+              </h2>
+              <span className="px-2 py-0.5 bg-black text-white text-[10px] font-black rounded-md uppercase tracking-wider">
+                {selectedCustomer.status}
+              </span>
+            </div>
+
+            {!isEditingLeadDetails ? (
+              <button
+                type="button"
+                onClick={startEditingLead}
+                className="px-3.5 py-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 shadow-2xs"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5 text-orange-400" />
+                <span>Edit Lead</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setIsEditingLeadDetails(false)}
+                className="px-3.5 py-1.5 bg-neutral-200 hover:bg-neutral-300 text-black text-xs font-bold rounded-xl transition-all"
+              >
+                Cancel
+              </button>
+            )}
+          </div>
+
+          {!isEditingLeadDetails ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              
+              {/* Contact Information */}
+              <div className="space-y-1.5 pr-0 md:pr-4 md:border-r border-black/10">
+                <span className="text-[10px] font-black uppercase tracking-wider text-neutral-400 block mb-2">
+                  CONTACT INFORMATION
+                </span>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Full Name:</span>
+                  <span className="font-black text-black">{selectedCustomer.name}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Phone:</span>
+                  <span className="font-extrabold text-black font-mono">{selectedCustomer.phone}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Email:</span>
+                  <span className="font-bold text-black">{selectedCustomer.email || 'jccdhaka@gmail.com'}</span>
+                </div>
+                <div className="flex justify-between items-center pt-1">
+                  <span className="text-neutral-500 font-bold">Address:</span>
+                  <span className="font-bold text-black truncate max-w-[180px]" title={selectedCustomer.address}>
+                    {selectedCustomer.address}
+                  </span>
+                </div>
+              </div>
+
+              {/* Project & Preference */}
+              <div className="space-y-1.5 px-0 md:px-4 md:border-r border-black/10">
+                <span className="text-[10px] font-black uppercase tracking-wider text-neutral-400 block mb-2">
+                  PROJECT & PREFERENCE
+                </span>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Interested Product:</span>
+                  <span className="font-extrabold text-black max-w-[180px] truncate text-right">{selectedCustomer.product}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Plot / Facing:</span>
+                  <span className="font-bold text-black">5 Katha, South</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Lead Source:</span>
+                  <span className="font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                    {selectedCustomer.leadSource}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center pt-1">
+                  <span className="text-neutral-500 font-bold">Assigned Sales Rep:</span>
+                  <span className="font-extrabold text-black">{selectedCustomer.assignedSales}</span>
+                </div>
+              </div>
+
+              {/* Follow-up & Activity Stats */}
+              <div className="space-y-1.5 pl-0 md:pl-4">
+                <span className="text-[10px] font-black uppercase tracking-wider text-neutral-400 block mb-2">
+                  FOLLOW-UP & ACTIVITY STATS
+                </span>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Total Interactions:</span>
+                  <span className="font-black text-black">{selectedCustomer.activityTimeline.length} Activities</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Last Active Date:</span>
+                  <span className="font-bold text-black">{selectedCustomer.lastContact}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-neutral-500 font-bold">Next Follow-Up:</span>
+                  <span className="font-extrabold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200 text-[11px]">
+                    {selectedCustomer.nextFollowUp || 'August 12, 2026'}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          ) : (
+            <form onSubmit={handleSaveLeadDetails} className="space-y-4 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Customer Name</label>
+                  <input
+                    type="text"
+                    value={editName}
+                    onChange={(e) => setEditName(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Phone Number</label>
+                  <input
+                    type="text"
+                    value={editPhone}
+                    onChange={(e) => setEditPhone(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Email Address</label>
+                  <input
+                    type="email"
+                    value={editEmail}
+                    onChange={(e) => setEditEmail(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Interested Product</label>
+                  <input
+                    type="text"
+                    value={editProduct}
+                    onChange={(e) => setEditProduct(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-extrabold text-neutral-700 block mb-1">Delivery Address</label>
+                <input
+                  type="text"
+                  value={editAddress}
+                  onChange={(e) => setEditAddress(e.target.value)}
+                  className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Lead Source</label>
+                  <select
+                    value={editLeadSource}
+                    onChange={(e) => setEditLeadSource(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Facebook Ad">Facebook Ad</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Website">Website</option>
+                    <option value="Phone Call">Phone Call</option>
+                    <option value="Referral">Referral</option>
+                    <option value="WhatsApp Direct">WhatsApp Direct</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Assigned Sales Rep</label>
+                  <select
+                    value={editAssignedSales}
+                    onChange={(e) => setEditAssignedSales(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Tanvir Ahmed">Tanvir Ahmed</option>
+                    <option value="Farzana Yeasmin">Farzana Yeasmin</option>
+                    <option value="Ayesha Siddiqua">Ayesha Siddiqua</option>
+                    <option value="Sabrina Khan">Sabrina Khan</option>
+                    <option value="Mahmud Hasan">Mahmud Hasan</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-extrabold text-neutral-700 block mb-1">Lead Status</label>
+                  <select
+                    value={editStatus}
+                    onChange={(e) => setEditStatus(e.target.value as CRMCustomer['status'])}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-black text-orange-600 focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="New">New</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Follow-up">Follow-up</option>
+                    <option value="Ordered">Ordered</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Repeat Customer">Repeat Customer</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Lost">Lost</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs rounded-xl shadow-xs transition-all"
+              >
+                Save Lead Changes
+              </button>
+            </form>
+          )}
+        </div>
+
+        {/* Main 2-Column Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          
+          {/* Left Column (2 Columns Wide): Activity Timeline */}
+          <div className="lg:col-span-2 space-y-5">
+            
+            {/* Activity Timeline Box */}
+            <div className="p-5 bg-white border border-black/10 rounded-2xl shadow-2xs space-y-4">
+              
+              {/* Header & Filter Pills */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-black/10">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-sm font-black text-black uppercase tracking-wider">Activity Timeline</h2>
+                    <span className="px-2 py-0.5 bg-neutral-100 border border-black/10 text-black text-[10px] font-black rounded-full">
+                      {filteredTimeline.length} Entries
+                    </span>
+                  </div>
+                  <p className="text-[11px] font-semibold text-neutral-400 mt-0.5">
+                    Comprehensive sequential log of all client interactions and milestones
+                  </p>
+                </div>
+
+
+              </div>
+
+              {/* Connected Sequential Timeline Items */}
+              <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-neutral-200">
+                {filteredTimeline.map((act, idx) => (
+                  <div key={act.id} className="relative group">
+                    {/* Left Icon Dot on Line */}
+                    <div className="absolute -left-6 top-2.5 w-5 h-5 rounded-full bg-white border-2 border-orange-500 shadow-2xs flex items-center justify-center z-10">
+                      {act.type === 'call' ? (
+                        <Phone className="w-2.5 h-2.5 text-orange-600" />
+                      ) : act.type === 'whatsapp' ? (
+                        <MessageSquare className="w-2.5 h-2.5 text-emerald-600" />
+                      ) : act.title.toLowerCase().includes('visit') ? (
+                        <MapPin className="w-2.5 h-2.5 text-purple-600" />
+                      ) : (
+                        <CheckCircle2 className="w-2.5 h-2.5 text-orange-500" />
+                      )}
+                    </div>
+
+                    {/* Timeline Item Content Card */}
+                    <div className="p-4 bg-neutral-50/80 border border-black/10 rounded-2xl space-y-2.5 hover:border-black/20 transition-all">
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-extrabold text-[11px] rounded-md border border-emerald-200">
+                            {act.title}
+                          </span>
+                          <span className="px-2 py-0.5 bg-neutral-200/70 text-neutral-800 text-[10px] font-extrabold rounded-md">
+                            {act.type === 'call' ? 'Phone Call' : act.type === 'whatsapp' ? 'WhatsApp' : 'Office Discussion'}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-neutral-400">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-neutral-400" />
+                            {act.timestamp}
+                          </span>
+                          <span className="px-2 py-0.5 bg-white border border-black/10 text-neutral-700 rounded-md font-mono font-bold">
+                            ⏱ 00:45:00
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Main Note Text Box */}
+                      <div className="p-3 bg-white border border-black/5 rounded-xl text-xs font-medium text-neutral-800 leading-relaxed shadow-2xs">
+                        {act.desc}
+                      </div>
+
+                      {/* Card Footer Info */}
+                      <div className="flex items-center justify-between text-[10px] text-neutral-500 font-bold pt-1 border-t border-black/5">
+                        <span className="flex items-center gap-1">
+                          <User className="w-3 h-3 text-orange-500" />
+                          Log Executed By: <strong className="text-black">{selectedCustomer.assignedSales}</strong>
+                        </span>
+
+                        <span className="px-2 py-0.5 bg-amber-50 text-amber-800 font-extrabold rounded border border-amber-200">
+                          Next Follow-up: {selectedCustomer.nextFollowUp || 'August 12, 2026'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+
+
+
+
+
+          </div>
+
+          {/* Right Column (1 Column Wide): Actions & Real-Time CRM Form */}
+          <div className="space-y-5">
+            
+            {/* Quick Direct Actions Grid */}
+            <div className="p-4 bg-white border border-black/10 rounded-2xl shadow-2xs space-y-3">
+              <span className="text-[10px] font-black uppercase text-neutral-400 tracking-wider block">
+                QUICK DIRECT ACTIONS
+              </span>
+              <div className="grid grid-cols-2 gap-2 text-xs font-extrabold">
+                <button
+                  onClick={() => setActiveModal('call')}
+                  className="p-3 bg-indigo-900 hover:bg-indigo-950 text-white rounded-xl flex items-center justify-center gap-2 shadow-2xs transition-all"
+                >
+                  <Phone className="w-3.5 h-3.5 text-indigo-300" />
+                  <span>Call Phone</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveModal('whatsapp')}
+                  className="p-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl flex items-center justify-center gap-2 shadow-2xs transition-all"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveModal('whatsapp')}
+                  className="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl flex items-center justify-center gap-2 shadow-2xs transition-all"
+                >
+                  <MessageSquare className="w-3.5 h-3.5 text-indigo-200" />
+                  <span>SMS Msg</span>
+                </button>
+
+                <button
+                  onClick={() => setActiveModal('email')}
+                  className="p-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl flex items-center justify-center gap-2 shadow-2xs transition-all"
+                >
+                  <Mail className="w-3.5 h-3.5 text-cyan-200" />
+                  <span>Email Client</span>
+                </button>
+              </div>
+            </div>
+
+            {/* + Add Activity Log Card (Real-Time CRM Form matching Reference) */}
+            <div className="p-5 bg-white border border-black/10 rounded-2xl shadow-2xs space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-black/10">
+                <h3 className="text-xs font-black text-orange-600 uppercase tracking-wider flex items-center gap-1.5">
+                  <Plus className="w-4 h-4 text-orange-500" />
+                  Add Activity Log
+                </h3>
+                <span className="text-[9px] font-black uppercase bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded border border-black/10">
+                  REAL-TIME CRM
+                </span>
+              </div>
+
+              <form onSubmit={handleSaveRealTimeActivityLog} className="space-y-3.5 text-xs">
+                
+                {/* Interaction Channel Dropdown */}
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-600 block mb-1">
+                    Interaction Channel
+                  </label>
+                  <select
+                    value={activityChannel}
+                    onChange={(e) => setActivityChannel(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Direct Phone Call">Direct Phone Call</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Site Visit">Site Visit</option>
+                    <option value="Office Meeting">Office Meeting</option>
+                    <option value="Email">Email</option>
+                  </select>
+                </div>
+
+                {/* Updated Lead Status Dropdown */}
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-600 block mb-1">
+                    Updated Lead Status
+                  </label>
+                  <select
+                    value={activityLeadStatus}
+                    onChange={(e) => setActivityLeadStatus(e.target.value as CRMCustomer['status'])}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Booking Confirmed">Booking Confirmed</option>
+                    <option value="Negotiation">Negotiation</option>
+                    <option value="Contacted">Contacted</option>
+                    <option value="Follow-up">Follow-up</option>
+                    <option value="Ordered">Ordered</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Cancelled">Cancelled</option>
+                  </select>
+                </div>
+
+
+
+                {/* Interaction Timer (Live Call Meter) */}
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-[10px] font-extrabold text-neutral-500">
+                    <span>Interaction Timer</span>
+                    <span className="text-emerald-600 uppercase font-black">Live Call Meter</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 bg-slate-900 text-emerald-400 font-mono font-black text-center py-2 px-3 rounded-xl tracking-widest text-sm shadow-inner">
+                      {formatTimerDisplay(activityTimerSeconds)}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setActivityTimerIsRunning(!activityTimerIsRunning)}
+                      className={`px-3 py-2 text-white font-extrabold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-2xs ${
+                        activityTimerIsRunning ? 'bg-rose-600 hover:bg-rose-700' : 'bg-emerald-600 hover:bg-emerald-700'
+                      }`}
+                    >
+                      {activityTimerIsRunning ? (
+                        <>
+                          <Square className="w-3.5 h-3.5 fill-white" />
+                          <span>Stop</span>
+                        </>
+                      ) : (
+                        <>
+                          <Play className="w-3.5 h-3.5 fill-white" />
+                          <span>Start</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Next Follow-Up Scheduled Date */}
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-600 block mb-1">
+                    Next Follow-Up Scheduled Date
+                  </label>
+                  <input
+                    type="date"
+                    value={activityFollowUpDate}
+                    onChange={(e) => setActivityFollowUpDate(e.target.value)}
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+
+                {/* Detailed Discussion Notes */}
+                <div>
+                  <label className="text-[11px] font-bold text-neutral-600 block mb-1">
+                    Detailed Discussion Notes
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={activityDetailedNotes}
+                    onChange={(e) => setActivityDetailedNotes(e.target.value)}
+                    placeholder="E.g., Client requested updated product specs and discount inquiry..."
+                    className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+
+                {/* Save Activity Log Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-black text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Save Activity Log</span>
+                </button>
+
+              </form>
+            </div>
+
+            {/* AI Insights & Conversion Overview */}
+            <div className="p-4 bg-orange-50/80 border border-orange-200 rounded-2xl space-y-2 text-xs shadow-2xs">
+              <div className="flex items-center gap-1.5 font-black text-orange-600 text-xs">
+                <Sparkles className="w-4 h-4 text-orange-500" />
+                <span>AI Lead Conversion Strategy</span>
+              </div>
+              <div className="text-neutral-700 font-medium space-y-1 text-[11px]">
+                <div>• Best Contact Time: <strong>{selectedCustomer.aiSuggestions.bestTimeToContact}</strong></div>
+                <div>• Purchase Intent Score: <strong className="text-orange-600 font-black">{selectedCustomer.aiSuggestions.chanceToPurchase}%</strong></div>
+                <div>• Recommendation: <strong>{selectedCustomer.aiSuggestions.crossSellSuggestion}</strong></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Action Modals */}
+        {activeModal === 'call' && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-black/10 pb-3">
+                <h3 className="font-black text-base text-black flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  Log Call with {selectedCustomer.name}
+                </h3>
+                <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-neutral-600 block mb-1">Call Discussion Notes</label>
+                <textarea
+                  rows={3}
+                  value={callNotes}
+                  onChange={(e) => setCallNotes(e.target.value)}
+                  placeholder="Details of conversation with customer..."
+                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
+                <button onClick={handleLogCall} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Complete & Log Call</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeModal === 'whatsapp' && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-black/10 pb-3">
+                <h3 className="font-black text-base text-black flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-orange-500" />
+                  Send WhatsApp Message
+                </h3>
+                <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-neutral-600 block mb-1">Message Text</label>
+                <textarea
+                  rows={3}
+                  value={whatsappMsg}
+                  onChange={(e) => setWhatsappMsg(e.target.value)}
+                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
+                <button onClick={handleSendWhatsApp} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Open WhatsApp App</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeModal === 'schedule' && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-black/10 pb-3">
+                <h3 className="font-black text-base text-black flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-orange-500" />
+                  Schedule Follow-up
+                </h3>
+                <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-bold text-neutral-600 block mb-1">Follow-up Date</label>
+                  <input
+                    type="date"
+                    value={scheduleDate}
+                    onChange={(e) => setScheduleDate(e.target.value)}
+                    className="w-full p-2.5 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-neutral-600 block mb-1">Time</label>
+                  <input
+                    type="time"
+                    value={scheduleTime}
+                    onChange={(e) => setScheduleTime(e.target.value)}
+                    className="w-full p-2.5 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
+                <button onClick={handleSaveSchedule} className="px-4 py-2 bg-black text-white font-black text-xs rounded-xl">Set Follow-up Reminder</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeModal === 'receivePayment' && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-black/10 pb-3">
+                <h3 className="font-black text-base text-black flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-orange-500" />
+                  Receive Customer Payment
+                </h3>
+                <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-neutral-600 block mb-1">Payment Amount (৳)</label>
+                <input
+                  type="number"
+                  value={paymentAmount}
+                  onChange={(e) => setPaymentAmount(e.target.value)}
+                  className="w-full p-2.5 bg-neutral-50 border border-black/20 rounded-xl text-base font-black text-black"
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
+                <button onClick={handleReceivePayment} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Confirm Payment</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6 text-black antialiased bg-white min-h-screen">
@@ -785,16 +1635,9 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                           <button
                             onClick={() => handleViewCustomer(cust.id)}
                             className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
-                            title="View Customer Details"
+                            title="View Customer Profile & Lead Activity"
                           >
                             <Eye className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => handleViewCustomer(cust.id)}
-                            className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition-colors border border-slate-200 bg-white"
-                            title="Edit Customer"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
                           </button>
                         </div>
                       </td>
@@ -872,28 +1715,172 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             {/* Drawer Body Content */}
             <div className="p-5 space-y-6 flex-1">
               
-              {/* Basic Contact Info Box */}
-              <div className="p-4 bg-neutral-50 rounded-2xl border border-black/10 space-y-2 text-xs font-medium">
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-500 font-bold">Phone Number:</span>
-                  <span className="font-extrabold text-black">{selectedCustomer.phone}</span>
+              {/* Basic Contact Info Box & Lead Editing */}
+              <div className="p-4 bg-neutral-50 rounded-2xl border border-black/10 space-y-3 text-xs font-medium">
+                <div className="flex items-center justify-between pb-2 border-b border-black/10">
+                  <span className="text-xs font-black uppercase text-black tracking-wider flex items-center gap-1.5">
+                    <User className="w-3.5 h-3.5 text-orange-600" />
+                    Lead & Customer Information
+                  </span>
+                  {!isEditingLeadDetails ? (
+                    <button
+                      type="button"
+                      onClick={startEditingLead}
+                      className="px-2.5 py-1 bg-black text-white text-[11px] font-bold rounded-lg hover:bg-neutral-800 transition-all flex items-center gap-1"
+                    >
+                      <SlidersHorizontal className="w-3 h-3 text-orange-400" />
+                      Edit Lead Info
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingLeadDetails(false)}
+                      className="px-2.5 py-1 bg-neutral-200 text-black text-[11px] font-bold rounded-lg hover:bg-neutral-300 transition-all"
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-500 font-bold">Email Address:</span>
-                  <span className="font-bold text-black">{selectedCustomer.email}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-500 font-bold">Delivery Address:</span>
-                  <span className="font-bold text-black">{selectedCustomer.address}</span>
-                </div>
-                <div className="flex items-center justify-between pt-1 border-t border-black/5">
-                  <span className="text-neutral-500 font-bold">Lead Source:</span>
-                  <span className="font-black text-orange-600">{selectedCustomer.leadSource}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-neutral-500 font-bold">Assigned Representative:</span>
-                  <span className="font-extrabold text-black">{selectedCustomer.assignedSales}</span>
-                </div>
+
+                {!isEditingLeadDetails ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Full Name:</span>
+                      <span className="font-black text-black">{selectedCustomer.name}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Phone Number:</span>
+                      <span className="font-extrabold text-black">{selectedCustomer.phone}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Email Address:</span>
+                      <span className="font-bold text-black">{selectedCustomer.email}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Delivery Address:</span>
+                      <span className="font-bold text-black text-right max-w-[220px]">{selectedCustomer.address}</span>
+                    </div>
+                    <div className="flex items-center justify-between pt-1 border-t border-black/5">
+                      <span className="text-neutral-500 font-bold">Interested Product:</span>
+                      <span className="font-bold text-black">{selectedCustomer.product}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Lead Source:</span>
+                      <span className="font-black text-orange-600">{selectedCustomer.leadSource}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-neutral-500 font-bold">Assigned Sales Rep:</span>
+                      <span className="font-extrabold text-black">{selectedCustomer.assignedSales}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSaveLeadDetails} className="space-y-3 pt-1">
+                    <div>
+                      <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Customer Name</label>
+                      <input
+                        type="text"
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        required
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Phone Number</label>
+                        <input
+                          type="text"
+                          value={editPhone}
+                          onChange={(e) => setEditPhone(e.target.value)}
+                          required
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Email Address</label>
+                        <input
+                          type="email"
+                          value={editEmail}
+                          onChange={(e) => setEditEmail(e.target.value)}
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Delivery Address</label>
+                      <input
+                        type="text"
+                        value={editAddress}
+                        onChange={(e) => setEditAddress(e.target.value)}
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Interested Product</label>
+                      <input
+                        type="text"
+                        value={editProduct}
+                        onChange={(e) => setEditProduct(e.target.value)}
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Lead Source</label>
+                        <select
+                          value={editLeadSource}
+                          onChange={(e) => setEditLeadSource(e.target.value)}
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        >
+                          <option value="Facebook Ad">Facebook Ad</option>
+                          <option value="Instagram">Instagram</option>
+                          <option value="Website">Website</option>
+                          <option value="Phone Call">Phone Call</option>
+                          <option value="Referral">Referral</option>
+                          <option value="WhatsApp Direct">WhatsApp Direct</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Assigned Representative</label>
+                        <select
+                          value={editAssignedSales}
+                          onChange={(e) => setEditAssignedSales(e.target.value)}
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        >
+                          <option value="Tanvir Ahmed">Tanvir Ahmed</option>
+                          <option value="Farzana Yeasmin">Farzana Yeasmin</option>
+                          <option value="Ayesha Siddiqua">Ayesha Siddiqua</option>
+                          <option value="Sabrina Khan">Sabrina Khan</option>
+                          <option value="Mahmud Hasan">Mahmud Hasan</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-extrabold text-neutral-600 block mb-0.5">Lead Status</label>
+                      <select
+                        value={editStatus}
+                        onChange={(e) => setEditStatus(e.target.value as CRMCustomer['status'])}
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-black text-orange-600 focus:outline-none focus:border-orange-500"
+                      >
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Follow-up">Follow-up</option>
+                        <option value="Ordered">Ordered</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Repeat Customer">Repeat Customer</option>
+                        <option value="Cancelled">Cancelled</option>
+                        <option value="Lost">Lost</option>
+                      </select>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full py-2 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs rounded-xl shadow-xs transition-all"
+                    >
+                      Save Lead Changes
+                    </button>
+                  </form>
+                )}
               </div>
 
               {/* QUICK ACTIONS GRID (Clean Orange & Black Buttons) */}
@@ -1050,16 +2037,54 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               </div>
 
               {/* Activity Timeline */}
-              <div className="space-y-2">
-                <label className="text-[11px] font-black text-black uppercase tracking-wider block">
-                  Activity Timeline
-                </label>
-                <div className="space-y-2 border-l-2 border-black/10 pl-3">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-black text-black uppercase tracking-wider block">
+                    Activity Timeline & Lead History
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setShowAddActivityForm(!showAddActivityForm)}
+                    className="px-2.5 py-1 bg-orange-500 hover:bg-orange-600 text-white font-black text-[10px] rounded-lg transition-all"
+                  >
+                    {showAddActivityForm ? 'Cancel Activity' : '+ Log Lead Activity'}
+                  </button>
+                </div>
+
+                {/* Custom Activity Form */}
+                {showAddActivityForm && (
+                  <div className="p-3 bg-neutral-50 border border-black/10 rounded-2xl space-y-2 text-xs">
+                    <span className="font-extrabold text-black block text-[11px]">New Lead Activity Event</span>
+                    <input
+                      type="text"
+                      value={customActivityTitle}
+                      onChange={(e) => setCustomActivityTitle(e.target.value)}
+                      placeholder="Activity Title (e.g. Sent Product Specs, Follow-up Scheduled)"
+                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    />
+                    <textarea
+                      rows={2}
+                      value={customActivityDesc}
+                      onChange={(e) => setCustomActivityDesc(e.target.value)}
+                      placeholder="Activity notes & outcome..."
+                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-orange-500"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddCustomActivity}
+                      className="w-full py-1.5 bg-black hover:bg-neutral-800 text-white font-extrabold text-xs rounded-xl transition-all"
+                    >
+                      Save Activity Record
+                    </button>
+                  </div>
+                )}
+
+                <div className="space-y-3 border-l-2 border-orange-500/30 pl-3.5 ml-1">
                   {selectedCustomer.activityTimeline.map(act => (
                     <div key={act.id} className="text-xs space-y-0.5 relative">
-                      <div className="w-2 h-2 rounded-full bg-orange-500 absolute -left-[17px] top-1" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-orange-500 border-2 border-white absolute -left-[19px] top-1 shadow-2xs" />
                       <div className="font-extrabold text-black">{act.title}</div>
-                      <div className="text-neutral-500">{act.desc}</div>
+                      <div className="text-neutral-600 font-medium">{act.desc}</div>
                       <div className="text-[10px] text-neutral-400 font-bold">{act.timestamp}</div>
                     </div>
                   ))}
