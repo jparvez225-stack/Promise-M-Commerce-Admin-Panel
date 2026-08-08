@@ -147,6 +147,13 @@ export interface ThemeColors {
   themePresetName?: 'Natural Organic' | 'Food & Restaurant' | 'Tech & Gadgets' | 'Beauty & Luxury' | 'Classic Orange' | 'Custom';
 }
 
+export interface ComparisonItem {
+  id?: string;
+  feature: string;
+  ourProduct: string;
+  otherProduct: string;
+}
+
 export interface StorefrontConfig {
   announcementText: string;
   announcementEnabled: boolean;
@@ -176,6 +183,12 @@ export interface StorefrontConfig {
   reviews: CustomerReview[];
   seo?: SeoMetaData;
   themeColors?: ThemeColors;
+  comparisonTableTitle?: string;
+  comparisonTableSubtitle?: string;
+  comparisonCol1Header?: string;
+  comparisonCol2Header?: string;
+  comparisonCol3Header?: string;
+  comparisonItems?: ComparisonItem[];
 }
 
 export interface NotificationItem {

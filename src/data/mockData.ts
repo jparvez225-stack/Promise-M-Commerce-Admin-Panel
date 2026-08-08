@@ -418,6 +418,19 @@ export const INITIAL_STOREFRONT_CONFIG: StorefrontConfig = {
     accentBadgeText: '#E67E00',
     themePresetName: 'Classic Orange'
   },
+  comparisonTableTitle: 'Aura Pro Studio VS Others Headphone',
+  comparisonTableSubtitle: 'কেন সাধারণ হেডফোনের চেয়ে Aura Pro Studio সেরা জেনে নিন',
+  comparisonCol1Header: 'বৈশিষ্ট্য',
+  comparisonCol2Header: 'আমাদের Aura Pro',
+  comparisonCol3Header: 'সাধারণ হেডফোন',
+  comparisonItems: [
+    { id: 'cmp-1', feature: 'অ্যাক্টিভ নয়েজ ক্যানসেলেশন', ourProduct: '-42dB হাইব্রিড ANC', otherProduct: 'কোনো ক্যানসেলেশন নেই' },
+    { id: 'cmp-2', feature: 'ব্যাটারি ব্যাকআপ', ourProduct: '৪০ ঘণ্টা প্লে-টাইম ও টাইপ-সি ফাস্ট চার্জিং', otherProduct: 'মাত্র ৩-৪ ঘণ্টা ব্যাকআপ' },
+    { id: 'cmp-3', feature: 'সাউন্ড কোয়ালিটি', ourProduct: '৪০মিমি স্টুдио ড্রাইভার ও 3D ডিপ বাস', otherProduct: 'ফ্ল্যাট ও সস্তা সাউন্ড' },
+    { id: 'cmp-4', feature: 'কলিং মাইক্রোফোন', ourProduct: '৪টি এইচডি ENC মাইক (নয়েজলেস কলিং)', otherProduct: 'প্রচুর ব্যাকগ্রাউন্ড নয়েজ' },
+    { id: 'cmp-5', feature: 'বিল্ড মেটেরিয়াল', ourProduct: 'মেটালিক অ্যালুমিনিয়াম হেডার ও মেমোরি ফোম', otherProduct: 'সস্তা প্লাস্টিক ফ্রেম' },
+    { id: 'cmp-6', feature: 'ওয়ারেন্টি সাপোর্ট', ourProduct: '১ বছর রিপ্লেসমেন্ট ওয়ারেন্টি', otherProduct: 'কোনো ওয়ারেন্টি নেই' }
+  ],
   reviews: [
     {
       id: 'r1',

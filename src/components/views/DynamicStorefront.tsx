@@ -7,6 +7,7 @@ import {
   Save, 
   Plus, 
   Trash2, 
+  Check,
   CheckCircle2, 
   Sparkles, 
   ShieldCheck, 
@@ -43,7 +44,7 @@ import {
   Upload,
   Image as ImageIcon
 } from 'lucide-react';
-import { StorefrontConfig, Order, ThemeColors, CustomerReview, SeoMetaData } from '../../types';
+import { StorefrontConfig, Order, ThemeColors, CustomerReview, SeoMetaData, ComparisonItem } from '../../types';
 
 export interface ThemePreset {
   id: string;
@@ -326,6 +327,20 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
     'Fast Express Home Delivery Nationwide with Cash on Delivery',
     'Inspect product upon delivery before making payment'
   ]);
+
+  // 3-Column Comparison Table States for Landing Page Creator (VS Section)
+  const [newPageCmpTitle, setNewPageCmpTitle] = useState('Aura Pro Studio VS Others Headphone');
+  const [newPageCmpSubtitle, setNewPageCmpSubtitle] = useState('কেন সাধারণ হেডফোনের চেয়ে Aura Pro Studio সেরা জেনে নিন');
+  const [newPageCmpCol1, setNewPageCmpCol1] = useState('বৈশিষ্ট্য');
+  const [newPageCmpCol2, setNewPageCmpCol2] = useState('আমাদের Aura Pro');
+  const [newPageCmpCol3, setNewPageCmpCol3] = useState('সাধারণ হেডফোন');
+  const [newPageCmpItems, setNewPageCmpItems] = useState<ComparisonItem[]>([
+    { id: 'cmp-1', feature: 'অ্যাক্টিভ নয়েজ ক্যানসেলেশন', ourProduct: '-42dB হাইব্রিড ANC', otherProduct: 'কোনো ক্যানসেলেশন নেই' },
+    { id: 'cmp-2', feature: 'ব্যাটারি ব্যাকআপ', ourProduct: '৪০ ঘণ্টা প্লে-টাইম ও টাইপ-সি ফাস্ট চার্জিং', otherProduct: 'মাত্র ৩-৪ ঘণ্টা ব্যাকআপ' },
+    { id: 'cmp-3', feature: 'সাউন্ড কোয়ালিটি', ourProduct: '৪০মিমি স্টুдио ড্রাইভার ও 3D ডিপ বাস', otherProduct: 'ফ্ল্যাট ও সস্তা সাউন্ড' },
+    { id: 'cmp-4', feature: 'কলিং মাইক্রোফোন', ourProduct: '৪টি এইচডি ENC মাইক (নয়েজলেস কলিং)', otherProduct: 'প্রচুর ব্যাকগ্রাউন্ড নয়েজ' },
+    { id: 'cmp-5', feature: 'ওয়ারেন্টি সাপোর্ট', ourProduct: '১ বছর রিপ্লেসমেন্ট ওয়ারেন্টি', otherProduct: 'কোনো ওয়ারেন্টি নেই' }
+  ]);
   const [newPageDeliveryDhaka, setNewPageDeliveryDhaka] = useState<number>(60);
   const [newPageDeliveryOutside, setNewPageDeliveryOutside] = useState<number>(120);
   const [newPageOrderBtnText, setNewPageOrderBtnText] = useState('Fill Out Form Below to Place Order');
@@ -373,6 +388,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   const [creatorOgImage, setCreatorOgImage] = useState('');
   const [creatorFbPixel, setCreatorFbPixel] = useState('PIXEL-901823712');
   const [creatorGaId, setCreatorGaId] = useState('G-789234110');
+
+  // Helper boolean checking if user is in New Page Creator mode
+  const isCreatingPage = currentView === 'create';
 
   // SEO Meta Data default fallback and helper
   const defaultSeo = {
@@ -522,6 +540,12 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
         themePresetName: modalThemePreset || 'Natural Green'
       },
       features: newPageFeatures.filter(f => f.trim().length > 0),
+      comparisonTableTitle: newPageCmpTitle,
+      comparisonTableSubtitle: newPageCmpSubtitle,
+      comparisonCol1Header: newPageCmpCol1,
+      comparisonCol2Header: newPageCmpCol2,
+      comparisonCol3Header: newPageCmpCol3,
+      comparisonItems: newPageCmpItems,
       paymentMethods: {
         cod: true,
         bkash: true,
@@ -1094,11 +1118,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             </div>
           </div>
 
-          {/* Main Grid: 7-8 Cols Form + 4-5 Cols Sticky Preview Box */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-            {/* Left Column: Form Sections */}
-            <div className="lg:col-span-7 xl:col-span-8 space-y-5">
-              <form id="new-page-creator-form" onSubmit={handleCreateFormSubmit} className="space-y-5">
+          {/* Main Form Container (Full Width) */}
+          <div className="w-full">
+            <form id="new-page-creator-form" onSubmit={handleCreateFormSubmit} className="space-y-5">
                 
                 {/* SECTION 1: BASIC PAGE INFO */}
                 <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
@@ -1363,45 +1385,178 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       />
                     </div>
 
-                    {/* Feature Bullet Points */}
-                    <div className="space-y-2 pt-1">
-                      <div className="flex items-center justify-between">
-                        <label className="text-xs font-bold text-[#0E0E0E]">
-                          Key Highlights & Guarantee Bullet Points:
-                        </label>
-                        <button
-                          type="button"
-                          onClick={handleAddFeature}
-                          className="px-3 py-1 bg-[#008F2F] hover:bg-[#007727] text-white font-extrabold text-[11px] rounded-full transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
-                        >
-                          <Plus className="w-3 h-3" />
-                          <span>Add Bullet Point</span>
-                        </button>
+                    {/* 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION) */}
+                    <div className="space-y-4 pt-3 border-t border-[#EEAB59]/30">
+                      <div className="p-3 bg-[#FCF1E5] rounded-xl border border-[#EEAB59] flex items-center justify-between">
+                        <div>
+                          <label className="text-xs font-black text-[#0E0E0E] uppercase tracking-wider block">
+                            KEY HIGHLIGHTS & 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION):
+                          </label>
+                          <span className="text-[11px] text-[#545454] font-medium">
+                            রেফারেন্স ইমেজ অনুযায়ী ৩টি কলামে পণ্যের তুলনা তালিকা তৈরি করুন (Title, Subtitle & 3 Columns)
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-black text-[#E67E00] bg-white px-3 py-1 rounded-full border border-[#EEAB59] shrink-0 shadow-2xs">
+                          {newPageCmpItems.length} Rows
+                        </span>
                       </div>
 
-                      <div className="space-y-2">
-                        {newPageFeatures.map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-2">
-                            <span className="w-5 h-5 rounded bg-[#ECFFE8] text-[#008F2F] font-black text-xs flex items-center justify-center shrink-0 border border-[#008F2F]/20">
-                              ✓
+                      {/* Header Title & Subtitle Inputs */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded-xl">
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Comparison Title (টেবিলের শিরোনাম):
+                          </label>
+                          <input
+                            type="text"
+                            value={newPageCmpTitle}
+                            onChange={(e) => setNewPageCmpTitle(e.target.value)}
+                            placeholder="Aura Pro Studio VS Others Headphone"
+                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Comparison Subtitle (সাবটাইটেল/বিবরণ):
+                          </label>
+                          <input
+                            type="text"
+                            value={newPageCmpSubtitle}
+                            onChange={(e) => setNewPageCmpSubtitle(e.target.value)}
+                            placeholder="কেন সাধারণ হেডফোনের চেয়ে Aura Pro Studio সেরা জেনে নিন"
+                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                          />
+                        </div>
+                      </div>
+
+                      {/* 3-Column Product Comparison Table Form */}
+                      <div className="border border-[#EEAB59] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
+                        {/* Table Header Controls */}
+                        <div className="bg-gradient-to-r from-[#E67E00] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
+                          <div className="col-span-4">
+                            <span className="text-[10px] bg-black/20 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 1 (FEATURE ASPECT)
                             </span>
                             <input
                               type="text"
-                              value={feat}
-                              onChange={(e) => handleUpdateFeature(idx, e.target.value)}
-                              className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                              value={newPageCmpCol1}
+                              onChange={(e) => setNewPageCmpCol1(e.target.value)}
+                              placeholder="বৈশিষ্ট্য"
+                              className="w-full px-2.5 py-1.5 bg-white text-[#0E0E0E] border border-white/60 rounded-md text-xs font-black focus:outline-none shadow-2xs"
                             />
-                            {newPageFeatures.length > 1 && (
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveFeature(idx)}
-                                className="p-1.5 text-[#8F8F8F] hover:text-red-600 rounded cursor-pointer shrink-0"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </button>
-                            )}
                           </div>
-                        ))}
+                          <div className="col-span-4">
+                            <span className="text-[10px] bg-black/30 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 2 (OUR PRODUCT)
+                            </span>
+                            <input
+                              type="text"
+                              value={newPageCmpCol2}
+                              onChange={(e) => setNewPageCmpCol2(e.target.value)}
+                              placeholder="আমাদের Aura Pro"
+                              className="w-full px-2.5 py-1.5 bg-emerald-50 text-emerald-950 border border-emerald-300 rounded-md text-xs font-black focus:outline-none shadow-2xs"
+                            />
+                          </div>
+                          <div className="col-span-3">
+                            <span className="text-[10px] bg-black/30 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 3 (ORDINARY PRODUCT)
+                            </span>
+                            <input
+                              type="text"
+                              value={newPageCmpCol3}
+                              onChange={(e) => setNewPageCmpCol3(e.target.value)}
+                              placeholder="সাধারণ হেডফোন"
+                              className="w-full px-2.5 py-1.5 bg-white text-[#0E0E0E] border border-white/60 rounded-md text-xs font-black focus:outline-none shadow-2xs"
+                            />
+                          </div>
+                          <div className="col-span-1 text-center text-[10px] font-black uppercase tracking-wider">
+                            DEL
+                          </div>
+                        </div>
+
+                        {/* Table Body Input Rows */}
+                        <div className="divide-y divide-[#EEEEEE] text-xs">
+                          {newPageCmpItems.map((item, idx) => (
+                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#FCF1E5]/20 transition-colors">
+                              <div className="col-span-4">
+                                <input
+                                  type="text"
+                                  value={item.feature}
+                                  onChange={(e) => {
+                                    const updated = [...newPageCmpItems];
+                                    updated[idx].feature = e.target.value;
+                                    setNewPageCmpItems(updated);
+                                  }}
+                                  placeholder={`Row #${idx + 1} Feature Aspect`}
+                                  className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#EEEEEE] rounded-md text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-4">
+                                <input
+                                  type="text"
+                                  value={item.ourProduct}
+                                  onChange={(e) => {
+                                    const updated = [...newPageCmpItems];
+                                    updated[idx].ourProduct = e.target.value;
+                                    setNewPageCmpItems(updated);
+                                  }}
+                                  placeholder="Our Product Feature"
+                                  className="w-full px-3 py-2 bg-[#ECFFE8] border border-[#008F2F]/40 rounded-md text-xs font-extrabold text-[#006B22] focus:border-[#008F2F] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-3">
+                                <input
+                                  type="text"
+                                  value={item.otherProduct}
+                                  onChange={(e) => {
+                                    const updated = [...newPageCmpItems];
+                                    updated[idx].otherProduct = e.target.value;
+                                    setNewPageCmpItems(updated);
+                                  }}
+                                  placeholder="Ordinary Product"
+                                  className="w-full px-3 py-2 bg-[#FFF0F0] border border-[#D9381E]/30 rounded-md text-xs font-semibold text-[#801010] focus:border-[#D9381E] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-1 flex justify-center">
+                                {newPageCmpItems.length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => setNewPageCmpItems(newPageCmpItems.filter((_, i) => i !== idx))}
+                                    className="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                                    title="Remove Row"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Add Row Bar */}
+                        <div className="p-3 bg-[#FCF1E5] border-t border-[#EEAB59] flex items-center justify-between">
+                          <span className="text-xs font-bold text-[#0E0E0E]">
+                            টেবিলে মোট {newPageCmpItems.length} টি তুলনামূলক রো আছে
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setNewPageCmpItems([
+                                ...newPageCmpItems,
+                                {
+                                  id: `cmp-${Date.now()}`,
+                                  feature: 'নতুন বৈশিষ্ট্য',
+                                  ourProduct: 'আমাদের সেরা কোয়ালিটি',
+                                  otherProduct: 'সাধারণ কোয়ালিটি'
+                                }
+                              ]);
+                            }}
+                            className="px-3.5 py-1.5 bg-[#008F2F] hover:bg-[#007325] text-white font-extrabold text-xs rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs uppercase tracking-wider"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Add Row (+১টি রো)</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1743,113 +1898,6 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 </div>
 
               </form>
-            </div>
-
-            {/* Right Column: Live Interactive Card Preview */}
-            <div className="lg:col-span-5 xl:col-span-4 sticky top-6">
-              <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-4">
-                <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded bg-[#008F2F]"></span>
-                    <h4 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
-                      LIVE PAGE PREVIEW
-                    </h4>
-                  </div>
-                  <span className="px-2 py-0.5 text-[9px] font-bold bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 rounded uppercase tracking-wider">
-                    REAL-TIME
-                  </span>
-                </div>
-
-                {/* Hero Banner Box */}
-                <div className="rounded overflow-hidden border border-[#EEAB59] bg-[#FCF1E5]/30 relative">
-                  {newPageImageUrl ? (
-                    <img
-                      src={newPageImageUrl}
-                      alt={newPageTitle || 'Product Preview'}
-                      className="w-full h-44 object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-44 bg-[#FCF1E5] flex items-center justify-center text-[#E67E00] font-bold text-xs">
-                      Product Image Preview
-                    </div>
-                  )}
-                  
-                  <div className="absolute top-2.5 right-2.5 bg-[#E67E00] text-white px-2.5 py-0.5 rounded font-black text-xs shadow-2xs">
-                    ৳{newPageBasePrice.toLocaleString()}
-                  </div>
-                </div>
-
-                {/* Badge Tagline */}
-                {newPageHeroBadge && (
-                  <div 
-                    style={{ backgroundColor: modalBadgeBg, color: modalBadgeText }}
-                    className="px-3 py-1.5 rounded-xl font-extrabold text-[11px] text-center border border-current/20"
-                  >
-                    {newPageHeroBadge}
-                  </div>
-                )}
-
-                {/* Title & Price */}
-                <div>
-                  <h3 
-                    style={{ color: modalHeadingColor }} 
-                    className="font-black text-sm leading-snug line-clamp-2"
-                  >
-                    {newPageTitle || 'Your Landing Page Title...'}
-                  </h3>
-                  <p className="text-[11px] font-bold text-[#545454] mt-1">
-                    {newPageSubTitle || 'Special Offer • Fast Delivery'}
-                  </p>
-                </div>
-
-                {/* Price Tag */}
-                <div className="p-3 bg-[#FCF1E5]/40 rounded border border-[#EEAB59] flex items-center justify-between">
-                  <div>
-                    <span className="text-[10px] font-bold text-[#8F8F8F] block uppercase">Offer Price:</span>
-                    <span className="text-lg font-black text-[#E67E00]">
-                      ৳{newPageBasePrice.toLocaleString()}
-                    </span>
-                    {newPageOriginalPrice && (
-                      <span className="text-xs text-[#8F8F8F] line-through ml-2 font-medium">
-                        ৳{newPageOriginalPrice.toLocaleString()}
-                      </span>
-                    )}
-                  </div>
-                  <span className="px-2.5 py-1 bg-[#ECFFE8] text-[#008F2F] text-[10px] font-extrabold rounded-full border border-[#008F2F]/20">
-                    Special Discount
-                  </span>
-                </div>
-
-                {/* Features Preview */}
-                <div className="space-y-1.5">
-                  <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-wider block">
-                    Key Features:
-                  </span>
-                  {newPageFeatures.map((f, i) => (
-                    <div key={i} className="flex items-start gap-1.5 text-[11px] font-semibold text-[#0E0E0E]">
-                      <span className="text-[#008F2F] font-bold shrink-0">✓</span>
-                      <span className="line-clamp-1">{f}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Live CTA Button */}
-                <div className="pt-2 border-t border-[#EEEEEE] text-center space-y-2">
-                  <button
-                    type="button"
-                    style={{ backgroundColor: modalBtnBg, color: modalBtnText }}
-                    className="w-full py-3 px-4 rounded-full font-black text-xs uppercase tracking-wider shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>{newPageOrderBtnText || 'Click to Order Now'} • ৳{newPageBasePrice.toLocaleString()}</span>
-                  </button>
-                  <p className="text-[9px] text-[#545454] font-medium">
-                    Delivery Charges: Inside Dhaka ৳{newPageDeliveryDhaka} | Outside ৳{newPageDeliveryOutside}
-                  </p>
-                </div>
-
-              </div>
-            </div>
           </div>
         </div>
       )}
@@ -1897,55 +1945,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               </div>
             </div>
 
-            {/* Right Controls: View Mode Toggle & Save Button */}
+            {/* Right Controls: Save Changes */}
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center p-0.5 bg-[#FAFAFA] border border-[#EEAB59] rounded-full text-xs font-bold">
-                <button
-                  id="preview-mode-editor"
-                  onClick={() => setPreviewMode('editor')}
-                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'editor' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
-                  }`}
-                  title="Spacious Full Width Form Editor"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span>📝 Wide Editor</span>
-                </button>
-                <button
-                  id="preview-mode-split"
-                  onClick={() => setPreviewMode('split')}
-                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'split' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
-                  }`}
-                  title="Side by Side Form & Storefront Preview"
-                >
-                  <Monitor className="w-3.5 h-3.5" />
-                  <span>⚡ Split View</span>
-                </button>
-                <button
-                  id="preview-mode-desktop"
-                  onClick={() => setPreviewMode('desktop')}
-                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'desktop' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
-                  }`}
-                  title="Full Width Rendered Page Preview"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>💻 Live Page</span>
-                </button>
-                <button
-                  id="preview-mode-mobile"
-                  onClick={() => setPreviewMode('mobile')}
-                  className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
-                    previewMode === 'mobile' ? 'bg-[#FCF1E5] text-[#E67E00] shadow-2xs font-extrabold' : 'text-[#545454] hover:text-[#0E0E0E]'
-                  }`}
-                  title="Mobile Frame View"
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                  <span>📱 Mobile</span>
-                </button>
-              </div>
-
               <button
                 id="storefront-save-btn"
                 onClick={handleSave}
@@ -1966,11 +1967,10 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             </div>
           </div>
 
-          {/* Main Grid: Builder Panel (Full or Split) + Live Storefront Preview */}
-          <div className={`grid gap-5 ${previewMode === 'editor' || previewMode === 'desktop' ? 'grid-cols-1' : 'grid-cols-1 lg:grid-cols-12'}`}>
-            {/* BUILDER EDITING PANEL (100% Width in Editor Mode, 8 Cols in Split Mode) */}
-            {previewMode !== 'desktop' && (
-              <div className={`${previewMode === 'editor' ? 'w-full' : 'lg:col-span-7 xl:col-span-8'} bg-white border border-[#EEAB59] rounded-2xl p-4 md:p-6 shadow-2xs space-y-5 h-fit`}>
+          {/* Main Container: Full Width Builder Form */}
+          <div className="w-full">
+            {/* BUILDER EDITING PANEL (Full Width 100%) */}
+            <div className="w-full bg-white border border-[#EEAB59] rounded-2xl p-4 md:p-6 shadow-2xs space-y-5 h-fit">
                 {/* Navigation Tabs */}
                 <div className="flex border-b border-[#EEEEEE] pb-1 text-xs font-bold gap-3 overflow-x-auto">
                   <button
@@ -2193,49 +2193,218 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       </div>
                     </div>
 
-                    {/* Features List Editing */}
-                    <div className="pt-3 border-t border-[#EEEEEE]">
-                      <span className="font-extrabold text-[#0E0E0E] block text-xs mb-2">
-                        Key Feature Bullet Points (পণ্যের বিশেষ সুবিধা)
-                      </span>
-                      <div className="space-y-2">
-                        {(currentActiveConfig.features || []).map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-2">
+                    {/* 3-Column Product Comparison Table (VS Section) Editing */}
+                    <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
+                      <div className="p-3 bg-[#FCF1E5] rounded-xl border border-[#EEAB59] flex items-center justify-between">
+                        <div>
+                          <span className="font-extrabold text-[#0E0E0E] block text-xs uppercase tracking-wider">
+                            KEY HIGHLIGHTS & 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION):
+                          </span>
+                          <span className="text-[11px] text-[#545454]">
+                            রেফারেন্স ইমেজ অনুযায়ী ৩টি কলামে পণ্যের তুলনা তালিকা তৈরি করুন (Title, Subtitle & 3 Columns)
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-black text-[#E67E00] bg-white px-3 py-1 rounded-full border border-[#EEAB59] shrink-0 shadow-2xs">
+                          {(currentActiveConfig.comparisonItems || []).length || 5} Rows
+                        </span>
+                      </div>
+
+                      {/* Title & Subtitle Settings */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded-xl">
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Comparison Title (টেবিলের শিরোনাম):
+                          </label>
+                          <input
+                            type="text"
+                            value={currentActiveConfig.comparisonTableTitle ?? 'Aura Pro Studio VS Others Headphone'}
+                            onChange={(e) =>
+                              handleUpdateActiveConfig({
+                                ...currentActiveConfig,
+                                comparisonTableTitle: e.target.value
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
+                            Comparison Subtitle (সাবটাইটেল/বিবরণ):
+                          </label>
+                          <input
+                            type="text"
+                            value={currentActiveConfig.comparisonTableSubtitle ?? 'কেন সাধারণ হেডফোনের চেয়ে Aura Pro Studio সেরা জেনে নিন'}
+                            onChange={(e) =>
+                              handleUpdateActiveConfig({
+                                ...currentActiveConfig,
+                                comparisonTableSubtitle: e.target.value
+                              })
+                            }
+                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                          />
+                        </div>
+                      </div>
+
+                      {/* 3-Column Product Comparison Table Editor */}
+                      <div className="border border-[#EEAB59] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
+                        {/* Table Header Controls */}
+                        <div className="bg-gradient-to-r from-[#E67E00] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
+                          <div className="col-span-4">
+                            <span className="text-[10px] bg-black/20 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 1 (FEATURE ASPECT)
+                            </span>
                             <input
                               type="text"
-                              value={feat}
-                              onChange={(e) => {
-                                const newFeats = [...currentActiveConfig.features];
-                                newFeats[idx] = e.target.value;
-                                handleUpdateActiveConfig({ ...currentActiveConfig, features: newFeats });
-                              }}
-                              className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              value={currentActiveConfig.comparisonCol1Header ?? 'বৈশিষ্ট্য'}
+                              onChange={(e) =>
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  comparisonCol1Header: e.target.value
+                                })
+                              }
+                              className="w-full px-2.5 py-1.5 bg-white text-[#0E0E0E] border border-white/60 rounded-md text-xs font-black focus:outline-none shadow-2xs"
                             />
-                            <button
-                              type="button"
-                              onClick={() => {
-                                const newFeats = currentActiveConfig.features.filter((_, i) => i !== idx);
-                                handleUpdateActiveConfig({ ...currentActiveConfig, features: newFeats });
-                              }}
-                              className="p-1.5 text-[#545454] hover:text-[#FF0000] rounded-full border border-[#EEEEEE] cursor-pointer"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
                           </div>
-                        ))}
-                        <button
-                          type="button"
-                          onClick={() => {
-                            handleUpdateActiveConfig({
-                              ...currentActiveConfig,
-                              features: [...(currentActiveConfig.features || []), 'নতুন বিশেষ ফিচার ও সুবিধা']
-                            });
-                          }}
-                          className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-xs rounded-full flex items-center gap-1.5 mt-2 cursor-pointer hover:bg-[#EEAB59]/30 transition-all"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                          <span>Add Feature Point</span>
-                        </button>
+                          <div className="col-span-4">
+                            <span className="text-[10px] bg-black/30 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 2 (OUR PRODUCT)
+                            </span>
+                            <input
+                              type="text"
+                              value={currentActiveConfig.comparisonCol2Header ?? 'আমাদের Aura Pro'}
+                              onChange={(e) =>
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  comparisonCol2Header: e.target.value
+                                })
+                              }
+                              className="w-full px-2.5 py-1.5 bg-emerald-50 text-emerald-950 border border-emerald-300 rounded-md text-xs font-black focus:outline-none shadow-2xs"
+                            />
+                          </div>
+                          <div className="col-span-3">
+                            <span className="text-[10px] bg-black/30 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
+                              COL 3 (ORDINARY PRODUCT)
+                            </span>
+                            <input
+                              type="text"
+                              value={currentActiveConfig.comparisonCol3Header ?? 'সাধারণ হেডফোন'}
+                              onChange={(e) =>
+                                handleUpdateActiveConfig({
+                                  ...currentActiveConfig,
+                                  comparisonCol3Header: e.target.value
+                                })
+                              }
+                              className="w-full px-2.5 py-1.5 bg-white text-[#0E0E0E] border border-white/60 rounded-md text-xs font-black focus:outline-none shadow-2xs"
+                            />
+                          </div>
+                          <div className="col-span-1 text-center text-[10px] font-black uppercase tracking-wider">
+                            DEL
+                          </div>
+                        </div>
+
+                        {/* Table Body Rows */}
+                        <div className="divide-y divide-[#EEEEEE] text-xs">
+                          {((currentActiveConfig.comparisonItems && currentActiveConfig.comparisonItems.length > 0)
+                            ? currentActiveConfig.comparisonItems
+                            : [
+                                { id: 'cmp-1', feature: 'অ্যাক্টিভ নয়েজ ক্যানসেলেশন', ourProduct: '-42dB হাইব্রিড ANC', otherProduct: 'কোনো ক্যানসেলেশন নেই' },
+                                { id: 'cmp-2', feature: 'ব্যাটারি ব্যাকআপ', ourProduct: '৪০ ঘণ্টা প্লে-টাইম ও টাইপ-সি ফাস্ট চার্জিং', otherProduct: 'মাত্র ৩-৪ ঘণ্টা ব্যাকআপ' },
+                                { id: 'cmp-3', feature: 'সাউন্ড কোয়ালিটি', ourProduct: '৪০মিমি স্টুдио ড্রাইভার ও 3D ডিপ বাস', otherProduct: 'ফ্ল্যাট ও সস্তা সাউন্ড' },
+                                { id: 'cmp-4', feature: 'কলিং মাইক্রোফোন', ourProduct: '৪টি এইচডি ENC মাইক (নয়েজলেস কলিং)', otherProduct: 'প্রচুর ব্যাকগ্রাউন্ড নয়েজ' },
+                                { id: 'cmp-5', feature: 'ওয়ারেন্টি সাপোর্ট', ourProduct: '১ বছর রিপ্লেসমেন্ট ওয়ারেন্টি', otherProduct: 'কোনো ওয়ারেন্টি নেই' }
+                              ]
+                          ).map((item, idx, arr) => (
+                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#FCF1E5]/20 transition-colors">
+                              <div className="col-span-4">
+                                <input
+                                  type="text"
+                                  value={item.feature}
+                                  onChange={(e) => {
+                                    const updated = [...arr];
+                                    updated[idx] = { ...updated[idx], feature: e.target.value };
+                                    handleUpdateActiveConfig({ ...currentActiveConfig, comparisonItems: updated });
+                                  }}
+                                  placeholder={`Row #${idx + 1}`}
+                                  className="w-full px-3 py-2 bg-[#FAFAFA] border border-[#EEEEEE] rounded-md text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-4">
+                                <input
+                                  type="text"
+                                  value={item.ourProduct}
+                                  onChange={(e) => {
+                                    const updated = [...arr];
+                                    updated[idx] = { ...updated[idx], ourProduct: e.target.value };
+                                    handleUpdateActiveConfig({ ...currentActiveConfig, comparisonItems: updated });
+                                  }}
+                                  placeholder="Our Product"
+                                  className="w-full px-3 py-2 bg-[#ECFFE8] border border-[#008F2F]/40 rounded-md text-xs font-extrabold text-[#006B22] focus:border-[#008F2F] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-3">
+                                <input
+                                  type="text"
+                                  value={item.otherProduct}
+                                  onChange={(e) => {
+                                    const updated = [...arr];
+                                    updated[idx] = { ...updated[idx], otherProduct: e.target.value };
+                                    handleUpdateActiveConfig({ ...currentActiveConfig, comparisonItems: updated });
+                                  }}
+                                  placeholder="Ordinary"
+                                  className="w-full px-3 py-2 bg-[#FFF0F0] border border-[#D9381E]/30 rounded-md text-xs font-semibold text-[#801010] focus:border-[#D9381E] focus:outline-none"
+                                />
+                              </div>
+                              <div className="col-span-1 flex justify-center">
+                                {arr.length > 1 && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      const filtered = arr.filter((_, i) => i !== idx);
+                                      handleUpdateActiveConfig({
+                                        ...currentActiveConfig,
+                                        comparisonItems: filtered
+                                      });
+                                    }}
+                                    className="p-1.5 text-neutral-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                                    title="Remove Row"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Add Row Button Bar */}
+                        <div className="p-3 bg-[#FCF1E5] border-t border-[#EEAB59] flex items-center justify-between">
+                          <span className="text-xs font-bold text-[#0E0E0E]">
+                            টেবিলে মোট {(currentActiveConfig.comparisonItems || []).length || 5} টি তুলনামূলক রো আছে
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const existing = currentActiveConfig.comparisonItems || [
+                                { id: 'cmp-1', feature: 'অ্যাক্টিভ নয়েজ ক্যানসেলেশন', ourProduct: '-42dB হাইব্রিড ANC', otherProduct: 'কোনো ক্যানসেলেশন নেই' },
+                                { id: 'cmp-2', feature: 'ব্যাটারি ব্যাকআপ', ourProduct: '৪০ ঘণ্টা প্লে-টাইম ও টাইপ-সি ফাস্ট চার্জিং', otherProduct: 'মাত্র ৩-৪ ঘণ্টা ব্যাকআপ' },
+                                { id: 'cmp-3', feature: 'সাউন্ড কোয়ালিটি', ourProduct: '৪০মিমি স্টুдио ড্রাইভার ও 3D ডিপ বাস', otherProduct: 'ফ্ল্যাট ও সস্তা সাউন্ড' },
+                                { id: 'cmp-4', feature: 'কলিং মাইক্রোফোন', ourProduct: '৪টি এইচডি ENC মাইক (নয়েজলেস কলিং)', otherProduct: 'প্রচুর ব্যাকগ্রাউন্ড নয়েজ' },
+                                { id: 'cmp-5', feature: 'ওয়ারেন্টি সাপোর্ট', ourProduct: '১ বছর রিপ্লেসমেন্ট ওয়ারেন্টি', otherProduct: 'কোনো ওয়ারেন্টি নেই' }
+                              ];
+                              handleUpdateActiveConfig({
+                                ...currentActiveConfig,
+                                comparisonItems: [
+                                  ...existing,
+                                  { id: `cmp-${Date.now()}`, feature: 'নতুন বৈশিষ্ট্য', ourProduct: 'আমাদের সেরা সুবিধা', otherProduct: 'সাধারণ সুবিধা' }
+                                ]
+                              });
+                            }}
+                            className="px-3.5 py-1.5 bg-[#008F2F] hover:bg-[#007325] text-white font-extrabold text-xs rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs uppercase tracking-wider"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>Add Row (+১টি রো)</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2937,447 +3106,16 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
                           />
                         </div>
-
-                        <div>
-                          <label className="block font-bold text-[#0E0E0E] mb-1">
-                            Canonical URL
-                          </label>
-                          <input
-                            type="text"
-                            value={currentSeo.canonicalUrl || `https://promisemart.com/landing/${activePage?.slug || 'page'}`}
-                            onChange={(e) => updateSeo({ canonicalUrl: e.target.value })}
-                            placeholder="https://promisemart.com/landing/..."
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                          />
-                        </div>
                       </div>
 
-                      {/* Social Sharing OpenGraph Card */}
-                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
-                        <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
-                          <Sparkles className="w-3.5 h-3.5 text-[#E67E00]" />
-                          <span>2. OpenGraph Social Share Card (Facebook / WhatsApp Link Card)</span>
-                        </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                          <div>
-                            <label className="block font-bold text-[#0E0E0E] mb-1">
-                              OG Title
-                            </label>
-                            <input
-                              type="text"
-                              value={currentSeo.ogTitle || ''}
-                              onChange={(e) => updateSeo({ ogTitle: e.target.value })}
-                              placeholder="Social Card Heading"
-                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block font-bold text-[#0E0E0E] mb-1">
-                              OG Image URL
-                            </label>
-                            <input
-                              type="text"
-                              value={currentSeo.ogImage || ''}
-                              onChange={(e) => updateSeo({ ogImage: e.target.value })}
-                              placeholder="https://images.unsplash.com/..."
-                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Pixels and Analytics */}
-                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
-                        <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
-                          <BarChart2 className="w-3.5 h-3.5 text-[#E67E00]" />
-                          <span>3. Tracking Pixels & Analytics Code</span>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                          <div>
-                            <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
-                              <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                              <span>Facebook Pixel ID</span>
-                            </label>
-                            <input
-                              type="text"
-                              value={currentSeo.fbPixelId || ''}
-                              onChange={(e) => updateSeo({ fbPixelId: e.target.value })}
-                              placeholder="e.g. PIXEL-901823712"
-                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                            />
-                          </div>
-
-                          <div>
-                            <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
-                              <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                              <span>Google Analytics (GA4) ID</span>
-                            </label>
-                            <input
-                              type="text"
-                              value={currentSeo.googleAnalyticsId || ''}
-                              onChange={(e) => updateSeo({ googleAnalyticsId: e.target.value })}
-                              placeholder="e.g. G-789234110"
-                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Search Snippet & Social Card Live Previews */}
-                      <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
-                        <span className="font-bold text-[#0E0E0E] block text-xs uppercase tracking-wider">
-                          4. Live Social & Search Card Previews:
-                        </span>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          {/* Google Preview */}
-                          <div className="p-3 bg-white border border-slate-200 rounded-xl space-y-1 shadow-2xs">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                              🔍 Google Search Result:
-                            </span>
-                            <div className="text-blue-700 font-bold text-xs leading-snug hover:underline line-clamp-1">
-                              {currentSeo.metaTitle || currentActiveConfig.productTitle}
-                            </div>
-                            <div className="text-emerald-700 font-mono text-[10px]">
-                              https://promisemart.com/landing/{activePage?.slug || 'page'}
-                            </div>
-                            <div className="text-slate-600 text-[10px] leading-relaxed line-clamp-2">
-                              {currentSeo.metaDescription || currentActiveConfig.productDescription}
-                            </div>
-                          </div>
-
-                          {/* Facebook Share Preview */}
-                          <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5 shadow-2xs">
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                              📘 Facebook Share Card:
-                            </span>
-                            {currentSeo.ogImage && (
-                              <img
-                                src={currentSeo.ogImage}
-                                alt="OG Preview"
-                                className="w-full h-24 object-cover rounded-md border border-slate-200"
-                              />
-                            )}
-                            <div className="text-[10px] font-mono text-slate-400 uppercase">PROMISEMART.COM</div>
-                            <div className="font-bold text-xs text-slate-900 line-clamp-1">
-                              {currentSeo.ogTitle || currentSeo.metaTitle}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 )}
-              </div>
-            )}
-
-            {/* LIVE STOREFRONT INTERACTIVE PREVIEW PANEL (Rendered in Split, Desktop & Mobile Modes) */}
-            {previewMode !== 'editor' && (
-              <div
-                className={`${
-                  previewMode === 'desktop'
-                    ? 'col-span-1'
-                    : 'lg:col-span-5 xl:col-span-4 sticky top-4'
-                } bg-[#0E0E0E] p-2 sm:p-3 rounded-2xl shadow-2xl border border-[#0E0E0E] flex justify-center max-h-[85vh]`}
-              >
-              {/* Device Frame with Scrollable Area */}
-              <div
-                className={`bg-white text-[#0E0E0E] w-full transition-all duration-300 shadow-2xl overflow-y-auto custom-scrollbar flex flex-col ${
-                  previewMode === 'mobile'
-                    ? 'max-w-md my-1 border-4 border-[#1A1A1A] rounded-2xl max-h-[78vh]'
-                    : 'max-w-full rounded-xl max-h-[80vh]'
-                }`}
-              >
-                {/* Top Announcement Bar */}
-                {currentActiveConfig.announcementText && (
-                  <div
-                    style={{
-                      backgroundColor: activeThemeColors.primaryButtonBg,
-                      color: activeThemeColors.primaryButtonText
-                    }}
-                    className="text-center py-1.5 px-3 text-[11px] font-black uppercase tracking-wider sticky top-0 z-10 shadow-xs transition-colors"
-                  >
-                    {currentActiveConfig.announcementText}
-                  </div>
-                )}
-
-                {/* Storefront Navigation Header */}
-                <div className="border-b border-[#EEEEEE] p-3 flex items-center justify-between bg-white shrink-0">
-                  <div className="flex items-center gap-2">
-                    <div
-                      style={{
-                        backgroundColor: activeThemeColors.primaryButtonBg,
-                        color: activeThemeColors.primaryButtonText
-                      }}
-                      className="w-7 h-7 rounded-lg font-black text-xs flex items-center justify-center transition-colors"
-                    >
-                      P
-                    </div>
-                    <div>
-                      <span className="font-black text-xs tracking-tight text-[#0E0E0E]">Promise Mart</span>
-                      <span className="text-[9px] block text-[#8F8F8F]">Official Store</span>
-                    </div>
-                  </div>
-                  <span
-                    style={{
-                      backgroundColor: activeThemeColors.accentBadgeBg,
-                      color: activeThemeColors.accentBadgeText,
-                      borderColor: activeThemeColors.primaryButtonBg + '50'
-                    }}
-                    className="px-2 py-0.5 font-bold text-[9px] rounded-full uppercase border transition-colors"
-                  >
-                    In Stock
-                  </span>
-                </div>
-
-                {/* Main Scrollable Landing Page Content */}
-                <div className="p-4 bg-gradient-to-b from-[#FCF1E5]/20 to-white text-center space-y-3 flex-1">
-                  <span
-                    style={{
-                      backgroundColor: activeThemeColors.accentBadgeBg,
-                      color: activeThemeColors.accentBadgeText,
-                      borderColor: activeThemeColors.primaryButtonBg + '50'
-                    }}
-                    className="inline-block px-2.5 py-0.5 font-extrabold text-[10px] rounded-full border transition-colors"
-                  >
-                    {currentActiveConfig.heroBadge}
-                  </span>
-                  <h2
-                    style={{ color: activeThemeColors.headingTextColor }}
-                    className="text-lg font-black tracking-tight leading-tight transition-colors"
-                  >
-                    {currentActiveConfig.productTitle}
-                  </h2>
-                  <p className="text-[11px] text-[#545454] max-w-xs mx-auto font-medium leading-relaxed">
-                    {currentActiveConfig.productDescription}
-                  </p>
-
-                  <div className="py-2">
-                    <img
-                      src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80"
-                      alt="Product Preview"
-                      className="w-44 h-44 object-contain mx-auto drop-shadow-md rounded-lg"
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-center gap-3 py-1">
-                    <div>
-                      <span
-                        style={{ color: activeThemeColors.primaryButtonBg }}
-                        className="text-2xl font-black transition-colors"
-                      >
-                        ৳{currentActiveConfig.basePrice.toLocaleString()}
-                      </span>
-                      {currentActiveConfig.originalPrice && (
-                        <span className="text-xs font-bold text-[#8F8F8F] line-through ml-2">
-                          ৳{currentActiveConfig.originalPrice.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Key Feature Bullet Points in Preview */}
-                  {currentActiveConfig.features && currentActiveConfig.features.length > 0 && (
-                    <div className="text-left bg-white p-3 rounded-lg border border-[#EEEEEE] space-y-1.5 my-3 shadow-2xs">
-                      <span
-                        style={{ color: activeThemeColors.primaryButtonBg }}
-                        className="text-[10px] font-black uppercase tracking-wider block mb-1 transition-colors"
-                      >
-                        ★ Key Product Features:
-                      </span>
-                      {currentActiveConfig.features.map((feat, i) => (
-                        <div key={i} className="flex items-start gap-1.5 text-[11px] text-[#0E0E0E] font-medium">
-                          <span style={{ color: activeThemeColors.primaryButtonBg }} className="font-bold transition-colors">✓</span>
-                          <span>{feat}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Delivery & Guarantee Info */}
-                  <div className="grid grid-cols-2 gap-2 text-left my-2">
-                    <div className="p-2 bg-[#FAFAFA] rounded border border-[#EEEEEE] text-[10px]">
-                      <span className="font-bold text-[#0E0E0E] block">🚚 Delivery:</span>
-                      <span className="text-[#545454]">{currentActiveConfig.deliveryInfoText || 'Fast Home Delivery Nationwide'}</span>
-                    </div>
-                    <div
-                      style={{ backgroundColor: activeThemeColors.accentBadgeBg }}
-                      className="p-2 rounded border border-[#EEEEEE] text-[10px]"
-                    >
-                      <span style={{ color: activeThemeColors.accentBadgeText }} className="font-bold block">🛡️ Guarantee:</span>
-                      <span className="text-[#545454]">{currentActiveConfig.guaranteeBadgeText || '7 Days Replacement Warranty'}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Interactive Order Form in Preview */}
-                <div className="p-4 bg-[#FAFAFA] border-t border-[#EEEEEE] space-y-3">
-                  <div className="flex items-center gap-1.5 font-black text-xs text-[#0E0E0E]">
-                    <ShoppingBag style={{ color: activeThemeColors.primaryButtonBg }} className="w-3.5 h-3.5 transition-colors" />
-                    <span>Quick Order Form</span>
-                  </div>
-
-                  {testOrderPlaced ? (
-                    <div className="p-3 bg-[#ECFFE8] border border-[#008F2F] rounded-lg text-center space-y-1">
-                      <CheckCircle2 className="w-5 h-5 text-[#008F2F] mx-auto" />
-                      <div className="font-black text-xs text-[#008F2F]">Test Order Placed!</div>
-                      <div className="text-[10px] text-[#545454]">Added to Orders List</div>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleTestOrderSubmit} className="space-y-2 text-xs">
-                      <input
-                        type="text"
-                        value={testFormName}
-                        onChange={(e) => setTestFormName(e.target.value)}
-                        placeholder="Your Full Name"
-                        className="w-full px-2.5 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold"
-                        required
-                      />
-                      <input
-                        type="text"
-                        value={testFormPhone}
-                        onChange={(e) => setTestFormPhone(e.target.value)}
-                        placeholder="017XXXXXXXX"
-                        className="w-full px-2.5 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold"
-                        required
-                      />
-                      <select
-                        value={testFormZone}
-                        onChange={(e) => setTestFormZone(e.target.value as any)}
-                        className="w-full px-2.5 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold"
-                      >
-                        <option value="Inside Dhaka">Inside Dhaka (৳{currentActiveConfig.deliveryInsideDhaka})</option>
-                        <option value="Outside Dhaka">Outside Dhaka (৳{currentActiveConfig.deliverySubDhaka})</option>
-                        <option value="Remote Area">Remote Area (৳{currentActiveConfig.deliveryOutsideDhaka})</option>
-                      </select>
-
-                      <button
-                        type="submit"
-                        style={{
-                          backgroundColor: activeThemeColors.primaryButtonBg,
-                          color: activeThemeColors.primaryButtonText
-                        }}
-                        className="w-full py-2 font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider hover:opacity-90 cursor-pointer"
-                      >
-                        Order Now - ৳{testTotal.toLocaleString()}
-                      </button>
-                    </form>
-                  )}
-                </div>
-
-                {/* Customer Reviews Section in Preview */}
-                {currentActiveConfig.reviews && currentActiveConfig.reviews.length > 0 && (
-                  <div className="p-4 bg-white border-t border-[#EEEEEE] space-y-2 text-left">
-                    <span className="text-xs font-black text-[#0E0E0E] block uppercase tracking-wider">
-                      Customer Reviews ({currentActiveConfig.reviews.length})
-                    </span>
-                    <div className="space-y-2">
-                      {currentActiveConfig.reviews.map((rev) => (
-                        <div key={rev.id} className="p-2.5 bg-[#FAFAFA] rounded border border-[#EEEEEE] text-[11px] space-y-1">
-                          <div className="flex items-center justify-between font-bold text-[#0E0E0E]">
-                            <span>{rev.author}</span>
-                            <span style={{ color: activeThemeColors.primaryButtonBg }}>{'★'.repeat(rev.rating)}</span>
-                          </div>
-                          <p className="text-[#545454] leading-tight">{rev.content}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Footer in Preview */}
-                <div className="p-3 bg-[#0E0E0E] text-white text-center text-[10px] space-y-1">
-                  <div className="font-bold">Promise Mart • Official E-Commerce Store</div>
-                  <div className="text-[#8F8F8F]">100% Cash on Delivery & Express Shipping</div>
-                </div>
               </div>
             </div>
-            )}
           </div>
-
-          {/* Quick Preview Floating Button (for Wide Editor Mode) */}
-          {previewMode === 'editor' && (
-            <div className="fixed bottom-6 right-6 z-40">
-              <button
-                onClick={() => setIsQuickPreviewOpen(true)}
-                className="px-5 py-3 bg-[#008F2F] hover:bg-[#007325] text-white font-extrabold text-xs rounded-full shadow-2xl flex items-center gap-2 transition-all hover:scale-105 cursor-pointer border-2 border-white"
-              >
-                <Eye className="w-4 h-4" />
-                <span>👁️ Quick Page Preview</span>
-              </button>
-            </div>
-          )}
-
-          {/* Floating Quick Preview Drawer / Modal */}
-          {isQuickPreviewOpen && (
-            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-              <div className="bg-[#0E0E0E] p-3 rounded-2xl shadow-2xl border border-slate-800 max-w-lg w-full max-h-[90vh] flex flex-col space-y-3 relative">
-                <div className="flex items-center justify-between text-white pb-2 border-b border-slate-800">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                    <span className="font-black text-xs uppercase tracking-wider">Storefront Quick Preview</span>
-                  </div>
-                  <button
-                    onClick={() => setIsQuickPreviewOpen(false)}
-                    className="p-1 hover:bg-white/10 rounded-full text-slate-400 hover:text-white transition-colors cursor-pointer"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="bg-white rounded-xl overflow-y-auto custom-scrollbar p-4 text-[#0E0E0E] space-y-4 max-h-[75vh]">
-                  <div className="text-center space-y-2 border-b pb-3">
-                    <span
-                      style={{
-                        backgroundColor: activeThemeColors.accentBadgeBg,
-                        color: activeThemeColors.accentBadgeText
-                      }}
-                      className="px-3 py-1 font-bold text-xs rounded-full inline-block"
-                    >
-                      {currentActiveConfig.heroBadge || 'Special Offer'}
-                    </span>
-                    <h3 style={{ color: activeThemeColors.headingTextColor }} className="font-black text-base">
-                      {currentActiveConfig.productTitle}
-                    </h3>
-                    <div className="text-xl font-black text-[#E67E00]">
-                      ৳{currentActiveConfig.basePrice?.toLocaleString()}
-                    </div>
-                  </div>
-
-                  {currentActiveConfig.productDescription && (
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {currentActiveConfig.productDescription}
-                    </p>
-                  )}
-
-                  <button
-                    style={{
-                      backgroundColor: activeThemeColors.primaryButtonBg,
-                      color: activeThemeColors.primaryButtonText
-                    }}
-                    className="w-full py-3 rounded-full font-black text-xs uppercase shadow-md flex items-center justify-center gap-2"
-                  >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>অর্ডার করতে ক্লিক করুন • ৳{currentActiveConfig.basePrice?.toLocaleString()}</span>
-                  </button>
-                </div>
-
-                <div className="text-center pt-1">
-                  <button
-                    onClick={() => setIsQuickPreviewOpen(false)}
-                    className="px-4 py-1.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-full transition-colors cursor-pointer"
-                  >
-                    Close Preview
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+        )}
 
       {/* End Builder */}
     </div>
