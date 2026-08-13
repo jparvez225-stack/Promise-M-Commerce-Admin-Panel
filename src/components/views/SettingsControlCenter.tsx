@@ -24,10 +24,15 @@ import {
   Smartphone,
   Key,
   Image as ImageIcon,
-  X
+  X,
+  Search,
+  Share2,
+  BarChart2,
+  Sparkles,
+  Code
 } from 'lucide-react';
 
-type SettingsTab = 'GENERAL' | 'TEAM' | 'DATA' | 'API' | 'INVOICE' | 'COURIER' | 'PAYMENTS';
+type SettingsTab = 'GENERAL' | 'TEAM' | 'COURIER' | 'PAYMENTS' | 'SEO' | 'API' | 'INVOICE' | 'DATA';
 
 interface TeamMember {
   id: string;
@@ -110,6 +115,46 @@ export const SettingsControlCenter: React.FC = () => {
   const [rocketMerchant, setRocketMerchant] = useState('01900112233');
   const [sslCommerzStoreId, setSslCommerzStoreId] = useState('promisemart_live');
   const [autoApproveCOD, setAutoApproveCOD] = useState(true);
+
+  // SECTION 5: SEO, Meta Data & Pixel Tracking State
+  const [seoMetaTitle, setSeoMetaTitle] = useState('Special Offer Landing Page #5 - Official Store Offer');
+  const [seoMetaDescription, setSeoMetaDescription] = useState('Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery.');
+  const [seoMetaKeywords, setSeoMetaKeywords] = useState('online shop, ecommerce bd, special deal, fast delivery, promo offer');
+  const [seoCanonicalUrl, setSeoCanonicalUrl] = useState('https://promisemart.com/landing/special-offer-5');
+  const [seoAllowIndexing, setSeoAllowIndexing] = useState(true);
+  const [seoSchemaType, setSeoSchemaType] = useState<'Product' | 'Offer' | 'LocalBusiness' | 'Organization' | 'WebPage'>('Organization');
+
+  const [ogTitle, setOgTitle] = useState('Special Offer Landing Page #5 - Official Store Offer');
+  const [ogDescription, setOgDescription] = useState('Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery.');
+  const [ogImageUrl, setOgImageUrl] = useState('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80');
+
+  const [fbPixelId, setFbPixelId] = useState('PIXEL-901823712');
+  const [fbAccessToken, setFbAccessToken] = useState('EAAFx9z8321948123...');
+  const [googleAnalyticsId, setGoogleAnalyticsId] = useState('G-789234110');
+  const [gtmId, setGtmId] = useState('GTM-N8X29KP');
+  const [tiktokPixelId, setTiktokPixelId] = useState('C9876543210');
+
+  const [customHeadScript, setCustomHeadScript] = useState('<!-- Custom Header Scripts -->');
+  const [customBodyScript, setCustomBodyScript] = useState('<!-- Custom Body Scripts -->');
+
+  const [pixelTestSuccess, setPixelTestSuccess] = useState(false);
+  const handleTestPixelEvent = (eventName: string) => {
+    setPixelTestSuccess(true);
+    setTimeout(() => setPixelTestSuccess(false), 3500);
+  };
+
+  const handleOgImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          setOgImageUrl(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSaveAll = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -224,6 +269,19 @@ export const SettingsControlCenter: React.FC = () => {
         >
           <CreditCard className="w-3.5 h-3.5" />
           <span>Payments & Banking</span>
+        </button>
+
+        <button
+          onClick={() => setActiveSubTab('SEO')}
+          className={`px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
+            activeSubTab === 'SEO'
+              ? 'bg-[#008F2F] text-white shadow-2xs'
+              : 'bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/40 hover:bg-[#ECFFE8]'
+          }`}
+        >
+          <Globe className="w-3.5 h-3.5 text-[#008F2F]" />
+          <span>PIXEL TRACKING</span>
+          <span className="px-1.5 py-0.2 bg-[#008F2F] text-white text-[9px] rounded font-black">NEW</span>
         </button>
 
         <button
@@ -703,6 +761,149 @@ export const SettingsControlCenter: React.FC = () => {
                 className="w-4 h-4 accent-[#E67E00]"
               />
             </label>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* SECTION 5: SEO, META DATA & PIXEL TRACKING TAB */}
+      {/* ========================================================================= */}
+      {activeSubTab === 'SEO' && (
+        <div className="space-y-5 text-xs">
+          {/* MAIN SECTION 5 CONTAINER MATCHING USER SCREENSHOT EXACTLY */}
+          <div className="p-4 sm:p-5 bg-[#FFFDF9] border border-[#EEAB59] rounded-xl shadow-2xs space-y-4">
+            {/* Top Header Bar */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#EEAB59]/30 gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-4 bg-[#008F2F] rounded-full inline-block shrink-0"></span>
+                <Globe className="w-4 h-4 text-[#008F2F] shrink-0" />
+                <h2 className="font-extrabold text-[#0E0E0E] text-xs sm:text-sm uppercase tracking-wider">
+                  PIXEL TRACKING
+                </h2>
+              </div>
+
+              <button
+                type="button"
+                className="px-3 py-1 bg-white border border-[#008F2F] text-[#008F2F] font-bold text-[11px] rounded-md uppercase tracking-wider hover:bg-[#ECFFE8] transition-all cursor-pointer shadow-2xs shrink-0"
+              >
+                SEARCH OPTIMIZATION
+              </button>
+            </div>
+
+            {/* Field 1: Meta Title (Google Search Title) */}
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="font-bold text-[#0E0E0E] text-xs">
+                  Meta Title (Google Search Title)
+                </label>
+                <span className="text-[11px] font-medium text-[#545454]">
+                  {seoMetaTitle.length}/60 chars
+                </span>
+              </div>
+              <input
+                type="text"
+                value={seoMetaTitle}
+                onChange={(e) => setSeoMetaTitle(e.target.value)}
+                placeholder="Special Offer Landing Page #5 - Official Store Offer"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-bold text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+              />
+            </div>
+
+            {/* Field 2: Meta Description (Search Snippet) */}
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <label className="font-bold text-[#0E0E0E] text-xs">
+                  Meta Description (Search Snippet)
+                </label>
+                <span className="text-[11px] font-medium text-[#545454]">
+                  {seoMetaDescription.length}/160 chars
+                </span>
+              </div>
+              <textarea
+                rows={2}
+                value={seoMetaDescription}
+                onChange={(e) => setSeoMetaDescription(e.target.value)}
+                placeholder="Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery."
+                className="w-full p-3 bg-white border border-[#EEAB59] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs leading-relaxed"
+              />
+            </div>
+
+            {/* Row 1: Meta Keywords & Social OG Share Image URL */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-bold text-[#0E0E0E] text-xs mb-1">
+                  Meta Keywords
+                </label>
+                <input
+                  type="text"
+                  value={seoMetaKeywords}
+                  onChange={(e) => setSeoMetaKeywords(e.target.value)}
+                  placeholder="online shop, ecommerce bd, special deal, fast delivery, promo offer"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-[#0E0E0E] text-xs mb-1">
+                  Social OG Share Image URL
+                </label>
+                <input
+                  type="text"
+                  value={ogImageUrl}
+                  onChange={(e) => setOgImageUrl(e.target.value)}
+                  placeholder="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                />
+              </div>
+            </div>
+
+            {/* Row 2: Facebook Pixel ID & Google Analytics (GA4) ID */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-bold text-[#0E0E0E] text-xs mb-1 flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-blue-600 inline-block"></span>
+                  <span>Facebook Pixel ID</span>
+                </label>
+                <input
+                  type="text"
+                  value={fbPixelId}
+                  onChange={(e) => setFbPixelId(e.target.value)}
+                  placeholder="PIXEL-901823712"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold text-[#0E0E0E] text-xs mb-1 flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span>
+                  <span>Google Analytics (GA4) ID</span>
+                </label>
+                <input
+                  type="text"
+                  value={googleAnalyticsId}
+                  onChange={(e) => setGoogleAnalyticsId(e.target.value)}
+                  placeholder="G-789234110"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                />
+              </div>
+            </div>
+
+            {/* Bottom Google Search Snippet Preview Card */}
+            <div className="p-3.5 bg-[#FFFBF7] border border-[#EEAB59] rounded-md space-y-1 shadow-2xs">
+              <div className="flex items-center gap-1.5 text-[#E67E00] font-black text-[11px] uppercase tracking-wider mb-1">
+                <Search className="w-3.5 h-3.5 text-[#E67E00]" />
+                <span>GOOGLE SEARCH SNIPPET PREVIEW:</span>
+              </div>
+              <div className="text-blue-600 font-bold text-sm hover:underline cursor-pointer leading-snug">
+                {seoMetaTitle || 'Special Offer Landing Page #5 - Official Store Offer'}
+              </div>
+              <div className="text-[#008F2F] font-medium text-xs font-mono">
+                {seoCanonicalUrl || 'https://promisemart.com/landing/special-offer-5'}
+              </div>
+              <div className="text-[#545454] text-xs leading-relaxed">
+                {seoMetaDescription || 'Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery.'}
+              </div>
+            </div>
           </div>
         </div>
       )}

@@ -136,6 +136,11 @@ export interface SeoMetaData {
   allowIndexing: boolean;
   googleAnalyticsId: string;
   fbPixelId: string;
+  gtmId?: string;
+  tiktokPixelId?: string;
+  fbAccessToken?: string;
+  customHeadScript?: string;
+  customBodyScript?: string;
 }
 
 export interface ThemeColors {

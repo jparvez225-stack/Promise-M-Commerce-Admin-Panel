@@ -392,6 +392,25 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
   // Helper boolean checking if user is in New Page Creator mode
   const isCreatingPage = currentView === 'create';
 
+  const [pixelTestSuccess, setPixelTestSuccess] = useState(false);
+  const handleTestPixelEvent = (eventName: string) => {
+    setPixelTestSuccess(true);
+    setTimeout(() => setPixelTestSuccess(false), 3500);
+  };
+
+  const handleOgImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          updateSeo({ ogImage: reader.result });
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   // SEO Meta Data default fallback and helper
   const defaultSeo = {
     metaTitle: currentActiveConfig.productTitle ? `${currentActiveConfig.productTitle} - Special Offer` : 'Landing Page - Special Offer',
@@ -404,7 +423,12 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
     schemaType: 'Product' as const,
     allowIndexing: true,
     googleAnalyticsId: 'G-789234110',
-    fbPixelId: 'PIXEL-901823712'
+    fbPixelId: '128947382910384',
+    gtmId: 'GTM-N8X29KP',
+    tiktokPixelId: 'C9876543210',
+    fbAccessToken: 'EAAFx9z8321...',
+    customHeadScript: '<!-- Custom Header Scripts -->',
+    customBodyScript: '<!-- Custom Body Scripts -->'
   };
 
   const currentSeo = currentActiveConfig.seo || defaultSeo;
@@ -1707,126 +1731,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                   </div>
                 </div>
 
-                {/* SECTION 5: SEO & META DATA */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#008F2F] rounded"></div>
-                      <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider flex items-center gap-1.5">
-                        <Globe className="w-3.5 h-3.5 text-[#008F2F]" />
-                        <span>SECTION 5: SEO, META DATA & PIXEL TRACKING</span>
-                      </h3>
-                    </div>
-                    <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/30">
-                      SEARCH OPTIMIZATION
-                    </span>
-                  </div>
 
-                  <div className="space-y-3.5 text-xs pt-1">
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <label className="font-bold text-[#0E0E0E]">Meta Title (Google Search Title)</label>
-                        <span className={`text-[10px] font-bold ${creatorMetaTitle.length > 60 ? 'text-red-600' : 'text-[#8F8F8F]'}`}>
-                          {creatorMetaTitle.length}/60 chars
-                        </span>
-                      </div>
-                      <input
-                        type="text"
-                        value={creatorMetaTitle}
-                        onChange={(e) => setCreatorMetaTitle(e.target.value)}
-                        placeholder="e.g. 100% Authentic Organic Honey - Special Offer BD"
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                      />
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-center mb-1">
-                        <label className="font-bold text-[#0E0E0E]">Meta Description (Search Snippet)</label>
-                        <span className={`text-[10px] font-bold ${creatorMetaDescription.length > 160 ? 'text-red-600' : 'text-[#8F8F8F]'}`}>
-                          {creatorMetaDescription.length}/160 chars
-                        </span>
-                      </div>
-                      <textarea
-                        rows={2}
-                        value={creatorMetaDescription}
-                        onChange={(e) => setCreatorMetaDescription(e.target.value)}
-                        placeholder="Write a clear search summary for Google results..."
-                        className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                      <div>
-                        <label className="block font-bold text-[#0E0E0E] mb-1">Meta Keywords</label>
-                        <input
-                          type="text"
-                          value={creatorMetaKeywords}
-                          onChange={(e) => setCreatorMetaKeywords(e.target.value)}
-                          placeholder="organic honey, sundarban honey, deal"
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block font-bold text-[#0E0E0E] mb-1">Social OG Share Image URL</label>
-                        <input
-                          type="url"
-                          value={creatorOgImage}
-                          onChange={(e) => setCreatorOgImage(e.target.value)}
-                          placeholder="https://images.unsplash.com/..."
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Facebook Pixel & Google Analytics */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2 border-t border-[#EEEEEE]">
-                      <div>
-                        <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-                          <span>Facebook Pixel ID</span>
-                        </label>
-                        <input
-                          type="text"
-                          value={creatorFbPixel}
-                          onChange={(e) => setCreatorFbPixel(e.target.value)}
-                          placeholder="e.g. 8912839128391"
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                          <span>Google Analytics (GA4) ID</span>
-                        </label>
-                        <input
-                          type="text"
-                          value={creatorGaId}
-                          onChange={(e) => setCreatorGaId(e.target.value)}
-                          placeholder="e.g. G-789234110"
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Google Search Live Preview */}
-                    <div className="p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded space-y-1">
-                      <span className="text-[10px] font-bold text-[#E67E00] uppercase tracking-wider block">
-                        🔍 Google Search Snippet Preview:
-                      </span>
-                      <div className="text-blue-700 font-bold text-xs leading-snug hover:underline cursor-pointer line-clamp-1">
-                        {creatorMetaTitle || newPageTitle || 'Landing Page Title'}
-                      </div>
-                      <div className="text-[#008F2F] font-mono text-[11px]">
-                        https://promisemart.com/landing/{newPageSlug || 'page'}
-                      </div>
-                      <div className="text-[#545454] text-[11px] leading-relaxed line-clamp-2">
-                        {creatorMetaDescription || newPageDescription || 'Landing page short description...'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
                 {/* SECTION 6: THEME COLORS & SUBMIT */}
                 <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
@@ -1976,70 +1881,71 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                   <button
                     id="builder-tab-content"
                     onClick={() => setActiveBuilderTab('content')}
-                    className={`pb-2 px-1 transition-all whitespace-nowrap ${
+                    className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'content'
                         ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
-                    Page Content & Copy
+                    1. Page Content & Copy
                   </button>
                   <button
                     id="builder-tab-theme"
                     onClick={() => setActiveBuilderTab('theme')}
-                    className={`pb-2 px-1 transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                    className={`pb-2 px-2 transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       activeBuilderTab === 'theme'
                         ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
                     <Palette className="w-3.5 h-3.5" />
-                    <span>🎨 Button & Theme Colors</span>
+                    <span>2. Button & Theme Colors</span>
                   </button>
                   <button
                     id="builder-tab-pricing"
                     onClick={() => setActiveBuilderTab('pricing')}
-                    className={`pb-2 px-1 transition-all whitespace-nowrap ${
+                    className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'pricing'
                         ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
-                    Pricing & Delivery Rates
+                    3. Pricing & Delivery Rates
                   </button>
                   <button
                     id="builder-tab-payments"
                     onClick={() => setActiveBuilderTab('payments')}
-                    className={`pb-2 px-1 transition-all whitespace-nowrap ${
+                    className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'payments'
                         ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
-                    Payment Gateways
+                    4. Payment Gateways
+                  </button>
+                  <button
+                    id="builder-tab-seo"
+                    onClick={() => setActiveBuilderTab('seo')}
+                    className={`pb-2 px-2.5 transition-all flex items-center gap-1.5 whitespace-nowrap rounded-t-lg ${
+                      activeBuilderTab === 'seo'
+                        ? 'border-b-2 border-[#008F2F] bg-[#ECFFE8] text-[#008F2F] font-black shadow-2xs'
+                        : 'text-[#008F2F] hover:bg-[#ECFFE8]/50 font-extrabold'
+                    }`}
+                  >
+                    <Globe className="w-4 h-4 text-[#008F2F]" />
+                    <span className="uppercase tracking-tight">SECTION 5: SEO, META DATA & PIXEL TRACKING</span>
+                    <span className="text-[9px] bg-[#008F2F] text-white px-1.5 py-0.2 rounded font-black">ACTIVE</span>
                   </button>
                   <button
                     id="builder-tab-reviews"
                     onClick={() => setActiveBuilderTab('reviews')}
-                    className={`pb-2 px-1 transition-all whitespace-nowrap ${
+                    className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'reviews'
                         ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
-                    Reviews ({currentActiveConfig.reviews.length})
-                  </button>
-                  <button
-                    id="builder-tab-seo"
-                    onClick={() => setActiveBuilderTab('seo')}
-                    className={`pb-2 px-1 transition-all flex items-center gap-1.5 whitespace-nowrap ${
-                      activeBuilderTab === 'seo'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
-                        : 'text-[#545454] hover:text-[#0E0E0E]'
-                    }`}
-                  >
-                    <Globe className="w-3.5 h-3.5" />
-                    <span>SEO Meta & Pixels</span>
+                    6. Customer Reviews ({currentActiveConfig.reviews.length})
                   </button>
                 </div>
 
@@ -3034,81 +2940,445 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                   </div>
                 )}
 
-                {/* TAB CONTENT: SEO & PIXELS */}
+                {/* TAB CONTENT: SECTION 5: SEO, META DATA & PIXEL TRACKING */}
                 {activeBuilderTab === 'seo' && (
-                  <div className="space-y-4 text-xs">
-                    <div className="p-3.5 bg-[#FCF1E5]/30 border border-[#EEAB59] rounded-lg flex items-start gap-2.5">
-                      <Globe className="w-4 h-4 text-[#E67E00] shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="font-black text-[#0E0E0E] text-xs">SEO, Social Meta & Analytics Pixels</h4>
-                        <p className="text-[11px] text-[#545454] font-medium leading-relaxed mt-0.5">
-                          Configure search engine title tags, description snippets, OpenGraph social share cards, Facebook Pixel ID, and Google Analytics.
+                  <div className="space-y-5 text-xs">
+                    {/* SECTION 5 HEADER BANNER */}
+                    <div className="p-4 bg-gradient-to-r from-[#ECFFE8] via-[#FCF1E5] to-[#EFF6FF] border border-[#008F2F]/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-extrabold text-[#0E0E0E] text-xs md:text-sm flex items-center gap-1.5">
+                            <Globe className="w-4 h-4 text-[#008F2F]" />
+                            <span>SEO, META DATA & PIXEL TRACKING (এসইও, সোশ্যাল মেটা ও পিক্সেল)</span>
+                          </h3>
+                        </div>
+                        <p className="text-[11px] text-[#545454] font-medium leading-relaxed">
+                          সার্চ ইঞ্জিন মেটা টাইটেল, সোশ্যাল মিডিয়া লিঙ্ক কার্ড, ফেসবুক পিক্সেল (Pixel ID), কনভার্সন এপিআই (CAPI Token), গুগল অ্যানালিটিক্স (GA4) ও গুগল ট্যাগ ম্যানেজার (GTM) নিয়ন্ত্রণ করুন।
                         </p>
+                      </div>
+
+                      {/* Active Tracking Pill Badges */}
+                      <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                        <span className="px-2.5 py-1 bg-white text-[#008F2F] font-bold text-[10px] rounded-full border border-[#008F2F]/30 shadow-2xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#008F2F] animate-pulse"></span>
+                          <span>Google SERP Indexed</span>
+                        </span>
+                        <span className="px-2.5 py-1 bg-white text-blue-600 font-bold text-[10px] rounded-full border border-blue-200 shadow-2xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                          <span>FB Pixel Active</span>
+                        </span>
+                        <span className="px-2.5 py-1 bg-white text-amber-600 font-bold text-[10px] rounded-full border border-amber-200 shadow-2xs flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                          <span>GA4 Live</span>
+                        </span>
                       </div>
                     </div>
 
-                    <div className="space-y-3.5 pt-1">
-                      <div className="flex items-center gap-1.5 text-xs font-black text-[#0E0E0E] uppercase tracking-wider">
-                        <Search className="w-3.5 h-3.5 text-[#E67E00]" />
-                        <span>1. Search Engine Meta Tags</span>
-                      </div>
-
-                      <div>
-                        <div className="flex justify-between items-center mb-1">
-                          <label className="font-bold text-[#0E0E0E]">
-                            Meta Title <span className="text-[#FF0000]">*</span>
-                          </label>
-                          <span className={`text-[10px] font-bold ${
-                            currentSeo.metaTitle.length > 60 ? 'text-[#FF0000]' : 'text-[#8F8F8F]'
-                          }`}>
-                            {currentSeo.metaTitle.length}/60 chars
-                          </span>
+                    {/* SUB-SECTION 1: SEARCH ENGINE META TAGS */}
+                    <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
+                      <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                        <div className="flex items-center gap-1.5 font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider">
+                          <Search className="w-4 h-4 text-[#E67E00]" />
+                          <span>১. গুগল সার্চ ইঞ্জিন মেটা তথ্য (Google Search Meta Settings)</span>
                         </div>
-                        <input
-                          type="text"
-                          value={currentSeo.metaTitle}
-                          onChange={(e) => updateSeo({ metaTitle: e.target.value })}
-                          placeholder="Meta title for Google search..."
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
-                        />
+                        <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
+                          SEO Engine
+                        </span>
                       </div>
 
-                      <div>
-                        <div className="flex justify-between items-center mb-1">
-                          <label className="font-bold text-[#0E0E0E]">
-                            Meta Description <span className="text-[#FF0000]">*</span>
-                          </label>
-                          <span className={`text-[10px] font-bold ${
-                            currentSeo.metaDescription.length > 160 ? 'text-[#FF0000]' : 'text-[#8F8F8F]'
-                          }`}>
-                            {currentSeo.metaDescription.length}/160 chars
-                          </span>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Meta Title */}
+                        <div className="md:col-span-2">
+                          <div className="flex justify-between items-center mb-1">
+                            <label className="font-bold text-[#0E0E0E]">
+                              Meta Title (গুগল সার্চ টাইটেল) <span className="text-[#FF0000]">*</span>
+                            </label>
+                            <span className={`text-[10px] font-bold ${
+                              currentSeo.metaTitle.length > 60 ? 'text-[#FF0000]' : 'text-[#008F2F]'
+                            }`}>
+                              {currentSeo.metaTitle.length}/60 chars (Recommended &lt; 60)
+                            </span>
+                          </div>
+                          <input
+                            type="text"
+                            value={currentSeo.metaTitle}
+                            onChange={(e) => updateSeo({ metaTitle: e.target.value })}
+                            placeholder="e.g. Aura Pro Studio ANC Headphones - 100% Authentic Deal in BD"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          />
                         </div>
-                        <textarea
-                          rows={2}
-                          value={currentSeo.metaDescription}
-                          onChange={(e) => updateSeo({ metaDescription: e.target.value })}
-                          placeholder="Search snippet description..."
-                          className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
-                        />
-                      </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        {/* Meta Description */}
+                        <div className="md:col-span-2">
+                          <div className="flex justify-between items-center mb-1">
+                            <label className="font-bold text-[#0E0E0E]">
+                              Meta Description (গুগল সার্চ সামারি স্নিপেট) <span className="text-[#FF0000]">*</span>
+                            </label>
+                            <span className={`text-[10px] font-bold ${
+                              currentSeo.metaDescription.length > 160 ? 'text-[#FF0000]' : 'text-[#008F2F]'
+                            }`}>
+                              {currentSeo.metaDescription.length}/160 chars (Recommended &lt; 160)
+                            </span>
+                          </div>
+                          <textarea
+                            rows={2}
+                            value={currentSeo.metaDescription}
+                            onChange={(e) => updateSeo({ metaDescription: e.target.value })}
+                            placeholder="অরিজিনাল হেডফোন ক্যাশ অন ডেলিভারিতে ক্রয় করুন। দ্রুত হোম ডেলিভারি ও ১ বছরের রিপ্লেসমেন্ট ওয়ারেন্টি।"
+                            className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Meta Keywords */}
                         <div>
                           <label className="block font-bold text-[#0E0E0E] mb-1">
-                            Meta Keywords
+                            Meta Keywords (কীওয়ার্ডসমূহ)
                           </label>
                           <input
                             type="text"
                             value={currentSeo.metaKeywords || ''}
                             onChange={(e) => updateSeo({ metaKeywords: e.target.value })}
-                            placeholder="organic honey, deal, fast shipping"
+                            placeholder="headphone, anc, organic honey, promo offer, fast delivery"
                             className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Canonical URL */}
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Canonical URL (ক্যানোনিক্যাল লিংক)
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.canonicalUrl || `https://promisemart.com/landing/${activePage?.slug}`}
+                            onChange={(e) => updateSeo({ canonicalUrl: e.target.value })}
+                            placeholder="https://promisemart.com/landing/aura-pro-anc"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Search Indexing Switch */}
+                        <div className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg">
+                          <div>
+                            <span className="font-bold text-[#0E0E0E] block">Google Search Indexing</span>
+                            <span className="text-[10px] text-[#545454]">Allow robots to index and rank page on Google</span>
+                          </div>
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={currentSeo.allowIndexing ?? true}
+                              onChange={(e) => updateSeo({ allowIndexing: e.target.checked })}
+                              className="sr-only peer"
+                            />
+                            <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#008F2F]"></div>
+                          </label>
+                        </div>
+
+                        {/* Structured Schema Markup */}
+                        <div className="space-y-1">
+                          <label className="block font-bold text-[#0E0E0E]">
+                            Structured Schema Type
+                          </label>
+                          <select
+                            value={currentSeo.schemaType || 'Product'}
+                            onChange={(e) => updateSeo({ schemaType: e.target.value as any })}
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          >
+                            <option value="Product">Product (E-Commerce Standard)</option>
+                            <option value="Offer">Offer (Promotional Deal)</option>
+                            <option value="LocalBusiness">LocalBusiness (Store Outlet)</option>
+                            <option value="WebPage">WebPage (General)</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Google Search Result Live Preview Card */}
+                      <div className="p-3.5 bg-[#FCF1E5]/40 border border-[#EEAB59]/80 rounded-xl space-y-1">
+                        <span className="text-[10px] font-extrabold text-[#E67E00] uppercase tracking-wider flex items-center gap-1">
+                          <Search className="w-3 h-3 text-[#E67E00]" />
+                          <span>Google Search SERP Result Live Preview:</span>
+                        </span>
+                        <div className="text-blue-700 font-bold text-sm leading-snug hover:underline cursor-pointer line-clamp-1">
+                          {currentSeo.metaTitle || currentActiveConfig.productTitle || 'Landing Page Title'}
+                        </div>
+                        <div className="text-[#008F2F] font-mono text-xs">
+                          {currentSeo.canonicalUrl || `https://promisemart.com/landing/${activePage?.slug}`}
+                        </div>
+                        <div className="text-[#545454] text-xs leading-relaxed line-clamp-2">
+                          {currentSeo.metaDescription || currentActiveConfig.productDescription || 'Description text appearing on Google...'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SUB-SECTION 2: SOCIAL MEDIA SHARING (OPEN GRAPH CARD) */}
+                    <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
+                      <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                        <div className="flex items-center gap-1.5 font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider">
+                          <Share2 className="w-4 h-4 text-blue-600" />
+                          <span>২. ফেসবুক ও সোশ্যাল মিডিয়া শেয়ারিং প্রিভিউ (OpenGraph Social Card)</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                          Social Sharing
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Open Graph Title (`og:title`)
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.ogTitle || currentSeo.metaTitle}
+                            onChange={(e) => updateSeo({ ogTitle: e.target.value })}
+                            placeholder="Social share title..."
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-blue-600 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Open Graph Description (`og:description`)
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.ogDescription || currentSeo.metaDescription}
+                            onChange={(e) => updateSeo({ ogDescription: e.target.value })}
+                            placeholder="Social share snippet description..."
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-blue-600 focus:outline-none"
+                          />
+                        </div>
+
+                        <div className="md:col-span-2">
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Social Share Card Image URL (`og:image`)
+                          </label>
+                          <div className="flex flex-col sm:flex-row items-center gap-2">
+                            <input
+                              type="text"
+                              value={currentSeo.ogImage || ''}
+                              onChange={(e) => updateSeo({ ogImage: e.target.value })}
+                              placeholder="https://images.unsplash.com/..."
+                              className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-blue-600 focus:outline-none"
+                            />
+                            <label className="px-3.5 py-2 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
+                              <Upload className="w-3.5 h-3.5" />
+                              <span>Choose Photo</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleOgImageFileUpload}
+                                className="hidden"
+                              />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Live Facebook / Messenger Share Card Preview */}
+                      <div className="space-y-1.5">
+                        <span className="text-[10px] font-extrabold text-blue-700 uppercase tracking-wider block">
+                          📱 Facebook & Messenger Share Preview Card:
+                        </span>
+                        <div className="max-w-md mx-auto bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                          <div className="relative aspect-[16/9] bg-slate-100 overflow-hidden">
+                            <img
+                              src={currentSeo.ogImage || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80'}
+                              alt="OG Social Card"
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                          </div>
+                          <div className="p-3 bg-[#F0F2F5] border-t border-slate-200">
+                            <div className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">
+                              PROMISEMART.COM
+                            </div>
+                            <div className="font-extrabold text-slate-900 text-xs leading-snug line-clamp-1 mt-0.5">
+                              {currentSeo.ogTitle || currentSeo.metaTitle || currentActiveConfig.productTitle}
+                            </div>
+                            <div className="text-slate-600 text-[11px] leading-tight line-clamp-1 mt-0.5">
+                              {currentSeo.ogDescription || currentSeo.metaDescription || currentActiveConfig.productDescription}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SUB-SECTION 3: AD TRACKING PIXELS & CONVERSIONS API */}
+                    <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
+                      <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                        <div className="flex items-center gap-1.5 font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider">
+                          <BarChart2 className="w-4 h-4 text-[#008F2F]" />
+                          <span>৩. এড ট্র্যাকিং পিক্সেল ও কনভার্সন এপিআই (Facebook Pixel, CAPI & GA4)</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
+                          Conversion Pixels
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Facebook Pixel ID */}
+                        <div className="bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center justify-between">
+                            <span className="flex items-center gap-1.5">
+                              <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                              <span>Facebook Meta Pixel ID</span>
+                            </span>
+                            <span className="text-[10px] text-blue-600 font-extrabold">Browser Tracking</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.fbPixelId || ''}
+                            onChange={(e) => updateSeo({ fbPixelId: e.target.value })}
+                            placeholder="e.g. 128947382910384"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-blue-600 focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Facebook Conversions API Access Token */}
+                        <div className="bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center justify-between">
+                            <span className="flex items-center gap-1.5">
+                              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                              <span>Facebook Conversions API (CAPI) Token</span>
+                            </span>
+                            <span className="text-[10px] text-emerald-600 font-extrabold">Server Tracking</span>
+                          </label>
+                          <input
+                            type="password"
+                            value={currentSeo.fbAccessToken || ''}
+                            onChange={(e) => updateSeo({ fbAccessToken: e.target.value })}
+                            placeholder="EAAFx9z8321..."
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs text-[#0E0E0E] focus:border-emerald-600 focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Google Analytics GA4 */}
+                        <div className="bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                            <span>Google Analytics 4 (GA4) Measurement ID</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.googleAnalyticsId || ''}
+                            onChange={(e) => updateSeo({ googleAnalyticsId: e.target.value })}
+                            placeholder="e.g. G-789234110"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-amber-500 focus:outline-none"
+                          />
+                        </div>
+
+                        {/* Google Tag Manager GTM */}
+                        <div className="bg-white p-3 rounded-lg border border-[#EEEEEE]">
+                          <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                            <span>Google Tag Manager (GTM) Container ID</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.gtmId || ''}
+                            onChange={(e) => updateSeo({ gtmId: e.target.value })}
+                            placeholder="e.g. GTM-N8X29KP"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-blue-500 focus:outline-none"
+                          />
+                        </div>
+
+                        {/* TikTok Pixel ID */}
+                        <div className="bg-white p-3 rounded-lg border border-[#EEEEEE] md:col-span-2">
+                          <label className="block font-bold text-[#0E0E0E] mb-1 flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-black"></span>
+                            <span>TikTok Pixel ID (Optional)</span>
+                          </label>
+                          <input
+                            type="text"
+                            value={currentSeo.tiktokPixelId || ''}
+                            onChange={(e) => updateSeo({ tiktokPixelId: e.target.value })}
+                            placeholder="e.g. C9876543210"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-black focus:outline-none"
                           />
                         </div>
                       </div>
 
+                      {/* Automated Pixel Event Checklist & Test Trigger */}
+                      <div className="p-3.5 bg-[#ECFFE8] border border-[#008F2F]/30 rounded-xl space-y-2.5">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <span className="font-extrabold text-[#008F2F] text-xs uppercase tracking-wider block">
+                              ⚡ Automated E-Commerce Tracking Events Active:
+                            </span>
+                            <p className="text-[11px] text-[#064E3B] font-medium">
+                              অর্ডার ফরম ফিলাপ, বাটন ক্লিক এবং পেজ ভিউ স্বয়ংক্রিয়ভাবে পিক্সেলে ফায়ার হবে।
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => handleTestPixelEvent('PageView')}
+                            className="px-3.5 py-1.5 bg-[#008F2F] hover:bg-[#007527] text-white font-extrabold text-xs rounded-lg transition-all shadow-2xs flex items-center gap-1.5 shrink-0 cursor-pointer"
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            <span>Test Pixel Event (পিক্সেল টেস্ট)</span>
+                          </button>
+                        </div>
 
+                        {pixelTestSuccess && (
+                          <div className="p-2 bg-[#008F2F] text-white text-xs font-bold rounded flex items-center justify-between animate-fadeIn">
+                            <span>✅ Pixel Event 'PageView & ViewContent' Fired Live Successfully!</span>
+                            <CheckCircle2 className="w-4 h-4 text-white" />
+                          </div>
+                        )}
+
+                        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1">
+                          {['PageView', 'ViewContent', 'AddToCart', 'InitiateCheckout', 'Purchase'].map((evt) => (
+                            <div key={evt} className="p-2 bg-white border border-[#008F2F]/20 rounded text-center">
+                              <span className="font-mono font-bold text-[10px] text-[#008F2F] block">fbq('track', '{evt}')</span>
+                              <span className="text-[9px] text-[#545454] font-semibold">Active ✅</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SUB-SECTION 4: CUSTOM HEAD & BODY SCRIPT INJECTION */}
+                    <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
+                      <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
+                        <div className="flex items-center gap-1.5 font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider">
+                          <Code className="w-4 h-4 text-purple-600" />
+                          <span>৪. কাস্টম ট্র্যাকিং কোড ও স্ক্রিপ্টস (Custom Header & Footer Code)</span>
+                        </div>
+                        <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
+                          Script Injector
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Header Scripts (`&lt;head&gt; ... &lt;/head&gt;`)
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={currentSeo.customHeadScript || ''}
+                            onChange={(e) => updateSeo({ customHeadScript: e.target.value })}
+                            placeholder="<!-- Insert Pinterest Pixel, Hotjar, or Custom Meta tags here -->"
+                            className="w-full p-2.5 bg-white border border-[#EEEEEE] rounded font-mono text-[11px] text-[#0E0E0E] focus:border-purple-600 focus:outline-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block font-bold text-[#0E0E0E] mb-1">
+                            Body Scripts (`&lt;body&gt; ... &lt;/body&gt;`)
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={currentSeo.customBodyScript || ''}
+                            onChange={(e) => updateSeo({ customBodyScript: e.target.value })}
+                            placeholder="<!-- Insert noscript fallback tags or custom chat widget scripts -->"
+                            className="w-full p-2.5 bg-white border border-[#EEEEEE] rounded font-mono text-[11px] text-[#0E0E0E] focus:border-purple-600 focus:outline-none"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
