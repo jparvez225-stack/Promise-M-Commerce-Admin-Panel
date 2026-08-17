@@ -11,6 +11,7 @@ import { CustomersLeads } from './components/views/CustomersLeads';
 import { FraudCheck } from './components/views/FraudCheck';
 import { SettingsControlCenter } from './components/views/SettingsControlCenter';
 import { ReportsAnalytics } from './components/views/ReportsAnalytics';
+import { StockManagement } from './components/views/StockManagement';
 import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { OrderInvoiceModal } from './components/OrderInvoiceModal';
 import { LeadRecoveryModal } from './components/LeadRecoveryModal';
@@ -18,6 +19,7 @@ import { LeadRecoveryModal } from './components/LeadRecoveryModal';
 import { 
   NavigationTab, 
   ProductSubTab,
+  StockSubTab,
   FinanceSubTab,
   PurchaseSubTab,
   Order, 
@@ -51,6 +53,7 @@ export default function App() {
   // Navigation & View State
   const [activeTab, setActiveTab] = useState<NavigationTab>('dashboard');
   const [productSubTab, setProductSubTab] = useState<ProductSubTab>('MY_PRODUCTS');
+  const [stockSubTab, setStockSubTab] = useState<StockSubTab>('ALL_STOCK');
   const [financeSubTab, setFinanceSubTab] = useState<FinanceSubTab>('BALANCE_TRANSFER');
   const [purchaseSubTab, setPurchaseSubTab] = useState<PurchaseSubTab>('MANAGE_PURCHASE');
   const [themeMode, setThemeMode] = useState<'dark' | 'light'>('dark');
@@ -142,7 +145,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans flex antialiased selection:bg-orange-500 selection:text-white">
+    <div className="min-h-screen bg-neutral-50 text-neutral-900 font-sans flex antialiased selection:bg-[#B8623B] selection:text-white">
       {/* Fixed Left Sidebar */}
       <Sidebar
         activeTab={activeTab}
@@ -154,6 +157,11 @@ export default function App() {
         onProductSubTabChange={(sub) => {
           setProductSubTab(sub);
           setActiveTab('products');
+        }}
+        stockSubTab={stockSubTab}
+        onStockSubTabChange={(sub) => {
+          setStockSubTab(sub);
+          setActiveTab('stock');
         }}
         financeSubTab={financeSubTab}
         onFinanceSubTabChange={(sub) => {
@@ -226,6 +234,13 @@ export default function App() {
               products={products}
               activeSubTab={productSubTab}
               onSubTabChange={setProductSubTab}
+            />
+          )}
+
+          {activeTab === 'stock' && (
+            <StockManagement
+              activeSubTab={stockSubTab}
+              onSubTabChange={setStockSubTab}
             />
           )}
 

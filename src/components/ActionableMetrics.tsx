@@ -28,7 +28,7 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
       {/* Title & Section Header */}
       <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
         <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse shrink-0" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#B8623B] animate-pulse shrink-0" />
           <h2 className="text-sm font-black text-neutral-900 tracking-tight">
             Actionable Risk & Recovery
           </h2>
@@ -40,12 +40,12 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
 
       <div className="space-y-4">
         {/* Abandoned Carts Card */}
-        <div className="bg-white border border-[#EEAB59] rounded p-4 space-y-3 relative overflow-hidden group">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 space-y-3 relative overflow-hidden group">
 
           {/* Card Top Row */}
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-[#FCF1E5] text-[#E67E00] flex items-center justify-center font-bold shrink-0">
+              <div className="w-9 h-9 rounded-full bg-[#F7F4F1] text-[#B8623B] flex items-center justify-center font-bold shrink-0">
                 <ShoppingBag className="w-4 h-4" />
               </div>
               <div>
@@ -78,7 +78,7 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
             <button
               id="view-all-leads-btn"
               onClick={onNavigateToLeads}
-              className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs rounded-full transition-colors flex items-center gap-1 shrink-0"
+              className="px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-semibold text-xs rounded-full transition-colors flex items-center gap-1 shrink-0"
             >
               <span>Recover All</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -98,16 +98,16 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
                       {lead.name} <span className="text-[#8F8F8F] text-[11px] font-normal">({lead.phone})</span>
                     </div>
                     <div className="text-[10px] text-[#454545] truncate mt-0.5">
-                      Step: <strong className="text-[#E67E00]">{lead.abandonedStep}</strong> • ৳{lead.cartValue}
+                      Step: <strong className="text-[#B8623B]">{lead.abandonedStep}</strong> • ৳{lead.cartValue}
                     </div>
                   </div>
 
                   <button
                     id={`quick-recover-${lead.id}`}
                     onClick={() => onQuickRecoverLead(lead)}
-                    className="flex items-center gap-1 px-3 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] font-semibold text-[11px] rounded-full transition-colors shrink-0"
+                    className="flex items-center gap-1 px-3 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] font-semibold text-[11px] rounded-full transition-colors shrink-0"
                   >
-                    <Send className="w-3 h-3 text-[#E67E00]" />
+                    <Send className="w-3 h-3 text-[#B8623B]" />
                     <span>Send Offer</span>
                   </button>
                 </div>
@@ -117,7 +117,7 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
         </div>
 
         {/* Canceled Orders Card */}
-        <div className="bg-white border border-[#EEAB59] rounded p-4 space-y-3 relative overflow-hidden group">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 space-y-3 relative overflow-hidden group">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-full bg-slate-100 text-[#FF0000] flex items-center justify-center font-bold shrink-0">
@@ -152,7 +152,7 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
             <button
               id="view-canceled-orders-btn"
               onClick={() => onNavigateToOrders('Canceled')}
-              className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] font-semibold text-xs rounded-full transition-colors flex items-center gap-1 shrink-0"
+              className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] font-semibold text-xs rounded-full transition-colors flex items-center gap-1 shrink-0"
             >
               <span>View Log</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -160,7 +160,7 @@ export const ActionableMetrics: React.FC<ActionableMetricsProps> = ({
           </div>
 
           <div className="pt-2 border-t border-[#EEEEEE] flex items-center gap-1.5 text-[11px] text-[#545454]">
-            <AlertCircle className="w-3.5 h-3.5 text-[#E67E00] shrink-0" />
+            <AlertCircle className="w-3.5 h-3.5 text-[#B8623B] shrink-0" />
             <span className="truncate">Primary Reason: Customer changed mind on call</span>
           </div>
         </div>

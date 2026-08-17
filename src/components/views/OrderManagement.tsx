@@ -468,12 +468,12 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
       {activeModalOrder ? (
         <div className="w-full space-y-4 animate-fadeIn">
           {/* TOP HEADER CONTROL BAR WITH BACK NAVIGATION (DESIGN SYSTEM COMPLIANT) */}
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => setActiveModalOrder(null)}
-                className="p-2 bg-[#FCF1E5] hover:bg-[#EEAB59]/30 border border-[#EEAB59] text-[#E67E00] rounded-full transition-all cursor-pointer shrink-0"
+                className="p-2 bg-[#F7F4F1] hover:bg-[#E2D9D2]/30 border border-[#E2D9D2] text-[#B8623B] rounded-full transition-all cursor-pointer shrink-0"
                 title="Back to All Orders"
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -502,7 +502,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <button
                 type="button"
                 onClick={() => triggerToast(`Printing invoice for ${activeModalOrder.id}`)}
-                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                className="p-2 bg-white border border-[#E2D9D2] rounded-full hover:bg-[#F7F4F1] text-[#B8623B] transition-all cursor-pointer shadow-2xs"
                 title="Print Invoice"
               >
                 <Printer className="w-4 h-4" />
@@ -512,7 +512,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <button
                 type="button"
                 onClick={() => triggerToast(`PDF document generated for ${activeModalOrder.id}`)}
-                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                className="p-2 bg-white border border-[#E2D9D2] rounded-full hover:bg-[#F7F4F1] text-[#B8623B] transition-all cursor-pointer shadow-2xs"
                 title="Download Summary"
               >
                 <FileText className="w-4 h-4" />
@@ -523,16 +523,16 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsCourierDropdownOpen(!isCourierDropdownOpen)}
-                  className="p-2 bg-[#E67E00] hover:bg-[#CC7000] text-white rounded-full transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
+                  className="p-2 bg-[#B8623B] hover:bg-[#944923] text-white rounded-full transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
                   title={`Courier: ${activeModalOrder.logistics}`}
                 >
                   <Truck className="w-4 h-4" />
                   <ChevronDown className="w-3 h-3" />
                 </button>
                 {isCourierDropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
+                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#E2D9D2] rounded shadow-lg z-20 py-1 text-xs">
                     <div className="px-3.5 py-1.5 font-extrabold text-[10px] text-[#8F8F8F] border-b border-[#EEEEEE] uppercase tracking-wider">
-                      Courier: <span className="text-[#E67E00]">{activeModalOrder.logistics}</span>
+                      Courier: <span className="text-[#B8623B]">{activeModalOrder.logistics}</span>
                     </div>
                     {['Steadfast', 'RedX', 'Paperfly', 'Pathao'].map((c) => (
                       <button
@@ -544,7 +544,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                           setIsCourierDropdownOpen(false);
                           triggerToast(`Courier updated to ${c}`);
                         }}
-                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#FCF1E5] ${activeModalOrder.logistics === c ? 'text-[#E67E00] bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
+                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#F7F4F1] ${activeModalOrder.logistics === c ? 'text-[#B8623B] bg-[#F7F4F1]' : 'text-[#0E0E0E]'}`}
                       >
                         Dispatch via {c}
                       </button>
@@ -565,7 +565,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <ChevronDown className="w-3 h-3" />
                 </button>
                 {isStatusDropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#EEAB59] rounded shadow-lg z-20 py-1 text-xs">
+                  <div className="absolute right-0 mt-1 w-48 bg-white border border-[#E2D9D2] rounded shadow-lg z-20 py-1 text-xs">
                     <div className="px-3.5 py-1.5 font-extrabold text-[10px] text-[#8F8F8F] border-b border-[#EEEEEE] uppercase tracking-wider">
                       Status: <span className="text-[#008F2F]">{activeModalOrder.status}</span>
                     </div>
@@ -579,7 +579,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                           setIsStatusDropdownOpen(false);
                           triggerToast(`Order status set to ${st}`);
                         }}
-                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#FCF1E5] ${activeModalOrder.status === st ? 'text-[#E67E00] bg-[#FCF1E5]' : 'text-[#0E0E0E]'}`}
+                        className={`w-full text-left px-3.5 py-2 font-bold hover:bg-[#F7F4F1] ${activeModalOrder.status === st ? 'text-[#B8623B] bg-[#F7F4F1]' : 'text-[#0E0E0E]'}`}
                       >
                         {st}
                       </button>
@@ -592,7 +592,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <button
                 type="button"
                 onClick={() => triggerToast(`Edit mode activated for ${activeModalOrder.id}`)}
-                className="p-2 bg-[#E67E00] hover:bg-[#CC7000] text-white rounded-full transition-all cursor-pointer shadow-2xs"
+                className="p-2 bg-[#B8623B] hover:bg-[#944923] text-white rounded-full transition-all cursor-pointer shadow-2xs"
                 title="Edit Order"
               >
                 <Edit3 className="w-4 h-4" />
@@ -602,7 +602,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveModalOrder(null)}
-                className="p-2 bg-white border border-[#EEAB59] rounded-full hover:bg-[#FCF1E5] text-[#E67E00] transition-all cursor-pointer shadow-2xs"
+                className="p-2 bg-white border border-[#E2D9D2] rounded-full hover:bg-[#F7F4F1] text-[#B8623B] transition-all cursor-pointer shadow-2xs"
                 title="Close Details View"
               >
                 <X className="w-4 h-4" />
@@ -617,10 +617,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
             <div className="lg:col-span-3 space-y-4">
 
               {/* ORDER SUMMARY CARD */}
-              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
-                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+              <div className="bg-white border border-[#E2D9D2] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#F7F4F1] border-b border-[#E2D9D2]/30 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                     <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
                       ORDER FINANCIAL SUMMARY
                     </h2>
@@ -637,7 +637,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                      <tr className="bg-[#F7F4F1]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
                         <th className="py-2.5 px-4">ORDER NUMBER</th>
                         <th className="py-2.5 px-4">CREATED AT</th>
                         <th className="py-2.5 px-4">DISCOUNT</th>
@@ -650,7 +650,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     </thead>
                     <tbody>
                       <tr className="border-b border-[#EEEEEE] text-xs font-bold text-[#0E0E0E]">
-                        <td className="py-3 px-4 text-[#E67E00]">{activeModalOrder.id}</td>
+                        <td className="py-3 px-4 text-[#B8623B]">{activeModalOrder.id}</td>
                         <td className="py-3 px-4 font-medium text-[#545454]">{activeModalOrder.dateStr}</td>
                         <td className="py-3 px-4">0 TK</td>
                         <td className="py-3 px-4">0 TK</td>
@@ -666,7 +666,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <div className="overflow-x-auto border-t border-[#EEEEEE]">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                      <tr className="bg-[#F7F4F1]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
                         <th className="py-2.5 px-4">PRODUCT NAME</th>
                         <th className="py-2.5 px-4">VARIANTS</th>
                         <th className="py-2.5 px-4">OPTION</th>
@@ -678,11 +678,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     </thead>
                     <tbody>
                       <tr className="text-xs font-medium text-[#0E0E0E]">
-                        <td className="py-3 px-4 font-bold text-[#E67E00] hover:underline cursor-pointer">
+                        <td className="py-3 px-4 font-bold text-[#B8623B] hover:underline cursor-pointer">
                           {activeModalOrder.packageItem}
                         </td>
                         <td className="py-3 px-4">
-                          <span className="px-2 py-0.5 bg-[#FCF1E5] text-[#E67E00] font-extrabold text-[10px] rounded">N/A</span>
+                          <span className="px-2 py-0.5 bg-[#F7F4F1] text-[#B8623B] font-extrabold text-[10px] rounded">N/A</span>
                         </td>
                         <td className="py-3 px-4 text-[#8F8F8F]">-</td>
                         <td className="py-3 px-4">{activeModalOrder.price} TK</td>
@@ -696,10 +696,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               </div>
 
               {/* CUSTOMER INTELLIGENCE / COURIER RATINGS CARD */}
-              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs p-4 space-y-4">
+              <div className="bg-white border border-[#E2D9D2] rounded shadow-2xs p-4 space-y-4">
                 <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                     <h3 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
                       CUSTOMER RELIABILITY & COURIER INTELLIGENCE: {activeModalOrder.customerName}
                     </h3>
@@ -707,11 +707,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </div>
                 </div>
 
-                <div className="text-xs font-semibold text-[#545454] flex flex-wrap gap-4 bg-[#FCF1E5]/30 p-2.5 rounded border border-[#EEAB59]/30">
+                <div className="text-xs font-semibold text-[#545454] flex flex-wrap gap-4 bg-[#F7F4F1]/30 p-2.5 rounded border border-[#E2D9D2]/30">
                   <span>Total Orders: <strong className="text-[#0E0E0E]">1</strong></span>
                   <span>Confirmed: <strong className="text-[#008F2F]">0</strong></span>
                   <span>Cancelled: <strong className="text-red-500">0</strong></span>
-                  <span>Pending: <strong className="text-[#E67E00]">1</strong></span>
+                  <span>Pending: <strong className="text-[#B8623B]">1</strong></span>
                 </div>
 
                 <div className="space-y-1">
@@ -723,8 +723,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
                   {/* STEADFAST */}
-                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
-                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">STEADFAST COURIER</span>
+                  <div className="p-3 bg-[#F7F4F1]/30 border border-[#E2D9D2]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#B8623B] uppercase block">STEADFAST COURIER</span>
                     <div className="text-[10px] font-bold text-[#545454] flex justify-between">
                       <span>Confirmed: 0</span>
                       <span>Cancelled: 0</span>
@@ -738,8 +738,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </div>
 
                   {/* PATHAO */}
-                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
-                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">PATHAO COURIER</span>
+                  <div className="p-3 bg-[#F7F4F1]/30 border border-[#E2D9D2]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#B8623B] uppercase block">PATHAO COURIER</span>
                     <div className="text-[10px] font-bold text-[#545454] flex justify-between">
                       <span>Confirmed: 0</span>
                       <span>Cancelled: 0</span>
@@ -753,8 +753,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </div>
 
                   {/* REDX */}
-                  <div className="p-3 bg-[#FCF1E5]/30 border border-[#EEAB59]/40 rounded space-y-1.5">
-                    <span className="font-extrabold text-xs text-[#E67E00] uppercase block">REDX COURIER</span>
+                  <div className="p-3 bg-[#F7F4F1]/30 border border-[#E2D9D2]/40 rounded space-y-1.5">
+                    <span className="font-extrabold text-xs text-[#B8623B] uppercase block">REDX COURIER</span>
                     <div className="text-[10px] font-bold text-[#545454] flex justify-between">
                       <span>Confirmed: 0</span>
                       <span>Cancelled: 0</span>
@@ -770,10 +770,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               </div>
 
               {/* SUMMARY TABLE CARD */}
-              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
-                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+              <div className="bg-white border border-[#E2D9D2] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#F7F4F1] border-b border-[#E2D9D2]/30 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                     <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
                       ORDER TIMELINE SUMMARY
                     </h2>
@@ -782,7 +782,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FCF1E5]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
+                      <tr className="bg-[#F7F4F1]/40 border-b border-[#EEEEEE] text-[10px] font-extrabold text-[#545454] uppercase tracking-wider">
                         <th className="py-2.5 px-4">ORDER NUMBER</th>
                         <th className="py-2.5 px-4">NAME</th>
                         <th className="py-2.5 px-4">SOURCE</th>
@@ -793,7 +793,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     </thead>
                     <tbody>
                       <tr className="text-xs font-medium text-[#0E0E0E]">
-                        <td className="py-3 px-4 font-bold text-[#E67E00]">{activeModalOrder.id}</td>
+                        <td className="py-3 px-4 font-bold text-[#B8623B]">{activeModalOrder.id}</td>
                         <td className="py-3 px-4 font-bold">{activeModalOrder.customerName}</td>
                         <td className="py-3 px-4 text-[#545454]">Website Checkout</td>
                         <td className="py-3 px-4">
@@ -815,10 +815,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
             <div className="lg:col-span-1 space-y-4">
 
               {/* CUSTOMER INFORMATION CARD */}
-              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden">
-                <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+              <div className="bg-white border border-[#E2D9D2] rounded shadow-2xs overflow-hidden">
+                <div className="p-3 bg-[#F7F4F1] border-b border-[#E2D9D2]/30 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                    <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                     <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
                       CUSTOMER INFO
                     </h2>
@@ -865,11 +865,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               </div>
 
               {/* COMMENTS CARD */}
-              <div className="bg-white border border-[#EEAB59] rounded shadow-2xs overflow-hidden min-h-[220px] flex flex-col justify-between">
+              <div className="bg-white border border-[#E2D9D2] rounded shadow-2xs overflow-hidden min-h-[220px] flex flex-col justify-between">
                 <div>
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEAB59]/30 flex items-center justify-between">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#E2D9D2]/30 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                       <h2 className="font-extrabold text-xs text-[#0E0E0E] uppercase tracking-wider">
                         INTERNAL COMMENTS
                       </h2>
@@ -883,13 +883,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </div>
 
                   {isAddingComment && (
-                    <div className="p-3 border-b border-[#EEEEEE] bg-[#FCF1E5]/30 space-y-2">
+                    <div className="p-3 border-b border-[#EEEEEE] bg-[#F7F4F1]/30 space-y-2">
                       <textarea
                         rows={2}
                         value={newCommentText}
                         onChange={(e) => setNewCommentText(e.target.value)}
                         placeholder="Type internal order comment..."
-                        className="w-full p-2 border border-[#EEAB59] rounded text-xs text-[#0E0E0E] focus:outline-none focus:border-[#008F2F] bg-white"
+                        className="w-full p-2 border border-[#E2D9D2] rounded text-xs text-[#0E0E0E] focus:outline-none focus:border-[#008F2F] bg-white"
                       />
                       <div className="flex justify-end gap-1.5">
                         <button
@@ -922,7 +922,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     {(orderComments[activeModalOrder.id] && orderComments[activeModalOrder.id].length > 0) ? (
                       <div className="space-y-2">
                         {orderComments[activeModalOrder.id].map((cm, idx) => (
-                          <div key={idx} className="p-2 bg-[#FCF1E5]/30 border border-[#EEAB59]/30 rounded text-xs text-[#0E0E0E]">
+                          <div key={idx} className="p-2 bg-[#F7F4F1]/30 border border-[#E2D9D2]/30 rounded text-xs text-[#0E0E0E]">
                             <p className="font-medium">{cm}</p>
                             <span className="text-[9px] text-[#8F8F8F] block text-right mt-1 font-bold">Just now</span>
                           </div>
@@ -930,7 +930,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center py-8 text-center text-[#8F8F8F] space-y-2">
-                        <div className="w-8 h-8 rounded-full border border-[#EEAB59]/40 bg-[#FCF1E5] flex items-center justify-center text-[#E67E00]">
+                        <div className="w-8 h-8 rounded-full border border-[#E2D9D2]/40 bg-[#F7F4F1] flex items-center justify-center text-[#B8623B]">
                           <MessageSquare className="w-4 h-4" />
                         </div>
                         <span className="text-xs font-semibold">No comments added yet</span>
@@ -946,12 +946,12 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
       ) : (
         <>
           {/* 2. MAIN SUB-HEADER NAVIGATION TABS */}
-          <div className="bg-white border border-[#EEAB59] rounded px-2 flex items-center justify-start border-b">
+          <div className="bg-white border border-[#E2D9D2] rounded px-2 flex items-center justify-start border-b">
             <button
               onClick={() => setTopTab('ORDERS')}
               className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
                 topTab === 'ORDERS'
-                  ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
+                  ? 'border-[#B8623B] text-[#B8623B] bg-[#F7F4F1]'
                   : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
               }`}
             >
@@ -962,7 +962,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               onClick={() => setTopTab('RECOVERY')}
               className={`py-3 px-6 text-xs font-bold tracking-wider uppercase border-b-2 transition-all flex items-center gap-2 ${
                 topTab === 'RECOVERY'
-                  ? 'border-[#E67E00] text-[#E67E00] bg-[#FCF1E5]'
+                  ? 'border-[#B8623B] text-[#B8623B] bg-[#F7F4F1]'
                   : 'border-transparent text-[#545454] hover:text-[#0E0E0E]'
               }`}
             >
@@ -977,7 +977,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
         <div className="space-y-4 animate-fadeIn">
           
           {/* Header Action Row */}
-          <div className="bg-white border border-[#EEAB59] rounded p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             
             {/* Left Title Info */}
             <div className="space-y-1">
@@ -1007,7 +1007,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
               <button 
                 onClick={() => triggerToast('CSV exported for Abandoned Carts!')}
-                className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
+                className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>EXPORT CSV</span>
@@ -1015,7 +1015,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
               <button 
                 onClick={() => triggerToast('Tutorial: How to convert abandoned carts into orders')}
-                className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
+                className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>TUTORIAL</span>
@@ -1023,7 +1023,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
               <button 
                 onClick={() => triggerToast('Live data synchronized!')}
-                className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
+                className="px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white text-[11px] font-semibold uppercase rounded-full flex items-center gap-1.5 transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>SYNC LIVE DATA</span>
@@ -1038,8 +1038,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               onClick={() => setRecoverySubTab('ALL')}
               className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
                 recoverySubTab === 'ALL'
-                  ? 'bg-[#E67E00] text-white'
-                  : 'border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5]'
+                  ? 'bg-[#B8623B] text-white'
+                  : 'border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1]'
               }`}
             >
               ABANDONED ORDERS LIST ({abandonedRecords.length})
@@ -1049,8 +1049,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               onClick={() => setRecoverySubTab('HOT')}
               className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
                 recoverySubTab === 'HOT'
-                  ? 'bg-[#E67E00] text-white'
-                  : 'border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5]'
+                  ? 'bg-[#B8623B] text-white'
+                  : 'border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1]'
               }`}
             >
               HOT LEADS / CART ABANDONED ({abandonedRecords.filter(a => a.isHotLead).length})
@@ -1058,11 +1058,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
           </div>
 
           {/* ABANDONED ORDERS TABLE */}
-          <div className="bg-white border border-[#EEAB59] rounded overflow-hidden">
+          <div className="bg-white border border-[#E2D9D2] rounded overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold text-[10px] uppercase tracking-wider">
+                  <tr className="bg-[#B8623B] text-white font-bold text-[10px] uppercase tracking-wider">
                     <th className="py-3 px-4">CUSTOMER INFORMATIONS</th>
                     <th className="py-3 px-4">ABANDONED ITEMS & DETAILS</th>
                     <th className="py-3 px-4">TIMESTAMP & ACTIVITY</th>
@@ -1081,7 +1081,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     paginatedAbandoned.map((abn) => (
                       <tr 
                         key={abn.id}
-                        className="hover:bg-[#FCF1E5]/50 transition-colors group"
+                        className="hover:bg-[#F7F4F1]/50 transition-colors group"
                       >
                         {/* CUSTOMER INFORMATIONS */}
                         <td className="py-3 px-4 max-w-xs">
@@ -1121,7 +1121,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                           </div>
                           <button
                             onClick={() => setNoteModalTarget(abn)}
-                            className="mt-1 flex items-center gap-1 text-[11px] font-bold text-[#E67E00] hover:underline"
+                            className="mt-1 flex items-center gap-1 text-[11px] font-bold text-[#B8623B] hover:underline"
                           >
                             <span>💬 Click to add note</span>
                             {abn.notes && abn.notes.length > 0 && (
@@ -1134,7 +1134,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                         {/* STATUS */}
                         <td className="py-3 px-4">
-                          <span className="px-2.5 py-1 bg-[#FCF1E5] text-[#E67E00] rounded-full text-[10px] font-bold tracking-wider uppercase">
+                          <span className="px-2.5 py-1 bg-[#F7F4F1] text-[#B8623B] rounded-full text-[10px] font-bold tracking-wider uppercase">
                             {abn.status}
                           </span>
                         </td>
@@ -1145,7 +1145,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                             type="button"
                             title="Promote to Confirmed Order (অর্ডারে রুপান্তর করুন)"
                             onClick={() => handlePromoteToOrder(abn)}
-                            className="px-3.5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-[10px] font-black uppercase rounded-full tracking-wider inline-flex items-center gap-1.5 shadow-2xs hover:shadow-md transition-all cursor-pointer group/promote"
+                            className="px-3.5 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white text-[10px] font-black uppercase rounded-full tracking-wider inline-flex items-center gap-1.5 shadow-2xs hover:shadow-md transition-all cursor-pointer group/promote"
                           >
                             <ShoppingBag className="w-3.5 h-3.5 text-white transition-transform group-hover/promote:scale-110 shrink-0" />
                             <span>Promote to Order</span>
@@ -1171,7 +1171,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <button
                     disabled={currentPageAbandoned === 1}
                     onClick={() => setCurrentPageAbandoned(prev => Math.max(1, prev - 1))}
-                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F4F1] transition-colors flex items-center gap-1"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                     <span>Previous</span>
@@ -1184,8 +1184,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                         onClick={() => setCurrentPageAbandoned(p)}
                         className={`w-7 h-7 rounded text-xs font-bold transition-all ${
                           currentPageAbandoned === p
-                            ? 'bg-[#E67E00] text-white shadow-2xs'
-                            : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-slate-700'
+                            ? 'bg-[#B8623B] text-white shadow-2xs'
+                            : 'bg-white border border-[#EEEEEE] hover:border-[#E2D9D2] text-slate-700'
                         }`}
                       >
                         {p}
@@ -1196,7 +1196,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <button
                     disabled={currentPageAbandoned === totalPagesAbandoned}
                     onClick={() => setCurrentPageAbandoned(prev => Math.min(totalPagesAbandoned, prev + 1))}
-                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F4F1] transition-colors flex items-center gap-1"
                   >
                     <span>Next</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -1216,7 +1216,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
         <div className="space-y-4 animate-fadeIn">
           
           {/* SEARCH & ACTION CONTROL BAR */}
-          <div className="bg-white border border-[#EEAB59] rounded p-3 space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-3 space-y-3">
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               
               {/* Search Input */}
@@ -1239,7 +1239,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     setCurrentPage(1);
                     triggerToast('Data refreshed!');
                   }}
-                  className="p-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full transition-colors"
+                  className="p-2 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] rounded-full transition-colors"
                   title="Refresh Data"
                 >
                   <RefreshCw className="w-4 h-4" />
@@ -1247,7 +1247,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                 <button 
                   onClick={() => triggerToast('Orders exported to CSV/Excel!')}
-                  className="p-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full transition-colors"
+                  className="p-2 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] rounded-full transition-colors"
                   title="Export Orders"
                 >
                   <Download className="w-4 h-4" />
@@ -1255,7 +1255,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                 <button 
                   onClick={() => handleStatusFilterChange('All')}
-                  className="px-4 py-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-colors flex items-center gap-1.5"
                 >
                   <User className="w-3.5 h-3.5" />
                   <span>All Orders</span>
@@ -1263,7 +1263,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                 <button 
                   onClick={() => setIsCreateModalOpen(true)}
-                  className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full transition-all flex items-center gap-1.5"
+                  className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded-full transition-all flex items-center gap-1.5"
                 >
                   <Plus className="w-4 h-4" />
                   <span>+ New Order</span>
@@ -1278,13 +1278,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 onClick={() => handleStatusFilterChange('All')}
                 className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
                   statusFilter === 'All'
-                    ? 'bg-[#E67E00] text-white'
-                    : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-[#545454]'
+                    ? 'bg-[#B8623B] text-white'
+                    : 'bg-white border border-[#EEEEEE] hover:border-[#E2D9D2] text-[#545454]'
                 }`}
               >
                 <span>All Status</span>
                 <span className={`px-1.5 py-0.2 text-[10px] rounded-full font-bold ${
-                  statusFilter === 'All' ? 'bg-white text-[#E67E00]' : 'bg-[#ECFFE8] text-[#008F2F]'
+                  statusFilter === 'All' ? 'bg-white text-[#B8623B]' : 'bg-[#ECFFE8] text-[#008F2F]'
                 }`}>
                   {orderRecords.length}
                 </span>
@@ -1298,14 +1298,14 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     onClick={() => handleStatusFilterChange(pill.label)}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
                       isActive
-                        ? 'bg-[#E67E00] text-white'
-                        : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-[#545454]'
+                        ? 'bg-[#B8623B] text-white'
+                        : 'bg-white border border-[#EEEEEE] hover:border-[#E2D9D2] text-[#545454]'
                     }`}
                   >
                     <span>{pill.label}</span>
                     {pill.count > 0 && (
                       <span className={`px-1.5 py-0.2 text-[10px] rounded-full font-bold ${
-                        isActive ? 'bg-white text-[#E67E00]' : 'bg-[#ECFFE8] text-[#008F2F]'
+                        isActive ? 'bg-white text-[#B8623B]' : 'bg-[#ECFFE8] text-[#008F2F]'
                       }`}>
                         {pill.count}
                       </span>
@@ -1318,9 +1318,9 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
           {/* BULK ACTIONS FLOATING TOOLBAR */}
           {selectedRowIds.length > 0 && (
-            <div className="bg-[#FCF1E5] border-2 border-[#E67E00] rounded-xl p-3 shadow-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 animate-fadeIn">
+            <div className="bg-[#F7F4F1] border-2 border-[#B8623B] rounded-xl p-3 shadow-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 animate-fadeIn">
               <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-full bg-[#E67E00] text-white font-black text-xs flex items-center justify-center shrink-0">
+                <span className="w-7 h-7 rounded-full bg-[#B8623B] text-white font-black text-xs flex items-center justify-center shrink-0">
                   {selectedRowIds.length}
                 </span>
                 <div>
@@ -1330,7 +1330,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <div className="flex items-center gap-2 text-[10px] text-[#545454] font-semibold mt-0.5">
                     <button 
                       onClick={handleSelectAllFiltered}
-                      className="text-[#E67E00] underline font-bold hover:text-[#CC7000]"
+                      className="text-[#B8623B] underline font-bold hover:text-[#944923]"
                     >
                       Select all {filteredRecords.length} matching
                     </button>
@@ -1347,8 +1347,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
               <div className="flex flex-wrap items-center gap-2">
                 {/* Bulk Status Dropdown */}
-                <div className="flex items-center gap-1.5 bg-white border border-[#EEAB59] rounded-lg px-2.5 py-1">
-                  <CheckSquare className="w-3.5 h-3.5 text-[#E67E00]" />
+                <div className="flex items-center gap-1.5 bg-white border border-[#E2D9D2] rounded-lg px-2.5 py-1">
+                  <CheckSquare className="w-3.5 h-3.5 text-[#B8623B]" />
                   <select
                     value={selectedBulkStatus}
                     onChange={(e) => {
@@ -1371,8 +1371,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 </div>
 
                 {/* Bulk Logistics Action Dropdown */}
-                <div className="flex items-center gap-1.5 bg-white border border-[#EEAB59] rounded-lg px-2.5 py-1">
-                  <Truck className="w-3.5 h-3.5 text-[#E67E00]" />
+                <div className="flex items-center gap-1.5 bg-white border border-[#E2D9D2] rounded-lg px-2.5 py-1">
+                  <Truck className="w-3.5 h-3.5 text-[#B8623B]" />
                   <select
                     value={selectedBulkLogistics}
                     onChange={(e) => {
@@ -1392,7 +1392,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 {/* Bulk Print Button */}
                 <button
                   onClick={handleBulkPrint}
-                  className="px-3.5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-2xs"
+                  className="px-3.5 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition-all shadow-2xs"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>Bulk Print ({selectedRowIds.length})</span>
@@ -1411,7 +1411,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <select
                 value={pageSize}
                 onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                className="bg-white border border-slate-200 rounded px-2 py-0.5 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#E67E00]"
+                className="bg-white border border-slate-200 rounded px-2 py-0.5 text-xs text-slate-800 font-bold focus:outline-none focus:border-[#B8623B]"
               >
                 <option value={10}>10</option>
                 <option value={15}>15</option>
@@ -1423,17 +1423,17 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
           </div>
 
           {/* DATA TABLE */}
-          <div className="bg-white border border-[#EEAB59] rounded overflow-hidden shadow-2xs">
+          <div className="bg-white border border-[#E2D9D2] rounded overflow-hidden shadow-2xs">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold text-[11px] uppercase tracking-wider">
+                  <tr className="bg-[#B8623B] text-white font-bold text-[11px] uppercase tracking-wider">
                     <th className="py-3 px-3 w-10">
                       <input
                         type="checkbox"
                         checked={isPageFullySelected}
                         onChange={handleSelectAllPaginated}
-                        className="rounded border-[#EEEEEE] text-[#E67E00] focus:ring-[#E67E00] cursor-pointer"
+                        className="rounded border-[#EEEEEE] text-[#B8623B] focus:ring-[#B8623B] cursor-pointer"
                         title={isPageFullySelected ? "Deselect page" : "Select page"}
                       />
                     </th>
@@ -1461,8 +1461,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       return (
                         <tr 
                           key={row.id}
-                          className={`hover:bg-[#FCF1E5]/50 transition-colors group ${
-                            isChecked ? 'bg-[#FCF1E5]/30' : ''
+                          className={`hover:bg-[#F7F4F1]/50 transition-colors group ${
+                            isChecked ? 'bg-[#F7F4F1]/30' : ''
                           }`}
                         >
                           <td className="py-3 px-3">
@@ -1470,14 +1470,14 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                               type="checkbox"
                               checked={isChecked}
                               onChange={() => handleToggleRow(row.id)}
-                              className="rounded border-[#EEEEEE] text-[#E67E00] focus:ring-[#E67E00] cursor-pointer"
+                              className="rounded border-[#EEEEEE] text-[#B8623B] focus:ring-[#B8623B] cursor-pointer"
                             />
                           </td>
 
                           <td className="py-3 px-4">
                             <div 
                               onClick={() => setActiveModalOrder(row)}
-                              className="font-bold text-[#E67E00] hover:underline cursor-pointer"
+                              className="font-bold text-[#B8623B] hover:underline cursor-pointer"
                             >
                               {row.id}
                             </div>
@@ -1488,7 +1488,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                           <td className="py-3 px-4">
                             <div className="flex items-center gap-2">
-                              <div className="w-6 h-6 rounded-full bg-[#FCF1E5] text-[#E67E00] font-bold text-[10px] flex items-center justify-center border border-[#EEAB59] shrink-0">
+                              <div className="w-6 h-6 rounded-full bg-[#F7F4F1] text-[#B8623B] font-bold text-[10px] flex items-center justify-center border border-[#E2D9D2] shrink-0">
                                 {firstLetter}
                               </div>
                               <div>
@@ -1502,7 +1502,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                             <div className="text-[#0E0E0E] font-semibold truncate" title={row.packageItem}>
                               {row.packageItem}
                             </div>
-                            <div className="font-bold text-[#E67E00] text-xs mt-0.5">
+                            <div className="font-bold text-[#B8623B] text-xs mt-0.5">
                               ৳{row.price.toLocaleString()}
                             </div>
                           </td>
@@ -1555,7 +1555,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
                               <button
                                 onClick={() => setActiveModalOrder(row)}
-                                className="p-1.5 text-slate-400 hover:text-orange-600 hover:bg-orange-50 rounded-md transition-colors"
+                                className="p-1.5 text-slate-400 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-md transition-colors"
                                 title="Edit Order"
                               >
                                 <Edit3 className="w-3.5 h-3.5" />
@@ -1581,7 +1581,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <button
                     disabled={currentPage === 1}
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F4F1] transition-colors flex items-center gap-1"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
                     <span>Previous</span>
@@ -1601,8 +1601,8 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                               onClick={() => setCurrentPage(p)}
                               className={`w-7 h-7 rounded text-xs font-bold transition-all ${
                                 currentPage === p
-                                  ? 'bg-[#E67E00] text-white shadow-2xs'
-                                  : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-slate-700'
+                                  ? 'bg-[#B8623B] text-white shadow-2xs'
+                                  : 'bg-white border border-[#EEEEEE] hover:border-[#E2D9D2] text-slate-700'
                               }`}
                             >
                               {p}
@@ -1615,7 +1615,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   <button
                     disabled={currentPage === totalPages}
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#FCF1E5] transition-colors flex items-center gap-1"
+                    className="px-3 py-1.5 border border-[#EEEEEE] rounded font-bold text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F4F1] transition-colors flex items-center gap-1"
                   >
                     <span>Next</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -1633,11 +1633,11 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
         <div className="fixed inset-0 z-50 bg-[#0E0E0E]/40 backdrop-blur-xs flex items-center justify-center p-4">
           <form 
             onSubmit={handleAddNoteSubmit}
-            className="bg-white border border-[#EEAB59] rounded p-6 max-w-md w-full shadow-lg space-y-4 animate-fadeIn"
+            className="bg-white border border-[#E2D9D2] rounded p-6 max-w-md w-full shadow-lg space-y-4 animate-fadeIn"
           >
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
               <div>
-                <span className="text-[10px] font-bold uppercase text-[#E67E00] tracking-wider block">Customer Note</span>
+                <span className="text-[10px] font-bold uppercase text-[#B8623B] tracking-wider block">Customer Note</span>
                 <h3 className="font-bold text-base text-[#0E0E0E]">{noteModalTarget.customerName} ({noteModalTarget.phone})</h3>
               </div>
               <button 
@@ -1651,7 +1651,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
 
             <div className="space-y-3">
               {noteModalTarget.notes && noteModalTarget.notes.length > 0 && (
-                <div className="space-y-1.5 max-h-36 overflow-y-auto p-2 bg-[#FCF1E5] rounded border border-[#EEAB59] text-xs">
+                <div className="space-y-1.5 max-h-36 overflow-y-auto p-2 bg-[#F7F4F1] rounded border border-[#E2D9D2] text-xs">
                   {noteModalTarget.notes.map((n, i) => (
                     <div key={i} className="p-2 bg-white rounded border border-[#EEEEEE] text-[#545454] font-medium">
                       💬 {n}
@@ -1677,13 +1677,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setNoteModalTarget(null)}
-                className="px-4 py-2 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] font-bold text-xs rounded-full"
+                className="px-4 py-2 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] font-bold text-xs rounded-full"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full"
+                className="px-5 py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded-full"
               >
                 Save Note
               </button>
@@ -1707,7 +1707,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
       {/* CREATE NEW ORDER MODAL (+ New Order) */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 z-50 bg-[#0E0E0E]/50 backdrop-blur-xs flex items-center justify-center p-3 md:p-6 overflow-y-auto">
-          <div className="bg-white border border-[#EEAB59] rounded-xl max-w-4xl w-full shadow-2xl overflow-hidden animate-fadeIn my-auto flex flex-col max-h-[92vh]">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl max-w-4xl w-full shadow-2xl overflow-hidden animate-fadeIn my-auto flex flex-col max-h-[92vh]">
             {/* Modal Header - Centered like Add Category form */}
             <div className="p-6 pb-3 text-center relative border-b border-[#EEEEEE] shrink-0">
               <button 
@@ -1735,7 +1735,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <div className="space-y-4">
                   <div className="border-b border-[#EEEEEE] pb-2">
                     <h3 className="font-bold text-sm text-[#0E0E0E] flex items-center gap-2">
-                      <span className="w-1.5 h-4 bg-[#E67E00] rounded-full inline-block"></span>
+                      <span className="w-1.5 h-4 bg-[#B8623B] rounded-full inline-block"></span>
                       Customer Information
                     </h3>
                   </div>
@@ -1750,7 +1750,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       value={createCustomerName}
                       onChange={(e) => setCreateCustomerName(e.target.value)}
                       placeholder="Customer Name"
-                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                     />
                   </div>
 
@@ -1764,7 +1764,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       value={createCustomerPhone}
                       onChange={(e) => setCreateCustomerPhone(e.target.value)}
                       placeholder="01XXXXXXXXX"
-                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                     />
                   </div>
 
@@ -1776,7 +1776,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       <select
                         value={createOrderStatus}
                         onChange={(e) => setCreateOrderStatus(e.target.value)}
-                        className="w-full px-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                        className="w-full px-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                       >
                         <option value="Pending">Pending</option>
                         <option value="Confirmed">Confirmed</option>
@@ -1801,7 +1801,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                           else if (zone === 'Outside Dhaka') setCreateDeliveryFee(100);
                           else setCreateDeliveryFee(130);
                         }}
-                        className="w-full px-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                        className="w-full px-3 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                       >
                         <option value="Inside Dhaka">Inside Dhaka (৳60)</option>
                         <option value="Outside Dhaka">Outside Dhaka (৳100)</option>
@@ -1817,7 +1817,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     <select
                       value={createCourier}
                       onChange={(e) => setCreateCourier(e.target.value)}
-                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                      className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                     >
                       <option value="Steadfast">Steadfast</option>
                       <option value="RedX">RedX</option>
@@ -1835,7 +1835,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       value={createAddress}
                       onChange={(e) => setCreateAddress(e.target.value)}
                       placeholder="Enter full delivery address..."
-                      className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                      className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                     />
                   </div>
 
@@ -1848,7 +1848,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       value={createOrderNote}
                       onChange={(e) => setCreateOrderNote(e.target.value)}
                       placeholder="Enter any special instruction..."
-                      className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                      className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1857,13 +1857,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <div className="space-y-4">
                   <div className="border-b border-[#EEEEEE] pb-2">
                     <h3 className="font-bold text-sm text-[#0E0E0E] flex items-center gap-2">
-                      <span className="w-1.5 h-4 bg-[#E67E00] rounded-full inline-block"></span>
+                      <span className="w-1.5 h-4 bg-[#B8623B] rounded-full inline-block"></span>
                       Products & Summary
                     </h3>
                   </div>
 
                   {/* Products Selection Box */}
-                  <div className="border border-[#EEAB59] bg-[#FCF1E5]/15 rounded-lg p-3.5 space-y-3">
+                  <div className="border border-[#E2D9D2] bg-[#F7F4F1]/15 rounded-lg p-3.5 space-y-3">
                     <label className="block text-xs font-bold text-[#0E0E0E]">
                       Select Products<span className="text-[#FF0000]">*</span>:
                     </label>
@@ -1876,7 +1876,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                         value={productSearch}
                         onChange={(e) => setProductSearch(e.target.value)}
                         placeholder="Search products by name or SKU..."
-                        className="w-full pl-9 pr-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#E67E00]"
+                        className="w-full pl-9 pr-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] placeholder:text-[#A3A3A3] focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
 
@@ -1917,7 +1917,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => handleAddProductToOrder(prod)}
-                                  className="px-2 py-0.5 bg-[#FCF1E5] text-[#E67E00] hover:bg-[#E67E00] hover:text-white text-[11px] font-bold rounded inline-flex items-center gap-1 transition-all"
+                                  className="px-2 py-0.5 bg-[#F7F4F1] text-[#B8623B] hover:bg-[#B8623B] hover:text-white text-[11px] font-bold rounded inline-flex items-center gap-1 transition-all"
                                 >
                                   <Plus className="w-3 h-3" />
                                   <span>Add</span>
@@ -1936,7 +1936,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                       </span>
 
                       {selectedProductItems.length === 0 ? (
-                        <div className="p-2.5 text-center text-xs text-[#8F8F8F] border border-dashed border-[#EEAB59]/50 rounded bg-white">
+                        <div className="p-2.5 text-center text-xs text-[#8F8F8F] border border-dashed border-[#E2D9D2]/50 rounded bg-white">
                           No items added yet. Search and add products above.
                         </div>
                       ) : (
@@ -1989,14 +1989,14 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                   </div>
 
                   {/* Order Calculations Bar */}
-                  <div className="grid grid-cols-3 gap-3 bg-[#FCF1E5]/30 border border-[#EEAB59] p-3 rounded-lg text-center items-center">
+                  <div className="grid grid-cols-3 gap-3 bg-[#F7F4F1]/30 border border-[#E2D9D2] p-3 rounded-lg text-center items-center">
                     <div>
                       <label className="block text-[11px] font-bold text-[#0E0E0E] mb-1">Delivery Fee:</label>
                       <input
                         type="number"
                         value={createDeliveryFee}
                         onChange={(e) => setCreateDeliveryFee(Number(e.target.value))}
-                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E] text-center focus:outline-none focus:border-[#E67E00]"
+                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E] text-center focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
 
@@ -2006,13 +2006,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                         type="number"
                         value={createDiscount}
                         onChange={(e) => setCreateDiscount(Number(e.target.value))}
-                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E] text-center focus:outline-none focus:border-[#E67E00]"
+                        className="w-full px-2 py-1 bg-white border border-[#EEEEEE] rounded font-bold text-xs text-[#0E0E0E] text-center focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
 
                     <div>
                       <label className="block text-[11px] font-bold text-[#0E0E0E] mb-1">Grand Total:</label>
-                      <span className="text-xl font-black text-[#E67E00] block">৳{grandTotal.toLocaleString()}</span>
+                      <span className="text-xl font-black text-[#B8623B] block">৳{grandTotal.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -2023,13 +2023,13 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 <button 
                   type="button" 
                   onClick={() => setIsCreateModalOpen(false)} 
-                  className="px-6 py-2 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-all"
+                  className="px-6 py-2 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-all"
                 >
                   Back
                 </button>
                 <button 
                   type="submit" 
-                  className="px-8 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full shadow-md transition-all"
+                  className="px-8 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full shadow-md transition-all"
                 >
                   ADD ORDER
                 </button>
@@ -2042,10 +2042,10 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
       {/* BULK PRINT INVOICES MODAL */}
       {isBulkPrintModalOpen && (
         <div className="fixed inset-0 z-50 bg-[#0E0E0E]/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border-2 border-[#E67E00] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl animate-fadeIn space-y-4">
+          <div className="bg-white border-2 border-[#B8623B] rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl animate-fadeIn space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-[#EEEEEE]">
               <div className="flex items-center gap-2">
-                <Printer className="w-5 h-5 text-[#E67E00]" />
+                <Printer className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-bold text-base text-[#0E0E0E]">
                   Bulk Print Invoices ({selectedRowIds.length} Orders)
                 </h3>
@@ -2064,18 +2064,18 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                 .map((order, idx) => (
                   <div 
                     key={order.id} 
-                    className="border border-[#EEAB59] rounded-lg p-3 bg-[#FCF1E5]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
+                    className="border border-[#E2D9D2] rounded-lg p-3 bg-[#F7F4F1]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-[#E67E00]">{order.id}</span>
+                        <span className="text-xs font-bold text-[#B8623B]">{order.id}</span>
                         <span className="text-[10px] bg-[#ECFFE8] text-[#008F2F] font-bold px-2 py-0.2 rounded-full">{order.status}</span>
                       </div>
                       <div className="text-xs font-bold text-[#0E0E0E] mt-0.5">{order.customerName} ({order.customerPhone})</div>
                       <div className="text-[11px] text-slate-600 truncate max-w-sm">{order.packageItem}</div>
                     </div>
                     <div className="text-right sm:text-right w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-[#EEEEEE]">
-                      <div className="text-sm font-black text-[#E67E00]">৳{order.price.toLocaleString()}</div>
+                      <div className="text-sm font-black text-[#B8623B]">৳{order.price.toLocaleString()}</div>
                       <div className="text-[10px] text-slate-500 font-semibold">{order.logistics}</div>
                     </div>
                   </div>
@@ -2089,7 +2089,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setIsBulkPrintModalOpen(false)}
-                  className="px-4 py-2 border border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-bold rounded-full transition-all"
+                  className="px-4 py-2 border border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-bold rounded-full transition-all"
                 >
                   Cancel
                 </button>
@@ -2100,7 +2100,7 @@ export const OrderManagement: React.FC<OrderManagementProps> = ({
                     setIsBulkPrintModalOpen(false);
                     setSelectedRowIds([]);
                   }}
-                  className="px-6 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-bold rounded-full shadow-md flex items-center gap-1.5 transition-all"
+                  className="px-6 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-bold rounded-full shadow-md flex items-center gap-1.5 transition-all"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Print All Invoices</span>

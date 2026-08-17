@@ -169,13 +169,13 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
     <div className="space-y-5">
       
       {/* 2. FRAUD INTELLIGENCE HERO SCAN SECTION */}
-      <div className="bg-white p-6 rounded border border-[#EEAB59]">
+      <div className="bg-white p-6 rounded border border-[#E2D9D2]">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           
           {/* Header Title & Subtitle */}
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-[#FCF1E5] text-[#E67E00] rounded border border-[#EEAB59]">
+              <div className="p-2 bg-[#F7F4F1] text-[#B8623B] rounded border border-[#E2D9D2]">
                 <ShieldCheck className="w-6 h-6" />
               </div>
               <h1 className="text-2xl font-bold text-[#0E0E0E] tracking-tight">
@@ -216,7 +216,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
             <button
               type="submit"
               disabled={isScanning}
-              className="px-6 py-3 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shrink-0 disabled:opacity-50"
+              className="px-6 py-3 bg-[#B8623B] hover:bg-[#944923] text-white font-semibold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shrink-0 disabled:opacity-50"
             >
               {isScanning ? (
                 <>
@@ -239,7 +239,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
         <div className="space-y-3">
           
           {/* TOTAL ORDERS */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] space-y-1">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] space-y-1">
             <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-widest block">
               TOTAL ORDERS
             </span>
@@ -249,7 +249,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
           </div>
 
           {/* DELIVERED */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] space-y-1">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] space-y-1">
             <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-widest block">
               DELIVERED
             </span>
@@ -259,17 +259,17 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
           </div>
 
           {/* RETURNED */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] space-y-1">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] space-y-1">
             <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-widest block">
               RETURNED
             </span>
-            <span className="text-3xl font-bold text-[#E67E00] block">
+            <span className="text-3xl font-bold text-[#B8623B] block">
               {scanResult.returned}
             </span>
           </div>
 
           {/* CANCELLED */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] space-y-1">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] space-y-1">
             <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-widest block">
               CANCELLED
             </span>
@@ -279,7 +279,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
           </div>
 
           {/* RISK SCORE */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] space-y-1">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] space-y-1">
             <span className="text-[10px] font-bold text-[#8F8F8F] uppercase tracking-widest block">
               RISK SCORE
             </span>
@@ -287,7 +287,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
               scanResult.riskScore > 50 
                 ? 'text-[#FF0000]' 
                 : scanResult.riskScore > 20 
-                ? 'text-[#E67E00]' 
+                ? 'text-[#B8623B]' 
                 : 'text-[#008F2F]'
             }`}>
               {scanResult.riskScore}%
@@ -297,12 +297,12 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
         </div>
 
         {/* RIGHT COLUMN: Courier Breakdown Table */}
-        <div className="lg:col-span-3 bg-white rounded border border-[#EEAB59] overflow-hidden flex flex-col justify-between">
+        <div className="lg:col-span-3 bg-white rounded border border-[#E2D9D2] overflow-hidden flex flex-col justify-between">
           <div>
             {/* Table Header Title */}
-            <div className="p-4 border-b border-[#EEEEEE] bg-[#FCF1E5] flex items-center justify-between">
+            <div className="p-4 border-b border-[#EEEEEE] bg-[#F7F4F1] flex items-center justify-between">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider flex items-center gap-2">
-                <Truck className="w-4 h-4 text-[#E67E00]" />
+                <Truck className="w-4 h-4 text-[#B8623B]" />
                 <span>COURIER BREAKDOWN</span>
               </h3>
               <span className="text-[11px] font-semibold text-[#545454]">
@@ -314,7 +314,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold tracking-wider text-[10px] uppercase">
+                  <tr className="bg-[#B8623B] text-white font-bold tracking-wider text-[10px] uppercase">
                     <th className="py-3 px-4">COURIER NAME</th>
                     <th className="py-3 px-4 text-center">TOTAL</th>
                     <th className="py-3 px-4 text-center">CANCELLED</th>
@@ -323,7 +323,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
                   {scanResult.couriers.map((c, idx) => (
-                    <tr key={idx} className="hover:bg-[#FCF1E5]/50 transition-colors">
+                    <tr key={idx} className="hover:bg-[#F7F4F1]/50 transition-colors">
                       <td className="py-3.5 px-4 font-bold text-[#0E0E0E]">
                         {c.name}
                       </td>
@@ -338,7 +338,7 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
                           c.successRate >= 80 
                             ? 'text-[#008F2F] bg-[#ECFFE8]' 
                             : c.successRate >= 50 
-                            ? 'text-[#E67E00] bg-[#FCF1E5]' 
+                            ? 'text-[#B8623B] bg-[#F7F4F1]' 
                             : 'text-[#FF0000] bg-transparent border border-[#FF0000]'
                         }`}>
                           {c.successRate}%
@@ -359,14 +359,14 @@ export const FraudCheck: React.FC<FraudCheckProps> = () => {
         scanResult.status === 'HIGH_RISK'
           ? 'bg-white border-[#FF0000] text-[#FF0000]'
           : scanResult.status === 'MODERATE'
-          ? 'bg-[#FCF1E5] border-[#EEAB59] text-[#E67E00]'
+          ? 'bg-[#F7F4F1] border-[#E2D9D2] text-[#B8623B]'
           : 'bg-[#ECFFE8] border-[#008F2F] text-[#008F2F]'
       }`}>
         <div className={`p-2.5 rounded text-white shrink-0 ${
           scanResult.status === 'HIGH_RISK'
             ? 'bg-[#FF0000]'
             : scanResult.status === 'MODERATE'
-            ? 'bg-[#E67E00]'
+            ? 'bg-[#B8623B]'
             : 'bg-[#008F2F]'
         }`}>
           {scanResult.status === 'HIGH_RISK' ? (

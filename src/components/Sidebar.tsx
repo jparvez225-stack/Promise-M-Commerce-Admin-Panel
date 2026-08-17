@@ -22,13 +22,15 @@ import {
   Receipt,
   SlidersHorizontal
 } from 'lucide-react';
-import { NavigationTab, ProductSubTab, FinanceSubTab, PurchaseSubTab } from '../types';
+import { NavigationTab, ProductSubTab, FinanceSubTab, PurchaseSubTab, StockSubTab } from '../types';
 
 interface SidebarProps {
   activeTab: NavigationTab;
   onTabChange: (tab: NavigationTab) => void;
   productSubTab?: ProductSubTab;
   onProductSubTabChange?: (subTab: ProductSubTab) => void;
+  stockSubTab?: StockSubTab;
+  onStockSubTabChange?: (subTab: StockSubTab) => void;
   financeSubTab?: FinanceSubTab;
   onFinanceSubTabChange?: (subTab: FinanceSubTab) => void;
   purchaseSubTab?: PurchaseSubTab;
@@ -45,6 +47,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onTabChange,
   productSubTab = 'MY_PRODUCTS',
   onProductSubTabChange,
+  stockSubTab = 'ALL_STOCK',
+  onStockSubTabChange,
   financeSubTab = 'BALANCE_TRANSFER',
   onFinanceSubTabChange,
   purchaseSubTab = 'MANAGE_PURCHASE',
@@ -53,8 +57,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   unreadLeadCount,
   onOpenStorefrontPreview
 }) => {
-  // Accordion state for PRODUCTS, FINANCE & PURCHASES dropdowns
+  // Accordion state for PRODUCTS, STOCK, FINANCE & PURCHASES dropdowns
   const [productsModuleOpen, setProductsModuleOpen] = useState(true);
+  const [stockModuleOpen, setStockModuleOpen] = useState(true);
   const [financeModuleOpen, setFinanceModuleOpen] = useState(true);
   const [purchasesModuleOpen, setPurchasesModuleOpen] = useState(true);
 
@@ -64,6 +69,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
     if (activeTab !== 'products') {
       onTabChange('products');
+    }
+  };
+
+  const handleStockSubTabClick = (sub: StockSubTab) => {
+    if (onStockSubTabChange) {
+      onStockSubTabChange(sub);
+    }
+    if (activeTab !== 'stock') {
+      onTabChange('stock');
     }
   };
 
@@ -120,7 +134,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </svg>
             <div className="flex flex-col">
               <span className="text-xs font-black tracking-wider text-white leading-none">
-                PROMISE <span className="text-[#E67E00]">MART</span>
+                PROMISE <span className="text-[#B8623B]">MART</span>
               </span>
               <span className="text-[9px] font-black tracking-widest text-slate-400 uppercase mt-1">
                 ADMIN PANEL
@@ -137,12 +151,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('dashboard')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'dashboard'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <BarChart2 className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <BarChart2 className={`w-4 h-4 ${activeTab === 'dashboard' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>DASHBOARD</span>
             </div>
           </button>
@@ -152,12 +166,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('orders')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'orders'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <ShoppingBag className={`w-4 h-4 ${activeTab === 'orders' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <ShoppingBag className={`w-4 h-4 ${activeTab === 'orders' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>ORDERS</span>
             </div>
             <span className="px-2 py-0.5 text-[10px] font-black rounded-full border border-red-500 text-red-400 bg-red-950/50">
@@ -174,12 +188,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                 activeTab === 'products'
-                  ? 'bg-[#E67E00] text-white shadow-2xs'
+                  ? 'bg-[#B8623B] text-white shadow-2xs'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <Package className={`w-4 h-4 ${activeTab === 'products' ? 'text-white' : 'text-[#E67E00]'}`} />
+                <Package className={`w-4 h-4 ${activeTab === 'products' ? 'text-white' : 'text-[#B8623B]'}`} />
                 <span>PRODUCT</span>
               </div>
               {productsModuleOpen ? (
@@ -257,7 +271,63 @@ export const Sidebar: React.FC<SidebarProps> = ({
             )}
           </div>
 
-          {/* 4. FINANCE MODULE WITH DROPDOWN SUB-ITEMS */}
+          {/* 4. STOCK MANAGEMENT MODULE WITH DROPDOWN SUB-ITEMS */}
+          <div>
+            <button
+              onClick={() => {
+                onTabChange('stock');
+                setStockModuleOpen(!stockModuleOpen);
+              }}
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
+                activeTab === 'stock'
+                  ? 'bg-[#B8623B] text-white shadow-2xs'
+                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Package className={`w-4 h-4 ${activeTab === 'stock' ? 'text-white' : 'text-[#B8623B]'}`} />
+                <span>STOCK MANAGEMENT</span>
+              </div>
+              {stockModuleOpen ? (
+                <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              ) : (
+                <ChevronRight className="w-3.5 h-3.5 opacity-70" />
+              )}
+            </button>
+
+            {/* DROPDOWN OPTIONS: All Stock, All Barcode */}
+            {stockModuleOpen && (
+              <div className="pl-6 pr-1 py-1 mt-1 space-y-1 text-[11px] font-bold">
+                
+                {/* 1. All Stock */}
+                <button
+                  onClick={() => handleStockSubTabClick('ALL_STOCK')}
+                  className={`w-full flex items-center justify-between px-3 py-1.5 rounded-full transition-all ${
+                    activeTab === 'stock' && stockSubTab === 'ALL_STOCK'
+                      ? 'bg-[#ECFFE8] text-[#008F2F] font-extrabold border border-[#008F2F]'
+                      : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                  }`}
+                >
+                  <span>All Stock</span>
+                </button>
+
+                {/* 2. All Barcode */}
+                <button
+                  onClick={() => handleStockSubTabClick('ALL_BARCODE')}
+                  className={`w-full flex items-center justify-between px-3 py-1.5 rounded-full transition-all ${
+                    activeTab === 'stock' && stockSubTab === 'ALL_BARCODE'
+                      ? 'bg-[#ECFFE8] text-[#008F2F] font-extrabold border border-[#008F2F]'
+                      : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                  }`}
+                >
+                  <span>All Barcode</span>
+                </button>
+
+              </div>
+            )}
+          </div>
+
+          {/* 5. FINANCE MODULE WITH DROPDOWN SUB-ITEMS */}
           <div>
             <button
               onClick={() => {
@@ -266,12 +336,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                 activeTab === 'finance'
-                  ? 'bg-[#E67E00] text-white shadow-2xs'
+                  ? 'bg-[#B8623B] text-white shadow-2xs'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <DollarSign className={`w-4 h-4 ${activeTab === 'finance' ? 'text-white' : 'text-[#E67E00]'}`} />
+                <DollarSign className={`w-4 h-4 ${activeTab === 'finance' ? 'text-white' : 'text-[#B8623B]'}`} />
                 <span>FINANCE</span>
               </div>
               {financeModuleOpen ? (
@@ -334,12 +404,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                 activeTab === 'purchases'
-                  ? 'bg-[#E67E00] text-white shadow-2xs'
+                  ? 'bg-[#B8623B] text-white shadow-2xs'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
             >
               <div className="flex items-center gap-2.5">
-                <ShoppingBag className={`w-4 h-4 ${activeTab === 'purchases' ? 'text-white' : 'text-[#E67E00]'}`} />
+                <ShoppingBag className={`w-4 h-4 ${activeTab === 'purchases' ? 'text-white' : 'text-[#B8623B]'}`} />
                 <span>PURCHASES</span>
               </div>
               {purchasesModuleOpen ? (
@@ -386,12 +456,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('customers')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'customers'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <Users className={`w-4 h-4 ${activeTab === 'customers' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <Users className={`w-4 h-4 ${activeTab === 'customers' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>CUSTOMERS</span>
             </div>
           </button>
@@ -401,12 +471,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('fraudCheck')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'fraudCheck'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <ShieldAlert className={`w-4 h-4 ${activeTab === 'fraudCheck' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <ShieldAlert className={`w-4 h-4 ${activeTab === 'fraudCheck' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>FRAUD CHECK</span>
             </div>
           </button>
@@ -416,12 +486,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('storefront')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'storefront'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <ShoppingCart className={`w-4 h-4 ${activeTab === 'storefront' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <ShoppingCart className={`w-4 h-4 ${activeTab === 'storefront' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>LANDING PAGE BUILDER</span>
             </div>
           </button>
@@ -431,12 +501,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => onTabChange('settings')}
             className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all ${
               activeTab === 'settings'
-                ? 'bg-[#E67E00] text-white shadow-2xs'
+                ? 'bg-[#B8623B] text-white shadow-2xs'
                 : 'text-slate-300 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <div className="flex items-center gap-2.5">
-              <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'text-white' : 'text-[#E67E00]'}`} />
+              <Settings className={`w-4 h-4 ${activeTab === 'settings' ? 'text-white' : 'text-[#B8623B]'}`} />
               <span>CONTROL CENTER</span>
             </div>
           </button>

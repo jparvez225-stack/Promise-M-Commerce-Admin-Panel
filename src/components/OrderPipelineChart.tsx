@@ -28,12 +28,12 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
 
   // Custom colors: Aura Pro Orange accent for active/pending/processing, Dark for completed/shipped, Red for canceled
   const getStageColor = (stage: OrderStatus) => {
-    if (selectedStage && selectedStage === stage) return '#E67E00'; // Aura Pro Orange
+    if (selectedStage && selectedStage === stage) return '#B8623B'; // Aura Pro Orange
     switch (stage) {
       case 'Pending':
-        return '#E67E00'; // Aura Pro Primary
+        return '#B8623B'; // Aura Pro Primary
       case 'Processing':
-        return '#EEAB59'; // Accent
+        return '#E2D9D2'; // Accent
       case 'Shipped':
         return '#545454'; 
       case 'Delivered':
@@ -46,12 +46,12 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
   };
 
   return (
-    <div id="order-pipeline-visualization" className="bg-white border border-[#EEAB59] rounded p-6">
+    <div id="order-pipeline-visualization" className="bg-white border border-[#E2D9D2] rounded p-6">
       {/* Chart Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded bg-[#FCF1E5] text-[#E67E00] flex items-center justify-center font-bold">
+            <div className="w-8 h-8 rounded bg-[#F7F4F1] text-[#B8623B] flex items-center justify-center font-bold">
               <Package className="w-4 h-4" />
             </div>
             <h2 className="text-lg font-bold text-[#0E0E0E] tracking-tight">
@@ -64,13 +64,13 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="inline-flex p-1 bg-[#FCF1E5] rounded-full text-xs font-semibold">
+          <div className="inline-flex p-1 bg-[#F7F4F1] rounded-full text-xs font-semibold">
             <button
               id="view-mode-count"
               onClick={() => setViewMode('count')}
               className={`px-3 py-1.5 rounded-full transition-all ${
                 viewMode === 'count'
-                  ? 'bg-[#E67E00] text-white font-bold'
+                  ? 'bg-[#B8623B] text-white font-bold'
                   : 'text-[#545454] hover:text-[#0E0E0E]'
               }`}
             >
@@ -81,7 +81,7 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
               onClick={() => setViewMode('revenue')}
               className={`px-3 py-1.5 rounded-full transition-all ${
                 viewMode === 'revenue'
-                  ? 'bg-[#E67E00] text-white font-bold'
+                  ? 'bg-[#B8623B] text-white font-bold'
                   : 'text-[#545454] hover:text-[#0E0E0E]'
               }`}
             >
@@ -104,8 +104,8 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
               onClick={() => onSelectStage(item.stage)}
               className={`flex flex-col text-left p-3.5 rounded border transition-all duration-200 relative overflow-hidden ${
                 isSelected
-                  ? 'border-[#E67E00] bg-[#FCF1E5]'
-                  : 'border-[#EEEEEE] bg-white hover:border-[#EEAB59]'
+                  ? 'border-[#B8623B] bg-[#F7F4F1]'
+                  : 'border-[#EEEEEE] bg-white hover:border-[#E2D9D2]'
               }`}
             >
               <div
@@ -158,15 +158,15 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
                   const data = payload[0].payload as PipelineStageData;
                   return (
                     <div className="bg-[#0E0E0E] text-white p-3 rounded text-xs space-y-1 border border-[#545454]">
-                      <div className="font-bold text-[#EEAB59] uppercase tracking-wide flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#E67E00]" />
+                      <div className="font-bold text-[#E2D9D2] uppercase tracking-wide flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#B8623B]" />
                         {data.stage} Status
                       </div>
                       <div className="text-white font-medium">
-                        Orders: <span className="font-bold text-[#FCF1E5]">{data.count}</span>
+                        Orders: <span className="font-bold text-[#F7F4F1]">{data.count}</span>
                       </div>
                       <div className="text-white font-medium">
-                        Revenue: <span className="font-bold text-[#FCF1E5]">৳{data.revenue.toLocaleString()}</span>
+                        Revenue: <span className="font-bold text-[#F7F4F1]">৳{data.revenue.toLocaleString()}</span>
                       </div>
                       <div className="text-[#8F8F8F] text-[10px] pt-1 border-t border-[#545454]">
                         Click bar to filter order records
@@ -204,7 +204,7 @@ export const OrderPipelineChart: React.FC<OrderPipelineChartProps> = ({
           <Filter className="w-3.5 h-3.5 text-[#8F8F8F]" />
           <span>Fulfillment Velocity: <strong className="text-[#0E0E0E] font-semibold">91.4% success rate</strong></span>
         </div>
-        <div className="flex items-center gap-1 text-[#E67E00] font-semibold hover:underline cursor-pointer" onClick={() => onSelectStage('Pending')}>
+        <div className="flex items-center gap-1 text-[#B8623B] font-semibold hover:underline cursor-pointer" onClick={() => onSelectStage('Pending')}>
           <span>View Pending Orders ({pipelineData.find(p => p.stage === 'Pending')?.count})</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </div>

@@ -197,10 +197,10 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
       {activeSubTab === 'BALANCE_TRANSFER' && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded border border-[#EEAB59] shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded border border-[#E2D9D2] shadow-2xs">
             <div>
               <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                <ArrowRightLeft className="w-5 h-5 text-[#E67E00]" />
+                <ArrowRightLeft className="w-5 h-5 text-[#B8623B]" />
                 <span>Balance Transfer</span>
               </h1>
               <p className="text-xs text-[#545454] font-medium mt-0.5">
@@ -208,19 +208,19 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
               </p>
             </div>
             
-            <div className="bg-[#FCF1E5] border border-[#EEAB59] px-4 py-2 rounded flex items-center gap-3 self-start sm:self-auto">
-              <span className="text-xs font-bold text-[#E67E00]">Account Balance</span>
+            <div className="bg-[#F7F4F1] border border-[#E2D9D2] px-4 py-2 rounded flex items-center gap-3 self-start sm:self-auto">
+              <span className="text-xs font-bold text-[#B8623B]">Account Balance</span>
               <span className="text-lg font-bold text-[#0E0E0E]">৳ {accountBalance.toLocaleString()}</span>
             </div>
           </div>
 
           {/* Transfer Form Box */}
-          <div className="bg-white rounded border border-[#EEAB59] p-5 max-w-xl mx-auto shadow-2xs">
+          <div className="bg-white rounded border border-[#E2D9D2] p-5 max-w-xl mx-auto shadow-2xs">
             <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider mb-3 text-center">
               ACCOUNT BALANCE & TRANSFER REQUEST
             </h3>
             
-            <div className="bg-[#FCF1E5]/40 border border-[#EEAB59] rounded p-5 text-center mb-4">
+            <div className="bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded p-5 text-center mb-4">
               <span className="text-[11px] font-bold text-[#8F8F8F] uppercase tracking-wider">AVAILABLE BALANCE</span>
               <div className="text-2xl font-bold text-[#0E0E0E] mt-1">
                 ৳ {accountBalance.toLocaleString()}
@@ -248,7 +248,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
               </div>
               <button
                 type="submit"
-                className="px-5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full flex items-center gap-1.5 transition-all shrink-0 uppercase tracking-wider shadow-2xs"
+                className="px-5 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded-full flex items-center gap-1.5 transition-all shrink-0 uppercase tracking-wider shadow-2xs"
               >
                 <span>Transfer</span>
                 <Send className="w-3.5 h-3.5" />
@@ -257,8 +257,8 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
           </div>
 
           {/* Transfers Log Table */}
-          <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs">
-            <div className="p-3 border-b border-[#EEEEEE] bg-[#FCF1E5] flex items-center justify-between">
+          <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs">
+            <div className="p-3 border-b border-[#EEEEEE] bg-[#F7F4F1] flex items-center justify-between">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider">
                 BALANCE TRANSFER LOGS
               </h3>
@@ -270,7 +270,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold tracking-wider text-[11px] uppercase">
+                  <tr className="bg-[#B8623B] text-white font-bold tracking-wider text-[11px] uppercase">
                     <th className="py-2.5 px-4 w-12 text-center">SL#</th>
                     <th className="py-2.5 px-4">PURPOSE</th>
                     <th className="py-2.5 px-4">REFERENCE</th>
@@ -282,7 +282,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
                   {transactions.map((tx) => (
-                    <tr key={tx.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                    <tr key={tx.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                       <td className="py-3 px-4 font-bold text-[#8F8F8F] text-center">{tx.sl}</td>
                       <td className="py-3 px-4 font-bold text-[#0E0E0E]">{tx.purpose}</td>
                       <td className="py-3 px-4 font-mono text-[#545454]">{tx.reference}</td>
@@ -290,12 +290,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                           tx.status === 'Approved' || tx.status === 'Completed'
                             ? 'bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30'
-                            : 'bg-[#FFF8EC] text-[#E67E00] border border-[#EEAB59]'
+                            : 'bg-[#FFF8EC] text-[#B8623B] border border-[#E2D9D2]'
                         }`}>
                           {tx.status === 'Approved' || tx.status === 'Completed' ? (
                             <CheckCircle2 className="w-3 h-3 text-[#008F2F]" />
                           ) : (
-                            <Clock className="w-3 h-3 text-[#E67E00]" />
+                            <Clock className="w-3 h-3 text-[#B8623B]" />
                           )}
                           <span>{tx.status}</span>
                         </span>
@@ -324,10 +324,10 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
       {activeSubTab === 'TRANSACTIONS' && (
         <div className="space-y-6">
           {/* Header */}
-          <div className="bg-white p-5 rounded border border-[#EEAB59] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="bg-white p-5 rounded border border-[#E2D9D2] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                <Receipt className="w-5 h-5 text-[#E67E00]" />
+                <Receipt className="w-5 h-5 text-[#B8623B]" />
                 <span>Transactions</span>
               </h1>
               <p className="text-xs text-[#545454] font-medium mt-0.5">
@@ -339,7 +339,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
           {/* 6 Top Metric Cards */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             {/* 1. Account Balance */}
-            <div className="bg-white p-4 rounded border border-[#EEAB59]">
+            <div className="bg-white p-4 rounded border border-[#E2D9D2]">
               <span className="text-[11px] font-bold text-[#8F8F8F] block uppercase tracking-wide">Account Balance</span>
               <div className="text-xl font-bold text-[#0E0E0E] mt-1">
                 ৳ {accountBalance.toLocaleString()}
@@ -347,7 +347,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* 2. Total Sale */}
-            <div className="bg-white p-4 rounded border border-[#EEAB59]">
+            <div className="bg-white p-4 rounded border border-[#E2D9D2]">
               <span className="text-[11px] font-bold text-[#8F8F8F] block uppercase tracking-wide">Total Sale</span>
               <div className="text-xl font-bold text-[#0E0E0E] mt-1">
                 ৳ 485,200
@@ -355,7 +355,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* 3. Today Sale */}
-            <div className="bg-white p-4 rounded border border-[#EEAB59]">
+            <div className="bg-white p-4 rounded border border-[#E2D9D2]">
               <span className="text-[11px] font-bold text-[#8F8F8F] block uppercase tracking-wide">Today Sale</span>
               <div className="text-xl font-bold text-[#0E0E0E] mt-1">
                 ৳ 32,800
@@ -363,7 +363,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* 4. Total Balance Transfer */}
-            <div className="bg-white p-4 rounded border border-[#EEAB59]">
+            <div className="bg-white p-4 rounded border border-[#E2D9D2]">
               <span className="text-[11px] font-bold text-[#8F8F8F] block uppercase tracking-wide">Total Transfer</span>
               <div className="text-xl font-bold text-[#0E0E0E] mt-1">
                 ৳ 150,000
@@ -371,9 +371,9 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* 5. Pending Balance Transfer */}
-            <div className="bg-white p-4 rounded border border-[#EEAB59] bg-[#FCF1E5]/40">
-              <span className="text-[11px] font-bold text-[#E67E00] block uppercase tracking-wide">Pending Transfer</span>
-              <div className="text-xl font-bold text-[#E67E00] mt-1">
+            <div className="bg-white p-4 rounded border border-[#E2D9D2] bg-[#F7F4F1]/40">
+              <span className="text-[11px] font-bold text-[#B8623B] block uppercase tracking-wide">Pending Transfer</span>
+              <div className="text-xl font-bold text-[#B8623B] mt-1">
                 ৳ 15,000
               </div>
             </div>
@@ -388,7 +388,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
           </div>
 
           {/* Filter Bar: Date Range */}
-          <div className="bg-white p-4 rounded border border-[#EEAB59] flex flex-wrap items-end justify-between gap-4">
+          <div className="bg-white p-4 rounded border border-[#E2D9D2] flex flex-wrap items-end justify-between gap-4">
             <div className="flex flex-wrap items-center gap-3">
               <div>
                 <label className="text-[11px] font-bold uppercase text-[#8F8F8F] block mb-1">Search by Date</label>
@@ -412,7 +412,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                   </div>
                   <button 
                     type="button"
-                    className="px-5 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs rounded-full transition-all"
+                    className="px-5 py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-semibold text-xs rounded-full transition-all"
                   >
                     Submit
                   </button>
@@ -434,8 +434,8 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
           </div>
 
           {/* Transactions Table */}
-          <div className="bg-white rounded border border-[#EEAB59] overflow-hidden">
-            <div className="p-4 border-b border-[#EEEEEE] bg-[#FCF1E5] flex items-center justify-between">
+          <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden">
+            <div className="p-4 border-b border-[#EEEEEE] bg-[#F7F4F1] flex items-center justify-between">
               <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
                 Transaction Ledger
               </h3>
@@ -447,7 +447,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold tracking-wider text-[11px] uppercase">
+                  <tr className="bg-[#B8623B] text-white font-bold tracking-wider text-[11px] uppercase">
                     <th className="py-3 px-4 w-12 text-center">SL#</th>
                     <th className="py-3 px-4">Date</th>
                     <th className="py-3 px-4">Purpose</th>
@@ -461,7 +461,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
                   {filteredTransactions.map((tx) => (
-                    <tr key={tx.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                    <tr key={tx.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                       <td className="py-3 px-4 font-bold text-[#8F8F8F] text-center">{tx.sl}</td>
                       <td className="py-3 px-4 font-semibold text-[#545454]">{tx.date}</td>
                       <td className="py-3 px-4 font-bold text-[#0E0E0E]">{tx.purpose}</td>
@@ -470,12 +470,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                         <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                           tx.status === 'Approved' || tx.status === 'Completed'
                             ? 'bg-[#ECFFE8] text-[#008F2F]'
-                            : 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]'
+                            : 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]'
                         }`}>
                           {tx.status === 'Approved' || tx.status === 'Completed' ? (
                             <CheckCircle2 className="w-3 h-3 text-[#008F2F]" />
                           ) : (
-                            <Clock className="w-3 h-3 text-[#E67E00]" />
+                            <Clock className="w-3 h-3 text-[#B8623B]" />
                           )}
                           <span>{tx.status}</span>
                         </span>
@@ -539,19 +539,19 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
       {activeSubTab === 'POS_SETTINGS' && (
         <div className="space-y-6 w-full">
           {/* Header Card with Back Button */}
-          <div className="bg-white p-5 rounded border border-[#EEAB59] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+          <div className="bg-white p-5 rounded border border-[#E2D9D2] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => onSubTabChange ? onSubTabChange('ACCOUNTS_OVERVIEW') : null}
-                className="p-2 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] rounded-full transition-all cursor-pointer shadow-2xs shrink-0"
+                className="p-2 border border-[#E2D9D2] text-[#B8623B] hover:bg-[#F7F4F1] rounded-full transition-all cursor-pointer shadow-2xs shrink-0"
                 title="Back to Accounts Overview"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
               <div>
                 <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                  <SlidersHorizontal className="w-5 h-5 text-[#E67E00]" />
+                  <SlidersHorizontal className="w-5 h-5 text-[#B8623B]" />
                   <span>POS & Delivery Shipping Settings</span>
                 </h1>
                 <p className="text-xs text-[#545454] font-medium mt-0.5">
@@ -561,7 +561,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             <div className="flex items-center gap-2.5 self-start md:self-auto">
-              <span className="px-3.5 py-1.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] text-xs font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-2xs shrink-0">
+              <span className="px-3.5 py-1.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] text-xs font-extrabold rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-2xs shrink-0">
                 <Check className="w-3.5 h-3.5 text-[#008F2F]" />
                 <span>Active Profile</span>
               </span>
@@ -577,10 +577,10 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
 
           <form onSubmit={handleSavePOSSettings} className="space-y-6">
             {/* SECTION 1: Delivery Zone Charges */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+            <div className="bg-white rounded border border-[#E2D9D2] p-5 space-y-4 shadow-2xs">
               <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
                 <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E]">
-                  <MapPin className="w-4 h-4 text-[#E67E00]" />
+                  <MapPin className="w-4 h-4 text-[#B8623B]" />
                   <span>1. Area-Based Delivery Charges (3 Zones)</span>
                 </div>
                 <span className="text-[10px] text-[#8F8F8F] font-bold uppercase tracking-wider bg-[#FAFAFA] px-2 py-0.5 rounded border border-[#EEEEEE]">
@@ -590,7 +590,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Inside Dhaka Zone */}
-                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#EEAB59] transition-all">
+                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#E2D9D2] transition-all">
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-extrabold text-[#0E0E0E] block">
                       Inside Dhaka
@@ -605,7 +605,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={insideDhakaCharge}
                       onChange={(e) => setInsideDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#E2D9D2]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B] shadow-2xs"
                       required
                     />
                   </div>
@@ -615,12 +615,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                 </div>
 
                 {/* Sub-Urban Zone */}
-                <div className="p-4 bg-[#FCF1E5]/30 border border-[#EEAB59]/80 rounded-lg space-y-3 hover:border-[#E67E00] transition-all">
+                <div className="p-4 bg-[#F7F4F1]/30 border border-[#E2D9D2]/80 rounded-lg space-y-3 hover:border-[#B8623B] transition-all">
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-extrabold text-[#0E0E0E] block">
                       Sub-Urban Area
                     </label>
-                    <span className="text-[10px] font-extrabold text-[#E67E00] bg-[#FCF1E5] px-2 py-0.5 rounded border border-[#EEAB59]">
+                    <span className="text-[10px] font-extrabold text-[#B8623B] bg-[#F7F4F1] px-2 py-0.5 rounded border border-[#E2D9D2]">
                       Suburb Zone
                     </span>
                   </div>
@@ -630,7 +630,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={subUrbanDhakaCharge}
                       onChange={(e) => setSubUrbanDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#E2D9D2]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B] shadow-2xs"
                       required
                     />
                   </div>
@@ -640,7 +640,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                 </div>
 
                 {/* Outside Dhaka Zone */}
-                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#EEAB59] transition-all">
+                <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-lg space-y-3 hover:border-[#E2D9D2] transition-all">
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-extrabold text-[#0E0E0E] block">
                       Outside Dhaka
@@ -655,7 +655,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       type="number"
                       value={outsideDhakaCharge}
                       onChange={(e) => setOutsideDhakaCharge(Number(e.target.value))}
-                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#EEAB59]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
+                      className="w-full pl-8 pr-3 py-2 bg-white border border-[#E2D9D2]/60 rounded text-sm font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B] shadow-2xs"
                       required
                     />
                   </div>
@@ -667,13 +667,13 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* SECTION 2: Weight-Based Extra Charges Configuration */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+            <div className="bg-white rounded border border-[#E2D9D2] p-5 space-y-4 shadow-2xs">
               <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
                 <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E]">
-                  <Truck className="w-4 h-4 text-[#E67E00]" />
+                  <Truck className="w-4 h-4 text-[#B8623B]" />
                   <span>2. Extra Weight Surcharge Rules</span>
                 </div>
-                <span className="text-[10px] font-extrabold text-[#E67E00] bg-[#FCF1E5] px-2 py-0.5 rounded border border-[#EEAB59]">
+                <span className="text-[10px] font-extrabold text-[#B8623B] bg-[#F7F4F1] px-2 py-0.5 rounded border border-[#E2D9D2]">
                   Per KG Excess Fee
                 </span>
               </div>
@@ -688,7 +688,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                     step="0.1"
                     value={baseIncludedWeight}
                     onChange={(e) => setBaseIncludedWeight(Number(e.target.value))}
-                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                    className="w-full p-2 bg-white border border-[#E2D9D2]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B]"
                   />
                   <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Included in base area fee</p>
                 </div>
@@ -701,7 +701,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                     type="number"
                     value={extraKgRateDhaka}
                     onChange={(e) => setExtraKgRateDhaka(Number(e.target.value))}
-                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                    className="w-full p-2 bg-white border border-[#E2D9D2]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B]"
                   />
                   <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
                 </div>
@@ -714,7 +714,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                     type="number"
                     value={extraKgRateSubUrban}
                     onChange={(e) => setExtraKgRateSubUrban(Number(e.target.value))}
-                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                    className="w-full p-2 bg-white border border-[#E2D9D2]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B]"
                   />
                   <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
                 </div>
@@ -727,7 +727,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                     type="number"
                     value={extraKgRateOutside}
                     onChange={(e) => setExtraKgRateOutside(Number(e.target.value))}
-                    className="w-full p-2 bg-white border border-[#EEAB59]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#E67E00]"
+                    className="w-full p-2 bg-white border border-[#E2D9D2]/60 rounded text-xs font-black text-[#0E0E0E] focus:outline-none focus:border-[#B8623B]"
                   />
                   <p className="text-[10px] text-[#8F8F8F] mt-1 font-medium">Above base weight</p>
                 </div>
@@ -736,13 +736,13 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
               {/* Weight Slabs Breakdown Table */}
               <div className="mt-4 pt-3 border-t border-[#EEEEEE]">
                 <h4 className="text-xs font-extrabold text-[#0E0E0E] uppercase mb-2 flex items-center gap-1.5">
-                  <Scale className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <Scale className="w-3.5 h-3.5 text-[#B8623B]" />
                   <span>Weight Slabs Quick Rate Matrix</span>
                 </h4>
                 <div className="overflow-x-auto rounded border border-[#EEEEEE]">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="bg-[#FCF1E5] text-[#0E0E0E] font-extrabold uppercase text-[11px] tracking-wider">
+                      <tr className="bg-[#F7F4F1] text-[#0E0E0E] font-extrabold uppercase text-[11px] tracking-wider">
                         <th className="p-2.5 border-b border-r border-[#EEEEEE]">Weight Bracket</th>
                         <th className="p-2.5 border-b border-r border-[#EEEEEE]">Inside Dhaka (৳)</th>
                         <th className="p-2.5 border-b border-r border-[#EEEEEE]">Sub-Urban Area (৳)</th>
@@ -753,25 +753,25 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       <tr className="bg-white hover:bg-[#FAFAFA]">
                         <td className="p-2.5 font-bold border-r border-[#EEEEEE] text-[#0E0E0E]">Up to {baseIncludedWeight} KG (Base Rate)</td>
                         <td className="p-2.5 font-black text-[#008F2F] border-r border-[#EEEEEE]">৳{insideDhakaCharge}</td>
-                        <td className="p-2.5 font-black text-[#E67E00] border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge}</td>
+                        <td className="p-2.5 font-black text-[#B8623B] border-r border-[#EEEEEE]">৳{subUrbanDhakaCharge}</td>
                         <td className="p-2.5 font-black text-[#0E0E0E]">৳{outsideDhakaCharge}</td>
                       </tr>
                       <tr className="bg-[#FAFAFA] hover:bg-[#F5F5F5]">
                         <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">{(baseIncludedWeight + 0.1).toFixed(1)} KG - 2.0 KG</td>
                         <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + extraKgRateDhaka}</td>
-                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + extraKgRateSubUrban}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#B8623B]">৳{subUrbanDhakaCharge + extraKgRateSubUrban}</td>
                         <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + extraKgRateOutside}</td>
                       </tr>
                       <tr className="bg-white hover:bg-[#FAFAFA]">
                         <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">2.1 KG - 3.0 KG</td>
                         <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + (2 * extraKgRateDhaka)}</td>
-                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + (2 * extraKgRateSubUrban)}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#B8623B]">৳{subUrbanDhakaCharge + (2 * extraKgRateSubUrban)}</td>
                         <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + (2 * extraKgRateOutside)}</td>
                       </tr>
                       <tr className="bg-[#FAFAFA] hover:bg-[#F5F5F5]">
                         <td className="p-2.5 font-semibold border-r border-[#EEEEEE]">3.1 KG - 5.0 KG</td>
                         <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#0E0E0E]">৳{insideDhakaCharge + (4 * extraKgRateDhaka)}</td>
-                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#E67E00]">৳{subUrbanDhakaCharge + (4 * extraKgRateSubUrban)}</td>
+                        <td className="p-2.5 border-r border-[#EEEEEE] font-bold text-[#B8623B]">৳{subUrbanDhakaCharge + (4 * extraKgRateSubUrban)}</td>
                         <td className="p-2.5 font-bold text-[#0E0E0E]">৳{outsideDhakaCharge + (4 * extraKgRateOutside)}</td>
                       </tr>
                     </tbody>
@@ -781,9 +781,9 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* SECTION 3: Interactive Shipping Fee Calculator */}
-            <div className="bg-[#FCF1E5]/40 border border-[#EEAB59] rounded p-5 space-y-4 shadow-2xs">
-              <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEAB59]/40 pb-2.5">
-                <Calculator className="w-4 h-4 text-[#E67E00]" />
+            <div className="bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded p-5 space-y-4 shadow-2xs">
+              <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#E2D9D2]/40 pb-2.5">
+                <Calculator className="w-4 h-4 text-[#B8623B]" />
                 <span>3. POS Real-Time Shipping Fee Calculator & Simulator</span>
               </div>
 
@@ -796,7 +796,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                     <select
                       value={calcSimArea}
                       onChange={(e) => setCalcSimArea(e.target.value as any)}
-                      className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
+                      className="w-full p-2.5 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#B8623B] shadow-2xs"
                     >
                       <option value="INSIDE_DHAKA">Inside Dhaka - ৳{insideDhakaCharge}</option>
                       <option value="SUB_URBAN">Sub-Urban Area - ৳{subUrbanDhakaCharge}</option>
@@ -814,7 +814,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       min="0.1"
                       value={calcSimWeight}
                       onChange={(e) => setCalcSimWeight(Math.max(0.1, Number(e.target.value)))}
-                      className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#E67E00] shadow-2xs"
+                      className="w-full p-2.5 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:outline-none focus:border-[#B8623B] shadow-2xs"
                     />
                   </div>
                 </div>
@@ -840,10 +840,10 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                   const totalShipping = baseFee + extraCharge;
 
                   return (
-                    <div className="bg-white border border-[#EEAB59] rounded-lg p-4 flex flex-col justify-between space-y-3 shadow-2xs">
+                    <div className="bg-white border border-[#E2D9D2] rounded-lg p-4 flex flex-col justify-between space-y-3 shadow-2xs">
                       <div>
                         <div className="flex items-center justify-between text-xs font-extrabold border-b border-[#EEEEEE] pb-2 text-[#0E0E0E]">
-                          <span>Zone: <strong className="text-[#E67E00]">{areaName}</strong></span>
+                          <span>Zone: <strong className="text-[#B8623B]">{areaName}</strong></span>
                           <span className="text-[#0E0E0E] bg-[#FAFAFA] px-2 py-0.5 rounded border border-[#EEEEEE]">{calcSimWeight} KG</span>
                         </div>
 
@@ -855,7 +855,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                           {extraWeight > 0 ? (
                             <div className="flex justify-between">
                               <span>Excess Weight ({extraWeight.toFixed(1)} KG @ ৳{extraRate}/KG):</span>
-                              <span className="font-extrabold text-[#E67E00]">+৳{extraCharge}</span>
+                              <span className="font-extrabold text-[#B8623B]">+৳{extraCharge}</span>
                             </div>
                           ) : (
                             <div className="flex justify-between text-[11px] text-[#008F2F] font-semibold">
@@ -866,9 +866,9 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                         </div>
                       </div>
 
-                      <div className="pt-2.5 border-t border-[#EEAB59] flex items-center justify-between bg-[#FCF1E5]/20 -mx-4 -mb-4 p-3 rounded-b-lg">
+                      <div className="pt-2.5 border-t border-[#E2D9D2] flex items-center justify-between bg-[#F7F4F1]/20 -mx-4 -mb-4 p-3 rounded-b-lg">
                         <span className="text-xs font-black text-[#0E0E0E] uppercase tracking-wider">Estimated Shipping Fee:</span>
-                        <span className="text-xl font-black text-[#E67E00]">৳{totalShipping}</span>
+                        <span className="text-xl font-black text-[#B8623B]">৳{totalShipping}</span>
                       </div>
                     </div>
                   );
@@ -877,15 +877,15 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             </div>
 
             {/* SECTION 4: POS Terminal & Checkout Preferences */}
-            <div className="bg-white rounded border border-[#EEAB59] p-5 space-y-4 shadow-2xs">
+            <div className="bg-white rounded border border-[#E2D9D2] p-5 space-y-4 shadow-2xs">
               <div className="flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-3">
-                <Receipt className="w-4 h-4 text-[#E67E00]" />
+                <Receipt className="w-4 h-4 text-[#B8623B]" />
                 <span>4. POS Terminal Checkout Preferences</span>
               </div>
 
               <div className="space-y-3">
                 {/* Option 1: Show Order Status Dropdown */}
-                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#E2D9D2] transition-all">
                   <div>
                     <span className="text-xs font-bold text-[#0E0E0E] block">
                       Show Order Status Selection in POS Checkout
@@ -902,12 +902,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       onChange={(e) => setShowDropdownInPOS(e.target.checked)}
                       className="sr-only peer" 
                     />
-                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B8623B]"></div>
                   </label>
                 </div>
 
                 {/* Option 2: Auto Print Receipt */}
-                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#E2D9D2] transition-all">
                   <div>
                     <span className="text-xs font-bold text-[#0E0E0E] block">
                       Auto-Print Thermal Invoice Upon Order Completion
@@ -924,12 +924,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       onChange={(e) => setAutoPrintReceipt(e.target.checked)}
                       className="sr-only peer" 
                     />
-                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B8623B]"></div>
                   </label>
                 </div>
 
                 {/* Option 3: Sound Effects */}
-                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#EEAB59] transition-all">
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-[#FAFAFA] rounded-lg border border-[#EEEEEE] hover:border-[#E2D9D2] transition-all">
                   <div>
                     <span className="text-xs font-bold text-[#0E0E0E] block">
                       Audio Sound Effects for Barcode Scanning
@@ -946,12 +946,12 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                       onChange={(e) => setEnableSoundEffects(e.target.checked)}
                       className="sr-only peer" 
                     />
-                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E67E00]"></div>
+                    <div className="w-11 h-6 bg-[#EEEEEE] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-[#EEEEEE] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#B8623B]"></div>
                   </label>
                 </div>
 
                 {/* Option 4: Default Payment Method */}
-                <div className="p-3.5 bg-[#FCF1E5]/30 rounded-lg border border-[#EEAB59]/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div className="p-3.5 bg-[#F7F4F1]/30 rounded-lg border border-[#E2D9D2]/60 flex flex-col md:flex-row md:items-center justify-between gap-3">
                   <div>
                     <span className="text-xs font-bold text-[#0E0E0E] block">
                       Default POS Payment Gateway
@@ -969,8 +969,8 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
                         onClick={() => setDefaultPaymentMethod(pm)}
                         className={`px-3 py-1.5 text-xs font-extrabold rounded-full transition-all cursor-pointer ${
                           defaultPaymentMethod === pm
-                            ? 'bg-[#E67E00] text-white shadow-2xs'
-                            : 'bg-white border border-[#EEAB59] text-[#0E0E0E] hover:bg-[#FCF1E5]'
+                            ? 'bg-[#B8623B] text-white shadow-2xs'
+                            : 'bg-white border border-[#E2D9D2] text-[#0E0E0E] hover:bg-[#F7F4F1]'
                         }`}
                       >
                         {pm}
@@ -985,7 +985,7 @@ export const FinanceManagement: React.FC<FinanceManagementProps> = ({
             <div className="pt-2 flex justify-end">
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs uppercase tracking-wider rounded-full flex items-center justify-center gap-2 shadow-2xs transition-all cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs uppercase tracking-wider rounded-full flex items-center justify-center gap-2 shadow-2xs transition-all cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>Save POS Shipping Settings</span>

@@ -2,9 +2,9 @@
 
 @layer base {
   :root {
-    --color-primary: #E67E00;
-    --color-primary-border: #EEAB59;
-    --color-primary-wash: #FCF1E5;
+    --color-primary: #B8623B;
+    --color-primary-border: #E2D9D2;
+    --color-primary-wash: #F7F4F1;
     --color-success: #008F2F;
     --color-success-bg: #ECFFE8;
     --color-info: #2D76E5;
@@ -31,7 +31,7 @@
   font-weight: 600;
   transition: all 0.2s ease;
   &:hover {
-    background-color: #CC7000;
+    background-color: #944923;
   }
 }
 

@@ -131,7 +131,7 @@ const INITIAL_LEDGER_DATA: LedgerItem[] = [
 
 // Helper: Rich Text Editor Toolbar (matching PDF design)
 const RichTextToolbar: React.FC = () => (
-  <div className="bg-[#FCF1E5] border border-[#EEAB59] rounded-t p-1.5 flex flex-wrap items-center gap-1 text-[#545454] text-xs select-none">
+  <div className="bg-[#F7F4F1] border border-[#E2D9D2] rounded-t p-1.5 flex flex-wrap items-center gap-1 text-[#545454] text-xs select-none">
     <select className="bg-white border border-[#EEEEEE] rounded px-2 py-1 text-[11px] font-bold text-[#0E0E0E]">
       <option>Sans Serif</option>
       <option>Serif</option>
@@ -142,21 +142,21 @@ const RichTextToolbar: React.FC = () => (
       <option>Heading 1</option>
       <option>Heading 2</option>
     </select>
-    <div className="h-4 w-px bg-[#EEAB59] mx-1" />
+    <div className="h-4 w-px bg-[#E2D9D2] mx-1" />
     <button type="button" className="p-1 hover:bg-white rounded font-black"><Bold className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded font-black"><Italic className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded font-black"><Underline className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded font-black"><Strikethrough className="w-3.5 h-3.5" /></button>
-    <div className="h-4 w-px bg-[#EEAB59] mx-1" />
+    <div className="h-4 w-px bg-[#E2D9D2] mx-1" />
     <span className="p-1 hover:bg-white rounded font-black text-xs">A</span>
-    <span className="p-1 hover:bg-white rounded bg-[#FCF1E5] font-black text-xs">A</span>
+    <span className="p-1 hover:bg-white rounded bg-[#F7F4F1] font-black text-xs">A</span>
     <span className="p-1 hover:bg-white rounded text-[10px]">x₂</span>
     <span className="p-1 hover:bg-white rounded text-[10px]">x²</span>
-    <div className="h-4 w-px bg-[#EEAB59] mx-1" />
+    <div className="h-4 w-px bg-[#E2D9D2] mx-1" />
     <button type="button" className="p-1 hover:bg-white rounded"><AlignLeft className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded"><AlignCenter className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded"><AlignRight className="w-3.5 h-3.5" /></button>
-    <div className="h-4 w-px bg-[#EEAB59] mx-1" />
+    <div className="h-4 w-px bg-[#E2D9D2] mx-1" />
     <button type="button" className="p-1 hover:bg-white rounded"><ListIcon className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded"><ListOrdered className="w-3.5 h-3.5" /></button>
     <button type="button" className="p-1 hover:bg-white rounded"><Quote className="w-3.5 h-3.5" /></button>
@@ -169,8 +169,8 @@ const RichTextToolbar: React.FC = () => (
 
 // Helper: Upload Dropzone Box
 const FileDropzone: React.FC<{ label?: string }> = ({ label }) => (
-  <div className="border-2 border-dashed border-[#EEAB59] hover:border-[#E67E00] bg-[#FCF1E5]/30 hover:bg-[#FCF1E5]/60 transition-all rounded p-6 text-center cursor-pointer flex flex-col items-center justify-center gap-2">
-    <UploadCloud className="w-8 h-8 text-[#E67E00]" />
+  <div className="border-2 border-dashed border-[#E2D9D2] hover:border-[#B8623B] bg-[#F7F4F1]/30 hover:bg-[#F7F4F1]/60 transition-all rounded p-6 text-center cursor-pointer flex flex-col items-center justify-center gap-2">
+    <UploadCloud className="w-8 h-8 text-[#B8623B]" />
     <span className="text-xs text-[#545454] font-semibold">
       Drag and drop a file here or click
     </span>
@@ -341,7 +341,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 1. FORM VIEW: ADD NEW PRODUCT (MATCHING PDF 1) */}
       {/* ========================================================================= */}
       {currentTab === 'ADD_PRODUCT' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-6">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-6">
           <div className="border-b border-[#EEEEEE] pb-3">
             <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight">
               Add New Product
@@ -478,12 +478,12 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                   type="text" 
                   value="Single" 
                   readOnly 
-                  className="w-full px-3.5 py-2 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E]"
+                  className="w-full px-3.5 py-2 bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E]"
                 />
               </div>
 
               {/* Single Product Details Box */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
                 <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide">
                   Single Product
                 </h3>
@@ -516,7 +516,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                       type="text" 
                       defaultValue="6a670a8aac3f6" 
                       readOnly 
-                      className="w-full px-3 py-1.5 bg-[#FCF1E5] border border-[#EEAB59] rounded text-xs font-mono font-bold text-[#0E0E0E]"
+                      className="w-full px-3 py-1.5 bg-[#F7F4F1] border border-[#E2D9D2] rounded text-xs font-mono font-bold text-[#0E0E0E]"
                     />
                   </div>
                 </div>
@@ -558,13 +558,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                 <button 
                   type="button" 
                   onClick={() => changeSubTab('MY_PRODUCTS')} 
-                  className="px-6 py-2.5 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-all"
+                  className="px-6 py-2.5 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-all"
                 >
                   Back Now
                 </button>
                 <button 
                   type="submit" 
-                  className="px-6 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all"
+                  className="px-6 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all"
                 >
                   Save & Submit
                 </button>
@@ -576,8 +576,8 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
             <div className="space-y-5">
               
               {/* Configuration */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   Configuration
                 </h3>
                 <div className="space-y-2 text-xs">
@@ -585,11 +585,11 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                     <span className="font-bold text-[#0E0E0E] block mb-1">Delivery Charge</span>
                     <div className="flex items-center gap-4">
                       <label className="flex items-center gap-1.5 cursor-pointer text-[#545454] font-medium">
-                        <input type="radio" name="delivery" defaultChecked className="accent-[#E67E00]" />
+                        <input type="radio" name="delivery" defaultChecked className="accent-[#B8623B]" />
                         <span>Free</span>
                       </label>
                       <label className="flex items-center gap-1.5 cursor-pointer text-[#545454] font-medium">
-                        <input type="radio" name="delivery" className="accent-[#E67E00]" />
+                        <input type="radio" name="delivery" className="accent-[#B8623B]" />
                         <span>Yes</span>
                       </label>
                     </div>
@@ -597,15 +597,15 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
 
                   <div className="space-y-1.5 pt-1">
                     <label className="flex items-center gap-2 cursor-pointer text-[#545454] font-medium">
-                      <input type="checkbox" defaultChecked className="rounded accent-[#E67E00]" />
+                      <input type="checkbox" defaultChecked className="rounded accent-[#B8623B]" />
                       <span>Cash on Delivery</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer text-[#545454] font-medium">
-                      <input type="checkbox" className="rounded accent-[#E67E00]" />
+                      <input type="checkbox" className="rounded accent-[#B8623B]" />
                       <span>Return Policy</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer text-[#545454] font-medium">
-                      <input type="checkbox" className="rounded accent-[#E67E00]" />
+                      <input type="checkbox" className="rounded accent-[#B8623B]" />
                       <span>Warranty</span>
                     </label>
                   </div>
@@ -613,27 +613,27 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </div>
 
               {/* Quantity */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   Quantity
                 </h3>
                 <div className="space-y-3">
                   <div>
                     <label className="block text-[11px] font-bold text-[#0E0E0E] mb-1">Max Quantity</label>
                     <input type="number" defaultValue={1} className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]" />
-                    <p className="text-[10px] text-[#E67E00] italic mt-0.5">* If this value is null then no purchase limit for this product.</p>
+                    <p className="text-[10px] text-[#B8623B] italic mt-0.5">* If this value is null then no purchase limit for this product.</p>
                   </div>
                   <div>
                     <label className="block text-[11px] font-bold text-[#0E0E0E] mb-1">Min Quantity</label>
                     <input type="number" defaultValue={1} className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]" />
-                    <p className="text-[10px] text-[#E67E00] italic mt-0.5">* If this value is null then no purchase limit for this product.</p>
+                    <p className="text-[10px] text-[#B8623B] italic mt-0.5">* If this value is null then no purchase limit for this product.</p>
                   </div>
                 </div>
               </div>
 
               {/* Product Video */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   Product Video
                 </h3>
                 <div className="space-y-2">
@@ -654,8 +654,8 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </div>
 
               {/* Offer and Discount */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   Offer and Discount
                 </h3>
                 <div className="space-y-2">
@@ -676,26 +676,26 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </div>
 
               {/* Earning Limit Multiplier */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-2">
                 <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide">
                   Earning Limit Multiplier
                 </h3>
                 <input type="number" defaultValue={5} className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E]" />
-                <p className="text-[10px] text-[#E67E00]">Enter the amount to multiply with the price to set user earning limit</p>
+                <p className="text-[10px] text-[#B8623B]">Enter the amount to multiply with the price to set user earning limit</p>
               </div>
 
               {/* Affiliate Commission */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   Affiliate Commission
                 </h3>
                 <div className="flex items-center gap-4 text-xs font-medium text-[#545454]">
                   <label className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="radio" name="affiliate" defaultChecked className="accent-[#E67E00]" />
+                    <input type="radio" name="affiliate" defaultChecked className="accent-[#B8623B]" />
                     <span>Auto Affiliate</span>
                   </label>
                   <label className="flex items-center gap-1.5 cursor-pointer">
-                    <input type="radio" name="affiliate" className="accent-[#E67E00]" />
+                    <input type="radio" name="affiliate" className="accent-[#B8623B]" />
                     <span>Manually Affiliate</span>
                   </label>
                 </div>
@@ -720,8 +720,8 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </div>
 
               {/* SEO */}
-              <div className="bg-[#FCF1E5]/30 border border-[#EEAB59] rounded p-4 space-y-3">
-                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#EEAB59]/50 pb-2">
+              <div className="bg-[#F7F4F1]/30 border border-[#E2D9D2] rounded p-4 space-y-3">
+                <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wide border-b border-[#E2D9D2]/50 pb-2">
                   SEO
                 </h3>
                 <div className="space-y-2">
@@ -749,7 +749,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 2. FORM VIEW: ADD BRAND (MATCHING PDF 2) */}
       {/* ========================================================================= */}
       {currentTab === 'ADD_BRAND' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
           <div className="text-center space-y-1">
             <h2 className="text-2xl font-bold text-[#0E0E0E] tracking-tight">
               Add Brand
@@ -847,13 +847,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 type="button" 
                 onClick={() => changeSubTab('BRANDS')} 
-                className="px-6 py-2.5 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-all"
+                className="px-6 py-2.5 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-all"
               >
                 Back
               </button>
               <button 
                 type="submit" 
-                className="px-6 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all"
+                className="px-6 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all"
               >
                 Add Brand
               </button>
@@ -866,7 +866,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 3. FORM VIEW: ADD CATEGORY (MATCHING PDF 3) */}
       {/* ========================================================================= */}
       {currentTab === 'ADD_CATEGORY' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-6 max-w-4xl mx-auto">
           <div className="text-center space-y-1">
             <h2 className="text-2xl font-bold text-[#0E0E0E] tracking-tight">
               Add Category
@@ -971,13 +971,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 type="button" 
                 onClick={() => changeSubTab('CATEGORIES')} 
-                className="px-6 py-2.5 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-all"
+                className="px-6 py-2.5 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-all"
               >
                 Back
               </button>
               <button 
                 type="submit" 
-                className="px-6 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all"
+                className="px-6 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all"
               >
                 Add Category
               </button>
@@ -990,12 +990,12 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 4. FORM VIEW: ADD VARIATION (COLOR, SIZE, WEIGHT) */}
       {/* ========================================================================= */}
       {currentTab === 'ADD_VARIATION' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-6 max-w-3xl mx-auto">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-6 max-w-3xl mx-auto">
           <div className="text-center space-y-1">
             <h2 className="text-2xl font-bold text-[#0E0E0E] tracking-tight">
               Add Variation
             </h2>
-            <p className="text-xs font-bold text-[#E67E00]">
+            <p className="text-xs font-bold text-[#B8623B]">
               (Configure Color, Size, and Weight product attributes)
             </p>
           </div>
@@ -1060,13 +1060,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 type="button" 
                 onClick={() => changeSubTab('VARIATIONS')} 
-                className="px-6 py-2.5 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] text-xs font-semibold rounded-full transition-all"
+                className="px-6 py-2.5 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] text-xs font-semibold rounded-full transition-all"
               >
                 Back
               </button>
               <button 
                 type="submit" 
-                className="px-6 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all"
+                className="px-6 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all"
               >
                 Add Variation
               </button>
@@ -1079,7 +1079,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 5. VIEW: PRODUCT LEDGER (MATCHING PDF 4) */}
       {/* ========================================================================= */}
       {currentTab === 'PRODUCT_LEDGER' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-6">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-6">
           
           <div className="border-b border-[#EEEEEE] pb-2">
             <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight">
@@ -1088,7 +1088,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
           </div>
 
           {/* Ledger Search & Date Filter Bar */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end bg-[#FCF1E5]/30 p-4 rounded border border-[#EEAB59]">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end bg-[#F7F4F1]/30 p-4 rounded border border-[#E2D9D2]">
             <div>
               <label className="block text-[11px] font-bold text-[#0E0E0E] mb-1">
                 Search by Product Title / SKU
@@ -1129,7 +1129,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => showToast('Search filters applied')}
-                className="flex-1 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs uppercase rounded-full transition-all flex items-center justify-center gap-1"
+                className="flex-1 py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs uppercase rounded-full transition-all flex items-center justify-center gap-1"
               >
                 <Search className="w-3.5 h-3.5" />
                 <span>Search</span>
@@ -1141,7 +1141,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                   setLedgerDateTo('');
                   showToast('Filters reset');
                 }}
-                className="px-4 py-2 bg-transparent border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs uppercase rounded-full transition-all flex items-center gap-1"
+                className="px-4 py-2 bg-transparent border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] font-bold text-xs uppercase rounded-full transition-all flex items-center gap-1"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset</span>
@@ -1150,9 +1150,9 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
           </div>
 
           {/* Product Ledger Table */}
-          <div className="overflow-x-auto border border-[#EEAB59] rounded">
+          <div className="overflow-x-auto border border-[#E2D9D2] rounded">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#E67E00] text-white text-[11px] font-bold uppercase tracking-wider">
+              <thead className="bg-[#B8623B] text-white text-[11px] font-bold uppercase tracking-wider">
                 <tr>
                   <th className="p-3 w-12 text-center">SL#</th>
                   <th className="p-3">Date</th>
@@ -1168,7 +1168,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
                 {paginatedLedger.map((row) => (
-                  <tr key={row.sl} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                  <tr key={row.sl} className="hover:bg-[#F7F4F1]/40 transition-colors">
                     <td className="p-3 text-center font-bold text-[#8F8F8F]">{row.sl}</td>
                     <td className="p-3 text-[11px] font-semibold text-[#545454] whitespace-nowrap">{row.date}</td>
                     <td className="p-3 font-bold text-[#0E0E0E] max-w-xs">{row.product}</td>
@@ -1188,13 +1188,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                     </td>
                     <td className="p-3">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        row.trnxType === 'debit' ? 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]' : 'bg-[#ECFFE8] text-[#008F2F]'
+                        row.trnxType === 'debit' ? 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]' : 'bg-[#ECFFE8] text-[#008F2F]'
                       }`}>
                         {row.trnxType}
                       </span>
                     </td>
                     <td className="p-3 font-bold text-[#0E0E0E]">{row.quantity}</td>
-                    <td className="p-3 font-mono font-bold text-[#E67E00] hover:underline cursor-pointer">{row.reference}</td>
+                    <td className="p-3 font-mono font-bold text-[#B8623B] hover:underline cursor-pointer">{row.reference}</td>
                     <td className="p-3 text-[11px] text-[#8F8F8F] italic">{row.note}</td>
                     <td className="p-3 font-bold text-[#0E0E0E]">{row.stock}</td>
                     <td className="p-3 text-[11px] font-semibold text-[#545454]">{row.updatedBy}</td>
@@ -1210,13 +1210,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 disabled={ledgerPage === 1}
                 onClick={() => setLedgerPage(p => Math.max(1, p - 1))}
-                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                className="px-2.5 py-1 bg-[#F7F4F1] border border-[#E2D9D2] rounded text-[#B8623B] font-bold disabled:opacity-40"
               >&lt;</button>
               {Array.from({ length: totalLedgerPages }, (_, i) => i + 1).map(p => (
                 <button 
                   key={p}
                   onClick={() => setLedgerPage(p)}
-                  className={`px-2.5 py-1 rounded font-bold ${ledgerPage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                  className={`px-2.5 py-1 rounded font-bold ${ledgerPage === p ? 'bg-[#B8623B] text-white' : 'bg-[#F7F4F1]/50 text-[#0E0E0E]'}`}
                 >
                   {p}
                 </button>
@@ -1224,7 +1224,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 disabled={ledgerPage === totalLedgerPages}
                 onClick={() => setLedgerPage(p => Math.min(totalLedgerPages, p + 1))}
-                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                className="px-2.5 py-1 bg-[#F7F4F1] border border-[#E2D9D2] rounded text-[#B8623B] font-bold disabled:opacity-40"
               >&gt;</button>
             </div>
           </div>
@@ -1236,14 +1236,14 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 6. VIEW: MY PRODUCTS (CATALOG TABLE WITH BULK SELECT & EXTENDED COLUMNS) */}
       {/* ========================================================================= */}
       {currentTab === 'MY_PRODUCTS' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-4">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-4">
           
           {/* Header & Main Controls */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-2 border-b border-[#EEEEEE]">
             <div>
               <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
                 <span>Product Catalog</span>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#FCF1E5] text-[#E67E00] text-xs font-extrabold border border-[#EEAB59]">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#F7F4F1] text-[#B8623B] text-xs font-extrabold border border-[#E2D9D2]">
                   {filteredProducts.length} Items
                 </span>
               </h2>
@@ -1255,7 +1255,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => changeSubTab('ADD_PRODUCT')}
-                className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
+                className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Product</span>
@@ -1264,7 +1264,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
           </div>
 
           {/* Search & Filter Controls Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-[#FCF1E5]/30 p-3.5 rounded-lg border border-[#EEAB59]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-[#F7F4F1]/30 p-3.5 rounded-lg border border-[#E2D9D2]">
             {/* Search Input */}
             <div className="relative">
               <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#8F8F8F]" />
@@ -1335,7 +1335,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
 
           {/* Bulk Actions Banner (Visible when items selected) */}
           {selectedProductIds.length > 0 && (
-            <div className="bg-[#E67E00] text-white p-3 rounded-lg shadow-md flex flex-wrap items-center justify-between gap-3 animate-fadeIn">
+            <div className="bg-[#B8623B] text-white p-3 rounded-lg shadow-md flex flex-wrap items-center justify-between gap-3 animate-fadeIn">
               <div className="flex items-center gap-2 text-xs font-extrabold">
                 <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 <span>{selectedProductIds.length} Product(s) Selected</span>
@@ -1375,44 +1375,44 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
           )}
 
           {/* Table Container */}
-          <div className="overflow-x-auto border border-[#EEAB59] rounded-lg shadow-2xs bg-white">
+          <div className="overflow-x-auto border border-[#E2D9D2] rounded-lg shadow-2xs bg-white">
             <table className="w-full text-left text-xs border-collapse">
-              <thead className="bg-[#E67E00] text-white text-[11px] font-extrabold uppercase tracking-wider sticky top-0 z-10 select-none">
+              <thead className="bg-[#B8623B] text-white text-[11px] font-extrabold uppercase tracking-wider sticky top-0 z-10 select-none">
                 <tr>
                   {/* 1. Bulk Select */}
-                  <th className="p-3 text-center w-10 border-b border-[#E67E00]">
+                  <th className="p-3 text-center w-10 border-b border-[#B8623B]">
                     <input 
                       type="checkbox" 
                       checked={isAllSelected}
                       onChange={handleSelectAllProducts}
-                      className="w-4 h-4 rounded border-[#EEAB59] accent-white cursor-pointer"
+                      className="w-4 h-4 rounded border-[#E2D9D2] accent-white cursor-pointer"
                       title="Select All"
                     />
                   </th>
                   {/* 2. SI (Serial Index) */}
-                  <th className="p-3 text-center w-12 border-b border-[#E67E00]">SI</th>
+                  <th className="p-3 text-center w-12 border-b border-[#B8623B]">SI</th>
                   {/* 3. Image */}
-                  <th className="p-3 w-16 border-b border-[#E67E00]">Image</th>
+                  <th className="p-3 w-16 border-b border-[#B8623B]">Image</th>
                   {/* 4. Product Name */}
-                  <th className="p-3 min-w-[180px] border-b border-[#E67E00]">Product Name</th>
+                  <th className="p-3 min-w-[180px] border-b border-[#B8623B]">Product Name</th>
                   {/* 5. Status */}
-                  <th className="p-3 min-w-[110px] border-b border-[#E67E00]">Status</th>
+                  <th className="p-3 min-w-[110px] border-b border-[#B8623B]">Status</th>
                   {/* 6. Product Details */}
-                  <th className="p-3 min-w-[180px] border-b border-[#E67E00]">Product Details</th>
+                  <th className="p-3 min-w-[180px] border-b border-[#B8623B]">Product Details</th>
                   {/* 7. Price */}
-                  <th className="p-3 min-w-[120px] border-b border-[#E67E00]">Price</th>
+                  <th className="p-3 min-w-[120px] border-b border-[#B8623B]">Price</th>
                   {/* 8. Creation */}
-                  <th className="p-3 min-w-[140px] border-b border-[#E67E00]">Creation</th>
+                  <th className="p-3 min-w-[140px] border-b border-[#B8623B]">Creation</th>
                   {/* 9. Vendor */}
-                  <th className="p-3 min-w-[130px] border-b border-[#E67E00]">Vendor</th>
+                  <th className="p-3 min-w-[130px] border-b border-[#B8623B]">Vendor</th>
                   {/* 10. Outlets */}
-                  <th className="p-3 min-w-[150px] border-b border-[#E67E00]">Outlets</th>
+                  <th className="p-3 min-w-[150px] border-b border-[#B8623B]">Outlets</th>
                   {/* 11. Delivery */}
-                  <th className="p-3 min-w-[140px] border-b border-[#E67E00]">Delivery</th>
+                  <th className="p-3 min-w-[140px] border-b border-[#B8623B]">Delivery</th>
                   {/* 12. Other Info */}
-                  <th className="p-3 min-w-[150px] border-b border-[#E67E00]">Other Info</th>
+                  <th className="p-3 min-w-[150px] border-b border-[#B8623B]">Other Info</th>
                   {/* 13. Actions */}
-                  <th className="p-3 min-w-[150px] text-center border-b border-[#E67E00]">Action</th>
+                  <th className="p-3 min-w-[150px] text-center border-b border-[#B8623B]">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
@@ -1429,8 +1429,8 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                     return (
                       <tr 
                         key={p.id} 
-                        className={`hover:bg-[#FCF1E5]/40 transition-colors ${
-                          isSelected ? 'bg-[#FCF1E5]/70' : ''
+                        className={`hover:bg-[#F7F4F1]/40 transition-colors ${
+                          isSelected ? 'bg-[#F7F4F1]/70' : ''
                         }`}
                       >
                         {/* 1. Bulk Select Checkbox */}
@@ -1439,7 +1439,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                             type="checkbox" 
                             checked={isSelected}
                             onChange={() => handleSelectProduct(p.id)}
-                            className="w-4 h-4 rounded border-[#EEAB59] accent-[#E67E00] cursor-pointer"
+                            className="w-4 h-4 rounded border-[#E2D9D2] accent-[#B8623B] cursor-pointer"
                           />
                         </td>
 
@@ -1450,7 +1450,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
 
                         {/* 3. Image */}
                         <td className="p-3">
-                          <div className="w-12 h-12 rounded-lg border border-[#EEAB59]/50 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 shadow-2xs group relative">
+                          <div className="w-12 h-12 rounded-lg border border-[#E2D9D2]/50 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 shadow-2xs group relative">
                             <img 
                               src={p.image} 
                               alt={p.title} 
@@ -1464,14 +1464,14 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                         <td className="p-3">
                           <div className="flex flex-col gap-1 max-w-[220px]">
                             <span 
-                              className="font-bold text-[#0E0E0E] text-xs leading-snug line-clamp-2 hover:text-[#E67E00] cursor-pointer" 
+                              className="font-bold text-[#0E0E0E] text-xs leading-snug line-clamp-2 hover:text-[#B8623B] cursor-pointer" 
                               title={p.title}
                               onClick={() => changeSubTab('ADD_PRODUCT')}
                             >
                               {p.title}
                             </span>
                             <div className="flex flex-wrap items-center gap-1.5">
-                              <span className="px-1.5 py-0.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]/60 font-mono text-[10px] font-bold rounded">
+                              <span className="px-1.5 py-0.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]/60 font-mono text-[10px] font-bold rounded">
                                 SKU: {p.sku || `PRD-${p.id}`}
                               </span>
                               {p.barcode && (
@@ -1499,7 +1499,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                                 setProductList(prev => prev.map(item => item.id === p.id ? { ...item, inStock: !item.inStock, status: !item.inStock ? 'Active' : 'Out of Stock' } : item));
                                 showToast(`Toggled stock status for ${p.title}`);
                               }}
-                              className="text-[10px] font-semibold text-[#E67E00] hover:underline cursor-pointer"
+                              className="text-[10px] font-semibold text-[#B8623B] hover:underline cursor-pointer"
                             >
                               Toggle Status
                             </button>
@@ -1510,7 +1510,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                         <td className="p-3">
                           <div className="flex flex-col gap-1 max-w-[200px] text-[11px]">
                             <div className="flex items-center gap-1 font-semibold text-[#0E0E0E]">
-                              <Tag className="w-3 h-3 text-[#E67E00] shrink-0" />
+                              <Tag className="w-3 h-3 text-[#B8623B] shrink-0" />
                               <span className="truncate">{p.category || 'General'}</span>
                             </div>
                             <div className="flex items-center gap-1 text-[#545454]">
@@ -1546,7 +1546,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                         <td className="p-3 whitespace-nowrap">
                           <div className="flex flex-col text-[11px]">
                             <div className="flex items-center gap-1 text-[#0E0E0E] font-medium">
-                              <Calendar className="w-3 h-3 text-[#E67E00] shrink-0" />
+                              <Calendar className="w-3 h-3 text-[#B8623B] shrink-0" />
                               <span>{p.createdAt || '22 Jul 2026'}</span>
                             </div>
                             <span className="text-[10px] text-[#8F8F8F]">
@@ -1584,7 +1584,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                             </span>
                             <div className="flex items-center gap-1">
                               {p.codAvailable !== false && (
-                                <span className="px-1 py-0.2 bg-[#FCF1E5] text-[#E67E00] font-bold rounded text-[9px]">
+                                <span className="px-1 py-0.2 bg-[#F7F4F1] text-[#B8623B] font-bold rounded text-[9px]">
                                   COD Available
                                 </span>
                               )}
@@ -1595,7 +1595,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                         {/* 12. Other Info */}
                         <td className="p-3">
                           <div className="flex flex-col gap-1 text-[10px]">
-                            <div className="flex items-center gap-1 font-bold text-[#E67E00]">
+                            <div className="flex items-center gap-1 font-bold text-[#B8623B]">
                               <span>★ {p.rating}</span>
                               <span className="text-[#545454] font-normal">({p.salesCount} sold)</span>
                             </div>
@@ -1613,7 +1613,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                           <div className="flex items-center justify-center gap-1">
                             <button 
                               onClick={() => showToast(`Printed spec sheet for ${p.title}`)}
-                              className="p-1.5 text-slate-600 hover:text-[#E67E00] hover:bg-[#FCF1E5] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
+                              className="p-1.5 text-slate-600 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
                               title="Print Product Sheet"
                             >
                               <Printer className="w-3.5 h-3.5" />
@@ -1623,21 +1623,21 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                                 navigator.clipboard.writeText(p.title);
                                 showToast('Copied product title!');
                               }}
-                              className="p-1.5 text-slate-600 hover:text-[#E67E00] hover:bg-[#FCF1E5] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
+                              className="p-1.5 text-slate-600 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
                               title="Copy Product Title"
                             >
                               <Copy className="w-3.5 h-3.5" />
                             </button>
                             <button 
                               onClick={() => changeSubTab('ADD_PRODUCT')}
-                              className="p-1.5 text-slate-600 hover:text-[#E67E00] hover:bg-[#FCF1E5] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
+                              className="p-1.5 text-slate-600 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
                               title="View Details"
                             >
                               <Eye className="w-3.5 h-3.5" />
                             </button>
                             <button 
                               onClick={() => changeSubTab('ADD_PRODUCT')}
-                              className="p-1.5 text-slate-600 hover:text-[#E67E00] hover:bg-[#FCF1E5] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
+                              className="p-1.5 text-slate-600 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-md transition-colors border border-slate-200 bg-white cursor-pointer"
                               title="Edit Product"
                             >
                               <Edit3 className="w-3.5 h-3.5" />
@@ -1673,13 +1673,13 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 disabled={productPage === 1}
                 onClick={() => setProductPage(p => Math.max(1, p - 1))}
-                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40 cursor-pointer"
+                className="px-2.5 py-1 bg-[#F7F4F1] border border-[#E2D9D2] rounded text-[#B8623B] font-bold disabled:opacity-40 cursor-pointer"
               >&lt;</button>
               {Array.from({ length: totalProductPages }, (_, i) => i + 1).map(p => (
                 <button 
                   key={p}
                   onClick={() => setProductPage(p)}
-                  className={`px-2.5 py-1 rounded font-bold cursor-pointer ${productPage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                  className={`px-2.5 py-1 rounded font-bold cursor-pointer ${productPage === p ? 'bg-[#B8623B] text-white' : 'bg-[#F7F4F1]/50 text-[#0E0E0E]'}`}
                 >
                   {p}
                 </button>
@@ -1687,7 +1687,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               <button 
                 disabled={productPage === totalProductPages}
                 onClick={() => setProductPage(p => Math.min(totalProductPages, p + 1))}
-                className="px-2.5 py-1 bg-[#FCF1E5] border border-[#EEAB59] rounded text-[#E67E00] font-bold disabled:opacity-40 cursor-pointer"
+                className="px-2.5 py-1 bg-[#F7F4F1] border border-[#E2D9D2] rounded text-[#B8623B] font-bold disabled:opacity-40 cursor-pointer"
               >&gt;</button>
             </div>
           </div>
@@ -1698,23 +1698,23 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 7. VIEW: BRANDS TABLE */}
       {/* ========================================================================= */}
       {currentTab === 'BRANDS' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-4">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight">
               Manage Brands ({brands.length})
             </h2>
             <button 
               onClick={() => changeSubTab('ADD_BRAND')}
-              className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add Brand</span>
             </button>
           </div>
 
-          <div className="overflow-x-auto border border-[#EEAB59] rounded">
+          <div className="overflow-x-auto border border-[#E2D9D2] rounded">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#E67E00] text-white text-[11px] font-bold uppercase tracking-wider">
+              <thead className="bg-[#B8623B] text-white text-[11px] font-bold uppercase tracking-wider">
                 <tr>
                   <th className="p-3 text-center w-12">SL</th>
                   <th className="p-3 w-16">Image</th>
@@ -1726,14 +1726,14 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
                 {brands.map((b, idx) => (
-                  <tr key={b.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                  <tr key={b.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                     <td className="p-3 text-center font-bold text-slate-400 border-r border-[#EEEEEE]/80">{idx + 1}</td>
                     <td className="p-3">
                       <div className="w-10 h-10 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 shadow-2xs">
                         {b.logoUrl ? (
                           <img src={b.logoUrl} alt={b.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                         ) : (
-                          <Tag className="w-5 h-5 text-[#E67E00]" />
+                          <Tag className="w-5 h-5 text-[#B8623B]" />
                         )}
                       </div>
                     </td>
@@ -1759,7 +1759,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                       <div className="flex items-center justify-end gap-1.5">
                         <button 
                           onClick={() => changeSubTab('ADD_BRAND')}
-                          className="p-1.5 bg-[#FCF1E5] hover:bg-[#E67E00] text-[#E67E00] hover:text-white rounded transition-colors cursor-pointer"
+                          className="p-1.5 bg-[#F7F4F1] hover:bg-[#B8623B] text-[#B8623B] hover:text-white rounded transition-colors cursor-pointer"
                           title="Edit Brand"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -1789,23 +1789,23 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 8. VIEW: CATEGORIES TABLE */}
       {/* ========================================================================= */}
       {currentTab === 'CATEGORIES' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-4">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight">
               All Categories ({categories.length})
             </h2>
             <button 
               onClick={() => changeSubTab('ADD_CATEGORY')}
-              className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Add Category</span>
             </button>
           </div>
 
-          <div className="overflow-x-auto border border-[#EEAB59] rounded">
+          <div className="overflow-x-auto border border-[#E2D9D2] rounded">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#E67E00] text-white text-[11px] font-bold uppercase tracking-wider">
+              <thead className="bg-[#B8623B] text-white text-[11px] font-bold uppercase tracking-wider">
                 <tr>
                   <th className="p-3 text-center w-12">SL</th>
                   <th className="p-3 w-16">Image</th>
@@ -1817,14 +1817,14 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
                 {categories.map((c, idx) => (
-                  <tr key={c.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                  <tr key={c.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                     <td className="p-3 text-center font-bold text-slate-400 border-r border-[#EEEEEE]/80">{idx + 1}</td>
                     <td className="p-3">
                       <div className="w-10 h-10 rounded-lg border border-slate-200 bg-slate-50 flex items-center justify-center overflow-hidden shrink-0 shadow-2xs">
                         {c.logoUrl || c.mainMenuIconUrl ? (
                           <img src={c.logoUrl || c.mainMenuIconUrl} alt={c.name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                         ) : (
-                          <Layers className="w-5 h-5 text-[#E67E00]" />
+                          <Layers className="w-5 h-5 text-[#B8623B]" />
                         )}
                       </div>
                     </td>
@@ -1850,7 +1850,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                       <div className="flex items-center justify-end gap-1.5">
                         <button 
                           onClick={() => changeSubTab('ADD_CATEGORY')}
-                          className="p-1.5 bg-[#FCF1E5] hover:bg-[#E67E00] text-[#E67E00] hover:text-white rounded transition-colors cursor-pointer"
+                          className="p-1.5 bg-[#F7F4F1] hover:bg-[#B8623B] text-[#B8623B] hover:text-white rounded transition-colors cursor-pointer"
                           title="Edit Category"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -1880,23 +1880,23 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
       {/* 9. VIEW: VARIATIONS TABLE (COLOR, SIZE, WEIGHT) */}
       {/* ========================================================================= */}
       {currentTab === 'VARIATIONS' && (
-        <div className="bg-white border border-[#EEAB59] rounded p-4 sm:p-6 space-y-4">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 sm:p-6 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-[#0E0E0E] tracking-tight">
               Product Variations (Color, Size, Weight) ({variations.length})
             </h2>
             <button 
               onClick={() => changeSubTab('ADD_VARIATION')}
-              className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5"
+              className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full transition-all flex items-center gap-1.5"
             >
               <Plus className="w-4 h-4" />
               <span>Add Variation</span>
             </button>
           </div>
 
-          <div className="overflow-x-auto border border-[#EEAB59] rounded">
+          <div className="overflow-x-auto border border-[#E2D9D2] rounded">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#E67E00] text-white text-[11px] font-bold uppercase tracking-wider">
+              <thead className="bg-[#B8623B] text-white text-[11px] font-bold uppercase tracking-wider">
                 <tr>
                   <th className="p-3">Type</th>
                   <th className="p-3">Variation Name</th>
@@ -1907,9 +1907,9 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white font-medium text-[#545454]">
                 {variations.map((v) => (
-                  <tr key={v.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                  <tr key={v.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                     <td className="p-3">
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]">
                         {v.type}
                       </span>
                     </td>
@@ -1917,7 +1917,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                     <td className="p-3">
                       <div className="flex items-center gap-2">
                         {v.type === 'Color' && (
-                          <span className="w-4 h-4 rounded-full border border-[#EEAB59] shrink-0" style={{ backgroundColor: v.code }} />
+                          <span className="w-4 h-4 rounded-full border border-[#E2D9D2] shrink-0" style={{ backgroundColor: v.code }} />
                         )}
                         <span className="font-mono text-xs font-bold text-[#545454]">{v.code}</span>
                       </div>
@@ -1930,7 +1930,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({
                     <td className="p-3 text-right">
                       <button 
                         onClick={() => changeSubTab('ADD_VARIATION')}
-                        className="p-1.5 bg-[#FCF1E5] hover:bg-[#E67E00] text-[#E67E00] hover:text-white rounded transition-colors"
+                        className="p-1.5 bg-[#F7F4F1] hover:bg-[#B8623B] text-[#B8623B] hover:text-white rounded transition-colors"
                       >
                         <Edit3 className="w-3.5 h-3.5" />
                       </button>

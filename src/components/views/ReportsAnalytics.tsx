@@ -177,14 +177,14 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
       `}</style>
 
       {/* Top Controls Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-4 rounded border border-[#EEAB59] shadow-2xs no-print">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-4 rounded border border-[#E2D9D2] shadow-2xs no-print">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-              <Receipt className="w-5 h-5 text-[#E67E00]" />
+              <Receipt className="w-5 h-5 text-[#B8623B]" />
               <span>বিজনেস রিপোর্ট ও বিস্তারিত হিসাব-কিতাব (FULL FINANCIAL AUDIT REPORT)</span>
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#E67E00] text-white rounded uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#B8623B] text-white rounded uppercase tracking-wider">
               DETAILS TABLE ONLY
             </span>
           </div>
@@ -195,12 +195,12 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
 
         {/* Time Filter & Print/Export Buttons */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="bg-[#FCF1E5] border border-[#EEAB59] rounded-full p-1 flex items-center gap-1 text-xs font-bold text-[#E67E00]">
+          <div className="bg-[#F7F4F1] border border-[#E2D9D2] rounded-full p-1 flex items-center gap-1 text-xs font-bold text-[#B8623B]">
             {(['7D', '30D', '90D', 'YEAR'] as const).map((rng) => (
               <button
                 key={rng}
                 onClick={() => setTimeRange(rng)}
-                className={`px-2.5 py-1 rounded-full text-[11px] transition-all ${timeRange === rng ? 'bg-[#E67E00] text-white' : 'hover:bg-white/50'}`}
+                className={`px-2.5 py-1 rounded-full text-[11px] transition-all ${timeRange === rng ? 'bg-[#B8623B] text-white' : 'hover:bg-white/50'}`}
               >
                 {rng === 'YEAR' ? 'This Year' : `${rng.replace('D', ' Days')}`}
               </button>
@@ -209,7 +209,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider shrink-0"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider shrink-0"
           >
             <Printer className="w-3.5 h-3.5" />
             <span>প্রিন্ট করুন (PRINT REPORT)</span>
@@ -217,7 +217,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
 
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider shrink-0"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider shrink-0"
           >
             {downloadSuccess ? (
               <>
@@ -240,8 +240,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('PROFIT_LOSS')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'PROFIT_LOSS'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <TrendingUp className="w-3.5 h-3.5" />
@@ -252,8 +252,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('FINANCE')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'FINANCE'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <DollarSign className="w-3.5 h-3.5" />
@@ -264,8 +264,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('STOCK')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'STOCK'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Package className="w-3.5 h-3.5" />
@@ -276,8 +276,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('PURCHASES')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'PURCHASES'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <ShoppingCart className="w-3.5 h-3.5" />
@@ -288,8 +288,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('ORDERS')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'ORDERS'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <ShoppingBag className="w-3.5 h-3.5" />
@@ -300,8 +300,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('COURIER')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'COURIER'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Truck className="w-3.5 h-3.5" />
@@ -312,8 +312,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           onClick={() => setActiveTab('LOGS')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'LOGS'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Activity className="w-3.5 h-3.5" />
@@ -325,7 +325,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
           className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeTab === 'ALL_MASTER'
               ? 'bg-[#0E0E0E] text-white shadow-2xs'
-              : 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] hover:bg-[#E67E00] hover:text-white'
+              : 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] hover:bg-[#B8623B] hover:text-white'
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
@@ -339,7 +339,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
       <div id="printable-report-area" className="space-y-6 text-[#0E0E0E]">
 
         {/* Printable Header Notice */}
-        <div className="hidden print:block border-b-2 border-[#E67E00] pb-4 mb-4">
+        <div className="hidden print:block border-b-2 border-[#B8623B] pb-4 mb-4">
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-xl font-black uppercase tracking-wider text-[#0E0E0E]">
@@ -361,7 +361,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* EXECUTIVE SUMMARY: PROFIT & LOSS CARD (লাভ / ক্ষতি সার্বিক ফলাফল) */}
         {/* ========================================================================= */}
         {(activeTab === 'PROFIT_LOSS' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border-2 border-[#EEAB59] rounded-xl p-5 shadow-sm space-y-5">
+          <div className="bg-white border-2 border-[#E2D9D2] rounded-xl p-5 shadow-sm space-y-5">
             {/* Top Status Banner */}
             <div className={`p-4 rounded-xl border flex flex-col sm:flex-row items-center justify-between gap-4 ${
               isProfitable
@@ -475,10 +475,10 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 1: FINANCIAL INCOME & EXPENSE LEDGER */}
         {/* ========================================================================= */}
         {(activeTab === 'FINANCE' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-[#E67E00]" />
+                <DollarSign className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ১. আর্থিক লেনদেন ও আয়-ব্যয় লজার টেবিল (FINANCIAL TRANSACTIONS TABLE)
                 </h3>
@@ -491,7 +491,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">TRX ID</th>
                     <th className="py-2.5 px-3">তারিখ (DATE)</th>
                     <th className="py-2.5 px-3">খাত / ক্যাটাগরি</th>
@@ -504,12 +504,12 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {financialLedger.map((f) => (
-                    <tr key={f.id} className="hover:bg-[#FCF1E5]/20">
+                    <tr key={f.id} className="hover:bg-[#F7F4F1]/20">
                       <td className="py-2.5 px-3 font-bold font-mono text-[#0E0E0E]">{f.id}</td>
                       <td className="py-2.5 px-3 text-[#545454]">{f.date}</td>
                       <td className="py-2.5 px-3 font-bold">{f.category}</td>
                       <td className="py-2.5 px-3 text-[#545454]">{f.description}</td>
-                      <td className="py-2.5 px-3 font-semibold text-[#E67E00]">{f.source}</td>
+                      <td className="py-2.5 px-3 font-semibold text-[#B8623B]">{f.source}</td>
                       <td className="py-2.5 px-3 text-right font-bold text-[#008F2F]">
                         {f.inflow > 0 ? `+৳${f.inflow.toLocaleString()}` : '-'}
                       </td>
@@ -531,15 +531,15 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 2: STOCK INVENTORY REPORT TABLE */}
         {/* ========================================================================= */}
         {(activeTab === 'STOCK' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <Package className="w-5 h-5 text-[#E67E00]" />
+                <Package className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ২. মজুদ পণ্য ও ইনভেন্টরি ভ্যালুয়েশন টেবিল (STOCK INVENTORY AUDIT TABLE)
                 </h3>
               </div>
-              <span className="text-xs font-bold text-[#E67E00] bg-[#FCF1E5] px-2.5 py-0.5 rounded border border-[#EEAB59]">
+              <span className="text-xs font-bold text-[#B8623B] bg-[#F7F4F1] px-2.5 py-0.5 rounded border border-[#E2D9D2]">
                 মোট স্টক ভ্যালু: ৳{totalStockValuation.toLocaleString()} ({totalStockUnits} Units)
               </span>
             </div>
@@ -547,7 +547,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">পণ্য (PRODUCT TITLE)</th>
                     <th className="py-2.5 px-3">পাইকারি ক্রয়মূল্য</th>
                     <th className="py-2.5 px-3">বিক্রয়মূল্য</th>
@@ -562,7 +562,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                     const stock = p.stock || 25;
                     const stockVal = p.price * stock;
                     return (
-                      <tr key={p.id} className="hover:bg-[#FCF1E5]/20">
+                      <tr key={p.id} className="hover:bg-[#F7F4F1]/20">
                         <td className="py-2.5 px-3 font-bold text-[#0E0E0E] flex items-center gap-2">
                           <img src={p.image} alt={p.title} className="w-8 h-8 rounded object-cover border border-[#EEEEEE]" />
                           <div>
@@ -572,7 +572,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                         </td>
                         <td className="py-2.5 px-3 text-[#545454]">৳{p.regularPrice.toLocaleString()}</td>
                         <td className="py-2.5 px-3 font-bold text-[#0E0E0E]">৳{p.price.toLocaleString()}</td>
-                        <td className="py-2.5 px-3 text-center font-extrabold text-[#E67E00] text-sm">
+                        <td className="py-2.5 px-3 text-center font-extrabold text-[#B8623B] text-sm">
                           {stock} টি
                         </td>
                         <td className="py-2.5 px-3 text-center font-bold text-[#008F2F]">
@@ -605,10 +605,10 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 3: PURCHASES & SUPPLIER INVOICES TABLE */}
         {/* ========================================================================= */}
         {(activeTab === 'PURCHASES' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <ShoppingCart className="w-5 h-5 text-[#E67E00]" />
+                <ShoppingCart className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ৩. পাইকারি পণ্য ক্রয় রেকর্ড ও ইনভয়েস টেবিল (PURCHASE INVOICES TABLE)
                 </h3>
@@ -621,7 +621,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">মেমো নং (MEMO NO)</th>
                     <th className="py-2.5 px-3">তারিখ</th>
                     <th className="py-2.5 px-3">সাপ্লায়ার / মহাজন (SUPPLIER)</th>
@@ -634,8 +634,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {purchaseInvoices.map((pur) => (
-                    <tr key={pur.id} className="hover:bg-[#FCF1E5]/20">
-                      <td className="py-2.5 px-3 font-bold font-mono text-[#E67E00]">{pur.id}</td>
+                    <tr key={pur.id} className="hover:bg-[#F7F4F1]/20">
+                      <td className="py-2.5 px-3 font-bold font-mono text-[#B8623B]">{pur.id}</td>
                       <td className="py-2.5 px-3 text-[#545454]">{pur.date}</td>
                       <td className="py-2.5 px-3 font-bold">{pur.supplier}</td>
                       <td className="py-2.5 px-3 text-[#545454]">{pur.items}</td>
@@ -663,10 +663,10 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 4: ORDERS FULFILLMENT TABLE */}
         {/* ========================================================================= */}
         {(activeTab === 'ORDERS' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#E67E00]" />
+                <ShoppingBag className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ৪. বিক্রয় অর্ডার ও ডেলিভারি তথ্য টেবিল (ORDERS MASTER REPORT TABLE)
                 </h3>
@@ -679,7 +679,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">অর্ডার আইডি</th>
                     <th className="py-2.5 px-3">গ্রাহকের নাম</th>
                     <th className="py-2.5 px-3">মোবাইল নম্বর</th>
@@ -692,8 +692,8 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {orders.map((ord) => (
-                    <tr key={ord.id} className="hover:bg-[#FCF1E5]/20">
-                      <td className="py-2.5 px-3 font-black text-[#E67E00] font-mono">{ord.id}</td>
+                    <tr key={ord.id} className="hover:bg-[#F7F4F1]/20">
+                      <td className="py-2.5 px-3 font-black text-[#B8623B] font-mono">{ord.id}</td>
                       <td className="py-2.5 px-3 font-bold">{ord.customerName}</td>
                       <td className="py-2.5 px-3 text-[#545454] font-mono">{ord.customerPhone}</td>
                       <td className="py-2.5 px-3 text-[#545454] max-w-xs truncate">{ord.customerAddress} ({ord.cityZone})</td>
@@ -704,7 +704,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                           ord.status === 'Delivered'
                             ? 'bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30'
-                            : 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]'
+                            : 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]'
                         }`}>
                           {ord.status}
                         </span>
@@ -721,10 +721,10 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 5: COURIER LOGISTICS & RETURN LOSS TABLE */}
         {/* ========================================================================= */}
         {(activeTab === 'COURIER' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <Truck className="w-5 h-5 text-[#E67E00]" />
+                <Truck className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ৫. কুরিয়ার কোম্পানি পারফরম্যান্স ও লস টেবিল (COURIER LOGISTICS TABLE)
                 </h3>
@@ -737,7 +737,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">কুরিয়ার কোম্পানি (COURIER)</th>
                     <th className="py-2.5 px-3 text-center">মোট পাঠানো</th>
                     <th className="py-2.5 px-3 text-center">ডেলিভারড</th>
@@ -750,9 +750,9 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {courierData.map((c, idx) => (
-                    <tr key={idx} className="hover:bg-[#FCF1E5]/20">
+                    <tr key={idx} className="hover:bg-[#F7F4F1]/20">
                       <td className="py-2.5 px-3 font-bold text-[#0E0E0E] flex items-center gap-2">
-                        <Truck className="w-4 h-4 text-[#E67E00]" />
+                        <Truck className="w-4 h-4 text-[#B8623B]" />
                         <span>{c.name}</span>
                       </td>
                       <td className="py-2.5 px-3 text-center font-bold">{c.total}</td>
@@ -774,10 +774,10 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
         {/* TABLE 6: SYSTEM AUDIT LOGS TABLE */}
         {/* ========================================================================= */}
         {(activeTab === 'LOGS' || activeTab === 'ALL_MASTER') && (
-          <div className="bg-white border border-[#EEAB59] rounded-xl p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-2">
               <div className="flex items-center gap-2">
-                <Activity className="w-5 h-5 text-[#E67E00]" />
+                <Activity className="w-5 h-5 text-[#B8623B]" />
                 <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                   ৬. অ্যাডমিন ও সিস্টেম কার্যক্রম অডিট লগ (ADMIN SYSTEM AUDIT LOGS TABLE)
                 </h3>
@@ -790,7 +790,7 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold uppercase tracking-wider text-[10px]">
+                  <tr className="bg-[#B8623B] text-white font-bold uppercase tracking-wider text-[10px]">
                     <th className="py-2.5 px-3">লগ আইডি</th>
                     <th className="py-2.5 px-3">সময় ও তারিখ</th>
                     <th className="py-2.5 px-3">অ্যাডমিন / ইউজার</th>
@@ -802,13 +802,13 @@ export const ReportsAnalytics: React.FC<ReportsAnalyticsProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {auditLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-[#FCF1E5]/20">
+                    <tr key={log.id} className="hover:bg-[#F7F4F1]/20">
                       <td className="py-2.5 px-3 font-bold font-mono text-[#545454]">{log.id}</td>
                       <td className="py-2.5 px-3 font-mono text-[#545454] text-[11px]">{log.time}</td>
                       <td className="py-2.5 px-3 font-bold">{log.user}</td>
                       <td className="py-2.5 px-3 text-[#545454]">{log.role}</td>
                       <td className="py-2.5 px-3 font-bold text-[#0E0E0E]">{log.action}</td>
-                      <td className="py-2.5 px-3 font-extrabold text-[#E67E00]">{log.module}</td>
+                      <td className="py-2.5 px-3 font-extrabold text-[#B8623B]">{log.module}</td>
                       <td className="py-2.5 px-3 text-center">
                         <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 uppercase">
                           {log.result}

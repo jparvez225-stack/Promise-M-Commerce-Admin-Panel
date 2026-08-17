@@ -35,7 +35,7 @@ const themeStyles: Record<string, { stroke: string; dot: string }> = {
   violet: { stroke: '#7c3aed', dot: 'bg-violet-500' },
   fuchsia: { stroke: '#c026d3', dot: 'bg-fuchsia-500' },
   sky: { stroke: '#0284c7', dot: 'bg-sky-500' },
-  orange: { stroke: '#ea580c', dot: 'bg-orange-500' },
+  orange: { stroke: '#ea580c', dot: 'bg-[#B8623B]' },
   lime: { stroke: '#65a30d', dot: 'bg-lime-500' },
   pink: { stroke: '#db2777', dot: 'bg-pink-500' },
   yellow: { stroke: '#ca8a04', dot: 'bg-yellow-500' },

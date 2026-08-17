@@ -152,13 +152,13 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   ];
 
   return (
-    <header className="w-full sticky top-0 z-30 bg-white border-b border-[#EEAB59] shadow-2xs">
+    <header className="w-full sticky top-0 z-30 bg-white border-b border-[#E2D9D2] shadow-2xs">
       <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
         
         {/* LEFT SECTION: Icon + Module Title + Badge + Subtitle */}
         <div className="flex items-center gap-3">
-          <div className="p-2.5 bg-[#FCF1E5] rounded-xl text-[#E67E00] shrink-0 border border-[#EEAB59]/50 shadow-2xs">
-            <Icon className="w-5 h-5 text-[#E67E00]" />
+          <div className="p-2.5 bg-[#F7F4F1] rounded-xl text-[#B8623B] shrink-0 border border-[#E2D9D2]/50 shadow-2xs">
+            <Icon className="w-5 h-5 text-[#B8623B]" />
           </div>
 
           <div>
@@ -190,8 +190,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 onClick={() => onDateFilterChange(item.value)}
                 className={`px-3 sm:px-4 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase transition-all shrink-0 ${
                   isActive
-                    ? 'bg-[#E67E00] text-white shadow-2xs scale-[1.02]'
-                    : 'text-[#545454] hover:text-[#0E0E0E] hover:bg-[#FCF1E5]'
+                    ? 'bg-[#B8623B] text-white shadow-2xs scale-[1.02]'
+                    : 'text-[#545454] hover:text-[#0E0E0E] hover:bg-[#F7F4F1]'
                 }`}
               >
                 {item.label}
@@ -338,13 +338,13 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 <div className="text-xs font-black text-slate-900 leading-none">
                   {currentUser?.name || 'Shop Owner'}
                 </div>
-                <div className="text-[10px] font-extrabold text-orange-600 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-extrabold text-[#B8623B] uppercase tracking-wider mt-0.5">
                   {currentUser?.role || 'ADMIN'}
                 </div>
               </div>
 
               {/* Orange gradient avatar with initial */}
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#944923] to-[#C87B57] text-white font-black text-xs flex items-center justify-center shadow-xs shrink-0">
                 {(currentUser?.name || 'Shop Owner').charAt(0).toUpperCase()}
               </div>
             </button>
@@ -354,7 +354,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 <div className="px-4 py-2 border-b border-slate-100">
                   <p className="font-extrabold text-slate-900">{currentUser?.name || 'Shop Owner'}</p>
                   <p className="text-[11px] text-slate-500 font-medium truncate">{currentUser?.email || 'admin@shopowner.com'}</p>
-                  <p className="text-[10px] font-bold text-orange-600 mt-0.5">{currentUser?.storeName || 'Aura Premium Store BD'}</p>
+                  <p className="text-[10px] font-bold text-[#B8623B] mt-0.5">{currentUser?.storeName || 'Aura Premium Store BD'}</p>
                 </div>
 
                 <div className="p-1 space-y-1">
@@ -373,9 +373,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                       onOpenStorefrontPreview();
                       setShowProfileMenu(false);
                     }}
-                    className="w-full text-left px-3 py-2 font-bold text-slate-700 hover:bg-orange-50 hover:text-orange-600 rounded-xl flex items-center gap-2 transition-colors"
+                    className="w-full text-left px-3 py-2 font-bold text-slate-700 hover:bg-[#F7F4F1] hover:text-[#B8623B] rounded-xl flex items-center gap-2 transition-colors"
                   >
-                    <ExternalLink className="w-4 h-4 text-orange-500" />
+                    <ExternalLink className="w-4 h-4 text-[#B8623B]" />
                     View Storefront
                   </button>
                   <button

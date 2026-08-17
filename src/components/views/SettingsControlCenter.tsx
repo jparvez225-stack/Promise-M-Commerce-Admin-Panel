@@ -187,14 +187,14 @@ export const SettingsControlCenter: React.FC = () => {
   return (
     <div className="space-y-4 pb-12">
       {/* Control Panel Header Box */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-4 rounded border border-[#EEAB59] shadow-2xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white p-4 rounded border border-[#E2D9D2] shadow-2xs">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-              <Settings className="w-5 h-5 text-[#E67E00]" />
+              <Settings className="w-5 h-5 text-[#B8623B]" />
               <span>CONTROL CENTER & SYSTEM SETTINGS</span>
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#E67E00] text-white rounded uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#B8623B] text-white rounded uppercase tracking-wider">
               ENTERPRISE EDITION
             </span>
           </div>
@@ -205,7 +205,7 @@ export const SettingsControlCenter: React.FC = () => {
 
         <button
           onClick={() => handleSaveAll()}
-          className="flex items-center gap-1.5 px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider self-start md:self-auto shrink-0"
+          className="flex items-center gap-1.5 px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider self-start md:self-auto shrink-0"
         >
           {savedSuccess ? (
             <>
@@ -227,8 +227,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('GENERAL')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'GENERAL'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Globe className="w-3.5 h-3.5" />
@@ -239,8 +239,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('TEAM')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'TEAM'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Users className="w-3.5 h-3.5" />
@@ -251,8 +251,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('COURIER')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'COURIER'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Truck className="w-3.5 h-3.5" />
@@ -263,8 +263,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('PAYMENTS')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'PAYMENTS'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <CreditCard className="w-3.5 h-3.5" />
@@ -288,8 +288,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('API')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'API'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Code2 className="w-3.5 h-3.5" />
@@ -300,8 +300,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('INVOICE')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'INVOICE'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Printer className="w-3.5 h-3.5" />
@@ -312,8 +312,8 @@ export const SettingsControlCenter: React.FC = () => {
           onClick={() => setActiveSubTab('DATA')}
           className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1.5 ${
             activeSubTab === 'DATA'
-              ? 'bg-[#E67E00] text-white shadow-2xs'
-              : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+              ? 'bg-[#B8623B] text-white shadow-2xs'
+              : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
           }`}
         >
           <Database className="w-3.5 h-3.5" />
@@ -326,9 +326,9 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'GENERAL' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Globe className="w-4 h-4 text-[#E67E00]" />
+              <Globe className="w-4 h-4 text-[#B8623B]" />
               <span>Store & Legal Brand Configuration</span>
             </div>
 
@@ -393,13 +393,13 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#E67E00]" />
+              <ShieldCheck className="w-4 h-4 text-[#B8623B]" />
               <span>Admin System Preferences</span>
             </div>
 
-            <label className="flex items-center justify-between p-3 bg-[#FCF1E5]/40 border border-[#EEAB59]/60 rounded cursor-pointer">
+            <label className="flex items-center justify-between p-3 bg-[#F7F4F1]/40 border border-[#E2D9D2]/60 rounded cursor-pointer">
               <div>
                 <span className="font-bold text-[#0E0E0E] block text-xs">
                   Maintenance Mode
@@ -412,7 +412,7 @@ export const SettingsControlCenter: React.FC = () => {
                 type="checkbox"
                 checked={maintenanceMode}
                 onChange={(e) => setMaintenanceMode(e.target.checked)}
-                className="w-4 h-4 accent-[#E67E00]"
+                className="w-4 h-4 accent-[#B8623B]"
               />
             </label>
 
@@ -443,7 +443,7 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'TEAM' && (
         <div className="space-y-4">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs flex items-center justify-between">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
                 TEAM & STAFF MANAGEMENT
@@ -454,17 +454,17 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
             <button
               onClick={() => setShowAddTeamModal(true)}
-              className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full flex items-center gap-1.5 transition-all shadow-2xs uppercase tracking-wider"
+              className="px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full flex items-center gap-1.5 transition-all shadow-2xs uppercase tracking-wider"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Staff Member</span>
             </button>
           </div>
 
-          <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs">
+          <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-[#E67E00] text-white font-bold tracking-wider text-[11px] uppercase">
+                <tr className="bg-[#B8623B] text-white font-bold tracking-wider text-[11px] uppercase">
                   <th className="py-2.5 px-4">STAFF NAME</th>
                   <th className="py-2.5 px-4">EMAIL ADDRESS</th>
                   <th className="py-2.5 px-4">ROLE</th>
@@ -474,7 +474,7 @@ export const SettingsControlCenter: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-[#EEEEEE] bg-white text-[#545454] font-medium">
                 {teamMembers.map((member) => (
-                  <tr key={member.id} className="hover:bg-[#FCF1E5]/30 transition-colors">
+                  <tr key={member.id} className="hover:bg-[#F7F4F1]/30 transition-colors">
                     <td className="py-3 px-4 font-bold text-[#0E0E0E]">
                       {member.name}
                     </td>
@@ -482,7 +482,7 @@ export const SettingsControlCenter: React.FC = () => {
                       {member.email}
                     </td>
                     <td className="py-3 px-4">
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]">
                         {member.role}
                       </span>
                     </td>
@@ -513,9 +513,9 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'COURIER' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Truck className="w-4 h-4 text-[#E67E00]" />
+              <Truck className="w-4 h-4 text-[#B8623B]" />
               <span>Area-Based Shipping Rates (3 Zones)</span>
             </div>
 
@@ -558,7 +558,7 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
 
             <div className="pt-2 border-t border-[#EEEEEE] space-y-2">
-              <label className="flex items-center justify-between p-2.5 bg-[#FCF1E5]/40 border border-[#EEAB59]/60 rounded cursor-pointer">
+              <label className="flex items-center justify-between p-2.5 bg-[#F7F4F1]/40 border border-[#E2D9D2]/60 rounded cursor-pointer">
                 <div>
                   <span className="font-bold text-[#0E0E0E] block text-xs">
                     Weight-Based Extra Shipping Surcharge
@@ -571,7 +571,7 @@ export const SettingsControlCenter: React.FC = () => {
                   type="checkbox"
                   checked={enableWeightShipping}
                   onChange={(e) => setEnableWeightShipping(e.target.checked)}
-                  className="w-4 h-4 accent-[#E67E00]"
+                  className="w-4 h-4 accent-[#B8623B]"
                 />
               </label>
 
@@ -633,13 +633,13 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#E67E00]" />
+              <ShieldCheck className="w-4 h-4 text-[#B8623B]" />
               <span>Logistics Automation Rules</span>
             </div>
 
-            <label className="flex items-center justify-between p-3 bg-[#FCF1E5]/40 border border-[#EEAB59]/60 rounded cursor-pointer">
+            <label className="flex items-center justify-between p-3 bg-[#F7F4F1]/40 border border-[#E2D9D2]/60 rounded cursor-pointer">
               <div>
                 <span className="font-bold text-[#0E0E0E] block text-xs">
                   Auto-Dispatch to Courier API
@@ -652,7 +652,7 @@ export const SettingsControlCenter: React.FC = () => {
                 type="checkbox"
                 checked={autoDispatchOnConfirm}
                 onChange={(e) => setAutoDispatchOnConfirm(e.target.checked)}
-                className="w-4 h-4 accent-[#E67E00]"
+                className="w-4 h-4 accent-[#B8623B]"
               />
             </label>
 
@@ -684,9 +684,9 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'PAYMENTS' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <CreditCard className="w-4 h-4 text-[#E67E00]" />
+              <CreditCard className="w-4 h-4 text-[#B8623B]" />
               <span>Mobile Banking Accounts</span>
             </div>
 
@@ -698,7 +698,7 @@ export const SettingsControlCenter: React.FC = () => {
                 type="text"
                 value={bkashMerchant}
                 onChange={(e) => setBkashMerchant(e.target.value)}
-                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#E67E00] focus:outline-none"
+                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#B8623B] focus:outline-none"
               />
             </div>
 
@@ -710,7 +710,7 @@ export const SettingsControlCenter: React.FC = () => {
                 type="text"
                 value={nagadMerchant}
                 onChange={(e) => setNagadMerchant(e.target.value)}
-                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#E67E00] focus:outline-none"
+                className="w-full p-2 bg-white border border-[#EEEEEE] rounded font-bold text-[#B8623B] focus:outline-none"
               />
             </div>
 
@@ -727,9 +727,9 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Globe className="w-4 h-4 text-[#E67E00]" />
+              <Globe className="w-4 h-4 text-[#B8623B]" />
               <span>Payment Gateway & COD Rules</span>
             </div>
 
@@ -745,7 +745,7 @@ export const SettingsControlCenter: React.FC = () => {
               />
             </div>
 
-            <label className="flex items-center justify-between p-3 bg-[#FCF1E5]/40 border border-[#EEAB59]/60 rounded cursor-pointer">
+            <label className="flex items-center justify-between p-3 bg-[#F7F4F1]/40 border border-[#E2D9D2]/60 rounded cursor-pointer">
               <div>
                 <span className="font-bold text-[#0E0E0E] block text-xs">
                   Auto-Approve Cash On Delivery (COD)
@@ -758,7 +758,7 @@ export const SettingsControlCenter: React.FC = () => {
                 type="checkbox"
                 checked={autoApproveCOD}
                 onChange={(e) => setAutoApproveCOD(e.target.checked)}
-                className="w-4 h-4 accent-[#E67E00]"
+                className="w-4 h-4 accent-[#B8623B]"
               />
             </label>
           </div>
@@ -771,9 +771,9 @@ export const SettingsControlCenter: React.FC = () => {
       {activeSubTab === 'SEO' && (
         <div className="space-y-5 text-xs">
           {/* MAIN SECTION 5 CONTAINER MATCHING USER SCREENSHOT EXACTLY */}
-          <div className="p-4 sm:p-5 bg-[#FFFDF9] border border-[#EEAB59] rounded-xl shadow-2xs space-y-4">
+          <div className="p-4 sm:p-5 bg-[#FFFDF9] border border-[#E2D9D2] rounded-xl shadow-2xs space-y-4">
             {/* Top Header Bar */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#EEAB59]/30 gap-2">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E2D9D2]/30 gap-2">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-4 bg-[#008F2F] rounded-full inline-block shrink-0"></span>
                 <Globe className="w-4 h-4 text-[#008F2F] shrink-0" />
@@ -805,7 +805,7 @@ export const SettingsControlCenter: React.FC = () => {
                 value={seoMetaTitle}
                 onChange={(e) => setSeoMetaTitle(e.target.value)}
                 placeholder="Special Offer Landing Page #5 - Official Store Offer"
-                className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-bold text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E2D9D2] rounded-md font-bold text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
               />
             </div>
 
@@ -824,7 +824,7 @@ export const SettingsControlCenter: React.FC = () => {
                 value={seoMetaDescription}
                 onChange={(e) => setSeoMetaDescription(e.target.value)}
                 placeholder="Highlight key product features, warranty benefits, and special promotional prices with nationwide Cash on Delivery."
-                className="w-full p-3 bg-white border border-[#EEAB59] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs leading-relaxed"
+                className="w-full p-3 bg-white border border-[#E2D9D2] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs leading-relaxed"
               />
             </div>
 
@@ -839,7 +839,7 @@ export const SettingsControlCenter: React.FC = () => {
                   value={seoMetaKeywords}
                   onChange={(e) => setSeoMetaKeywords(e.target.value)}
                   placeholder="online shop, ecommerce bd, special deal, fast delivery, promo offer"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E2D9D2] rounded-md font-medium text-xs text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                 />
               </div>
 
@@ -852,7 +852,7 @@ export const SettingsControlCenter: React.FC = () => {
                   value={ogImageUrl}
                   onChange={(e) => setOgImageUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E2D9D2] rounded-md font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                 />
               </div>
             </div>
@@ -869,7 +869,7 @@ export const SettingsControlCenter: React.FC = () => {
                   value={fbPixelId}
                   onChange={(e) => setFbPixelId(e.target.value)}
                   placeholder="PIXEL-901823712"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E2D9D2] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                 />
               </div>
 
@@ -883,15 +883,15 @@ export const SettingsControlCenter: React.FC = () => {
                   value={googleAnalyticsId}
                   onChange={(e) => setGoogleAnalyticsId(e.target.value)}
                   placeholder="G-789234110"
-                  className="w-full px-3.5 py-2.5 bg-white border border-[#EEAB59] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-white border border-[#E2D9D2] rounded-md font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                 />
               </div>
             </div>
 
             {/* Bottom Google Search Snippet Preview Card */}
-            <div className="p-3.5 bg-[#FFFBF7] border border-[#EEAB59] rounded-md space-y-1 shadow-2xs">
-              <div className="flex items-center gap-1.5 text-[#E67E00] font-black text-[11px] uppercase tracking-wider mb-1">
-                <Search className="w-3.5 h-3.5 text-[#E67E00]" />
+            <div className="p-3.5 bg-[#FFFBF7] border border-[#E2D9D2] rounded-md space-y-1 shadow-2xs">
+              <div className="flex items-center gap-1.5 text-[#B8623B] font-black text-[11px] uppercase tracking-wider mb-1">
+                <Search className="w-3.5 h-3.5 text-[#B8623B]" />
                 <span>GOOGLE SEARCH SNIPPET PREVIEW:</span>
               </div>
               <div className="text-blue-600 font-bold text-sm hover:underline cursor-pointer leading-snug">
@@ -913,7 +913,7 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'API' && (
         <div className="space-y-4 text-xs">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs flex items-center justify-between">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs flex items-center justify-between">
             <div>
               <h2 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
                 API KEYS & INTEGRATION ENDPOINTS
@@ -925,7 +925,7 @@ export const SettingsControlCenter: React.FC = () => {
 
             <button
               onClick={() => setShowApiKeys(!showApiKeys)}
-              className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-bold text-xs rounded-full flex items-center gap-1.5 transition-all"
+              className="px-3 py-1.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-bold text-xs rounded-full flex items-center gap-1.5 transition-all"
             >
               {showApiKeys ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
               <span>{showApiKeys ? 'Hide Keys' : 'Reveal API Keys'}</span>
@@ -934,7 +934,7 @@ export const SettingsControlCenter: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Courier APIs */}
-            <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+            <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
               <span className="font-bold text-xs uppercase tracking-wider text-[#0E0E0E] block border-b border-[#EEEEEE] pb-2">
                 Steadfast & Pathao Logistics API
               </span>
@@ -977,7 +977,7 @@ export const SettingsControlCenter: React.FC = () => {
             </div>
 
             {/* SMS & Webhooks */}
-            <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+            <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
               <span className="font-bold text-xs uppercase tracking-wider text-[#0E0E0E] block border-b border-[#EEEEEE] pb-2">
                 Automated SMS & Webhook Sync
               </span>
@@ -1027,9 +1027,9 @@ export const SettingsControlCenter: React.FC = () => {
       {/* ========================================================================= */}
       {activeSubTab === 'INVOICE' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-4">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-4">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Printer className="w-4 h-4 text-[#E67E00]" />
+              <Printer className="w-4 h-4 text-[#B8623B]" />
               <span>Invoice Customization & Branding</span>
             </div>
 
@@ -1075,7 +1075,7 @@ export const SettingsControlCenter: React.FC = () => {
             <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-2">
               <div className="flex items-center justify-between">
                 <label className="font-bold text-[#0E0E0E] text-[11px] flex items-center gap-1.5">
-                  <ImageIcon className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <ImageIcon className="w-3.5 h-3.5 text-[#B8623B]" />
                   <span>Invoice Header Banner / Logo Image</span>
                 </label>
                 {headerImageUrl && (
@@ -1104,7 +1104,7 @@ export const SettingsControlCenter: React.FC = () => {
                   onChange={(e) => setHeaderImageUrl(e.target.value)}
                   className="flex-1 p-1.5 bg-white border border-[#EEEEEE] rounded text-xs"
                 />
-                <label className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-bold rounded cursor-pointer hover:bg-[#FCF1E5]/80 flex items-center gap-1 text-[11px] shrink-0">
+                <label className="px-3 py-1.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-bold rounded cursor-pointer hover:bg-[#F7F4F1]/80 flex items-center gap-1 text-[11px] shrink-0">
                   <Upload className="w-3 h-3" />
                   <span>Upload</span>
                   <input
@@ -1121,7 +1121,7 @@ export const SettingsControlCenter: React.FC = () => {
             <div className="p-3 bg-[#FAFAFA] border border-[#EEEEEE] rounded space-y-2">
               <div className="flex items-center justify-between">
                 <label className="font-bold text-[#0E0E0E] text-[11px] flex items-center gap-1.5">
-                  <ImageIcon className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <ImageIcon className="w-3.5 h-3.5 text-[#B8623B]" />
                   <span>Invoice Footer Banner / Signature Image</span>
                 </label>
                 {footerImageUrl && (
@@ -1150,7 +1150,7 @@ export const SettingsControlCenter: React.FC = () => {
                   onChange={(e) => setFooterImageUrl(e.target.value)}
                   className="flex-1 p-1.5 bg-white border border-[#EEEEEE] rounded text-xs"
                 />
-                <label className="px-3 py-1.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-bold rounded cursor-pointer hover:bg-[#FCF1E5]/80 flex items-center gap-1 text-[11px] shrink-0">
+                <label className="px-3 py-1.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-bold rounded cursor-pointer hover:bg-[#F7F4F1]/80 flex items-center gap-1 text-[11px] shrink-0">
                   <Upload className="w-3 h-3" />
                   <span>Upload</span>
                   <input
@@ -1177,7 +1177,7 @@ export const SettingsControlCenter: React.FC = () => {
           </div>
 
           {/* Invoice Live Visual Preview Box */}
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <span className="font-bold text-xs uppercase tracking-wider text-[#0E0E0E] block border-b border-[#EEEEEE] pb-2">
               Invoice Receipt Print Preview ({invoicePaperSize})
             </span>
@@ -1218,7 +1218,7 @@ export const SettingsControlCenter: React.FC = () => {
 
               <div className="flex justify-between font-extrabold text-xs pt-1">
                 <span>TOTAL PAYABLE (COD)</span>
-                <span className="text-[#E67E00]">৳5,050</span>
+                <span className="text-[#B8623B]">৳5,050</span>
               </div>
 
               {/* Footer Terms */}
@@ -1247,9 +1247,9 @@ export const SettingsControlCenter: React.FC = () => {
       {activeSubTab === 'DATA' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
           {/* Data Export Box */}
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Download className="w-4 h-4 text-[#E67E00]" />
+              <Download className="w-4 h-4 text-[#B8623B]" />
               <span>Export Store Database Records</span>
             </div>
 
@@ -1261,7 +1261,7 @@ export const SettingsControlCenter: React.FC = () => {
               <button
                 type="button"
                 onClick={() => alert('Downloading Orders CSV database export...')}
-                className="w-full py-2 bg-[#FCF1E5] hover:bg-[#FCF1E5]/80 text-[#E67E00] border border-[#EEAB59] font-bold text-xs rounded transition-colors flex items-center justify-between px-3 uppercase tracking-wider"
+                className="w-full py-2 bg-[#F7F4F1] hover:bg-[#F7F4F1]/80 text-[#B8623B] border border-[#E2D9D2] font-bold text-xs rounded transition-colors flex items-center justify-between px-3 uppercase tracking-wider"
               >
                 <span>Export Orders Database (CSV)</span>
                 <Download className="w-3.5 h-3.5" />
@@ -1270,7 +1270,7 @@ export const SettingsControlCenter: React.FC = () => {
               <button
                 type="button"
                 onClick={() => alert('Downloading Customers Leads CSV database export...')}
-                className="w-full py-2 bg-[#FCF1E5] hover:bg-[#FCF1E5]/80 text-[#E67E00] border border-[#EEAB59] font-bold text-xs rounded transition-colors flex items-center justify-between px-3 uppercase tracking-wider"
+                className="w-full py-2 bg-[#F7F4F1] hover:bg-[#F7F4F1]/80 text-[#B8623B] border border-[#E2D9D2] font-bold text-xs rounded transition-colors flex items-center justify-between px-3 uppercase tracking-wider"
               >
                 <span>Export Customer Directory (CSV)</span>
                 <Download className="w-3.5 h-3.5" />
@@ -1288,9 +1288,9 @@ export const SettingsControlCenter: React.FC = () => {
           </div>
 
           {/* Data Import Box */}
-          <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs space-y-3">
+          <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs space-y-3">
             <div className="flex items-center gap-2 font-bold text-xs uppercase tracking-wider text-[#0E0E0E] border-b border-[#EEEEEE] pb-2.5">
-              <Upload className="w-4 h-4 text-[#E67E00]" />
+              <Upload className="w-4 h-4 text-[#B8623B]" />
               <span>Import Products & Orders CSV</span>
             </div>
 
@@ -1298,8 +1298,8 @@ export const SettingsControlCenter: React.FC = () => {
               Upload CSV file to bulk add catalog items or migrate historic sales orders.
             </p>
 
-            <div className="border-2 border-dashed border-[#EEAB59] bg-[#FCF1E5]/30 rounded p-6 text-center space-y-2 cursor-pointer hover:bg-[#FCF1E5]/60 transition-colors">
-              <Upload className="w-6 h-6 text-[#E67E00] mx-auto" />
+            <div className="border-2 border-dashed border-[#E2D9D2] bg-[#F7F4F1]/30 rounded p-6 text-center space-y-2 cursor-pointer hover:bg-[#F7F4F1]/60 transition-colors">
+              <Upload className="w-6 h-6 text-[#B8623B] mx-auto" />
               <div className="font-bold text-[#0E0E0E]">
                 Drag and drop your CSV file here
               </div>
@@ -1314,7 +1314,7 @@ export const SettingsControlCenter: React.FC = () => {
       {/* Add Staff Modal */}
       {showAddTeamModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded border border-[#EEAB59] max-w-md w-full p-5 space-y-4 shadow-xl">
+          <div className="bg-white rounded border border-[#E2D9D2] max-w-md w-full p-5 space-y-4 shadow-xl">
             <div className="flex items-center justify-between border-b border-[#EEEEEE] pb-3">
               <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
                 Add New Staff Member
@@ -1376,7 +1376,7 @@ export const SettingsControlCenter: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold rounded uppercase tracking-wider"
+                  className="px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold rounded uppercase tracking-wider"
                 >
                   Save Staff
                 </button>

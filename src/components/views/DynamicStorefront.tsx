@@ -88,11 +88,11 @@ export const THEME_PRESETS: ThemePreset[] = [
     id: 'preset-orange',
     name: '⚡ Classic E-Commerce (E-Com Orange)',
     categoryName: 'Gadgets & General',
-    primaryButtonBg: '#E67E00',
+    primaryButtonBg: '#B8623B',
     primaryButtonText: '#FFFFFF',
     headingTextColor: '#0E0E0E',
-    accentBadgeBg: '#FCF1E5',
-    accentBadgeText: '#E67E00',
+    accentBadgeBg: '#F7F4F1',
+    accentBadgeText: '#B8623B',
     presetBadge: 'Classic Orange',
     description: 'High-converting standard orange style for tech gadgets, tools & online shop'
   },
@@ -174,11 +174,11 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       config: {
         ...config,
         themeColors: {
-          primaryButtonBg: '#E67E00',
+          primaryButtonBg: '#B8623B',
           primaryButtonText: '#FFFFFF',
           headingTextColor: '#0E0E0E',
-          accentBadgeBg: '#FCF1E5',
-          accentBadgeText: '#E67E00',
+          accentBadgeBg: '#F7F4F1',
+          accentBadgeText: '#B8623B',
           themePresetName: 'Classic Orange'
         }
       }
@@ -293,11 +293,11 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
   // Active theme helper with standard fallbacks
   const activeThemeColors: ThemeColors = currentActiveConfig.themeColors || {
-    primaryButtonBg: '#E67E00',
+    primaryButtonBg: '#B8623B',
     primaryButtonText: '#FFFFFF',
     headingTextColor: '#0E0E0E',
-    accentBadgeBg: '#FCF1E5',
-    accentBadgeText: '#E67E00',
+    accentBadgeBg: '#F7F4F1',
+    accentBadgeText: '#B8623B',
     themePresetName: 'Classic Orange'
   };
 
@@ -826,7 +826,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       {currentView === 'list' && (
         <div className="space-y-5">
           {/* Top Control & Search Header Box (Exact Design System from Screenshot) */}
-          <div className="border border-[#EEAB59] rounded bg-white p-4 shadow-2xs space-y-3">
+          <div className="border border-[#E2D9D2] rounded bg-white p-4 shadow-2xs space-y-3">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <span className="px-2.5 py-0.5 text-[10px] font-black bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30 rounded uppercase tracking-wider inline-block mb-1">
@@ -844,7 +844,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleCreateNewPageDirect()}
-                  className="px-4 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 shadow-2xs shrink-0 uppercase tracking-wider cursor-pointer"
+                  className="px-4 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full transition-all flex items-center gap-1.5 shadow-2xs shrink-0 uppercase tracking-wider cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>NEW PAGE</span>
@@ -855,19 +855,19 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
           {/* Quick Stats Overview KPI Cards (Exact rounded & border style from screenshot) */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="bg-white border border-[#EEAB59] p-4 rounded shadow-2xs">
+            <div className="bg-white border border-[#E2D9D2] p-4 rounded shadow-2xs">
               <span className="text-[11px] font-bold text-[#8F8F8F] uppercase tracking-wide block mb-1">Total Landing Pages</span>
               <div className="text-2xl font-bold text-[#0E0E0E]">{landingPages.length} Pages</div>
               <span className="text-[10px] text-[#008F2F] font-bold mt-1 inline-block">100% Active & Operational</span>
             </div>
 
-            <div className="bg-white border border-[#EEAB59] p-4 rounded shadow-2xs">
+            <div className="bg-white border border-[#E2D9D2] p-4 rounded shadow-2xs">
               <span className="text-[11px] font-bold text-[#8F8F8F] uppercase tracking-wide block mb-1">Total Page Traffic</span>
               <div className="text-2xl font-bold text-[#0E0E0E]">{totalViewsSum.toLocaleString()} Views</div>
-              <span className="text-[10px] text-[#E67E00] font-bold mt-1 inline-block">+18.4% conversion velocity</span>
+              <span className="text-[10px] text-[#B8623B] font-bold mt-1 inline-block">+18.4% conversion velocity</span>
             </div>
 
-            <div className="bg-white border border-[#EEAB59] p-4 rounded shadow-2xs">
+            <div className="bg-white border border-[#E2D9D2] p-4 rounded shadow-2xs">
               <span className="text-[11px] font-bold text-[#8F8F8F] uppercase tracking-wide block mb-1">Orders Converted</span>
               <div className="text-2xl font-bold text-[#0E0E0E]">{totalConversionsSum.toLocaleString()} Orders</div>
               <span className="text-[10px] text-[#008F2F] font-bold mt-1 inline-block">
@@ -875,9 +875,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               </span>
             </div>
 
-            <div className="bg-white border border-[#EEAB59] p-4 rounded shadow-2xs">
+            <div className="bg-white border border-[#E2D9D2] p-4 rounded shadow-2xs">
               <span className="text-[11px] font-bold text-[#8F8F8F] uppercase tracking-wide block mb-1">Generated Revenue</span>
-              <div className="text-2xl font-bold text-[#E67E00]">৳ {totalRevenueSum.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-[#B8623B]">৳ {totalRevenueSum.toLocaleString()}</div>
               <span className="text-[10px] text-[#008F2F] font-bold mt-1 inline-block">Direct Checkout Revenue</span>
             </div>
           </div>
@@ -888,8 +888,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               onClick={() => setStatusFilter('All')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap shadow-2xs ${
                 statusFilter === 'All'
-                  ? 'bg-[#E67E00] text-white'
-                  : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+                  ? 'bg-[#B8623B] text-white'
+                  : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
               }`}
             >
               LANDING PAGES LIST ({landingPages.length})
@@ -899,8 +899,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               onClick={() => setStatusFilter('Published')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap shadow-2xs ${
                 statusFilter === 'Published'
-                  ? 'bg-[#E67E00] text-white'
-                  : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+                  ? 'bg-[#B8623B] text-white'
+                  : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
               }`}
             >
               HOT PAGES / PUBLISHED ({landingPages.filter(p => p.status === 'Published').length})
@@ -910,8 +910,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               onClick={() => setStatusFilter('Draft')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap shadow-2xs ${
                 statusFilter === 'Draft'
-                  ? 'bg-[#E67E00] text-white'
-                  : 'bg-white text-[#E67E00] border border-[#EEAB59] hover:bg-[#FCF1E5]'
+                  ? 'bg-[#B8623B] text-white'
+                  : 'bg-white text-[#B8623B] border border-[#E2D9D2] hover:bg-[#F7F4F1]'
               }`}
             >
               DRAFTS / ARCHIVED ({landingPages.filter(p => p.status === 'Draft').length})
@@ -919,9 +919,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
           </div>
 
           {/* Landing Pages Table (Matching Screenshot Transaction Ledger Exactly) */}
-          <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs">
+          <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs">
             {/* Table Header Bar with Integrated Search */}
-            <div className="p-3.5 border-b border-[#EEEEEE] bg-[#FCF1E5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-3.5 border-b border-[#EEEEEE] bg-[#F7F4F1] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <h3 className="text-sm font-bold text-[#0E0E0E] uppercase tracking-wider">
                   LANDING PAGES LEDGER
@@ -939,7 +939,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                   placeholder="Search by title, slug or product..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-8 pr-3 py-1.5 bg-white border border-[#EEAB59] rounded-full text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none w-full placeholder:text-[#8F8F8F] shadow-2xs"
+                  className="pl-8 pr-3 py-1.5 bg-white border border-[#E2D9D2] rounded-full text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none w-full placeholder:text-[#8F8F8F] shadow-2xs"
                 />
               </div>
             </div>
@@ -947,7 +947,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-bold tracking-wider text-[11px] uppercase">
+                  <tr className="bg-[#B8623B] text-white font-bold tracking-wider text-[11px] uppercase">
                     <th className="py-3 px-4 w-12 text-center">SL#</th>
                     <th className="py-3 px-4">CUSTOMER / PAGE INFORMATIONS</th>
                     <th className="py-3 px-4">ITEMS & OFFER DETAILS</th>
@@ -964,8 +964,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     return (
                       <tr 
                         key={page.id} 
-                        className={`hover:bg-[#FCF1E5]/40 transition-colors ${
-                          isCurrentlySelected ? 'bg-[#FCF1E5]/60' : ''
+                        className={`hover:bg-[#F7F4F1]/40 transition-colors ${
+                          isCurrentlySelected ? 'bg-[#F7F4F1]/60' : ''
                         }`}
                       >
                         {/* SL# */}
@@ -976,14 +976,14 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         {/* Customer / Page Info */}
                         <td className="py-3.5 px-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded bg-[#FCF1E5] border border-[#EEAB59] flex items-center justify-center shrink-0">
-                              <ShoppingBag className="w-4 h-4 text-[#E67E00]" />
+                            <div className="w-8 h-8 rounded bg-[#F7F4F1] border border-[#E2D9D2] flex items-center justify-center shrink-0">
+                              <ShoppingBag className="w-4 h-4 text-[#B8623B]" />
                             </div>
                             <div>
                               <div className="flex items-center gap-2">
                                 <span className="font-bold text-xs text-[#0E0E0E]">{page.title}</span>
                                 {isCurrentlySelected && (
-                                  <span className="px-1.5 py-0.5 text-[8px] font-extrabold bg-[#E67E00] text-white rounded uppercase">
+                                  <span className="px-1.5 py-0.5 text-[8px] font-extrabold bg-[#B8623B] text-white rounded uppercase">
                                     ACTIVE EDITOR
                                   </span>
                                 )}
@@ -1003,7 +1003,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <div className="text-xs font-bold text-[#0E0E0E]">
                             {page.config.productTitle || page.title} x 1
                           </div>
-                          <div className="text-[11px] text-[#E67E00] font-bold mt-0.5">
+                          <div className="text-[11px] text-[#B8623B] font-bold mt-0.5">
                             Offer Price: ৳{page.config.basePrice.toLocaleString()}
                             {page.config.originalPrice && (
                               <span className="text-[10px] text-[#8F8F8F] line-through ml-1.5 font-normal">
@@ -1019,14 +1019,14 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         {/* Timestamp & Activity */}
                         <td className="py-3.5 px-4">
                           <div className="flex items-center gap-1.5 text-[11px] font-semibold text-[#545454]">
-                            <Calendar className="w-3.5 h-3.5 text-[#E67E00]" />
+                            <Calendar className="w-3.5 h-3.5 text-[#B8623B]" />
                             <span>Created: {page.createdAt || 'Just now'}</span>
                           </div>
                           <button 
                             onClick={() => handleEditPage(page.id)}
-                            className="flex items-center gap-1 text-[11px] font-bold text-[#E67E00] hover:underline mt-1"
+                            className="flex items-center gap-1 text-[11px] font-bold text-[#B8623B] hover:underline mt-1"
                           >
-                            <MessageSquare className="w-3 h-3 text-[#EEAB59]" />
+                            <MessageSquare className="w-3 h-3 text-[#E2D9D2]" />
                             <span>Click to customize config</span>
                           </button>
                         </td>
@@ -1037,7 +1037,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
                               page.status === 'Published'
                                 ? 'bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30'
-                                : 'bg-[#FFF8EC] text-[#E67E00] border border-[#EEAB59]'
+                                : 'bg-[#FFF8EC] text-[#B8623B] border border-[#E2D9D2]'
                             }`}
                           >
                             {page.status === 'Published' ? 'APPROVED' : 'PENDING'}
@@ -1096,12 +1096,12 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       {currentView === 'create' && (
         <div className="space-y-5">
           {/* Top Control Bar (Matching Design System Header) */}
-          <div className="border border-[#EEAB59] rounded bg-white p-4 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="border border-[#E2D9D2] rounded bg-white p-4 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => setCurrentView('list')}
-                className="p-2 bg-[#FCF1E5] hover:bg-[#EEAB59]/30 border border-[#EEAB59] text-[#E67E00] rounded-full transition-all cursor-pointer"
+                className="p-2 bg-[#F7F4F1] hover:bg-[#E2D9D2]/30 border border-[#E2D9D2] text-[#B8623B] rounded-full transition-all cursor-pointer"
                 title="Back to Landing Pages Ledger"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -1123,7 +1123,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrentView('list')}
-                className="px-3.5 py-1.5 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all cursor-pointer shrink-0 uppercase tracking-wider"
+                className="px-3.5 py-1.5 border border-[#E2D9D2] text-[#B8623B] hover:bg-[#F7F4F1] font-bold text-xs rounded-full transition-all cursor-pointer shrink-0 uppercase tracking-wider"
               >
                 CANCEL
               </button>
@@ -1147,15 +1147,15 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
             <form id="new-page-creator-form" onSubmit={handleCreateFormSubmit} className="space-y-5">
                 
                 {/* SECTION 1: BASIC PAGE INFO */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                       <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
                         SECTION 1: TITLE & CUSTOM URL SLUG
                       </h3>
                     </div>
-                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                    <span className="text-[10px] font-bold text-[#B8623B] bg-white px-2 py-0.5 rounded border border-[#E2D9D2]">
                       PAGE METADATA
                     </span>
                   </div>
@@ -1177,7 +1177,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           }
                         }}
                         placeholder="e.g. Aura Pro Studio Wireless ANC Headphones"
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none placeholder:text-[#8F8F8F]"
+                        className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none placeholder:text-[#8F8F8F]"
                       />
                     </div>
 
@@ -1186,7 +1186,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         Custom Page URL Slug <span className="text-[#FF0000]">*</span>
                       </label>
                       <div className="flex items-center">
-                        <span className="px-3 py-2 bg-[#FCF1E5] border border-r-0 border-[#EEAB59] rounded-l text-[11px] text-[#E67E00] font-mono font-bold shrink-0">
+                        <span className="px-3 py-2 bg-[#F7F4F1] border border-r-0 border-[#E2D9D2] rounded-l text-[11px] text-[#B8623B] font-mono font-bold shrink-0">
                           /landing/
                         </span>
                         <input
@@ -1195,7 +1195,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={newPageSlug}
                           onChange={(e) => setNewPageSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, ''))}
                           placeholder="special-offer-deal"
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded-r text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none font-mono placeholder:text-[#8F8F8F]"
+                          className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded-r text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none font-mono placeholder:text-[#8F8F8F]"
                         />
                       </div>
                       {newPageSlug && (
@@ -1256,7 +1256,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             setNewPageHeroBadge('👑 Royal Fashion Collection — Exclusive Discount');
                           }
                         }}
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none cursor-pointer"
+                        className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none cursor-pointer"
                       >
                         <option value="Natural Product">🌿 Natural & Organic Product (Green Theme)</option>
                         <option value="Food Product">🍔 Food, Snacks & Bakery (Red Theme)</option>
@@ -1269,10 +1269,10 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 </div>
 
                 {/* SECTION 2: PRICING & DELIVERY */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                       <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
                         SECTION 2: OFFER PRICING & SHIPPING CHARGES
                       </h3>
@@ -1288,14 +1288,14 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         Offer Selling Price (BDT) <span className="text-[#FF0000]">*</span>
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-2 font-bold text-[#E67E00] text-xs">৳</span>
+                        <span className="absolute left-3.5 top-2 font-bold text-[#B8623B] text-xs">৳</span>
                         <input
                           type="number"
                           required
                           value={newPageBasePrice}
                           onChange={(e) => setNewPageBasePrice(Number(e.target.value))}
                           placeholder="1990"
-                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-extrabold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-extrabold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -1311,7 +1311,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={newPageOriginalPrice}
                           onChange={(e) => setNewPageOriginalPrice(Number(e.target.value))}
                           placeholder="2990"
-                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          className="w-full pl-8 pr-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -1324,7 +1324,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         type="number"
                         value={newPageDeliveryDhaka}
                         onChange={(e) => setNewPageDeliveryDhaka(Number(e.target.value))}
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                       />
                     </div>
 
@@ -1336,22 +1336,22 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         type="number"
                         value={newPageDeliveryOutside}
                         onChange={(e) => setNewPageDeliveryOutside(Number(e.target.value))}
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                       />
                     </div>
                   </div>
                 </div>
 
                 {/* SECTION 3: MEDIA & DESCRIPTION */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                       <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
                         SECTION 3: MEDIA, VIDEO & PRODUCT COPY
                       </h3>
                     </div>
-                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                    <span className="text-[10px] font-bold text-[#B8623B] bg-white px-2 py-0.5 rounded border border-[#E2D9D2]">
                       ASSET MEDIA
                     </span>
                   </div>
@@ -1369,14 +1369,14 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newPageImageUrl}
                             onChange={(e) => setNewPageImageUrl(e.target.value)}
                             placeholder="https://images.unsplash.com/photo-..."
-                            className="w-full pl-9 pr-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                            className="w-full pl-9 pr-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                           />
                         </div>
                         {newPageImageUrl && (
                           <img
                             src={newPageImageUrl}
                             alt="Product Preview"
-                            className="w-9 h-9 rounded object-cover border border-[#EEAB59] shrink-0 shadow-2xs"
+                            className="w-9 h-9 rounded object-cover border border-[#E2D9D2] shrink-0 shadow-2xs"
                           />
                         )}
                       </div>
@@ -1384,7 +1384,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
                     <div>
                       <label className="block text-xs font-bold text-[#0E0E0E] mb-1 flex items-center gap-1.5">
-                        <Video className="w-3.5 h-3.5 text-[#E67E00]" />
+                        <Video className="w-3.5 h-3.5 text-[#B8623B]" />
                         <span>YouTube / Vimeo Video Embed Link</span>
                       </label>
                       <input
@@ -1392,7 +1392,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         value={newPageVideoUrl}
                         onChange={(e) => setNewPageVideoUrl(e.target.value)}
                         placeholder="https://www.youtube.com/embed/..."
-                        className="w-full px-3.5 py-2 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        className="w-full px-3.5 py-2 bg-white border border-[#E2D9D2] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                       />
                     </div>
 
@@ -1405,13 +1405,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         value={newPageDescription}
                         onChange={(e) => setNewPageDescription(e.target.value)}
                         placeholder="Describe key benefits, usage instructions, and quality guarantees..."
-                        className="w-full p-3 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        className="w-full p-3 bg-white border border-[#E2D9D2] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                       />
                     </div>
 
                     {/* 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION) */}
-                    <div className="space-y-4 pt-3 border-t border-[#EEAB59]/30">
-                      <div className="p-3 bg-[#FCF1E5] rounded-xl border border-[#EEAB59] flex items-center justify-between">
+                    <div className="space-y-4 pt-3 border-t border-[#E2D9D2]/30">
+                      <div className="p-3 bg-[#F7F4F1] rounded-xl border border-[#E2D9D2] flex items-center justify-between">
                         <div>
                           <label className="text-xs font-black text-[#0E0E0E] uppercase tracking-wider block">
                             KEY HIGHLIGHTS & 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION):
@@ -1420,13 +1420,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             রেফারেন্স ইমেজ অনুযায়ী ৩টি কলামে পণ্যের তুলনা তালিকা তৈরি করুন (Title, Subtitle & 3 Columns)
                           </span>
                         </div>
-                        <span className="text-[11px] font-black text-[#E67E00] bg-white px-3 py-1 rounded-full border border-[#EEAB59] shrink-0 shadow-2xs">
+                        <span className="text-[11px] font-black text-[#B8623B] bg-white px-3 py-1 rounded-full border border-[#E2D9D2] shrink-0 shadow-2xs">
                           {newPageCmpItems.length} Rows
                         </span>
                       </div>
 
                       {/* Header Title & Subtitle Inputs */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded-xl">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded-xl">
                         <div>
                           <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
                             Comparison Title (টেবিলের শিরোনাম):
@@ -1436,7 +1436,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newPageCmpTitle}
                             onChange={(e) => setNewPageCmpTitle(e.target.value)}
                             placeholder="Aura Pro Studio VS Others Headphone"
-                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                            className="w-full px-3 py-2 bg-white border border-[#E2D9D2] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                           />
                         </div>
                         <div>
@@ -1448,15 +1448,15 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newPageCmpSubtitle}
                             onChange={(e) => setNewPageCmpSubtitle(e.target.value)}
                             placeholder="কেন সাধারণ হেডফোনের চেয়ে Aura Pro Studio সেরা জেনে নিন"
-                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                            className="w-full px-3 py-2 bg-white border border-[#E2D9D2] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                           />
                         </div>
                       </div>
 
                       {/* 3-Column Product Comparison Table Form */}
-                      <div className="border border-[#EEAB59] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
+                      <div className="border border-[#E2D9D2] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
                         {/* Table Header Controls */}
-                        <div className="bg-gradient-to-r from-[#E67E00] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
+                        <div className="bg-gradient-to-r from-[#B8623B] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
                           <div className="col-span-4">
                             <span className="text-[10px] bg-black/20 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
                               COL 1 (FEATURE ASPECT)
@@ -1501,7 +1501,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         {/* Table Body Input Rows */}
                         <div className="divide-y divide-[#EEEEEE] text-xs">
                           {newPageCmpItems.map((item, idx) => (
-                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#FCF1E5]/20 transition-colors">
+                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#F7F4F1]/20 transition-colors">
                               <div className="col-span-4">
                                 <input
                                   type="text"
@@ -1558,7 +1558,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         </div>
 
                         {/* Add Row Bar */}
-                        <div className="p-3 bg-[#FCF1E5] border-t border-[#EEAB59] flex items-center justify-between">
+                        <div className="p-3 bg-[#F7F4F1] border-t border-[#E2D9D2] flex items-center justify-between">
                           <span className="text-xs font-bold text-[#0E0E0E]">
                             টেবিলে মোট {newPageCmpItems.length} টি তুলনামূলক রো আছে
                           </span>
@@ -1587,8 +1587,8 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 </div>
 
                 {/* SECTION 4: CUSTOMER REVIEWS & SOCIAL PROOF */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-2.5 h-4 bg-[#008F2F] rounded"></div>
                       <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
@@ -1601,7 +1601,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                   </div>
 
                   {/* Add Review Box */}
-                  <div className="p-3.5 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded space-y-3 text-xs">
+                  <div className="p-3.5 bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded space-y-3 text-xs">
                     <span className="font-bold text-[#0E0E0E] block text-xs">
                       ➕ কাস্টমার রিভিউ অথবা হোয়াটসঅ্যাপ/মেসেঞ্জার স্ক্রিনশট যোগ করুন:
                     </span>
@@ -1614,7 +1614,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={creatorReviewAuthor}
                           onChange={(e) => setCreatorReviewAuthor(e.target.value)}
                           placeholder="মোহাম্মদ আব্দুল্লাহ"
-                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          className="w-full px-3 py-1.5 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                         />
                       </div>
 
@@ -1623,7 +1623,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         <select
                           value={creatorReviewRating}
                           onChange={(e) => setCreatorReviewRating(Number(e.target.value))}
-                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#E67E00] focus:border-[#008F2F] focus:outline-none cursor-pointer"
+                          className="w-full px-3 py-1.5 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#B8623B] focus:border-[#008F2F] focus:outline-none cursor-pointer"
                         >
                           <option value={5}>★★★★★ (5 Stars)</option>
                           <option value={4}>★★★★☆ (4 Stars)</option>
@@ -1638,7 +1638,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={creatorReviewTime}
                           onChange={(e) => setCreatorReviewTime(e.target.value)}
                           placeholder="Dhaka • 1 day ago"
-                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          className="w-full px-3 py-1.5 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -1650,7 +1650,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         value={creatorReviewContent}
                         onChange={(e) => setCreatorReviewContent(e.target.value)}
                         placeholder="পণ্যটি পেয়ে খুব ভালো লাগলো, একদম অরিজিনাল কোয়ালিটি..."
-                        className="w-full p-2.5 bg-white border border-[#EEAB59] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                        className="w-full p-2.5 bg-white border border-[#E2D9D2] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                       />
                     </div>
 
@@ -1665,9 +1665,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={creatorReviewImageUrl}
                           onChange={(e) => setCreatorReviewImageUrl(e.target.value)}
                           placeholder="https://images.unsplash.com/photo-..."
-                          className="w-full px-3 py-1.5 bg-white border border-[#EEAB59] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                          className="w-full px-3 py-1.5 bg-white border border-[#E2D9D2] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                         />
-                        <label className="px-3.5 py-1.5 bg-white border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
+                        <label className="px-3.5 py-1.5 bg-white border border-[#E2D9D2] text-[#B8623B] hover:bg-[#F7F4F1] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
                           <Upload className="w-3.5 h-3.5" />
                           <span>Upload File</span>
                           <input
@@ -1683,7 +1683,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <img
                             src={creatorReviewImageUrl}
                             alt="Review Preview"
-                            className="w-12 h-12 object-cover rounded border border-[#EEAB59]"
+                            className="w-12 h-12 object-cover rounded border border-[#E2D9D2]"
                           />
                           <span className="text-[10px] text-[#008F2F] font-bold">Photo attached successfully!</span>
                         </div>
@@ -1707,7 +1707,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 font-bold text-[#0E0E0E]">
                             <span>{rev.author}</span>
-                            <span className="text-[#E67E00]">{'★'.repeat(rev.rating)}</span>
+                            <span className="text-[#B8623B]">{'★'.repeat(rev.rating)}</span>
                             <span className="text-[10px] text-[#8F8F8F] font-normal">({rev.date})</span>
                           </div>
                           <p className="text-[11px] text-[#545454] leading-relaxed">{rev.content}</p>
@@ -1715,7 +1715,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             <img
                               src={rev.imageUrl || rev.screenshotUrl}
                               alt="Customer Review Screenshot"
-                              className="w-16 h-16 object-cover rounded border border-[#EEAB59] mt-1"
+                              className="w-16 h-16 object-cover rounded border border-[#E2D9D2] mt-1"
                             />
                           )}
                         </div>
@@ -1734,15 +1734,15 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
 
 
                 {/* SECTION 6: THEME COLORS & SUBMIT */}
-                <div className="bg-white rounded border border-[#EEAB59] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
-                  <div className="p-3 bg-[#FCF1E5] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
+                <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden shadow-2xs space-y-4 p-4 md:p-5">
+                  <div className="p-3 bg-[#F7F4F1] border-b border-[#EEEEEE] -mx-4 -mt-4 md:-mx-5 md:-mt-5 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-4 bg-[#E67E00] rounded"></div>
+                      <div className="w-2.5 h-4 bg-[#B8623B] rounded"></div>
                       <h3 className="font-bold text-xs text-[#0E0E0E] uppercase tracking-wider">
                         SECTION 6: BUTTON & THEME COLOR STYLE
                       </h3>
                     </div>
-                    <span className="text-[10px] font-bold text-[#E67E00] bg-white px-2 py-0.5 rounded border border-[#EEAB59]">
+                    <span className="text-[10px] font-bold text-[#B8623B] bg-white px-2 py-0.5 rounded border border-[#E2D9D2]">
                       BRAND PRESETS
                     </span>
                   </div>
@@ -1770,7 +1770,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             className={`px-3 py-1.5 text-xs font-bold rounded border transition-all flex items-center gap-2 cursor-pointer ${
                               isSelected
                                 ? 'border-[#008F2F] bg-[#ECFFE8] text-[#008F2F] font-extrabold'
-                                : 'border-[#EEAB59] bg-white text-[#545454] hover:bg-[#FCF1E5]'
+                                : 'border-[#E2D9D2] bg-white text-[#545454] hover:bg-[#F7F4F1]'
                             }`}
                           >
                             <span className="w-3 h-3 rounded shrink-0" style={{ backgroundColor: preset.primaryButtonBg }} />
@@ -1787,7 +1787,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     <button
                       type="button"
                       onClick={() => setCurrentView('list')}
-                      className="px-4 py-2 border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-bold text-xs rounded-full transition-all cursor-pointer uppercase tracking-wider"
+                      className="px-4 py-2 border border-[#E2D9D2] text-[#B8623B] hover:bg-[#F7F4F1] font-bold text-xs rounded-full transition-all cursor-pointer uppercase tracking-wider"
                     >
                       Cancel
                     </button>
@@ -1813,12 +1813,12 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
       {currentView === 'builder' && (
         <div className="space-y-4">
           {/* Builder Editor Controls Sub-Header (Exact Screenshot Bar) */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-3 md:p-3.5 border border-[#EEAB59] rounded shadow-2xs">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-3 md:p-3.5 border border-[#E2D9D2] rounded shadow-2xs">
             {/* Left Page Selector & Back Button */}
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setCurrentView('list')}
-                className="p-1.5 bg-white hover:bg-[#FCF1E5] border border-[#EEAB59] rounded-full transition-all text-[#0E0E0E]"
+                className="p-1.5 bg-white hover:bg-[#F7F4F1] border border-[#E2D9D2] rounded-full transition-all text-[#0E0E0E]"
                 title="Back to Landing Pages List"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -1835,7 +1835,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     const targetP = landingPages.find(p => p.id === e.target.value);
                     if (targetP) onUpdateConfig(targetP.config);
                   }}
-                  className="px-3 py-1 bg-white border border-[#EEAB59] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
+                  className="px-3 py-1 bg-white border border-[#E2D9D2] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none"
                 >
                   {landingPages.map(p => (
                     <option key={p.id} value={p.id}>
@@ -1855,7 +1855,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
               <button
                 id="storefront-save-btn"
                 onClick={handleSave}
-                className="flex items-center gap-2 px-5 py-1.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider cursor-pointer"
+                className="flex items-center gap-2 px-5 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full shadow-2xs transition-all uppercase tracking-wider cursor-pointer"
               >
                 {savedSuccess ? (
                   <>
@@ -1875,7 +1875,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
           {/* Main Container: Full Width Builder Form */}
           <div className="w-full">
             {/* BUILDER EDITING PANEL (Full Width 100%) */}
-            <div className="w-full bg-white border border-[#EEAB59] rounded-2xl p-4 md:p-6 shadow-2xs space-y-5 h-fit">
+            <div className="w-full bg-white border border-[#E2D9D2] rounded-2xl p-4 md:p-6 shadow-2xs space-y-5 h-fit">
                 {/* Navigation Tabs */}
                 <div className="flex border-b border-[#EEEEEE] pb-1 text-xs font-bold gap-3 overflow-x-auto">
                   <button
@@ -1883,7 +1883,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     onClick={() => setActiveBuilderTab('content')}
                     className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'content'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        ? 'border-b-2 border-[#B8623B] text-[#B8623B] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
@@ -1894,7 +1894,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     onClick={() => setActiveBuilderTab('theme')}
                     className={`pb-2 px-2 transition-all flex items-center gap-1.5 whitespace-nowrap ${
                       activeBuilderTab === 'theme'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        ? 'border-b-2 border-[#B8623B] text-[#B8623B] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
@@ -1906,7 +1906,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     onClick={() => setActiveBuilderTab('pricing')}
                     className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'pricing'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        ? 'border-b-2 border-[#B8623B] text-[#B8623B] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
@@ -1917,7 +1917,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     onClick={() => setActiveBuilderTab('payments')}
                     className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'payments'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        ? 'border-b-2 border-[#B8623B] text-[#B8623B] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
@@ -1941,7 +1941,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     onClick={() => setActiveBuilderTab('reviews')}
                     className={`pb-2 px-2 transition-all whitespace-nowrap ${
                       activeBuilderTab === 'reviews'
-                        ? 'border-b-2 border-[#E67E00] text-[#E67E00] font-extrabold'
+                        ? 'border-b-2 border-[#B8623B] text-[#B8623B] font-extrabold'
                         : 'text-[#545454] hover:text-[#0E0E0E]'
                     }`}
                   >
@@ -1956,7 +1956,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     <div className="p-3.5 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-3">
                       <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
                         <span className="font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider flex items-center gap-1.5">
-                          <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                          <span className="w-2 h-2 rounded-full bg-[#B8623B]"></span>
                           <span>পেজের শিরোনাম ও কাস্টম লিংক (Title & Custom URL Slug)</span>
                         </span>
                         <span className="text-[10px] text-[#008F2F] font-bold bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
@@ -1974,7 +1974,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={currentActiveConfig.productTitle}
                             onChange={(e) => handleUpdateActiveTitle(e.target.value)}
                             placeholder="e.g. Aura Pro ANC Headphones"
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                           />
                         </div>
 
@@ -1991,7 +1991,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                               value={activePage?.slug || ''}
                               onChange={(e) => handleUpdateActiveSlug(e.target.value)}
                               placeholder="aura-pro-anc"
-                              className="w-full pl-18 pr-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              className="w-full pl-18 pr-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             />
                           </div>
                           <span className="text-[10px] font-mono text-[#008F2F] font-semibold block mt-1">
@@ -2013,7 +2013,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, announcementText: e.target.value })
                           }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
 
@@ -2027,7 +2027,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, heroBadge: e.target.value })
                           }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -2044,7 +2044,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, productSubTitle: e.target.value })
                           }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
 
@@ -2058,7 +2058,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, productDescription: e.target.value })
                           }
-                          className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -2079,7 +2079,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             })
                           }
                           placeholder="https://images.unsplash.com/..."
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                         />
                       </div>
 
@@ -2094,14 +2094,14 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             handleUpdateActiveConfig({ ...currentActiveConfig, videoEmbedUrl: e.target.value })
                           }
                           placeholder="https://www.youtube.com/embed/..."
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                         />
                       </div>
                     </div>
 
                     {/* 3-Column Product Comparison Table (VS Section) Editing */}
                     <div className="pt-3 border-t border-[#EEEEEE] space-y-3">
-                      <div className="p-3 bg-[#FCF1E5] rounded-xl border border-[#EEAB59] flex items-center justify-between">
+                      <div className="p-3 bg-[#F7F4F1] rounded-xl border border-[#E2D9D2] flex items-center justify-between">
                         <div>
                           <span className="font-extrabold text-[#0E0E0E] block text-xs uppercase tracking-wider">
                             KEY HIGHLIGHTS & 3-COLUMN PRODUCT COMPARISON TABLE (VS SECTION):
@@ -2110,13 +2110,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             রেফারেন্স ইমেজ অনুযায়ী ৩টি কলামে পণ্যের তুলনা তালিকা তৈরি করুন (Title, Subtitle & 3 Columns)
                           </span>
                         </div>
-                        <span className="text-[11px] font-black text-[#E67E00] bg-white px-3 py-1 rounded-full border border-[#EEAB59] shrink-0 shadow-2xs">
+                        <span className="text-[11px] font-black text-[#B8623B] bg-white px-3 py-1 rounded-full border border-[#E2D9D2] shrink-0 shadow-2xs">
                           {(currentActiveConfig.comparisonItems || []).length || 5} Rows
                         </span>
                       </div>
 
                       {/* Title & Subtitle Settings */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#FCF1E5]/40 border border-[#EEAB59] rounded-xl">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-[#F7F4F1]/40 border border-[#E2D9D2] rounded-xl">
                         <div>
                           <label className="block text-xs font-bold text-[#0E0E0E] mb-1">
                             Comparison Title (টেবিলের শিরোনাম):
@@ -2130,7 +2130,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 comparisonTableTitle: e.target.value
                               })
                             }
-                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                            className="w-full px-3 py-2 bg-white border border-[#E2D9D2] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                           />
                         </div>
                         <div>
@@ -2146,15 +2146,15 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 comparisonTableSubtitle: e.target.value
                               })
                             }
-                            className="w-full px-3 py-2 bg-white border border-[#EEAB59] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
+                            className="w-full px-3 py-2 bg-white border border-[#E2D9D2] rounded-lg text-xs font-bold text-[#0E0E0E] focus:border-[#008F2F] focus:outline-none shadow-2xs"
                           />
                         </div>
                       </div>
 
                       {/* 3-Column Product Comparison Table Editor */}
-                      <div className="border border-[#EEAB59] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
+                      <div className="border border-[#E2D9D2] rounded-xl overflow-hidden shadow-2xs bg-white space-y-0">
                         {/* Table Header Controls */}
-                        <div className="bg-gradient-to-r from-[#E67E00] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
+                        <div className="bg-gradient-to-r from-[#B8623B] via-[#008F2F] to-[#D9381E] text-white font-extrabold text-xs grid grid-cols-12 gap-2 p-2.5 items-center">
                           <div className="col-span-4">
                             <span className="text-[10px] bg-black/20 px-1.5 py-0.5 rounded font-black uppercase block mb-1 tracking-wider">
                               COL 1 (FEATURE ASPECT)
@@ -2220,7 +2220,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 { id: 'cmp-5', feature: 'ওয়ারেন্টি সাপোর্ট', ourProduct: '১ বছর রিপ্লেসমেন্ট ওয়ারেন্টি', otherProduct: 'কোনো ওয়ারেন্টি নেই' }
                               ]
                           ).map((item, idx, arr) => (
-                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#FCF1E5]/20 transition-colors">
+                            <div key={item.id || idx} className="grid grid-cols-12 gap-2 p-2.5 items-center bg-white hover:bg-[#F7F4F1]/20 transition-colors">
                               <div className="col-span-4">
                                 <input
                                   type="text"
@@ -2283,7 +2283,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                         </div>
 
                         {/* Add Row Button Bar */}
-                        <div className="p-3 bg-[#FCF1E5] border-t border-[#EEAB59] flex items-center justify-between">
+                        <div className="p-3 bg-[#F7F4F1] border-t border-[#E2D9D2] flex items-center justify-between">
                           <span className="text-xs font-bold text-[#0E0E0E]">
                             টেবিলে মোট {(currentActiveConfig.comparisonItems || []).length || 5} টি তুলনামূলক রো আছে
                           </span>
@@ -2320,7 +2320,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 {activeBuilderTab === 'theme' && (
                   <div className="space-y-5 text-xs">
                     {/* Header Banner */}
-                    <div className="p-3.5 bg-gradient-to-r from-[#ECFFE8] via-[#FCF1E5] to-[#EFF6FF] border border-[#EEAB59]/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="p-3.5 bg-gradient-to-r from-[#ECFFE8] via-[#F7F4F1] to-[#EFF6FF] border border-[#E2D9D2]/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="space-y-0.5">
                         <h4 className="font-extrabold text-[#0E0E0E] text-xs flex items-center gap-1.5">
                           <Palette className="w-4 h-4 text-[#008F2F]" />
@@ -2363,7 +2363,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                               className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden flex flex-col justify-between ${
                                 isSelected
                                   ? 'border-[#008F2F] bg-[#ECFFE8]/30 shadow-md ring-2 ring-[#008F2F]/30'
-                                  : 'border-[#EEEEEE] bg-white hover:border-[#EEAB59] hover:bg-[#FAFAFA]'
+                                  : 'border-[#EEEEEE] bg-white hover:border-[#E2D9D2] hover:bg-[#FAFAFA]'
                               }`}
                             >
                               <div className="flex items-center justify-between mb-1.5">
@@ -2439,7 +2439,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 });
                               }}
                               placeholder="#008F2F"
-                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             />
                           </div>
                           
@@ -2450,7 +2450,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                               { label: 'Green', color: '#008F2F' },
                               { label: 'Emerald', color: '#047857' },
                               { label: 'Food Red', color: '#DC2626' },
-                              { label: 'Orange', color: '#E67E00' },
+                              { label: 'Orange', color: '#B8623B' },
                               { label: 'Royal Blue', color: '#2563EB' },
                               { label: 'Pink', color: '#E11D48' },
                               { label: 'Gold', color: '#D97706' },
@@ -2509,7 +2509,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 });
                               }}
                               placeholder="#FFFFFF"
-                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             />
                           </div>
 
@@ -2574,7 +2574,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 });
                               }}
                               placeholder="#0E0E0E"
-                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             />
                           </div>
                         </div>
@@ -2612,7 +2612,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                                 });
                               }}
                               placeholder="#ECFFE8"
-                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                              className="w-28 px-3 py-1.5 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             />
                           </div>
                         </div>
@@ -2624,7 +2624,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       <span className="text-xs font-extrabold text-[#0E0E0E] uppercase tracking-wider block">
                         3. Live Button Visual Preview (লাইভ বাটন প্রিভিউ)
                       </span>
-                      <div className="p-6 bg-[#FAFAFA] border border-dashed border-[#EEAB59] rounded-xl flex flex-col items-center justify-center space-y-3 text-center">
+                      <div className="p-6 bg-[#FAFAFA] border border-dashed border-[#E2D9D2] rounded-xl flex flex-col items-center justify-center space-y-3 text-center">
                         <button
                           type="button"
                           style={{
@@ -2658,7 +2658,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, basePrice: Number(e.target.value) })
                           }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-black text-[#E67E00] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-black text-[#B8623B] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
                       <div>
@@ -2671,7 +2671,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           onChange={(e) =>
                             handleUpdateActiveConfig({ ...currentActiveConfig, originalPrice: Number(e.target.value) })
                           }
-                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                          className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                         />
                       </div>
                     </div>
@@ -2692,7 +2692,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             onChange={(e) =>
                               handleUpdateActiveConfig({ ...currentActiveConfig, deliveryInsideDhaka: Number(e.target.value) })
                             }
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
 
@@ -2706,7 +2706,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             onChange={(e) =>
                               handleUpdateActiveConfig({ ...currentActiveConfig, deliverySubDhaka: Number(e.target.value) })
                             }
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
 
@@ -2720,7 +2720,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             onChange={(e) =>
                               handleUpdateActiveConfig({ ...currentActiveConfig, deliveryOutsideDhaka: Number(e.target.value) })
                             }
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
                       </div>
@@ -2735,9 +2735,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       Active Payment Gateways at Checkout:
                     </span>
 
-                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#EEAB59] transition-all">
+                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#E2D9D2] transition-all">
                       <div className="flex items-center gap-2">
-                        <CreditCard className="w-4 h-4 text-[#E67E00]" />
+                        <CreditCard className="w-4 h-4 text-[#B8623B]" />
                         <span className="font-bold text-[#0E0E0E]">Cash On Delivery (COD)</span>
                       </div>
                       <input
@@ -2749,13 +2749,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             paymentMethods: { ...currentActiveConfig.paymentMethods, cod: e.target.checked }
                           })
                         }
-                        className="w-4 h-4 accent-[#E67E00]"
+                        className="w-4 h-4 accent-[#B8623B]"
                       />
                     </label>
 
-                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#EEAB59] transition-all">
+                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#E2D9D2] transition-all">
                       <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4 text-[#E67E00]" />
+                        <DollarSign className="w-4 h-4 text-[#B8623B]" />
                         <span className="font-bold text-[#0E0E0E]">bKash / Nagad Mobile Banking</span>
                       </div>
                       <input
@@ -2767,13 +2767,13 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             paymentMethods: { ...currentActiveConfig.paymentMethods, bkash: e.target.checked }
                           })
                         }
-                        className="w-4 h-4 accent-[#E67E00]"
+                        className="w-4 h-4 accent-[#B8623B]"
                       />
                     </label>
 
-                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#EEAB59] transition-all">
+                    <label className="flex items-center justify-between p-3 bg-white border border-[#EEEEEE] rounded-lg cursor-pointer hover:border-[#E2D9D2] transition-all">
                       <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-[#E67E00]" />
+                        <ShieldCheck className="w-4 h-4 text-[#B8623B]" />
                         <span className="font-bold text-[#0E0E0E]">Debit/Credit Card (SSLCommerz)</span>
                       </div>
                       <input
@@ -2785,7 +2785,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             paymentMethods: { ...currentActiveConfig.paymentMethods, card: e.target.checked }
                           })
                         }
-                        className="w-4 h-4 accent-[#E67E00]"
+                        className="w-4 h-4 accent-[#B8623B]"
                       />
                     </label>
                   </div>
@@ -2810,7 +2810,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newReviewAuthor}
                             onChange={(e) => setNewReviewAuthor(e.target.value)}
                             placeholder="যেমন: মোহাম্মদ আব্দুল্লাহ"
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                             required
                           />
                         </div>
@@ -2822,7 +2822,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <select
                             value={newReviewRating}
                             onChange={(e) => setNewReviewRating(Number(e.target.value))}
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#E67E00] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#B8623B] focus:border-[#B8623B] focus:outline-none"
                           >
                             <option value={5}>★★★★★ (5 Stars)</option>
                             <option value={4}>★★★★☆ (4 Stars)</option>
@@ -2839,7 +2839,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newReviewDate}
                             onChange={(e) => setNewReviewDate(e.target.value)}
                             placeholder="e.g. Dhaka • 2 days ago"
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
                       </div>
@@ -2853,7 +2853,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           value={newReviewContent}
                           onChange={(e) => setNewReviewContent(e.target.value)}
                           placeholder="প্রোডাক্টটি পেয়ে খুব ভালো লাগলো, প্যাকেজিং সুন্দর ছিল..."
-                          className="w-full p-2.5 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                          className="w-full p-2.5 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           required
                         />
                       </div>
@@ -2868,9 +2868,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={newReviewImageUrl}
                             onChange={(e) => setNewReviewImageUrl(e.target.value)}
                             placeholder="https://images.unsplash.com/photo-..."
-                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3 py-1.5 bg-white border border-[#EEEEEE] rounded text-xs font-mono font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
-                          <label className="px-3.5 py-1.5 bg-white border border-[#EEAB59] text-[#E67E00] hover:bg-[#FCF1E5] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
+                          <label className="px-3.5 py-1.5 bg-white border border-[#E2D9D2] text-[#B8623B] hover:bg-[#F7F4F1] font-extrabold text-xs rounded cursor-pointer shrink-0 transition-all flex items-center gap-1.5 shadow-2xs">
                             <Upload className="w-3.5 h-3.5" />
                             <span>Upload Image</span>
                             <input
@@ -2912,7 +2912,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <div className="space-y-1">
                             <div className="flex items-center gap-2 font-bold text-[#0E0E0E]">
                               <span>{rev.author}</span>
-                              <span className="text-[#E67E00]">{'★'.repeat(rev.rating)}</span>
+                              <span className="text-[#B8623B]">{'★'.repeat(rev.rating)}</span>
                               <span className="text-[10px] text-[#8F8F8F] font-normal">({rev.date})</span>
                             </div>
                             <p className="text-[11px] text-[#545454] leading-relaxed">{rev.content}</p>
@@ -2944,7 +2944,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                 {activeBuilderTab === 'seo' && (
                   <div className="space-y-5 text-xs">
                     {/* SECTION 5 HEADER BANNER */}
-                    <div className="p-4 bg-gradient-to-r from-[#ECFFE8] via-[#FCF1E5] to-[#EFF6FF] border border-[#008F2F]/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
+                    <div className="p-4 bg-gradient-to-r from-[#ECFFE8] via-[#F7F4F1] to-[#EFF6FF] border border-[#008F2F]/40 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-2xs">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <h3 className="font-extrabold text-[#0E0E0E] text-xs md:text-sm flex items-center gap-1.5">
@@ -2978,7 +2978,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                     <div className="p-4 bg-[#FAFAFA] border border-[#EEEEEE] rounded-xl space-y-4">
                       <div className="flex items-center justify-between pb-2 border-b border-[#EEEEEE]">
                         <div className="flex items-center gap-1.5 font-extrabold text-[#0E0E0E] text-xs uppercase tracking-wider">
-                          <Search className="w-4 h-4 text-[#E67E00]" />
+                          <Search className="w-4 h-4 text-[#B8623B]" />
                           <span>১. গুগল সার্চ ইঞ্জিন মেটা তথ্য (Google Search Meta Settings)</span>
                         </div>
                         <span className="text-[10px] font-bold text-[#008F2F] bg-[#ECFFE8] px-2 py-0.5 rounded border border-[#008F2F]/20">
@@ -3004,7 +3004,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={currentSeo.metaTitle}
                             onChange={(e) => updateSeo({ metaTitle: e.target.value })}
                             placeholder="e.g. Aura Pro Studio ANC Headphones - 100% Authentic Deal in BD"
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                           />
                         </div>
 
@@ -3025,7 +3025,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={currentSeo.metaDescription}
                             onChange={(e) => updateSeo({ metaDescription: e.target.value })}
                             placeholder="অরিজিনাল হেডফোন ক্যাশ অন ডেলিভারিতে ক্রয় করুন। দ্রুত হোম ডেলিভারি ও ১ বছরের রিপ্লেসমেন্ট ওয়ারেন্টি।"
-                            className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:bg-[#FCF1E5]/20 focus:outline-none"
+                            className="w-full p-3 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:bg-[#F7F4F1]/20 focus:outline-none"
                           />
                         </div>
 
@@ -3039,7 +3039,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={currentSeo.metaKeywords || ''}
                             onChange={(e) => updateSeo({ metaKeywords: e.target.value })}
                             placeholder="headphone, anc, organic honey, promo offer, fast delivery"
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
 
@@ -3053,7 +3053,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                             value={currentSeo.canonicalUrl || `https://promisemart.com/landing/${activePage?.slug}`}
                             onChange={(e) => updateSeo({ canonicalUrl: e.target.value })}
                             placeholder="https://promisemart.com/landing/aura-pro-anc"
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded font-mono text-xs font-medium text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           />
                         </div>
 
@@ -3082,7 +3082,7 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                           <select
                             value={currentSeo.schemaType || 'Product'}
                             onChange={(e) => updateSeo({ schemaType: e.target.value as any })}
-                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#E67E00] focus:outline-none"
+                            className="w-full px-3.5 py-2 bg-white border border-[#EEEEEE] rounded text-xs font-bold text-[#0E0E0E] focus:border-[#B8623B] focus:outline-none"
                           >
                             <option value="Product">Product (E-Commerce Standard)</option>
                             <option value="Offer">Offer (Promotional Deal)</option>
@@ -3093,9 +3093,9 @@ export const DynamicStorefront: React.FC<DynamicStorefrontProps> = ({
                       </div>
 
                       {/* Google Search Result Live Preview Card */}
-                      <div className="p-3.5 bg-[#FCF1E5]/40 border border-[#EEAB59]/80 rounded-xl space-y-1">
-                        <span className="text-[10px] font-extrabold text-[#E67E00] uppercase tracking-wider flex items-center gap-1">
-                          <Search className="w-3 h-3 text-[#E67E00]" />
+                      <div className="p-3.5 bg-[#F7F4F1]/40 border border-[#E2D9D2]/80 rounded-xl space-y-1">
+                        <span className="text-[10px] font-extrabold text-[#B8623B] uppercase tracking-wider flex items-center gap-1">
+                          <Search className="w-3 h-3 text-[#B8623B]" />
                           <span>Google Search SERP Result Live Preview:</span>
                         </span>
                         <div className="text-blue-700 font-bold text-sm leading-snug hover:underline cursor-pointer line-clamp-1">

@@ -72,7 +72,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       <div className="bg-white border border-neutral-200 rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Header */}
         <div className="p-4 border-b border-neutral-100 flex items-center gap-3 bg-neutral-50/50">
-          <Search className="w-5 h-5 text-orange-500 shrink-0" />
+          <Search className="w-5 h-5 text-[#B8623B] shrink-0" />
           <input
             id="global-search-input"
             type="text"
@@ -103,7 +103,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
           {/* Orders Section */}
           <div>
             <div className="flex items-center justify-between text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">
-              <span className="flex items-center gap-1.5 text-orange-600">
+              <span className="flex items-center gap-1.5 text-[#B8623B]">
                 <ShoppingBag className="w-3.5 h-3.5" />
                 Orders ({filteredOrders.length})
               </span>
@@ -112,7 +112,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                   onNavigateTab('orders');
                   onClose();
                 }}
-                className="text-[11px] text-neutral-500 hover:text-orange-600 flex items-center gap-1"
+                className="text-[11px] text-neutral-500 hover:text-[#B8623B] flex items-center gap-1"
               >
                 View all <ArrowRight className="w-3 h-3" />
               </button>
@@ -129,11 +129,11 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                       onSelectOrder(order);
                       onClose();
                     }}
-                    className="flex items-center justify-between p-3 bg-white hover:bg-orange-50/60 border border-neutral-200 rounded-xl cursor-pointer transition-colors group"
+                    className="flex items-center justify-between p-3 bg-white hover:bg-[#F7F4F1]/60 border border-neutral-200 rounded-xl cursor-pointer transition-colors group"
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-extrabold text-xs text-neutral-900 group-hover:text-orange-600">
+                        <span className="font-extrabold text-xs text-neutral-900 group-hover:text-[#B8623B]">
                           {order.id}
                         </span>
                         <span className="text-xs text-neutral-600 font-medium">
@@ -173,7 +173,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                   onNavigateTab('customers');
                   onClose();
                 }}
-                className="text-[11px] text-neutral-500 hover:text-orange-600 flex items-center gap-1"
+                className="text-[11px] text-neutral-500 hover:text-[#B8623B] flex items-center gap-1"
               >
                 View all <ArrowRight className="w-3 h-3" />
               </button>
@@ -200,7 +200,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                         <span className="text-xs text-neutral-500">
                           ({lead.phone})
                         </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EFE8E2] text-[#944923]">
                           Score: {lead.score}
                         </span>
                       </div>
@@ -208,7 +208,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                         Cart Value: ৳{lead.cartValue} • Step: {lead.abandonedStep}
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-orange-600">
+                    <span className="text-xs font-bold text-[#B8623B]">
                       Recover
                     </span>
                   </div>
@@ -242,7 +242,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
                     <div className="font-bold text-xs text-neutral-900 truncate">
                       {p.title}
                     </div>
-                    <div className="text-[11px] font-extrabold text-orange-600">
+                    <div className="text-[11px] font-extrabold text-[#B8623B]">
                       ৳{p.price.toLocaleString()}
                     </div>
                   </div>

@@ -100,10 +100,10 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
       `}</style>
 
       <div className="fixed inset-0 z-50 bg-[#0E0E0E]/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-        <div className="bg-white border border-[#EEAB59] rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden my-6 relative text-[#0E0E0E]">
+        <div className="bg-white border border-[#E2D9D2] rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden my-6 relative text-[#0E0E0E]">
           
           {/* Aura Pro Modal Top Bar */}
-          <div className="bg-[#E67E00] text-white p-5 relative no-print border-b border-[#EEAB59]">
+          <div className="bg-[#B8623B] text-white p-5 relative no-print border-b border-[#E2D9D2]">
             <button
               onClick={onClose}
               className="absolute top-4 right-4 p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-all"
@@ -113,7 +113,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
 
             <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white text-[#E67E00] flex items-center justify-center font-black shadow-md">
+                <div className="w-10 h-10 rounded-xl bg-white text-[#B8623B] flex items-center justify-center font-black shadow-md">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
@@ -144,9 +144,9 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
 
           {/* Logo / Footer Banner Upload Panel */}
           {showLogoUploader && (
-            <div className="p-4 bg-[#FCF1E5] border-b border-[#EEAB59] no-print space-y-3 text-xs">
-              <div className="flex items-center justify-between border-b border-[#EEAB59]/50 pb-2">
-                <span className="font-bold text-[#E67E00] uppercase tracking-wider flex items-center gap-1.5">
+            <div className="p-4 bg-[#F7F4F1] border-b border-[#E2D9D2] no-print space-y-3 text-xs">
+              <div className="flex items-center justify-between border-b border-[#E2D9D2]/50 pb-2">
+                <span className="font-bold text-[#B8623B] uppercase tracking-wider flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4" />
                   <span>Invoice Custom Business Logos & Banners</span>
                 </span>
@@ -155,7 +155,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Header Logo Upload */}
-                <div className="bg-white p-3 rounded border border-[#EEAB59]/60 space-y-2">
+                <div className="bg-white p-3 rounded border border-[#E2D9D2]/60 space-y-2">
                   <span className="font-bold text-[#0E0E0E] block text-[11px]">Invoice Header Logo / Banner</span>
                   {headerLogo && (
                     <div className="h-10 bg-[#FAFAFA] border border-[#EEEEEE] rounded p-1 flex items-center justify-between">
@@ -173,7 +173,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                       onChange={(e) => setHeaderLogo(e.target.value)}
                       className="flex-1 p-1.5 border border-[#EEEEEE] rounded text-[10px] font-mono"
                     />
-                    <label className="px-2.5 py-1.5 bg-[#E67E00] text-white font-bold rounded cursor-pointer hover:bg-[#CC7000] text-[10px] shrink-0 flex items-center gap-1">
+                    <label className="px-2.5 py-1.5 bg-[#B8623B] text-white font-bold rounded cursor-pointer hover:bg-[#944923] text-[10px] shrink-0 flex items-center gap-1">
                       <Upload className="w-3 h-3" />
                       <span>Upload</span>
                       <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'header')} className="hidden" />
@@ -182,7 +182,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                 </div>
 
                 {/* Footer Business Logo Upload */}
-                <div className="bg-white p-3 rounded border border-[#EEAB59]/60 space-y-2">
+                <div className="bg-white p-3 rounded border border-[#E2D9D2]/60 space-y-2">
                   <span className="font-bold text-[#0E0E0E] block text-[11px]">Invoice Footer Business Logo / Stamp</span>
                   {footerLogo && (
                     <div className="h-10 bg-[#FAFAFA] border border-[#EEEEEE] rounded p-1 flex items-center justify-between">
@@ -200,7 +200,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                       onChange={(e) => setFooterLogo(e.target.value)}
                       className="flex-1 p-1.5 border border-[#EEEEEE] rounded text-[10px] font-mono"
                     />
-                    <label className="px-2.5 py-1.5 bg-[#E67E00] text-white font-bold rounded cursor-pointer hover:bg-[#CC7000] text-[10px] shrink-0 flex items-center gap-1">
+                    <label className="px-2.5 py-1.5 bg-[#B8623B] text-white font-bold rounded cursor-pointer hover:bg-[#944923] text-[10px] shrink-0 flex items-center gap-1">
                       <Upload className="w-3 h-3" />
                       <span>Upload</span>
                       <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'footer')} className="hidden" />
@@ -229,7 +229,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
             <div className="flex flex-col sm:flex-row justify-between gap-4 border-b border-[#EEEEEE] pb-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-4 h-4 text-[#E67E00]" />
+                  <Building2 className="w-4 h-4 text-[#B8623B]" />
                   <h3 className="font-black text-sm uppercase tracking-wider text-[#0E0E0E]">
                     PROMISE MART LTD
                   </h3>
@@ -240,8 +240,8 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                 </p>
               </div>
 
-              <div className="text-left sm:text-right bg-[#FCF1E5]/40 border border-[#EEAB59] p-3 rounded-lg sm:min-w-[180px]">
-                <span className="text-[10px] font-black uppercase text-[#E67E00] tracking-wider block">
+              <div className="text-left sm:text-right bg-[#F7F4F1]/40 border border-[#E2D9D2] p-3 rounded-lg sm:min-w-[180px]">
+                <span className="text-[10px] font-black uppercase text-[#B8623B] tracking-wider block">
                   INVOICE NUMBER
                 </span>
                 <div className="text-base font-black text-[#0E0E0E]">
@@ -256,12 +256,12 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
             {/* Customer & Shipping Summary Card */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 bg-[#FAFAFA] rounded-xl border border-[#EEEEEE] text-xs">
               <div className="space-y-1">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#E67E00] block">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#B8623B] block">
                   CUSTOMER DETAILS
                 </span>
                 <div className="font-extrabold text-[#0E0E0E] text-sm">{order.customerName}</div>
                 <div className="flex items-center gap-1 text-[#545454] font-bold">
-                  <Phone className="w-3.5 h-3.5 text-[#E67E00]" />
+                  <Phone className="w-3.5 h-3.5 text-[#B8623B]" />
                   <span>{order.customerPhone}</span>
                 </div>
                 <div className="flex items-start gap-1 text-[#545454] font-medium pt-0.5">
@@ -271,12 +271,12 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
               </div>
 
               <div className="space-y-1 sm:text-right border-t sm:border-t-0 sm:border-l border-[#EEEEEE] pt-2 sm:pt-0 sm:pl-3">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#E67E00] block">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#B8623B] block">
                   FULFILLMENT & PAYMENT
                 </span>
                 <div className="flex items-center gap-1 sm:justify-end">
                   <span className="font-bold text-[#0E0E0E]">Method:</span>
-                  <span className="font-extrabold px-2 py-0.5 bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] rounded text-[11px] uppercase">
+                  <span className="font-extrabold px-2 py-0.5 bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] rounded text-[11px] uppercase">
                     {order.paymentMethod}
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                   <span className={`px-2 py-0.5 text-[10px] font-extrabold rounded-full uppercase ${
                     order.status === 'Delivered'
                       ? 'bg-[#ECFFE8] text-[#008F2F] border border-[#008F2F]/30'
-                      : 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]'
+                      : 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]'
                   }`}>
                     {order.status}
                   </span>
@@ -297,10 +297,10 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
             </div>
 
             {/* Itemized Order Table */}
-            <div className="border border-[#EEAB59] rounded-xl overflow-hidden">
+            <div className="border border-[#E2D9D2] rounded-xl overflow-hidden">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-[#E67E00] text-white font-black uppercase text-[10px] tracking-wider">
+                  <tr className="bg-[#B8623B] text-white font-black uppercase text-[10px] tracking-wider">
                     <th className="py-2.5 px-3">ITEM DESCRIPTION</th>
                     <th className="py-2.5 px-3 text-center">QTY</th>
                     <th className="py-2.5 px-3 text-right">PRICE</th>
@@ -308,12 +308,12 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                 </thead>
                 <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#0E0E0E]">
                   {order.items.map((item, idx) => (
-                    <tr key={idx} className="hover:bg-[#FCF1E5]/20 transition-colors">
+                    <tr key={idx} className="hover:bg-[#F7F4F1]/20 transition-colors">
                       <td className="py-2.5 px-3">
                         <div className="font-bold">{item.name}</div>
                         <div className="text-[10px] text-[#545454]">Variant: {item.variant}</div>
                       </td>
-                      <td className="py-2.5 px-3 text-center font-bold text-[#E67E00]">
+                      <td className="py-2.5 px-3 text-center font-bold text-[#B8623B]">
                         {item.quantity}x
                       </td>
                       <td className="py-2.5 px-3 text-right font-extrabold">
@@ -326,7 +326,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
             </div>
 
             {/* Total Payable Summary Box */}
-            <div className="bg-[#FCF1E5]/50 border border-[#EEAB59] p-3.5 rounded-xl flex items-center justify-between">
+            <div className="bg-[#F7F4F1]/50 border border-[#E2D9D2] p-3.5 rounded-xl flex items-center justify-between">
               <div>
                 <span className="text-[11px] font-bold text-[#545454] block uppercase tracking-wider">
                   TOTAL AMOUNT PAYABLE (COD)
@@ -336,7 +336,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                   Includes standard home delivery charge
                 </span>
               </div>
-              <div className="text-2xl font-black text-[#E67E00]">
+              <div className="text-2xl font-black text-[#B8623B]">
                 ৳{order.totalAmount.toLocaleString()}
               </div>
             </div>
@@ -385,8 +385,8 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
                       onClick={() => onUpdateStatus(order.id, st)}
                       className={`px-3 py-1 text-xs font-bold rounded-full transition-all uppercase tracking-wider ${
                         order.status === st
-                          ? 'bg-[#E67E00] text-white shadow-xs'
-                          : 'bg-white hover:bg-[#FCF1E5] text-[#545454] border border-[#EEEEEE]'
+                          ? 'bg-[#B8623B] text-white shadow-xs'
+                          : 'bg-white hover:bg-[#F7F4F1] text-[#545454] border border-[#EEEEEE]'
                       }`}
                     >
                       {st}
@@ -401,7 +401,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
               <button
                 id="download-invoice-btn"
                 onClick={handlePrint}
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white font-extrabold text-xs rounded-full shadow-md transition-all uppercase tracking-wider"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print / Save PDF</span>
@@ -409,7 +409,7 @@ export const OrderInvoiceModal: React.FC<OrderInvoiceModalProps> = ({
               <button
                 id="continue-shopping-btn"
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-[#FCF1E5] text-[#0E0E0E] border border-[#EEAB59] font-bold text-xs rounded-full transition-all uppercase tracking-wider"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-[#F7F4F1] text-[#0E0E0E] border border-[#E2D9D2] font-bold text-xs rounded-full transition-all uppercase tracking-wider"
               >
                 <span>Close Window</span>
               </button>

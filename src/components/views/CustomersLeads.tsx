@@ -602,7 +602,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
         {/* Toast Floating Alert */}
         {toastMessage && (
           <div className="fixed top-20 right-6 z-50 bg-black text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-bold border border-neutral-800 animate-bounce">
-            <CheckCircle2 className="w-4 h-4 text-orange-500" />
+            <CheckCircle2 className="w-4 h-4 text-[#B8623B]" />
             <span>{toastMessage}</span>
           </div>
         )}
@@ -614,7 +614,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               onClick={() => setIsViewingCustomer(false)}
               className="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-black font-extrabold rounded-xl transition-all flex items-center gap-1.5 text-xs border border-black/10"
             >
-              <ArrowLeft className="w-4 h-4 text-orange-600" />
+              <ArrowLeft className="w-4 h-4 text-[#B8623B]" />
               <span>Back</span>
             </button>
             <div>
@@ -631,17 +631,17 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               <input
                 type="text"
                 placeholder="Search leads, plots, clients..."
-                className="pl-8 pr-3 py-1.5 bg-neutral-50 border border-black/10 rounded-xl text-xs font-medium w-48 sm:w-64 focus:outline-none focus:border-orange-500"
+                className="pl-8 pr-3 py-1.5 bg-neutral-50 border border-black/10 rounded-xl text-xs font-medium w-48 sm:w-64 focus:outline-none focus:border-[#B8623B]"
               />
             </div>
 
             <button className="p-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-xl border border-black/10 relative">
               <Bell className="w-4 h-4" />
-              <span className="w-2 h-2 bg-orange-500 rounded-full absolute top-1 right-1" />
+              <span className="w-2 h-2 bg-[#B8623B] rounded-full absolute top-1 right-1" />
             </button>
 
             <div className="flex items-center gap-2 pl-2 border-l border-black/10">
-              <div className="w-7 h-7 rounded-full bg-orange-500 text-white font-black text-xs flex items-center justify-center">
+              <div className="w-7 h-7 rounded-full bg-[#B8623B] text-white font-black text-xs flex items-center justify-center">
                 AK
               </div>
               <div className="hidden sm:block text-left">
@@ -656,7 +656,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
         <div className="bg-white p-5 rounded-2xl border border-black/10 shadow-2xs text-xs space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-black/10">
             <div className="flex items-center gap-2">
-              <User className="w-4 h-4 text-orange-600" />
+              <User className="w-4 h-4 text-[#B8623B]" />
               <h2 className="text-xs font-black uppercase text-black tracking-wider">
                 Lead Profile & Preference Details
               </h2>
@@ -770,7 +770,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
                     required
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
                 <div>
@@ -780,7 +780,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     value={editPhone}
                     onChange={(e) => setEditPhone(e.target.value)}
                     required
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
                 <div>
@@ -789,7 +789,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     type="email"
                     value={editEmail}
                     onChange={(e) => setEditEmail(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
                 <div>
@@ -798,7 +798,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     type="text"
                     value={editProduct}
                     onChange={(e) => setEditProduct(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
               </div>
@@ -809,7 +809,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   type="text"
                   value={editAddress}
                   onChange={(e) => setEditAddress(e.target.value)}
-                  className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                 />
               </div>
 
@@ -819,7 +819,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <select
                     value={editLeadSource}
                     onChange={(e) => setEditLeadSource(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   >
                     <option value="Facebook Ad">Facebook Ad</option>
                     <option value="Instagram">Instagram</option>
@@ -834,7 +834,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <select
                     value={editAssignedSales}
                     onChange={(e) => setEditAssignedSales(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   >
                     <option value="Tanvir Ahmed">Tanvir Ahmed</option>
                     <option value="Farzana Yeasmin">Farzana Yeasmin</option>
@@ -848,7 +848,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <select
                     value={editStatus}
                     onChange={(e) => setEditStatus(e.target.value as CRMCustomer['status'])}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-black text-orange-600 focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-black text-[#B8623B] focus:outline-none focus:border-[#B8623B]"
                   >
                     <option value="New">New</option>
                     <option value="Contacted">Contacted</option>
@@ -865,7 +865,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
 
               <button
                 type="submit"
-                className="w-full py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs rounded-xl shadow-xs transition-all"
+                className="w-full py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white font-black text-xs rounded-xl shadow-xs transition-all"
               >
                 Save Lead Changes
               </button>
@@ -904,15 +904,15 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                 {filteredTimeline.map((act, idx) => (
                   <div key={act.id} className="relative group">
                     {/* Left Icon Dot on Line */}
-                    <div className="absolute -left-6 top-2.5 w-5 h-5 rounded-full bg-white border-2 border-orange-500 shadow-2xs flex items-center justify-center z-10">
+                    <div className="absolute -left-6 top-2.5 w-5 h-5 rounded-full bg-white border-2 border-[#B8623B] shadow-2xs flex items-center justify-center z-10">
                       {act.type === 'call' ? (
-                        <Phone className="w-2.5 h-2.5 text-orange-600" />
+                        <Phone className="w-2.5 h-2.5 text-[#B8623B]" />
                       ) : act.type === 'whatsapp' ? (
                         <MessageSquare className="w-2.5 h-2.5 text-emerald-600" />
                       ) : act.title.toLowerCase().includes('visit') ? (
                         <MapPin className="w-2.5 h-2.5 text-purple-600" />
                       ) : (
-                        <CheckCircle2 className="w-2.5 h-2.5 text-orange-500" />
+                        <CheckCircle2 className="w-2.5 h-2.5 text-[#B8623B]" />
                       )}
                     </div>
 
@@ -947,7 +947,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                       {/* Card Footer Info */}
                       <div className="flex items-center justify-between text-[10px] text-neutral-500 font-bold pt-1 border-t border-black/5">
                         <span className="flex items-center gap-1">
-                          <User className="w-3 h-3 text-orange-500" />
+                          <User className="w-3 h-3 text-[#B8623B]" />
                           Log Executed By: <strong className="text-black">{selectedCustomer.assignedSales}</strong>
                         </span>
 
@@ -1014,8 +1014,8 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             {/* + Add Activity Log Card (Real-Time CRM Form matching Reference) */}
             <div className="p-5 bg-white border border-black/10 rounded-2xl shadow-2xs space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-black/10">
-                <h3 className="text-xs font-black text-orange-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Plus className="w-4 h-4 text-orange-500" />
+                <h3 className="text-xs font-black text-[#B8623B] uppercase tracking-wider flex items-center gap-1.5">
+                  <Plus className="w-4 h-4 text-[#B8623B]" />
                   Add Activity Log
                 </h3>
                 <span className="text-[9px] font-black uppercase bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded border border-black/10">
@@ -1033,7 +1033,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <select
                     value={activityChannel}
                     onChange={(e) => setActivityChannel(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   >
                     <option value="Direct Phone Call">Direct Phone Call</option>
                     <option value="WhatsApp">WhatsApp</option>
@@ -1051,7 +1051,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <select
                     value={activityLeadStatus}
                     onChange={(e) => setActivityLeadStatus(e.target.value as CRMCustomer['status'])}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   >
                     <option value="Booking Confirmed">Booking Confirmed</option>
                     <option value="Negotiation">Negotiation</option>
@@ -1106,7 +1106,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     type="date"
                     value={activityFollowUpDate}
                     onChange={(e) => setActivityFollowUpDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                    className="w-full px-3 py-2 bg-neutral-50 border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
 
@@ -1120,7 +1120,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     value={activityDetailedNotes}
                     onChange={(e) => setActivityDetailedNotes(e.target.value)}
                     placeholder="E.g., Client requested updated product specs and discount inquiry..."
-                    className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-orange-500"
+                    className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-[#B8623B]"
                   />
                 </div>
 
@@ -1137,14 +1137,14 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             </div>
 
             {/* AI Insights & Conversion Overview */}
-            <div className="p-4 bg-orange-50/80 border border-orange-200 rounded-2xl space-y-2 text-xs shadow-2xs">
-              <div className="flex items-center gap-1.5 font-black text-orange-600 text-xs">
-                <Sparkles className="w-4 h-4 text-orange-500" />
+            <div className="p-4 bg-[#F7F4F1]/80 border border-[#E2D9D2] rounded-2xl space-y-2 text-xs shadow-2xs">
+              <div className="flex items-center gap-1.5 font-black text-[#B8623B] text-xs">
+                <Sparkles className="w-4 h-4 text-[#B8623B]" />
                 <span>AI Lead Conversion Strategy</span>
               </div>
               <div className="text-neutral-700 font-medium space-y-1 text-[11px]">
                 <div>• Best Contact Time: <strong>{selectedCustomer.aiSuggestions.bestTimeToContact}</strong></div>
-                <div>• Purchase Intent Score: <strong className="text-orange-600 font-black">{selectedCustomer.aiSuggestions.chanceToPurchase}%</strong></div>
+                <div>• Purchase Intent Score: <strong className="text-[#B8623B] font-black">{selectedCustomer.aiSuggestions.chanceToPurchase}%</strong></div>
                 <div>• Recommendation: <strong>{selectedCustomer.aiSuggestions.crossSellSuggestion}</strong></div>
               </div>
             </div>
@@ -1159,7 +1159,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-black/10 pb-3">
                 <h3 className="font-black text-base text-black flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-orange-500" />
+                  <Phone className="w-4 h-4 text-[#B8623B]" />
                   Log Call with {selectedCustomer.name}
                 </h3>
                 <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -1171,12 +1171,12 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   value={callNotes}
                   onChange={(e) => setCallNotes(e.target.value)}
                   placeholder="Details of conversation with customer..."
-                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-[#B8623B]"
                 />
               </div>
               <div className="flex justify-end gap-2">
                 <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-                <button onClick={handleLogCall} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Complete & Log Call</button>
+                <button onClick={handleLogCall} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Complete & Log Call</button>
               </div>
             </div>
           </div>
@@ -1187,7 +1187,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-black/10 pb-3">
                 <h3 className="font-black text-base text-black flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-orange-500" />
+                  <MessageSquare className="w-4 h-4 text-[#B8623B]" />
                   Send WhatsApp Message
                 </h3>
                 <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -1198,12 +1198,12 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   rows={3}
                   value={whatsappMsg}
                   onChange={(e) => setWhatsappMsg(e.target.value)}
-                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                  className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-[#B8623B]"
                 />
               </div>
               <div className="flex justify-end gap-2">
                 <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-                <button onClick={handleSendWhatsApp} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Open WhatsApp App</button>
+                <button onClick={handleSendWhatsApp} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Open WhatsApp App</button>
               </div>
             </div>
           </div>
@@ -1214,7 +1214,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-black/10 pb-3">
                 <h3 className="font-black text-base text-black flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-orange-500" />
+                  <Calendar className="w-4 h-4 text-[#B8623B]" />
                   Schedule Follow-up
                 </h3>
                 <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -1252,7 +1252,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-black/10 pb-3">
                 <h3 className="font-black text-base text-black flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-orange-500" />
+                  <CreditCard className="w-4 h-4 text-[#B8623B]" />
                   Receive Customer Payment
                 </h3>
                 <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -1268,7 +1268,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               </div>
               <div className="flex justify-end gap-2">
                 <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-                <button onClick={handleReceivePayment} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Confirm Payment</button>
+                <button onClick={handleReceivePayment} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Confirm Payment</button>
               </div>
             </div>
           </div>
@@ -1284,7 +1284,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
       {/* Toast Floating Alert */}
       {toastMessage && (
         <div className="fixed top-20 right-6 z-50 bg-black text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-bold border border-neutral-800 animate-bounce">
-          <CheckCircle2 className="w-4 h-4 text-orange-500" />
+          <CheckCircle2 className="w-4 h-4 text-[#B8623B]" />
           <span>{toastMessage}</span>
         </div>
       )}
@@ -1296,7 +1296,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <h1 className="text-2xl font-bold tracking-tight text-[#0E0E0E]">
               Customers & Leads CRM
             </h1>
-            <span className="px-2.5 py-0.5 text-[10px] font-bold bg-[#E67E00] text-white rounded-full uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 text-[10px] font-bold bg-[#B8623B] text-white rounded-full uppercase tracking-wider">
               Promise Mart Ltd
             </span>
           </div>
@@ -1313,7 +1313,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               setAssignedFilter('All');
               setQuickFilter('All');
             }}
-            className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full text-xs font-semibold transition-all flex items-center gap-1.5"
+            className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] rounded-full text-xs font-semibold transition-all flex items-center gap-1.5"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Reset All
@@ -1323,45 +1323,45 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
 
       {/* SECTION 1: TOP KPI CARDS (Horizontal Grid) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
           <span className="text-[11px] font-bold uppercase text-[#8F8F8F] tracking-wider block">Total Leads</span>
           <div className="text-2xl font-bold text-[#0E0E0E] mt-1">{kpiTotalLeads}</div>
           <span className="text-[10px] font-medium text-[#8F8F8F] mt-1 block">Registered Database</span>
         </div>
 
-        <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
           <span className="text-[11px] font-bold uppercase text-[#8F8F8F] tracking-wider block">New Leads</span>
-          <div className="text-2xl font-bold text-[#E67E00] mt-1">{kpiNewLeads}</div>
+          <div className="text-2xl font-bold text-[#B8623B] mt-1">{kpiNewLeads}</div>
           <span className="text-[10px] font-medium text-[#8F8F8F] mt-1 block">Awaiting First Contact</span>
         </div>
 
-        <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
           <span className="text-[11px] font-bold uppercase text-[#8F8F8F] tracking-wider block">Follow-up Today</span>
           <div className="text-2xl font-bold text-[#0E0E0E] mt-1">{kpiFollowUpToday}</div>
-          <span className="text-[10px] font-bold text-[#E67E00] mt-1 block">High Priority</span>
+          <span className="text-[10px] font-bold text-[#B8623B] mt-1 block">High Priority</span>
         </div>
 
-        <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
           <span className="text-[11px] font-bold uppercase text-[#8F8F8F] tracking-wider block">Pending Orders</span>
           <div className="text-2xl font-bold text-[#0E0E0E] mt-1">{kpiPendingOrders}</div>
           <span className="text-[10px] font-medium text-[#8F8F8F] mt-1 block">In Pipeline</span>
         </div>
 
-        <div className="bg-white border border-[#EEAB59] rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
+        <div className="bg-white border border-[#E2D9D2] rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
           <span className="text-[11px] font-bold uppercase text-[#8F8F8F] tracking-wider block">Completed</span>
           <div className="text-2xl font-bold text-[#008F2F] mt-1">{kpiCompletedOrders}</div>
           <span className="text-[10px] font-medium text-[#8F8F8F] mt-1 block">Delivered Orders</span>
         </div>
 
-        <div className="bg-white border border-[#EEAB59] bg-[#FCF1E5]/30 rounded p-4 shadow-2xs hover:border-[#E67E00] transition-all">
-          <span className="text-[11px] font-bold uppercase text-[#E67E00] tracking-wider block">Total Revenue</span>
-          <div className="text-2xl font-bold text-[#E67E00] mt-1">৳{kpiTotalRevenue.toLocaleString()}</div>
-          <span className="text-[10px] font-bold text-[#E67E00] mt-1 block">Lifetime Customer Value</span>
+        <div className="bg-white border border-[#E2D9D2] bg-[#F7F4F1]/30 rounded p-4 shadow-2xs hover:border-[#B8623B] transition-all">
+          <span className="text-[11px] font-bold uppercase text-[#B8623B] tracking-wider block">Total Revenue</span>
+          <div className="text-2xl font-bold text-[#B8623B] mt-1">৳{kpiTotalRevenue.toLocaleString()}</div>
+          <span className="text-[10px] font-bold text-[#B8623B] mt-1 block">Lifetime Customer Value</span>
         </div>
       </div>
 
       {/* SECTION 2: SINGLE HORIZONTAL FILTER BAR */}
-      <div className="bg-white border border-[#EEAB59] rounded p-3 space-y-3">
+      <div className="bg-white border border-[#E2D9D2] rounded p-3 space-y-3">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
           
           {/* Global Search Input */}
@@ -1456,8 +1456,8 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                 onClick={() => setStatusFilter(pill.id)}
                 className={`px-3 py-1 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
                   isActive 
-                    ? 'bg-[#E67E00] text-white' 
-                    : 'bg-white border border-[#EEEEEE] hover:border-[#EEAB59] text-[#545454]'
+                    ? 'bg-[#B8623B] text-white' 
+                    : 'bg-white border border-[#EEEEEE] hover:border-[#E2D9D2] text-[#545454]'
                 }`}
               >
                 {pill.label}
@@ -1471,7 +1471,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
       {selectedIds.length > 0 && (
         <div className="bg-black text-white px-4 py-3 rounded-2xl flex items-center justify-between text-xs font-bold animate-fadeIn">
           <div className="flex items-center gap-2">
-            <span className="w-5 h-5 rounded-full bg-orange-500 text-white flex items-center justify-center text-[10px] font-black">
+            <span className="w-5 h-5 rounded-full bg-[#B8623B] text-white flex items-center justify-center text-[10px] font-black">
               {selectedIds.length}
             </span>
             <span>Customers Selected</span>
@@ -1481,7 +1481,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               onClick={() => {
                 setActiveModal('discount');
               }}
-              className="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-bold transition-all"
+              className="px-3 py-1.5 bg-[#B8623B] hover:bg-[#944923] text-white rounded-xl text-xs font-bold transition-all"
             >
               Apply Discount Coupon
             </button>
@@ -1496,17 +1496,17 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
       )}
 
       {/* SECTION 3: FULL WIDTH DATA TABLE */}
-      <div className="bg-white border border-[#EEAB59] rounded overflow-hidden flex flex-col justify-between min-h-[520px]">
+      <div className="bg-white border border-[#E2D9D2] rounded overflow-hidden flex flex-col justify-between min-h-[520px]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-[#E67E00] text-white font-bold text-[11px] uppercase tracking-wider sticky top-0 z-10">
+              <tr className="bg-[#B8623B] text-white font-bold text-[11px] uppercase tracking-wider sticky top-0 z-10">
                 <th className="py-3.5 px-4 w-10">
                   <input
                     type="checkbox"
                     checked={paginatedCustomers.length > 0 && selectedIds.length === paginatedCustomers.length}
                     onChange={handleSelectAll}
-                    className="rounded border-white/40 text-[#E67E00] focus:ring-0"
+                    className="rounded border-white/40 text-[#B8623B] focus:ring-0"
                   />
                 </th>
                 <th 
@@ -1554,25 +1554,25 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   const isChecked = selectedIds.includes(cust.id);
 
                   // Status Badge Styles (Aura Pro Design Tokens)
-                  let statusBadge = 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-bold';
-                  if (cust.status === 'New') statusBadge = 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59] font-bold';
-                  else if (cust.status === 'Contacted') statusBadge = 'bg-[#FCF1E5] text-[#0E0E0E] font-bold';
+                  let statusBadge = 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-bold';
+                  if (cust.status === 'New') statusBadge = 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2] font-bold';
+                  else if (cust.status === 'Contacted') statusBadge = 'bg-[#F7F4F1] text-[#0E0E0E] font-bold';
                   else if (cust.status === 'Follow-up') statusBadge = 'bg-[#0E0E0E] text-white font-bold';
-                  else if (cust.status === 'Ordered' || cust.status === 'Pending') statusBadge = 'bg-[#E67E00] text-white font-bold';
+                  else if (cust.status === 'Ordered' || cust.status === 'Pending') statusBadge = 'bg-[#B8623B] text-white font-bold';
                   else if (cust.status === 'Delivered' || cust.status === 'Repeat Customer') statusBadge = 'bg-[#ECFFE8] text-[#008F2F] font-bold';
                   else if (cust.status === 'Cancelled' || cust.status === 'Lost') statusBadge = 'bg-transparent text-[#FF0000] border border-[#FF0000] font-bold';
 
                   return (
                     <tr
                       key={cust.id}
-                      className="hover:bg-[#FCF1E5]/40 transition-colors group"
+                      className="hover:bg-[#F7F4F1]/40 transition-colors group"
                     >
                       <td className="py-3.5 px-4">
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => handleToggleSelect(cust.id)}
-                          className="rounded border-[#EEEEEE] text-[#E67E00] focus:ring-0"
+                          className="rounded border-[#EEEEEE] text-[#B8623B] focus:ring-0"
                         />
                       </td>
                       <td className="py-3.5 px-4">
@@ -1585,7 +1585,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         <div className="text-[11px] text-[#545454] font-medium flex items-center gap-2 mt-0.5">
                           <span>{cust.phone}</span>
                           <span>•</span>
-                          <span className="text-[#E67E00] font-bold">{cust.leadSource}</span>
+                          <span className="text-[#B8623B] font-bold">{cust.leadSource}</span>
                         </div>
                       </td>
                       <td className="py-3.5 px-4 font-semibold text-[#545454] max-w-[200px] truncate" title={cust.product}>
@@ -1599,7 +1599,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                           <span className="font-bold text-[#0E0E0E]">{cust.leadScore}</span>
                           <div className="w-12 bg-[#EEEEEE] h-2 rounded-full overflow-hidden">
                             <div 
-                              className={`h-full rounded-full ${cust.leadScore >= 80 ? 'bg-[#008F2F]' : cust.leadScore >= 50 ? 'bg-[#E67E00]' : 'bg-[#8F8F8F]'}`}
+                              className={`h-full rounded-full ${cust.leadScore >= 80 ? 'bg-[#008F2F]' : cust.leadScore >= 50 ? 'bg-[#B8623B]' : 'bg-[#8F8F8F]'}`}
                               style={{ width: `${cust.leadScore}%` }}
                             />
                           </div>
@@ -1650,7 +1650,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
         </div>
 
         {/* Pagination Controls */}
-        <div className="p-3.5 bg-[#FCF1E5]/30 border-t border-[#EEEEEE] flex items-center justify-between text-xs">
+        <div className="p-3.5 bg-[#F7F4F1]/30 border-t border-[#EEEEEE] flex items-center justify-between text-xs">
           <span className="text-[#545454] font-medium">
             Showing {paginatedCustomers.length} of {filteredCustomers.length} total entries
           </span>
@@ -1658,7 +1658,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-              className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full text-xs font-semibold disabled:opacity-40 transition-all"
+              className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] rounded-full text-xs font-semibold disabled:opacity-40 transition-all"
             >
               Previous
             </button>
@@ -1668,7 +1668,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-              className="px-4 py-1.5 border-[1.5px] border-[#E67E00] text-[#E67E00] bg-transparent hover:bg-[#FCF1E5] rounded-full text-xs font-semibold disabled:opacity-40 transition-all"
+              className="px-4 py-1.5 border-[1.5px] border-[#B8623B] text-[#B8623B] bg-transparent hover:bg-[#F7F4F1] rounded-full text-xs font-semibold disabled:opacity-40 transition-all"
             >
               Next
             </button>
@@ -1694,7 +1694,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             {/* Drawer Header */}
             <div className="p-5 border-b border-black/10 sticky top-0 bg-white/95 backdrop-blur-md z-20 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-black uppercase text-orange-600 tracking-wider block">
+                <span className="text-[10px] font-black uppercase text-[#B8623B] tracking-wider block">
                   Customer Profile & CRM Timeline
                 </span>
                 <h2 className="text-lg font-black text-black flex items-center gap-2 mt-0.5">
@@ -1719,7 +1719,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               <div className="p-4 bg-neutral-50 rounded-2xl border border-black/10 space-y-3 text-xs font-medium">
                 <div className="flex items-center justify-between pb-2 border-b border-black/10">
                   <span className="text-xs font-black uppercase text-black tracking-wider flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-orange-600" />
+                    <User className="w-3.5 h-3.5 text-[#B8623B]" />
                     Lead & Customer Information
                   </span>
                   {!isEditingLeadDetails ? (
@@ -1766,7 +1766,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-neutral-500 font-bold">Lead Source:</span>
-                      <span className="font-black text-orange-600">{selectedCustomer.leadSource}</span>
+                      <span className="font-black text-[#B8623B]">{selectedCustomer.leadSource}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-neutral-500 font-bold">Assigned Sales Rep:</span>
@@ -1782,7 +1782,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         value={editName}
                         onChange={(e) => setEditName(e.target.value)}
                         required
-                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -1793,7 +1793,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                           value={editPhone}
                           onChange={(e) => setEditPhone(e.target.value)}
                           required
-                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                         />
                       </div>
                       <div>
@@ -1802,7 +1802,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                           type="email"
                           value={editEmail}
                           onChange={(e) => setEditEmail(e.target.value)}
-                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                         />
                       </div>
                     </div>
@@ -1812,7 +1812,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         type="text"
                         value={editAddress}
                         onChange={(e) => setEditAddress(e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
                     <div>
@@ -1821,7 +1821,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         type="text"
                         value={editProduct}
                         onChange={(e) => setEditProduct(e.target.value)}
-                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
@@ -1830,7 +1830,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         <select
                           value={editLeadSource}
                           onChange={(e) => setEditLeadSource(e.target.value)}
-                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                         >
                           <option value="Facebook Ad">Facebook Ad</option>
                           <option value="Instagram">Instagram</option>
@@ -1845,7 +1845,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                         <select
                           value={editAssignedSales}
                           onChange={(e) => setEditAssignedSales(e.target.value)}
-                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                          className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                         >
                           <option value="Tanvir Ahmed">Tanvir Ahmed</option>
                           <option value="Farzana Yeasmin">Farzana Yeasmin</option>
@@ -1860,7 +1860,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                       <select
                         value={editStatus}
                         onChange={(e) => setEditStatus(e.target.value as CRMCustomer['status'])}
-                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-black text-orange-600 focus:outline-none focus:border-orange-500"
+                        className="w-full px-2.5 py-1.5 bg-white border border-black/20 rounded-lg text-xs font-black text-[#B8623B] focus:outline-none focus:border-[#B8623B]"
                       >
                         <option value="New">New</option>
                         <option value="Contacted">Contacted</option>
@@ -1875,7 +1875,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     </div>
                     <button
                       type="submit"
-                      className="w-full py-2 bg-orange-500 hover:bg-orange-600 text-white font-black text-xs rounded-xl shadow-xs transition-all"
+                      className="w-full py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-black text-xs rounded-xl shadow-xs transition-all"
                     >
                       Save Lead Changes
                     </button>
@@ -1895,14 +1895,14 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     onClick={() => setActiveModal('call')}
                     className="p-2.5 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 shadow-2xs"
                   >
-                    <Phone className="w-4 h-4 text-orange-500" />
+                    <Phone className="w-4 h-4 text-[#B8623B]" />
                     <span>Call Customer</span>
                   </button>
 
                   {/* WhatsApp Button */}
                   <button
                     onClick={() => setActiveModal('whatsapp')}
-                    className="p-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 shadow-2xs"
+                    className="p-2.5 bg-[#B8623B] hover:bg-[#944923] text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 shadow-2xs"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>WhatsApp</span>
@@ -1913,7 +1913,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     onClick={() => setActiveModal('email')}
                     className="p-2.5 bg-white border border-black hover:bg-neutral-100 text-black rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2"
                   >
-                    <Mail className="w-4 h-4 text-orange-500" />
+                    <Mail className="w-4 h-4 text-[#B8623B]" />
                     <span>Send Email</span>
                   </button>
 
@@ -1929,7 +1929,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   {/* Apply Discount */}
                   <button
                     onClick={() => setActiveModal('discount')}
-                    className="p-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2"
+                    className="p-2.5 bg-[#B8623B] hover:bg-[#944923] text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2"
                   >
                     <Percent className="w-4 h-4" />
                     <span>Discount</span>
@@ -1940,7 +1940,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     onClick={handleSellAgain}
                     className="p-2.5 bg-black hover:bg-neutral-800 text-white rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2"
                   >
-                    <ShoppingBag className="w-4 h-4 text-orange-500" />
+                    <ShoppingBag className="w-4 h-4 text-[#B8623B]" />
                     <span>Create Order</span>
                   </button>
 
@@ -1949,7 +1949,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     onClick={() => setActiveModal('receivePayment')}
                     className="p-2.5 bg-white border border-black hover:bg-neutral-100 text-black rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2"
                   >
-                    <CreditCard className="w-4 h-4 text-orange-500" />
+                    <CreditCard className="w-4 h-4 text-[#B8623B]" />
                     <span>Payment</span>
                   </button>
 
@@ -1979,7 +1979,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
 
                 <div className="p-3.5 bg-neutral-50 rounded-2xl border border-black/10 text-xs">
                   <span className="text-neutral-500 font-bold block">Payment Due</span>
-                  <span className="text-lg font-black text-orange-500 mt-0.5 block">
+                  <span className="text-lg font-black text-[#B8623B] mt-0.5 block">
                     ৳{selectedCustomer.paymentInfo.dueAmount.toLocaleString()}
                   </span>
                   <span className="text-[10px] text-neutral-400 font-semibold">
@@ -1989,8 +1989,8 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
               </div>
 
               {/* AI Smart Suggestions Card */}
-              <div className="p-4 bg-orange-50/60 border border-orange-200 rounded-2xl space-y-2 text-xs">
-                <div className="flex items-center gap-2 font-black text-orange-600">
+              <div className="p-4 bg-[#F7F4F1]/60 border border-[#E2D9D2] rounded-2xl space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-black text-[#B8623B]">
                   <Sparkles className="w-4 h-4" />
                   <span>AI Conversion Recommendations</span>
                 </div>
@@ -2012,7 +2012,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                     value={newNoteText}
                     onChange={(e) => setNewNoteText(e.target.value)}
                     placeholder="Type a note about this customer..."
-                    className="flex-1 px-3 py-2 bg-white border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-orange-500"
+                    className="flex-1 px-3 py-2 bg-white border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-[#B8623B]"
                   />
                   <button
                     onClick={handleAddNote}
@@ -2045,7 +2045,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   <button
                     type="button"
                     onClick={() => setShowAddActivityForm(!showAddActivityForm)}
-                    className="px-2.5 py-1 bg-orange-500 hover:bg-orange-600 text-white font-black text-[10px] rounded-lg transition-all"
+                    className="px-2.5 py-1 bg-[#B8623B] hover:bg-[#944923] text-white font-black text-[10px] rounded-lg transition-all"
                   >
                     {showAddActivityForm ? 'Cancel Activity' : '+ Log Lead Activity'}
                   </button>
@@ -2060,14 +2060,14 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                       value={customActivityTitle}
                       onChange={(e) => setCustomActivityTitle(e.target.value)}
                       placeholder="Activity Title (e.g. Sent Product Specs, Follow-up Scheduled)"
-                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-orange-500"
+                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-bold text-black focus:outline-none focus:border-[#B8623B]"
                     />
                     <textarea
                       rows={2}
                       value={customActivityDesc}
                       onChange={(e) => setCustomActivityDesc(e.target.value)}
                       placeholder="Activity notes & outcome..."
-                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-orange-500"
+                      className="w-full px-3 py-1.5 bg-white border border-black/20 rounded-xl text-xs font-medium text-black focus:outline-none focus:border-[#B8623B]"
                     />
                     <button
                       type="button"
@@ -2079,10 +2079,10 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                   </div>
                 )}
 
-                <div className="space-y-3 border-l-2 border-orange-500/30 pl-3.5 ml-1">
+                <div className="space-y-3 border-l-2 border-[#B8623B]/30 pl-3.5 ml-1">
                   {selectedCustomer.activityTimeline.map(act => (
                     <div key={act.id} className="text-xs space-y-0.5 relative">
-                      <div className="w-2.5 h-2.5 rounded-full bg-orange-500 border-2 border-white absolute -left-[19px] top-1 shadow-2xs" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#B8623B] border-2 border-white absolute -left-[19px] top-1 shadow-2xs" />
                       <div className="font-extrabold text-black">{act.title}</div>
                       <div className="text-neutral-600 font-medium">{act.desc}</div>
                       <div className="text-[10px] text-neutral-400 font-bold">{act.timestamp}</div>
@@ -2116,7 +2116,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
           <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-black/10 pb-3">
               <h3 className="font-black text-base text-black flex items-center gap-2">
-                <Phone className="w-4 h-4 text-orange-500" />
+                <Phone className="w-4 h-4 text-[#B8623B]" />
                 Log Call with {selectedCustomer.name}
               </h3>
               <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -2128,12 +2128,12 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                 value={callNotes}
                 onChange={(e) => setCallNotes(e.target.value)}
                 placeholder="Details of conversation with customer..."
-                className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-[#B8623B]"
               />
             </div>
             <div className="flex justify-end gap-2">
               <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-              <button onClick={handleLogCall} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Complete & Log Call</button>
+              <button onClick={handleLogCall} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Complete & Log Call</button>
             </div>
           </div>
         </div>
@@ -2145,7 +2145,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
           <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-black/10 pb-3">
               <h3 className="font-black text-base text-black flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-orange-500" />
+                <MessageSquare className="w-4 h-4 text-[#B8623B]" />
                 Send WhatsApp Message
               </h3>
               <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -2156,12 +2156,12 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
                 rows={3}
                 value={whatsappMsg}
                 onChange={(e) => setWhatsappMsg(e.target.value)}
-                className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-orange-500"
+                className="w-full p-3 bg-neutral-50 border border-black/20 rounded-xl text-xs focus:outline-none focus:border-[#B8623B]"
               />
             </div>
             <div className="flex justify-end gap-2">
               <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-              <button onClick={handleSendWhatsApp} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Open WhatsApp App</button>
+              <button onClick={handleSendWhatsApp} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Open WhatsApp App</button>
             </div>
           </div>
         </div>
@@ -2173,7 +2173,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
           <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-black/10 pb-3">
               <h3 className="font-black text-base text-black flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-orange-500" />
+                <Calendar className="w-4 h-4 text-[#B8623B]" />
                 Schedule Follow-up
               </h3>
               <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -2212,7 +2212,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
           <div className="bg-white border border-black/20 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between border-b border-black/10 pb-3">
               <h3 className="font-black text-base text-black flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-orange-500" />
+                <CreditCard className="w-4 h-4 text-[#B8623B]" />
                 Receive Customer Payment
               </h3>
               <button onClick={() => setActiveModal(null)}><X className="w-4 h-4" /></button>
@@ -2228,7 +2228,7 @@ export const CustomersLeads: React.FC<CustomersLeadsProps> = () => {
             </div>
             <div className="flex justify-end gap-2">
               <button onClick={() => setActiveModal(null)} className="px-3 py-2 bg-neutral-100 text-black font-bold text-xs rounded-xl">Cancel</button>
-              <button onClick={handleReceivePayment} className="px-4 py-2 bg-orange-500 text-white font-black text-xs rounded-xl">Confirm Payment</button>
+              <button onClick={handleReceivePayment} className="px-4 py-2 bg-[#B8623B] text-white font-black text-xs rounded-xl">Confirm Payment</button>
             </div>
           </div>
         </div>

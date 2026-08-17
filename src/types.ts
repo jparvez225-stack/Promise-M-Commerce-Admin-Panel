@@ -1,3 +1,48 @@
+export interface StockItem {
+  id: string;
+  title: string;
+  brand: string;
+  category: string;
+  sku: string;
+  barcode: string;
+  mrp: number;
+  purchaseRate: number | null;
+  qty: number;
+  outlet: string;
+  unit?: string;
+  lastUpdated?: string;
+}
+
+export interface StockAdjustmentItem {
+  id: string;
+  title: string;
+  brand: string;
+  sku: string;
+  barcode: string;
+  mrp: number;
+  purchaseRate: number | null;
+  currentQty: number;
+  adjustedQty: number;
+  difference: number;
+  reason: string;
+  checked: boolean;
+  outlet: string;
+  unit?: string;
+}
+
+export interface StockAuditLog {
+  id: string;
+  date: string;
+  productTitle: string;
+  sku: string;
+  outlet: string;
+  previousQty: number;
+  newQty: number;
+  difference: number;
+  reason: string;
+  adjustedBy: string;
+}
+
 export interface UserProfile {
   name: string;
   email: string;
@@ -5,6 +50,11 @@ export interface UserProfile {
   role: string;
   avatar?: string;
 }
+
+export type StockSubTab = 
+  | 'ALL_STOCK'
+  | 'ALL_BARCODE'
+  | 'STOCK_ADJUSTMENT';
 
 export type ProductSubTab = 
   | 'MY_PRODUCTS' 
@@ -30,6 +80,7 @@ export type NavigationTab =
   | 'dashboard'
   | 'orders'
   | 'products'
+  | 'stock'
   | 'finance'
   | 'purchases'
   | 'reports'

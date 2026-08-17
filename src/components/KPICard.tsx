@@ -30,13 +30,13 @@ export const KPICard: React.FC<KPICardProps> = ({
     <div
       id={id}
       onClick={onClick}
-      className={`group relative bg-white border border-[#EEAB59] rounded p-4 sm:p-5 transition-all duration-200 cursor-pointer overflow-hidden ${
-        badgeText ? 'border-[#E67E00]' : ''
+      className={`group relative bg-white border border-[#E2D9D2] rounded p-4 sm:p-5 transition-all duration-200 cursor-pointer overflow-hidden ${
+        badgeText ? 'border-[#B8623B]' : ''
       }`}
     >
       <div className="flex items-start justify-between mb-3 gap-2">
         <div className="flex items-center gap-2.5 min-w-0">
-          <div className="w-10 h-10 rounded bg-[#FCF1E5] text-[#E67E00] flex items-center justify-center transition-colors duration-200 shrink-0">
+          <div className="w-10 h-10 rounded bg-[#F7F4F1] text-[#B8623B] flex items-center justify-center transition-colors duration-200 shrink-0">
             {icon}
           </div>
           <div className="truncate">
@@ -53,7 +53,7 @@ export const KPICard: React.FC<KPICardProps> = ({
 
         <button 
           aria-label="View metric details"
-          className="text-[#8F8F8F] hover:text-[#E67E00] transition-colors p-1 rounded hover:bg-[#FCF1E5] shrink-0"
+          className="text-[#8F8F8F] hover:text-[#B8623B] transition-colors p-1 rounded hover:bg-[#F7F4F1] shrink-0"
         >
           <ArrowUpRight className="w-3.5 h-3.5" />
         </button>

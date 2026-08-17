@@ -473,12 +473,12 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               <div className="space-y-6 animate-fadeIn">
                 
                 {/* Details Page Header Bar */}
-                <div className="bg-white p-5 rounded-2xl border border-[#EEAB59] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
+                <div className="bg-white p-5 rounded-2xl border border-[#E2D9D2] flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs">
                   <div className="flex items-center gap-3">
                     <button
                       type="button"
                       onClick={() => setSelectedPurchaseDetails(null)}
-                      className="p-2.5 bg-[#FCF1E5] hover:bg-[#E67E00] text-[#E67E00] hover:text-white border border-[#EEAB59] rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-xs shadow-2xs"
+                      className="p-2.5 bg-[#F7F4F1] hover:bg-[#B8623B] text-[#B8623B] hover:text-white border border-[#E2D9D2] rounded-xl transition-all cursor-pointer flex items-center gap-1.5 font-bold text-xs shadow-2xs"
                     >
                       <ChevronLeft className="w-4 h-4" />
                       <span>Back to All Purchase</span>
@@ -491,7 +491,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                         </span>
                       </div>
                       <p className="text-xs text-[#8F8F8F] font-mono mt-0.5">
-                        PO Reference: <span className="font-bold text-[#E67E00]">{selectedPurchaseDetails.poNo}</span>
+                        PO Reference: <span className="font-bold text-[#B8623B]">{selectedPurchaseDetails.poNo}</span>
                       </p>
                     </div>
                   </div>
@@ -500,9 +500,9 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                     <button
                       type="button"
                       onClick={() => alert(`Printing Invoice for ${selectedPurchaseDetails.poNo}`)}
-                      className="px-4 py-2 bg-white hover:bg-[#FCF1E5] text-[#0E0E0E] border border-[#EEAB59] rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
+                      className="px-4 py-2 bg-white hover:bg-[#F7F4F1] text-[#0E0E0E] border border-[#E2D9D2] rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
                     >
-                      <Printer className="w-4 h-4 text-[#E67E00]" />
+                      <Printer className="w-4 h-4 text-[#B8623B]" />
                       <span>Print Invoice</span>
                     </button>
                   </div>
@@ -514,7 +514,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   {/* Basic Information */}
                   <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                      <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                       <h3 className="font-bold text-sm text-[#0E0E0E]">Basic Information</h3>
                     </div>
 
@@ -554,7 +554,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   {/* Purchase Order Summary */}
                   <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
                     <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                      <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                      <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                       <h3 className="font-bold text-sm text-[#0E0E0E]">Purchase Order Summary</h3>
                     </div>
 
@@ -579,7 +579,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                 {/* 2. PRODUCTS TABLE */}
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
                   <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                    <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                    <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                     <h3 className="font-bold text-sm text-[#0E0E0E]">Products</h3>
                   </div>
 
@@ -611,7 +611,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                             <td className="py-3 px-3 text-right border-r border-slate-200 font-semibold">৳{prod.netUnitCost.toLocaleString('en-US', { minimumFractionDigits: 1 })}</td>
                             <td className="py-3 px-3 text-right border-r border-slate-200 font-bold text-[#0E0E0E]">৳{prod.subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                             <td className="py-3 px-3 text-right border-r border-slate-200 font-semibold text-emerald-600">৳{prod.profitMargin.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                            <td className="py-3 px-3 text-right font-bold text-[#E67E00]">৳{prod.unitSellingPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                            <td className="py-3 px-3 text-right font-bold text-[#B8623B]">৳{prod.unitSellingPrice.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -642,7 +642,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   {/* Attachments */}
                   <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs min-h-[120px] flex flex-col">
                     <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-                      <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                      <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                       <h3 className="font-bold text-sm text-[#0E0E0E]">Attachments</h3>
                     </div>
                     <div className="flex-1 flex items-center justify-center p-4 border border-dashed border-slate-200 rounded-xl bg-slate-50/50">
@@ -653,7 +653,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   {/* Shipping Information */}
                   <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
                     <div className="flex items-center gap-2 mb-1 pb-2 border-b border-slate-100">
-                      <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                      <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                       <h3 className="font-bold text-sm text-[#0E0E0E]">Shipping Information</h3>
                     </div>
 
@@ -674,7 +674,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                 {/* 4. PAYMENT HISTORY */}
                 <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs space-y-4">
                   <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                    <div className="w-1.5 h-4 bg-[#E67E00] rounded-full"></div>
+                    <div className="w-1.5 h-4 bg-[#B8623B] rounded-full"></div>
                     <h3 className="font-bold text-sm text-[#0E0E0E]">Payment History</h3>
                   </div>
 
@@ -713,7 +713,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   <button
                     type="button"
                     onClick={() => setSelectedPurchaseDetails(null)}
-                    className="px-6 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded-full uppercase transition-all shadow-2xs flex items-center gap-2 cursor-pointer"
+                    className="px-6 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded-full uppercase transition-all shadow-2xs flex items-center gap-2 cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Back to All Purchase</span>
@@ -728,10 +728,10 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
           <div className="space-y-6">
             
             {/* Header Bar with Search & CTA */}
-            <div className="bg-white p-5 rounded border border-[#EEAB59] flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-white p-5 rounded border border-[#E2D9D2] flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                  <ShoppingBag className="w-5 h-5 text-[#E67E00]" />
+                  <ShoppingBag className="w-5 h-5 text-[#B8623B]" />
                   <span>All Purchase</span>
                 </h1>
                 <p className="text-xs text-[#545454] font-medium mt-0.5">
@@ -751,7 +751,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   />
                   <button 
                     type="button"
-                    className="absolute right-1 top-1 bottom-1 px-3 bg-[#E67E00] hover:bg-[#CC7000] text-white font-bold text-xs rounded transition-all"
+                    className="absolute right-1 top-1 bottom-1 px-3 bg-[#B8623B] hover:bg-[#944923] text-white font-bold text-xs rounded transition-all"
                   >
                     Search
                   </button>
@@ -760,7 +760,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                 {/* Add New Purchase CTA */}
                 <button
                   onClick={() => onSubTabChange('ADD_PURCHASE')}
-                  className="px-4 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold uppercase rounded-full flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
+                  className="px-4 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold uppercase rounded-full flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add new purchase</span>
@@ -769,8 +769,8 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
             </div>
 
             {/* Purchases Table */}
-            <div className="bg-white rounded border border-[#EEAB59] overflow-hidden">
-              <div className="p-4 border-b border-[#EEEEEE] bg-[#FCF1E5]/30 flex items-center justify-between">
+            <div className="bg-white rounded border border-[#E2D9D2] overflow-hidden">
+              <div className="p-4 border-b border-[#EEEEEE] bg-[#F7F4F1]/30 flex items-center justify-between">
                 <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider">
                   Purchase List
                 </h3>
@@ -782,7 +782,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="bg-[#E67E00] text-white uppercase font-bold tracking-wider text-[11px]">
+                    <tr className="bg-[#B8623B] text-white uppercase font-bold tracking-wider text-[11px]">
                       <th className="py-3 px-3 w-10 text-center">SL</th>
                       <th className="py-3 px-3">Date</th>
                       <th className="py-3 px-3">PO No</th>
@@ -798,7 +798,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   </thead>
                   <tbody className="divide-y divide-[#EEEEEE] font-medium text-[#545454]">
                     {paginatedPurchases.map((p) => (
-                      <tr key={p.id} className="hover:bg-[#FCF1E5]/40 transition-colors">
+                      <tr key={p.id} className="hover:bg-[#F7F4F1]/40 transition-colors">
                         <td className="py-3 px-3 font-bold text-[#8F8F8F] text-center">{p.sl}</td>
                         <td className="py-3 px-3 font-medium text-[#545454] whitespace-nowrap">{p.date}</td>
                         <td className="py-3 px-3 font-bold text-[#0E0E0E]">{p.poNo}</td>
@@ -819,7 +819,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                         </td>
                         <td className="py-3 px-3 text-center">
                           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-[10px] font-bold uppercase ${
-                            p.status === 'Received' ? 'bg-[#ECFFE8] text-[#008F2F]' : 'bg-[#FCF1E5] text-[#E67E00] border border-[#EEAB59]'
+                            p.status === 'Received' ? 'bg-[#ECFFE8] text-[#008F2F]' : 'bg-[#F7F4F1] text-[#B8623B] border border-[#E2D9D2]'
                           }`}>
                             {p.status}
                           </span>
@@ -828,7 +828,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                           <div className="flex items-center justify-center">
                             <button 
                               onClick={() => setSelectedPurchaseDetails(p)}
-                              className="p-2 text-slate-600 hover:text-[#E67E00] hover:bg-[#FCF1E5] rounded-lg transition-all border border-slate-200 bg-white cursor-pointer shadow-2xs hover:border-[#EEAB59]"
+                              className="p-2 text-slate-600 hover:text-[#B8623B] hover:bg-[#F7F4F1] rounded-lg transition-all border border-slate-200 bg-white cursor-pointer shadow-2xs hover:border-[#E2D9D2]"
                               title="View Purchase Details"
                             >
                               <Eye className="w-4 h-4" />
@@ -842,7 +842,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               </div>
 
               {/* Pagination Controls */}
-              <div className="p-4 border-t border-[#EEEEEE] bg-[#FCF1E5]/20 flex items-center justify-between text-xs font-bold text-[#8F8F8F]">
+              <div className="p-4 border-t border-[#EEEEEE] bg-[#F7F4F1]/20 flex items-center justify-between text-xs font-bold text-[#8F8F8F]">
                 <span>
                   Showing {filteredPurchases.length > 0 ? (purchasePage - 1) * pageSize + 1 : 0} to {Math.min(purchasePage * pageSize, filteredPurchases.length)} of {filteredPurchases.length} results
                 </span>
@@ -850,7 +850,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   <button 
                     disabled={purchasePage === 1}
                     onClick={() => setPurchasePage(p => Math.max(1, p - 1))}
-                    className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                    className="w-7 h-7 flex items-center justify-center border border-[#E2D9D2] bg-[#F7F4F1] rounded text-[#B8623B] font-bold disabled:opacity-40"
                   >
                     &lsaquo;
                   </button>
@@ -858,7 +858,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                     <button 
                       key={p}
                       onClick={() => setPurchasePage(p)}
-                      className={`w-7 h-7 flex items-center justify-center rounded font-bold ${purchasePage === p ? 'bg-[#E67E00] text-white' : 'bg-[#FCF1E5]/50 text-[#0E0E0E]'}`}
+                      className={`w-7 h-7 flex items-center justify-center rounded font-bold ${purchasePage === p ? 'bg-[#B8623B] text-white' : 'bg-[#F7F4F1]/50 text-[#0E0E0E]'}`}
                     >
                       {p}
                     </button>
@@ -866,7 +866,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                   <button 
                     disabled={purchasePage === totalPurchasePages}
                     onClick={() => setPurchasePage(p => Math.min(totalPurchasePages, p + 1))}
-                    className="w-7 h-7 flex items-center justify-center border border-[#EEAB59] bg-[#FCF1E5] rounded text-[#E67E00] font-bold disabled:opacity-40"
+                    className="w-7 h-7 flex items-center justify-center border border-[#E2D9D2] bg-[#F7F4F1] rounded text-[#B8623B] font-bold disabled:opacity-40"
                   >
                     &rsaquo;
                   </button>
@@ -884,10 +884,10 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
         <div className="space-y-6">
           
           {/* Header Bar */}
-          <div className="bg-white p-5 rounded border border-[#EEAB59] flex items-center justify-between">
+          <div className="bg-white p-5 rounded border border-[#E2D9D2] flex items-center justify-between">
             <div>
               <h1 className="text-xl font-bold text-[#0E0E0E] tracking-tight flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#E67E00]" />
+                <ShoppingBag className="w-5 h-5 text-[#B8623B]" />
                 <span>Add New Purchase</span>
               </h1>
               <p className="text-xs text-[#545454] font-medium mt-0.5">
@@ -897,7 +897,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
 
             <button
               onClick={() => onSubTabChange('MANAGE_PURCHASE')}
-              className="px-4 py-2 border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] font-semibold text-xs rounded-full transition-all"
+              className="px-4 py-2 border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] font-semibold text-xs rounded-full transition-all"
             >
               Back to List
             </button>
@@ -913,9 +913,9 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
           <form onSubmit={handleSubmitPurchase} className="space-y-6">
 
             {/* SECTION 1: Basic Information */}
-            <div className="bg-white rounded border border-[#EEAB59] p-6 space-y-4">
+            <div className="bg-white rounded border border-[#E2D9D2] p-6 space-y-4">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider border-b border-[#EEEEEE] pb-3 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                <span className="w-2 h-2 rounded-full bg-[#B8623B]"></span>
                 Basic Information
               </h3>
 
@@ -941,7 +941,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                     <button
                       type="button"
                       onClick={() => setShowSupplierModal(true)}
-                      className="px-3.5 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white text-xs font-semibold rounded-full flex items-center gap-1 shrink-0 transition-all uppercase"
+                      className="px-3.5 py-2 bg-[#B8623B] hover:bg-[#944923] text-white text-xs font-semibold rounded-full flex items-center gap-1 shrink-0 transition-all uppercase"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>Add Supplier</span>
@@ -1018,7 +1018,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                     <input 
                       type="file"
                       onChange={(e) => setAttachedFile(e.target.files ? e.target.files[0] : null)}
-                      className="w-full text-xs text-[#545454] file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-bold file:bg-[#FCF1E5] file:text-[#E67E00] hover:file:bg-[#EEAB59]"
+                      className="w-full text-xs text-[#545454] file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-bold file:bg-[#F7F4F1] file:text-[#B8623B] hover:file:bg-[#E2D9D2]"
                     />
                   </div>
                 </div>
@@ -1027,10 +1027,10 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
             </div>
 
             {/* SECTION 2: Products Line Items */}
-            <div className="bg-white rounded border border-[#EEAB59] p-6 space-y-4">
+            <div className="bg-white rounded border border-[#E2D9D2] p-6 space-y-4">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider border-b border-[#EEEEEE] pb-3 flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                  <span className="w-2 h-2 rounded-full bg-[#B8623B]"></span>
                   <span>Products</span>
                 </div>
               </h3>
@@ -1047,13 +1047,13 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
 
                 {/* Auto Suggestions dropdown */}
                 {productSearchInput.trim().length > 0 && (
-                  <div className="absolute left-0 right-0 top-12 bg-white border border-[#EEAB59] rounded shadow-lg z-20 overflow-hidden divide-y divide-[#EEEEEE]">
+                  <div className="absolute left-0 right-0 top-12 bg-white border border-[#E2D9D2] rounded shadow-lg z-20 overflow-hidden divide-y divide-[#EEEEEE]">
                     {AVAILABLE_SAMPLE_PRODUCTS.filter(p => p.name.toLowerCase().includes(productSearchInput.toLowerCase())).map((p) => (
                       <button
                         key={p.id}
                         type="button"
                         onClick={() => handleAddProductToTable(p)}
-                        className="w-full px-4 py-2.5 text-left text-xs font-bold text-[#0E0E0E] hover:bg-[#FCF1E5] flex items-center justify-between"
+                        className="w-full px-4 py-2.5 text-left text-xs font-bold text-[#0E0E0E] hover:bg-[#F7F4F1] flex items-center justify-between"
                       >
                         <span>{p.name}</span>
                         <span className="text-[#8F8F8F] font-normal">৳{p.defaultCost}</span>
@@ -1064,10 +1064,10 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               </div>
 
               {/* Products Table */}
-              <div className="overflow-x-auto border border-[#EEAB59] rounded">
+              <div className="overflow-x-auto border border-[#E2D9D2] rounded">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="bg-[#E67E00] text-white uppercase font-bold text-[10px] tracking-wider">
+                    <tr className="bg-[#B8623B] text-white uppercase font-bold text-[10px] tracking-wider">
                       <th className="py-2.5 px-3 w-8 text-center">SL</th>
                       <th className="py-2.5 px-3 min-w-[200px]">Product Name</th>
                       <th className="py-2.5 px-3 w-20">Quantity</th>
@@ -1095,7 +1095,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                         const sellingPrice = calculateUnitSellingPrice(item);
 
                         return (
-                          <tr key={item.id} className="hover:bg-[#FCF1E5]/40">
+                          <tr key={item.id} className="hover:bg-[#F7F4F1]/40">
                             <td className="py-2.5 px-3 font-bold text-[#8F8F8F] text-center">{idx + 1}</td>
                             <td className="py-2.5 px-3 font-bold text-[#0E0E0E]">{item.productName}</td>
                             
@@ -1146,7 +1146,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                             </td>
 
                             {/* Subtotal */}
-                            <td className="py-2.5 px-3 text-right font-bold text-[#E67E00]">
+                            <td className="py-2.5 px-3 text-right font-bold text-[#B8623B]">
                               ৳{subtotal.toFixed(2)}
                             </td>
 
@@ -1185,15 +1185,15 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
 
               {/* Table Summary Footer */}
               <div className="flex items-center justify-end gap-6 text-xs font-bold text-[#0E0E0E] pt-2 border-t border-[#EEEEEE]">
-                <div>Total Quantity: <span className="text-[#E67E00]">{totalQuantity}</span></div>
+                <div>Total Quantity: <span className="text-[#B8623B]">{totalQuantity}</span></div>
                 <div>Total Amount : <span className="text-[#008F2F]">৳ {totalAmount.toFixed(2)}</span></div>
               </div>
             </div>
 
             {/* SECTION 3: Shipping Information */}
-            <div className="bg-white rounded border border-[#EEAB59] p-6 space-y-4">
+            <div className="bg-white rounded border border-[#E2D9D2] p-6 space-y-4">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider border-b border-[#EEEEEE] pb-3 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                <span className="w-2 h-2 rounded-full bg-[#B8623B]"></span>
                 Shipping Information
               </h3>
 
@@ -1227,9 +1227,9 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
             </div>
 
             {/* SECTION 4: Payment Details */}
-            <div className="bg-white rounded border border-[#EEAB59] p-6 space-y-4">
+            <div className="bg-white rounded border border-[#E2D9D2] p-6 space-y-4">
               <h3 className="text-xs font-bold text-[#0E0E0E] uppercase tracking-wider border-b border-[#EEEEEE] pb-3 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#E67E00]"></span>
+                <span className="w-2 h-2 rounded-full bg-[#B8623B]"></span>
                 Payment Details
               </h3>
 
@@ -1281,7 +1281,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               <div className="pt-4 flex justify-center">
                 <button
                   type="submit"
-                  className="px-12 py-2.5 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs uppercase tracking-wider rounded-full transition-all"
+                  className="px-12 py-2.5 bg-[#B8623B] hover:bg-[#944923] text-white font-semibold text-xs uppercase tracking-wider rounded-full transition-all"
                 >
                   Submit
                 </button>
@@ -1295,7 +1295,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
       {/* NEW SUPPLIER MODAL */}
       {showSupplierModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded border border-[#EEAB59] max-w-md w-full p-6 space-y-4 shadow-xl">
+          <div className="bg-white rounded border border-[#E2D9D2] max-w-md w-full p-6 space-y-4 shadow-xl">
             <h3 className="text-base font-bold text-[#0E0E0E] tracking-tight">Add New Supplier</h3>
             
             <div className="space-y-3">
@@ -1326,7 +1326,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
               <button
                 type="button"
                 onClick={() => setShowSupplierModal(false)}
-                className="px-4 py-2 border-1.5 border-[#E67E00] text-[#E67E00] hover:bg-[#FCF1E5] font-semibold text-xs rounded-full transition-all"
+                className="px-4 py-2 border-1.5 border-[#B8623B] text-[#B8623B] hover:bg-[#F7F4F1] font-semibold text-xs rounded-full transition-all"
               >
                 Cancel
               </button>
@@ -1340,7 +1340,7 @@ export const PurchaseManagement: React.FC<PurchaseManagementProps> = ({
                     setNewSupplierEmail('');
                   }
                 }}
-                className="px-4 py-2 bg-[#E67E00] hover:bg-[#CC7000] text-white font-semibold text-xs rounded-full transition-all uppercase"
+                className="px-4 py-2 bg-[#B8623B] hover:bg-[#944923] text-white font-semibold text-xs rounded-full transition-all uppercase"
               >
                 Save Supplier
               </button>

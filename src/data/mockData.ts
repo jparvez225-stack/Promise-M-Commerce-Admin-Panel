@@ -411,11 +411,11 @@ export const INITIAL_STOREFRONT_CONFIG: StorefrontConfig = {
     allowNotes: true
   },
   themeColors: {
-    primaryButtonBg: '#E67E00',
+    primaryButtonBg: '#B8623B',
     primaryButtonText: '#FFFFFF',
     headingTextColor: '#0E0E0E',
-    accentBadgeBg: '#FCF1E5',
-    accentBadgeText: '#E67E00',
+    accentBadgeBg: '#F7F4F1',
+    accentBadgeText: '#B8623B',
     themePresetName: 'Classic Orange'
   },
   comparisonTableTitle: 'Aura Pro Studio VS Others Headphone',
